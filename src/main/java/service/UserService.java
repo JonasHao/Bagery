@@ -15,7 +15,7 @@ public interface UserService {
     /**
      * 通过用户ID获取对应的用户对象
      */
-    User getByUserId(int userId);
+    User get(int userId);
 
     /**
      * 校验用户Id和密码是否匹配

@@ -2,9 +2,8 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <t:list>
+    <jsp:attribute name="title">出错啦</jsp:attribute>
     <jsp:body>
-
-
         <!--Main layout-->
         <div class="container">
 

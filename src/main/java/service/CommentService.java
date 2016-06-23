@@ -2,11 +2,7 @@ package service;
 
 import po.Comment;
 
-import java.util.List;
 
-/**
- * Created by Koche on 2016/6/23.
- */
 public interface CommentService {
     /**
      * 根据评论ID获取一条评论
@@ -20,6 +16,7 @@ public interface CommentService {
 
     /**
      * 新增一条评论
+     *
      * @param comment 确保comment已经设置好userId, PricedId，否则会报错
      */
     void add(Comment comment);
@@ -33,6 +30,5 @@ public interface CommentService {
      * 删除数据库的commentId 对应comment记录
      */
     void delete(int commentId);
-
 
 }
