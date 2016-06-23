@@ -12,7 +12,6 @@ public class User {
     private String username;
     private String password;
     private String realname;
-    private String sex;
     private String email;
     private int score;
     private Integer defShipInfId;
@@ -22,6 +21,7 @@ public class User {
     private Collection<Comment> commentsByUserId;
     private Collection<Favoriteitem> favoriteitemsByUserId;
     private Collection<Orders> ordersesByUserId;
+    private Collection<ShipInformation> shipInformationsByUserId;
     private Collection<UserPricedRecord> userPricedRecordsByUserId;
 
     @Id
@@ -62,16 +62,6 @@ public class User {
 
     public void setRealname(String realname) {
         this.realname = realname;
-    }
-
-    @Basic
-    @Column(name = "sex", nullable = true, insertable = true, updatable = true, length = 2)
-    public String getSex() {
-        return sex;
-    }
-
-    public void setSex(String sex) {
-        this.sex = sex;
     }
 
     @Basic
@@ -137,7 +127,6 @@ public class User {
         if (username != null ? !username.equals(user.username) : user.username != null) return false;
         if (password != null ? !password.equals(user.password) : user.password != null) return false;
         if (realname != null ? !realname.equals(user.realname) : user.realname != null) return false;
-        if (sex != null ? !sex.equals(user.sex) : user.sex != null) return false;
         if (email != null ? !email.equals(user.email) : user.email != null) return false;
         if (defShipInfId != null ? !defShipInfId.equals(user.defShipInfId) : user.defShipInfId != null) return false;
         if (userGroup != null ? !userGroup.equals(user.userGroup) : user.userGroup != null) return false;
@@ -151,7 +140,6 @@ public class User {
         result = 31 * result + (username != null ? username.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (realname != null ? realname.hashCode() : 0);
-        result = 31 * result + (sex != null ? sex.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + score;
         result = 31 * result + (defShipInfId != null ? defShipInfId.hashCode() : 0);
@@ -194,6 +182,15 @@ public class User {
 
     public void setOrdersesByUserId(Collection<Orders> ordersesByUserId) {
         this.ordersesByUserId = ordersesByUserId;
+    }
+
+    @OneToMany(mappedBy = "userByUserId")
+    public Collection<ShipInformation> getShipInformationsByUserId() {
+        return shipInformationsByUserId;
+    }
+
+    public void setShipInformationsByUserId(Collection<ShipInformation> shipInformationsByUserId) {
+        this.shipInformationsByUserId = shipInformationsByUserId;
     }
 
     @OneToMany(mappedBy = "userByUserId")
