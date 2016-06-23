@@ -23,18 +23,18 @@
     <!-- Echo all executed SQL to stdout -->
     <property name="show_sql">true</property>
     <property name="format_sql">true</property>
-    <mapping class="po.Cartitem"/>
-    <mapping class="po.Comment"/>
-    <mapping class="po.Favoriteitem"/>
-    <mapping class="po.Orderitem"/>
-    <mapping class="po.Orders"/>
-    <mapping class="po.Priced"/>
-    <mapping class="po.PricedImage"/>
-    <mapping class="po.PricedPro"/>
-    <mapping class="po.Product"/>
-    <mapping class="po.Propertity"/>
-    <mapping class="po.User"/>
-    <mapping class="po.UserPricedRecord"/>
+    <!--<mapping class="po.Cartitem"/>-->
+    <!--<mapping class="po.Comment"/>-->
+    <!--<mapping class="po.Favoriteitem"/>-->
+    <!--<mapping class="po.Orderitem"/>-->
+    <!--<mapping class="po.Orders"/>-->
+    <!--<mapping class="po.Priced"/>-->
+    <!--<mapping class="po.PricedImage"/>-->
+    <!--<mapping class="po.PricedPro"/>-->
+    <!--<mapping class="po.Product"/>-->
+    <!--<mapping class="po.Propertity"/>-->
+    <!--<mapping class="po.User"/>-->
+    <!--<mapping class="po.UserPricedRecord"/>-->
 
     <!--&lt;!&ndash; Drop and re-save the database schema on startup &ndash;&gt;-->
     <!--<property name="hbm2ddl.auto">update</property>-->

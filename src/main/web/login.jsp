@@ -14,21 +14,20 @@
         <div class="container">
 
             <div class="widget-wrapper">
-                <div class="card card-login">
+                <div class="card card-login col-sm-push-2 col-sm-8 col-lg-push-4 col-lg-4 ">
                     <div class="card-block">
                             <%--<h2><strong>登录</strong></h2>--%>
-                        <s:form>
-                            <div class="md-form">
-                                <i class="fa fa-user prefix"></i>
-                                <s:textfield label="用户名" id="form1" class="form-control"/>
-                            </div>
-                            <div class="md-form">
-                                <i class="fa fa-envelope prefix"></i>
-                                <s:textfield label="密码" id="form2" class="form-control"/>
-                            </div>
-                            <s:submit class="btn btn-primary" value="登录"/>
-                        </s:form> <a href="#">忘记密码</a>
-
+                        <div class="md-form">
+                            <i class="fa fa-user prefix"></i>
+                            <s:textfield label="用户名" id="form1" name="username" class="form-control"/>
+                        </div>
+                        <div class="md-form">
+                            <i class="fa fa-lock prefix"></i>
+                            <s:textfield label="密码" id="form2" name="password" class="form-control"/>
+                        </div>
+                        <s:submit  cssClass="grey btn btn-primary" value="登录"/>
+                        <a href="signup.jsp">注册</a>
+                        <a href="#">忘记密码</a>
                     </div>
                 </div>
             </div>

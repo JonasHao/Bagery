@@ -25,7 +25,6 @@
 
     <!-- Template styles -->
     <link href="../../css/product_detail.css" rel="stylesheet">
-
     <jsp:invoke fragment="head"/>
 
 </head>
