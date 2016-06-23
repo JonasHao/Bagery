@@ -1,9 +1,7 @@
 package po;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 
 /**
  * Created by 41159 on 2016/6/23.
@@ -15,6 +13,12 @@ public class Priced {
     private String description;
     private int unitPrice;
     private Integer salePrice;
+    private Collection<Comment> commentsByPricedId;
+    private Collection<Favoriteitem> favoriteitemsByPricedId;
+    private Collection<PricedImage> pricedImagesByPricedId;
+    private Collection<PricedPro> pricedProsByPricedId;
+    private Collection<Product> productsByPricedId;
+    private Collection<UserPricedRecord> userPricedRecordsByPricedId;
 
     @Id
     @Column(name = "priced_id", nullable = false, insertable = true, updatable = true)
@@ -90,5 +94,59 @@ public class Priced {
         result = 31 * result + unitPrice;
         result = 31 * result + (salePrice != null ? salePrice.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "pricedByPricedId")
+    public Collection<Comment> getCommentsByPricedId() {
+        return commentsByPricedId;
+    }
+
+    public void setCommentsByPricedId(Collection<Comment> commentsByPricedId) {
+        this.commentsByPricedId = commentsByPricedId;
+    }
+
+    @OneToMany(mappedBy = "pricedByPricedId")
+    public Collection<Favoriteitem> getFavoriteitemsByPricedId() {
+        return favoriteitemsByPricedId;
+    }
+
+    public void setFavoriteitemsByPricedId(Collection<Favoriteitem> favoriteitemsByPricedId) {
+        this.favoriteitemsByPricedId = favoriteitemsByPricedId;
+    }
+
+    @OneToMany(mappedBy = "pricedByPricedId")
+    public Collection<PricedImage> getPricedImagesByPricedId() {
+        return pricedImagesByPricedId;
+    }
+
+    public void setPricedImagesByPricedId(Collection<PricedImage> pricedImagesByPricedId) {
+        this.pricedImagesByPricedId = pricedImagesByPricedId;
+    }
+
+    @OneToMany(mappedBy = "pricedByPricedId")
+    public Collection<PricedPro> getPricedProsByPricedId() {
+        return pricedProsByPricedId;
+    }
+
+    public void setPricedProsByPricedId(Collection<PricedPro> pricedProsByPricedId) {
+        this.pricedProsByPricedId = pricedProsByPricedId;
+    }
+
+    @OneToMany(mappedBy = "pricedByPricedId")
+    public Collection<Product> getProductsByPricedId() {
+        return productsByPricedId;
+    }
+
+    public void setProductsByPricedId(Collection<Product> productsByPricedId) {
+        this.productsByPricedId = productsByPricedId;
+    }
+
+    @OneToMany(mappedBy = "pricedByPricedId")
+    public Collection<UserPricedRecord> getUserPricedRecordsByPricedId() {
+        return userPricedRecordsByPricedId;
+    }
+
+    public void setUserPricedRecordsByPricedId(Collection<UserPricedRecord> userPricedRecordsByPricedId) {
+        this.userPricedRecordsByPricedId = userPricedRecordsByPricedId;
     }
 }

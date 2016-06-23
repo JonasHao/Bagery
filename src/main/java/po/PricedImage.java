@@ -6,21 +6,21 @@ import javax.persistence.*;
  * Created by 41159 on 2016/6/23.
  */
 @Entity
-public class Favoriteitem {
-    private int itemId;
+@Table(name = "priced_image", schema = "", catalog = "bagery")
+public class PricedImage {
+    private int pricedImageId;
     private int pricedId;
-    private int userId;
+    private String image;
     private Priced pricedByPricedId;
-    private User userByUserId;
 
     @Id
-    @Column(name = "item_id", nullable = false, insertable = true, updatable = true)
-    public int getItemId() {
-        return itemId;
+    @Column(name = "priced_image_id", nullable = false, insertable = true, updatable = true)
+    public int getPricedImageId() {
+        return pricedImageId;
     }
 
-    public void setItemId(int itemId) {
-        this.itemId = itemId;
+    public void setPricedImageId(int pricedImageId) {
+        this.pricedImageId = pricedImageId;
     }
 
     @Basic
@@ -34,13 +34,13 @@ public class Favoriteitem {
     }
 
     @Basic
-    @Column(name = "user_id", nullable = false, insertable = true, updatable = true)
-    public int getUserId() {
-        return userId;
+    @Column(name = "image", nullable = false, insertable = true, updatable = true, length = 100)
+    public String getImage() {
+        return image;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     @Override
@@ -48,20 +48,20 @@ public class Favoriteitem {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Favoriteitem that = (Favoriteitem) o;
+        PricedImage that = (PricedImage) o;
 
-        if (itemId != that.itemId) return false;
+        if (pricedImageId != that.pricedImageId) return false;
         if (pricedId != that.pricedId) return false;
-        if (userId != that.userId) return false;
+        if (image != null ? !image.equals(that.image) : that.image != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = itemId;
+        int result = pricedImageId;
         result = 31 * result + pricedId;
-        result = 31 * result + userId;
+        result = 31 * result + (image != null ? image.hashCode() : 0);
         return result;
     }
 
@@ -73,15 +73,5 @@ public class Favoriteitem {
 
     public void setPricedByPricedId(Priced pricedByPricedId) {
         this.pricedByPricedId = pricedByPricedId;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
-    public User getUserByUserId() {
-        return userByUserId;
-    }
-
-    public void setUserByUserId(User userByUserId) {
-        this.userByUserId = userByUserId;
     }
 }

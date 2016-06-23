@@ -8,9 +8,12 @@ import javax.persistence.*;
 @Entity
 public class Cartitem {
     private int itemId;
+    private int productId;
     private int num;
     private Integer totalPriced;
-    private Cart cartByCartId;
+    private int userId;
+    private Product productByProductId;
+    private User userByUserId;
 
     @Id
     @Column(name = "item_id", nullable = false, insertable = true, updatable = true)
@@ -20,6 +23,16 @@ public class Cartitem {
 
     public void setItemId(int itemId) {
         this.itemId = itemId;
+    }
+
+    @Basic
+    @Column(name = "product_id", nullable = false, insertable = true, updatable = true)
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
     @Basic
@@ -42,6 +55,16 @@ public class Cartitem {
         this.totalPriced = totalPriced;
     }
 
+    @Basic
+    @Column(name = "user_id", nullable = false, insertable = true, updatable = true)
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -50,7 +73,9 @@ public class Cartitem {
         Cartitem cartitem = (Cartitem) o;
 
         if (itemId != cartitem.itemId) return false;
+        if (productId != cartitem.productId) return false;
         if (num != cartitem.num) return false;
+        if (userId != cartitem.userId) return false;
         if (totalPriced != null ? !totalPriced.equals(cartitem.totalPriced) : cartitem.totalPriced != null)
             return false;
 
@@ -60,18 +85,30 @@ public class Cartitem {
     @Override
     public int hashCode() {
         int result = itemId;
+        result = 31 * result + productId;
         result = 31 * result + num;
         result = 31 * result + (totalPriced != null ? totalPriced.hashCode() : 0);
+        result = 31 * result + userId;
         return result;
     }
 
     @ManyToOne
-    @JoinColumn(name = "cart_id", referencedColumnName = "cart_id", nullable = false)
-    public Cart getCartByCartId() {
-        return cartByCartId;
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false)
+    public Product getProductByProductId() {
+        return productByProductId;
     }
 
-    public void setCartByCartId(Cart cartByCartId) {
-        this.cartByCartId = cartByCartId;
+    public void setProductByProductId(Product productByProductId) {
+        this.productByProductId = productByProductId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
+    public User getUserByUserId() {
+        return userByUserId;
+    }
+
+    public void setUserByUserId(User userByUserId) {
+        this.userByUserId = userByUserId;
     }
 }

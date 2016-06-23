@@ -1,9 +1,7 @@
 package po;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 
 /**
  * Created by 41159 on 2016/6/23.
@@ -14,10 +12,17 @@ public class User {
     private String username;
     private String password;
     private String realname;
+    private String sex;
     private String email;
     private int score;
+    private Integer defShipInfId;
     private String userGroup;
     private byte isAdmin;
+    private Collection<Cartitem> cartitemsByUserId;
+    private Collection<Comment> commentsByUserId;
+    private Collection<Favoriteitem> favoriteitemsByUserId;
+    private Collection<Orders> ordersesByUserId;
+    private Collection<UserPricedRecord> userPricedRecordsByUserId;
 
     @Id
     @Column(name = "user_id", nullable = false, insertable = true, updatable = true)
@@ -60,6 +65,16 @@ public class User {
     }
 
     @Basic
+    @Column(name = "sex", nullable = true, insertable = true, updatable = true, length = 2)
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    @Basic
     @Column(name = "email", nullable = true, insertable = true, updatable = true, length = 30)
     public String getEmail() {
         return email;
@@ -77,6 +92,16 @@ public class User {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    @Basic
+    @Column(name = "def_ship_inf_id", nullable = true, insertable = true, updatable = true)
+    public Integer getDefShipInfId() {
+        return defShipInfId;
+    }
+
+    public void setDefShipInfId(Integer defShipInfId) {
+        this.defShipInfId = defShipInfId;
     }
 
     @Basic
@@ -112,7 +137,9 @@ public class User {
         if (username != null ? !username.equals(user.username) : user.username != null) return false;
         if (password != null ? !password.equals(user.password) : user.password != null) return false;
         if (realname != null ? !realname.equals(user.realname) : user.realname != null) return false;
+        if (sex != null ? !sex.equals(user.sex) : user.sex != null) return false;
         if (email != null ? !email.equals(user.email) : user.email != null) return false;
+        if (defShipInfId != null ? !defShipInfId.equals(user.defShipInfId) : user.defShipInfId != null) return false;
         if (userGroup != null ? !userGroup.equals(user.userGroup) : user.userGroup != null) return false;
 
         return true;
@@ -124,10 +151,57 @@ public class User {
         result = 31 * result + (username != null ? username.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (realname != null ? realname.hashCode() : 0);
+        result = 31 * result + (sex != null ? sex.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + score;
+        result = 31 * result + (defShipInfId != null ? defShipInfId.hashCode() : 0);
         result = 31 * result + (userGroup != null ? userGroup.hashCode() : 0);
         result = 31 * result + (int) isAdmin;
         return result;
+    }
+
+    @OneToMany(mappedBy = "userByUserId")
+    public Collection<Cartitem> getCartitemsByUserId() {
+        return cartitemsByUserId;
+    }
+
+    public void setCartitemsByUserId(Collection<Cartitem> cartitemsByUserId) {
+        this.cartitemsByUserId = cartitemsByUserId;
+    }
+
+    @OneToMany(mappedBy = "userByUserId")
+    public Collection<Comment> getCommentsByUserId() {
+        return commentsByUserId;
+    }
+
+    public void setCommentsByUserId(Collection<Comment> commentsByUserId) {
+        this.commentsByUserId = commentsByUserId;
+    }
+
+    @OneToMany(mappedBy = "userByUserId")
+    public Collection<Favoriteitem> getFavoriteitemsByUserId() {
+        return favoriteitemsByUserId;
+    }
+
+    public void setFavoriteitemsByUserId(Collection<Favoriteitem> favoriteitemsByUserId) {
+        this.favoriteitemsByUserId = favoriteitemsByUserId;
+    }
+
+    @OneToMany(mappedBy = "userByUserId")
+    public Collection<Orders> getOrdersesByUserId() {
+        return ordersesByUserId;
+    }
+
+    public void setOrdersesByUserId(Collection<Orders> ordersesByUserId) {
+        this.ordersesByUserId = ordersesByUserId;
+    }
+
+    @OneToMany(mappedBy = "userByUserId")
+    public Collection<UserPricedRecord> getUserPricedRecordsByUserId() {
+        return userPricedRecordsByUserId;
+    }
+
+    public void setUserPricedRecordsByUserId(Collection<UserPricedRecord> userPricedRecordsByUserId) {
+        this.userPricedRecordsByUserId = userPricedRecordsByUserId;
     }
 }

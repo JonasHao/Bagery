@@ -9,9 +9,12 @@ import javax.persistence.*;
 public class Orderitem {
     private int itemId;
     private int productId;
+    private String productTitle;
     private int num;
     private int totalPriced;
+    private int orderId;
     private Orders ordersByOrderId;
+    private Product productByProductId;
 
     @Id
     @Column(name = "item_id", nullable = false, insertable = true, updatable = true)
@@ -34,6 +37,16 @@ public class Orderitem {
     }
 
     @Basic
+    @Column(name = "product_title", nullable = false, insertable = true, updatable = true, length = 50)
+    public String getProductTitle() {
+        return productTitle;
+    }
+
+    public void setProductTitle(String productTitle) {
+        this.productTitle = productTitle;
+    }
+
+    @Basic
     @Column(name = "num", nullable = false, insertable = true, updatable = true)
     public int getNum() {
         return num;
@@ -53,6 +66,16 @@ public class Orderitem {
         this.totalPriced = totalPriced;
     }
 
+    @Basic
+    @Column(name = "order_id", nullable = false, insertable = true, updatable = true)
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -64,6 +87,9 @@ public class Orderitem {
         if (productId != orderitem.productId) return false;
         if (num != orderitem.num) return false;
         if (totalPriced != orderitem.totalPriced) return false;
+        if (orderId != orderitem.orderId) return false;
+        if (productTitle != null ? !productTitle.equals(orderitem.productTitle) : orderitem.productTitle != null)
+            return false;
 
         return true;
     }
@@ -72,8 +98,10 @@ public class Orderitem {
     public int hashCode() {
         int result = itemId;
         result = 31 * result + productId;
+        result = 31 * result + (productTitle != null ? productTitle.hashCode() : 0);
         result = 31 * result + num;
         result = 31 * result + totalPriced;
+        result = 31 * result + orderId;
         return result;
     }
 
@@ -85,5 +113,15 @@ public class Orderitem {
 
     public void setOrdersByOrderId(Orders ordersByOrderId) {
         this.ordersByOrderId = ordersByOrderId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false)
+    public Product getProductByProductId() {
+        return productByProductId;
+    }
+
+    public void setProductByProductId(Product productByProductId) {
+        this.productByProductId = productByProductId;
     }
 }

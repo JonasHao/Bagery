@@ -6,31 +6,22 @@ import javax.persistence.*;
  * Created by 41159 on 2016/6/23.
  */
 @Entity
-public class Favoriteitem {
-    private int itemId;
-    private int pricedId;
+@Table(name = "user_priced_record", schema = "", catalog = "bagery")
+public class UserPricedRecord {
+    private int userPricedId;
     private int userId;
+    private int pricedId;
     private Priced pricedByPricedId;
     private User userByUserId;
 
     @Id
-    @Column(name = "item_id", nullable = false, insertable = true, updatable = true)
-    public int getItemId() {
-        return itemId;
+    @Column(name = "user_priced_id", nullable = false, insertable = true, updatable = true)
+    public int getUserPricedId() {
+        return userPricedId;
     }
 
-    public void setItemId(int itemId) {
-        this.itemId = itemId;
-    }
-
-    @Basic
-    @Column(name = "priced_id", nullable = false, insertable = true, updatable = true)
-    public int getPricedId() {
-        return pricedId;
-    }
-
-    public void setPricedId(int pricedId) {
-        this.pricedId = pricedId;
+    public void setUserPricedId(int userPricedId) {
+        this.userPricedId = userPricedId;
     }
 
     @Basic
@@ -43,25 +34,35 @@ public class Favoriteitem {
         this.userId = userId;
     }
 
+    @Basic
+    @Column(name = "priced_id", nullable = false, insertable = true, updatable = true)
+    public int getPricedId() {
+        return pricedId;
+    }
+
+    public void setPricedId(int pricedId) {
+        this.pricedId = pricedId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Favoriteitem that = (Favoriteitem) o;
+        UserPricedRecord that = (UserPricedRecord) o;
 
-        if (itemId != that.itemId) return false;
-        if (pricedId != that.pricedId) return false;
+        if (userPricedId != that.userPricedId) return false;
         if (userId != that.userId) return false;
+        if (pricedId != that.pricedId) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = itemId;
-        result = 31 * result + pricedId;
+        int result = userPricedId;
         result = 31 * result + userId;
+        result = 31 * result + pricedId;
         return result;
     }
 
