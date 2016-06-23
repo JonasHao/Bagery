@@ -1,18 +1,18 @@
 package service;
 
 
-import po.Order;
+import po.Orders;
 
 public interface OrderService {
     /**
      * 创建订单
      */
-    void add(Order order);
+    void add(Orders order);
 
     /**
      * 查询订单
      */
-    Order get(int orderId);
+    Orders get(int orderId);
 
     /**
      * 删除订单
