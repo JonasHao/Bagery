@@ -1,10 +1,12 @@
 package po;
 
-import javax.persistence.*;
-import java.util.Collection;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
- * Created by 41159 on 2016/6/16.
+ * Created by 41159 on 2016/6/23.
  */
 @Entity
 public class Priced {
@@ -13,9 +15,6 @@ public class Priced {
     private String description;
     private int unitPrice;
     private Integer salePrice;
-    private Collection<Comment> commentsByPricedId;
-    private Collection<PricedPro> pricedProsByPricedId;
-    private Collection<Product> productsByPricedId;
 
     @Id
     @Column(name = "priced_id", nullable = false, insertable = true, updatable = true)
@@ -91,32 +90,5 @@ public class Priced {
         result = 31 * result + unitPrice;
         result = 31 * result + (salePrice != null ? salePrice.hashCode() : 0);
         return result;
-    }
-
-    @OneToMany(mappedBy = "pricedByPricedId")
-    public Collection<Comment> getCommentsByPricedId() {
-        return commentsByPricedId;
-    }
-
-    public void setCommentsByPricedId(Collection<Comment> commentsByPricedId) {
-        this.commentsByPricedId = commentsByPricedId;
-    }
-
-    @OneToMany(mappedBy = "pricedByPricedId")
-    public Collection<PricedPro> getPricedProsByPricedId() {
-        return pricedProsByPricedId;
-    }
-
-    public void setPricedProsByPricedId(Collection<PricedPro> pricedProsByPricedId) {
-        this.pricedProsByPricedId = pricedProsByPricedId;
-    }
-
-    @OneToMany(mappedBy = "pricedByPricedId")
-    public Collection<Product> getProductsByPricedId() {
-        return productsByPricedId;
-    }
-
-    public void setProductsByPricedId(Collection<Product> productsByPricedId) {
-        this.productsByPricedId = productsByPricedId;
     }
 }

@@ -3,7 +3,7 @@ package po;
 import javax.persistence.*;
 
 /**
- * Created by 41159 on 2016/6/16.
+ * Created by 41159 on 2016/6/23.
  */
 @Entity
 public class Orderitem {
@@ -11,8 +11,7 @@ public class Orderitem {
     private int productId;
     private int num;
     private int totalPriced;
-    private int orderId;
-    private Order orderByOrderId;
+    private Orders ordersByOrderId;
 
     @Id
     @Column(name = "item_id", nullable = false, insertable = true, updatable = true)
@@ -54,16 +53,6 @@ public class Orderitem {
         this.totalPriced = totalPriced;
     }
 
-    @Basic
-    @Column(name = "order_id", nullable = false, insertable = true, updatable = true)
-    public int getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -75,7 +64,6 @@ public class Orderitem {
         if (productId != orderitem.productId) return false;
         if (num != orderitem.num) return false;
         if (totalPriced != orderitem.totalPriced) return false;
-        if (orderId != orderitem.orderId) return false;
 
         return true;
     }
@@ -86,17 +74,16 @@ public class Orderitem {
         result = 31 * result + productId;
         result = 31 * result + num;
         result = 31 * result + totalPriced;
-        result = 31 * result + orderId;
         return result;
     }
 
     @ManyToOne
     @JoinColumn(name = "order_id", referencedColumnName = "order_id", nullable = false)
-    public Order getOrderByOrderId() {
-        return orderByOrderId;
+    public Orders getOrdersByOrderId() {
+        return ordersByOrderId;
     }
 
-    public void setOrderByOrderId(Order orderByOrderId) {
-        this.orderByOrderId = orderByOrderId;
+    public void setOrdersByOrderId(Orders ordersByOrderId) {
+        this.ordersByOrderId = ordersByOrderId;
     }
 }

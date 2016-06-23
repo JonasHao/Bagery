@@ -1,17 +1,18 @@
 package po;
 
-import javax.persistence.*;
-import java.util.Collection;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
- * Created by 41159 on 2016/6/16.
+ * Created by 41159 on 2016/6/23.
  */
 @Entity
 public class Propertity {
     private int proId;
     private String category;
     private String description;
-    private Collection<PricedPro> pricedProsByProId;
 
     @Id
     @Column(name = "pro_id", nullable = false, insertable = true, updatable = true)
@@ -63,14 +64,5 @@ public class Propertity {
         result = 31 * result + (category != null ? category.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         return result;
-    }
-
-    @OneToMany(mappedBy = "propertityByProId")
-    public Collection<PricedPro> getPricedProsByProId() {
-        return pricedProsByProId;
-    }
-
-    public void setPricedProsByProId(Collection<PricedPro> pricedProsByProId) {
-        this.pricedProsByProId = pricedProsByProId;
     }
 }

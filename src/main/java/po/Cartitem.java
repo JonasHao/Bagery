@@ -3,16 +3,13 @@ package po;
 import javax.persistence.*;
 
 /**
- * Created by 41159 on 2016/6/16.
+ * Created by 41159 on 2016/6/23.
  */
 @Entity
 public class Cartitem {
     private int itemId;
-    private int productId;
     private int num;
     private Integer totalPriced;
-    private int cartId;
-    private Product productByProductId;
     private Cart cartByCartId;
 
     @Id
@@ -23,16 +20,6 @@ public class Cartitem {
 
     public void setItemId(int itemId) {
         this.itemId = itemId;
-    }
-
-    @Basic
-    @Column(name = "product_id", nullable = false, insertable = true, updatable = true)
-    public int getProductId() {
-        return productId;
-    }
-
-    public void setProductId(int productId) {
-        this.productId = productId;
     }
 
     @Basic
@@ -55,16 +42,6 @@ public class Cartitem {
         this.totalPriced = totalPriced;
     }
 
-    @Basic
-    @Column(name = "cart_id", nullable = false, insertable = true, updatable = true)
-    public int getCartId() {
-        return cartId;
-    }
-
-    public void setCartId(int cartId) {
-        this.cartId = cartId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -73,9 +50,7 @@ public class Cartitem {
         Cartitem cartitem = (Cartitem) o;
 
         if (itemId != cartitem.itemId) return false;
-        if (productId != cartitem.productId) return false;
         if (num != cartitem.num) return false;
-        if (cartId != cartitem.cartId) return false;
         if (totalPriced != null ? !totalPriced.equals(cartitem.totalPriced) : cartitem.totalPriced != null)
             return false;
 
@@ -85,21 +60,9 @@ public class Cartitem {
     @Override
     public int hashCode() {
         int result = itemId;
-        result = 31 * result + productId;
         result = 31 * result + num;
         result = 31 * result + (totalPriced != null ? totalPriced.hashCode() : 0);
-        result = 31 * result + cartId;
         return result;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false)
-    public Product getProductByProductId() {
-        return productByProductId;
-    }
-
-    public void setProductByProductId(Product productByProductId) {
-        this.productByProductId = productByProductId;
     }
 
     @ManyToOne

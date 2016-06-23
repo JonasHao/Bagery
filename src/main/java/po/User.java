@@ -1,10 +1,12 @@
 package po;
 
-import javax.persistence.*;
-import java.util.Collection;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
- * Created by 41159 on 2016/6/16.
+ * Created by 41159 on 2016/6/23.
  */
 @Entity
 public class User {
@@ -16,11 +18,6 @@ public class User {
     private int score;
     private String userGroup;
     private byte isAdmin;
-    private Collection<Cart> cartsByUserId;
-    private Collection<Comment> commentsByUserId;
-    private Collection<Favoriteitem> favoriteitemsByUserId;
-    private Collection<Order> ordersesByUserId;
-    private Collection<Address> shipInformationsByUserId;
 
     @Id
     @Column(name = "user_id", nullable = false, insertable = true, updatable = true)
@@ -132,50 +129,5 @@ public class User {
         result = 31 * result + (userGroup != null ? userGroup.hashCode() : 0);
         result = 31 * result + (int) isAdmin;
         return result;
-    }
-
-    @OneToMany(mappedBy = "userByUserId")
-    public Collection<Cart> getCartsByUserId() {
-        return cartsByUserId;
-    }
-
-    public void setCartsByUserId(Collection<Cart> cartsByUserId) {
-        this.cartsByUserId = cartsByUserId;
-    }
-
-    @OneToMany(mappedBy = "userByUserId")
-    public Collection<Comment> getCommentsByUserId() {
-        return commentsByUserId;
-    }
-
-    public void setCommentsByUserId(Collection<Comment> commentsByUserId) {
-        this.commentsByUserId = commentsByUserId;
-    }
-
-    @OneToMany(mappedBy = "userByUserId")
-    public Collection<Favoriteitem> getFavoriteitemsByUserId() {
-        return favoriteitemsByUserId;
-    }
-
-    public void setFavoriteitemsByUserId(Collection<Favoriteitem> favoriteitemsByUserId) {
-        this.favoriteitemsByUserId = favoriteitemsByUserId;
-    }
-
-    @OneToMany(mappedBy = "userByUserId")
-    public Collection<Order> getOrdersesByUserId() {
-        return ordersesByUserId;
-    }
-
-    public void setOrdersesByUserId(Collection<Order> ordersesByUserId) {
-        this.ordersesByUserId = ordersesByUserId;
-    }
-
-    @OneToMany(mappedBy = "userByUserId")
-    public Collection<Address> getShipInformationsByUserId() {
-        return shipInformationsByUserId;
-    }
-
-    public void setShipInformationsByUserId(Collection<Address> shipInformationsByUserId) {
-        this.shipInformationsByUserId = shipInformationsByUserId;
     }
 }
