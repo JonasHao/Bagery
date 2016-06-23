@@ -8,6 +8,7 @@
     <jsp:attribute name="head">
             <link href="../../css/login.css" rel="stylesheet">
     </jsp:attribute>
+
     <jsp:body>
         <!--Main layout-->
 

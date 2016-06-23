@@ -8,11 +8,10 @@
     <jsp:attribute name="head">
             <link href="../../css/login.css" rel="stylesheet">
     </jsp:attribute>
+
     <jsp:body>
         <!--Main layout-->
-
         <div class="container">
-
             <div class="widget-wrapper row">
                 <div class="card card-login col-sm-push-2 col-sm-8 col-lg-push-4 col-lg-4 ">
                     <div class="card-block">
@@ -42,7 +41,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
         <!--/.Main layout-->
     </jsp:body>
