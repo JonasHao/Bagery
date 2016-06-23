@@ -7,7 +7,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "ship_information", schema = "", catalog = "bagery")
-public class ShipInformation {
+public class Address {
     private int shipInfId;
     private int userId;
     private String address;
@@ -70,7 +70,7 @@ public class ShipInformation {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ShipInformation that = (ShipInformation) o;
+        Address that = (Address) o;
 
         if (shipInfId != that.shipInfId) return false;
         if (userId != that.userId) return false;

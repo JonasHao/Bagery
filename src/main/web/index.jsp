@@ -1,10 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<t:home>
+<t:index>
     <jsp:attribute name="title">首页 </jsp:attribute>
-
-
     <jsp:body>
 
         <!--Content-->
@@ -108,4 +106,4 @@
 
 
     </jsp:body>
-</t:home>
+</t:index>

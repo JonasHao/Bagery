@@ -1,22 +1,22 @@
 package service;
 
 
-import po.ShipInformation;
+import po.Address;
 
-public interface ShipInfoService {
+public interface AddressService {
     /**
      * 新增一条收货地址
      */
-    void add(ShipInformation shipInformation);
+    void add(Address address);
 
     /**
      * 修改收货地址后，更新到持久化层
      */
-    void update(ShipInformation shipInformation);
+    void update(Address address);
 
     /**
      * 根据收货地址的主键获取一条收货地址记录
      */
-    ShipInformation get(int shipInfId);
+    Address get(int shipInfId);
 
 }

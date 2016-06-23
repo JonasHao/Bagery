@@ -12,7 +12,7 @@ public class Orderitem {
     private int num;
     private int totalPriced;
     private int orderId;
-    private Orders ordersByOrderId;
+    private Order orderByOrderId;
 
     @Id
     @Column(name = "item_id", nullable = false, insertable = true, updatable = true)
@@ -92,11 +92,11 @@ public class Orderitem {
 
     @ManyToOne
     @JoinColumn(name = "order_id", referencedColumnName = "order_id", nullable = false)
-    public Orders getOrdersByOrderId() {
-        return ordersByOrderId;
+    public Order getOrderByOrderId() {
+        return orderByOrderId;
     }
 
-    public void setOrdersByOrderId(Orders ordersByOrderId) {
-        this.ordersByOrderId = ordersByOrderId;
+    public void setOrderByOrderId(Order orderByOrderId) {
+        this.orderByOrderId = orderByOrderId;
     }
 }

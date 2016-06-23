@@ -19,8 +19,8 @@ public class User {
     private Collection<Cart> cartsByUserId;
     private Collection<Comment> commentsByUserId;
     private Collection<Favoriteitem> favoriteitemsByUserId;
-    private Collection<Orders> ordersesByUserId;
-    private Collection<ShipInformation> shipInformationsByUserId;
+    private Collection<Order> ordersesByUserId;
+    private Collection<Address> shipInformationsByUserId;
 
     @Id
     @Column(name = "user_id", nullable = false, insertable = true, updatable = true)
@@ -162,20 +162,20 @@ public class User {
     }
 
     @OneToMany(mappedBy = "userByUserId")
-    public Collection<Orders> getOrdersesByUserId() {
+    public Collection<Order> getOrdersesByUserId() {
         return ordersesByUserId;
     }
 
-    public void setOrdersesByUserId(Collection<Orders> ordersesByUserId) {
+    public void setOrdersesByUserId(Collection<Order> ordersesByUserId) {
         this.ordersesByUserId = ordersesByUserId;
     }
 
     @OneToMany(mappedBy = "userByUserId")
-    public Collection<ShipInformation> getShipInformationsByUserId() {
+    public Collection<Address> getShipInformationsByUserId() {
         return shipInformationsByUserId;
     }
 
-    public void setShipInformationsByUserId(Collection<ShipInformation> shipInformationsByUserId) {
+    public void setShipInformationsByUserId(Collection<Address> shipInformationsByUserId) {
         this.shipInformationsByUserId = shipInformationsByUserId;
     }
 }

@@ -24,14 +24,14 @@ public interface ProductService {
     Product find(int productId);
 
     /**
-     * 通过productID删除商品对象
-     */
-    void delete(int productId);
-
-    /**
      * 获得全部商品列表
      */
     List<Priced>findAll();
+
+    /**
+     * 通过productID删除商品对象
+     */
+    void delete(int productId);
 
     /**
      * 根据关键词获取商品列表

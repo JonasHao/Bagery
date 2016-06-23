@@ -27,12 +27,12 @@
     <mapping class="po.Comment"/>
     <mapping class="po.Favoriteitem"/>
     <mapping class="po.Orderitem"/>
-    <mapping class="po.Orders"/>
+    <mapping class="po.Order"/>
     <mapping class="po.Priced"/>
     <mapping class="po.PricedPro"/>
     <mapping class="po.Product"/>
     <mapping class="po.Propertity"/>
-    <mapping class="po.ShipInformation"/>
+    <mapping class="po.Address"/>
     <mapping class="po.User"/>
 
     <!--&lt;!&ndash; Drop and re-save the database schema on startup &ndash;&gt;-->

@@ -7,7 +7,7 @@ import java.util.Collection;
  * Created by 41159 on 2016/6/16.
  */
 @Entity
-public class Orders {
+public class Order {
     private int orderId;
     private int userId;
     private int shipInfId;
@@ -105,17 +105,17 @@ public class Orders {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Orders orders = (Orders) o;
+        Order order = (Order) o;
 
-        if (orderId != orders.orderId) return false;
-        if (userId != orders.userId) return false;
-        if (shipInfId != orders.shipInfId) return false;
-        if (total != null ? !total.equals(orders.total) : orders.total != null) return false;
-        if (instruction != null ? !instruction.equals(orders.instruction) : orders.instruction != null) return false;
-        if (orderStatus != null ? !orderStatus.equals(orders.orderStatus) : orders.orderStatus != null) return false;
-        if (courierNumber != null ? !courierNumber.equals(orders.courierNumber) : orders.courierNumber != null)
+        if (orderId != order.orderId) return false;
+        if (userId != order.userId) return false;
+        if (shipInfId != order.shipInfId) return false;
+        if (total != null ? !total.equals(order.total) : order.total != null) return false;
+        if (instruction != null ? !instruction.equals(order.instruction) : order.instruction != null) return false;
+        if (orderStatus != null ? !orderStatus.equals(order.orderStatus) : order.orderStatus != null) return false;
+        if (courierNumber != null ? !courierNumber.equals(order.courierNumber) : order.courierNumber != null)
             return false;
-        if (courierCompany != null ? !courierCompany.equals(orders.courierCompany) : orders.courierCompany != null)
+        if (courierCompany != null ? !courierCompany.equals(order.courierCompany) : order.courierCompany != null)
             return false;
 
         return true;
@@ -134,7 +134,7 @@ public class Orders {
         return result;
     }
 
-    @OneToMany(mappedBy = "ordersByOrderId")
+    @OneToMany(mappedBy = "getOrderByOrderId")
     public Collection<Comment> getCommentsByOrderId() {
         return commentsByOrderId;
     }
@@ -143,7 +143,7 @@ public class Orders {
         this.commentsByOrderId = commentsByOrderId;
     }
 
-    @OneToMany(mappedBy = "ordersByOrderId")
+    @OneToMany(mappedBy = "getOrderByOrderId")
     public Collection<Orderitem> getOrderitemsByOrderId() {
         return orderitemsByOrderId;
     }

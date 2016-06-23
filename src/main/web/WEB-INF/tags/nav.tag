@@ -11,32 +11,31 @@
     <!--Collapse content-->
     <div class="collapse navbar-toggleable-xs" id="collapseEx">
         <!--Navbar Brand-->
-        <a class="navbar-brand" href="http://mdbootstrap.com/material-design-for-bootstrap/"
-           target="_blank">MDB</a>
+        <a class="navbar-brand" href="../../index.jsp"
+           target="_blank">BAGERY</a>
         <!--Links-->
 
         <ul class="nav navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="../../index.jsp">首页</a>
+                <a class="nav-link" href="../../list.jsp">女人</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="../../list.jsp">男人</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="../../list.jsp">女人</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="../../list.jsp">运动</a>
             </li>
-
         </ul>
         <!--Search form-->
         <s:form class="form-inline">
             <input class="form-control" type="text" placeholder="Search">
+            <a href="../../home.jsp" class="btn btn-sm btn-link" type="button">
+                <i class="fa fa-user" aria-hidden="true"></i>
+            </a>
+            <button class="btn btn-sm btn-link" type="button">
+                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+            </button>
         </s:form>
-
-        <%--<a class="nav-item"><i class="fa fa-user" aria-hidden="true"></i> </a>--%>
-        <%--<a class="nav-item"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>--%>
     </div>
     <!--/.Collapse content-->
 </div>
