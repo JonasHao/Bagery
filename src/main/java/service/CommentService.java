@@ -2,6 +2,8 @@ package service;
 
 import po.Comment;
 
+import java.util.List;
+
 
 public interface CommentService {
     /**
