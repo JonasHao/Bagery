@@ -2,6 +2,7 @@
 <%@attribute name="head" fragment="true" %>
 <%@attribute name="title" fragment="true" %>
 <%@attribute name="full" fragment="true" %>
+<%@attribute name="breadcrumb" fragment="true" %>
 <!DOCTYPE html>
 <html>
 
@@ -24,7 +25,6 @@
 
     <!-- Template styles -->
     <link href="../../css/product_detail.css" rel="stylesheet">
-
     <jsp:invoke fragment="head"/>
 
 </head>
@@ -39,13 +39,7 @@
         <%@include file="nav.tag"%>
     </nav>
     <!--/.Navbar-->
-
-    <ol class="breadcrumb" style="">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Library</a></li>
-        <li class="active">Data</li>
-    </ol>
-
+    <jsp:invoke fragment="breadcrumb"/>
 </header>
 
 <main>

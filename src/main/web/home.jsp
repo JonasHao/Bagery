@@ -2,8 +2,17 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
-<t:list>
+<t:base>
+    <jsp:attribute name="head">
+            <link href="../../css/home.css" rel="stylesheet">
+    </jsp:attribute>
     <jsp:attribute name="title">个人中心</jsp:attribute>
+    <jsp:attribute name="breadcrumb">
+       <ol class="breadcrumb">
+           <li><a href="index.jsp">首页</a></li>
+           <li class="active">个人中心</li>
+       </ol>
+    </jsp:attribute>
     <jsp:body>
 
         <!--Content-->
@@ -61,8 +70,9 @@
                         <div class="col-sm-6">
                             <h5 class="h5-responsive font-weight-bold">账户设置</h5>
                             <ul>
-                                <li><a href="#">找回密码</a></li>
+                                <li><a href="#">更改密码</a></li>
                                 <li><a href="#">查询积分</a></li>
+                                <li><a href="#">修改个人资料</a></li>
                             </ul>
                         </div>
 
@@ -94,7 +104,7 @@
                         <div class="col-sm-6">
                             <h5 class="h5-responsive font-weight-bold">个性化推荐</h5>
                             <ul>
-                                <li><a href="#">我的浏览记录</a></li>
+                                <li><a href="#">浏览记录</a></li>
                                 <li><a href="#">猜你喜欢</a></li>
                             </ul>
                         </div>
@@ -108,4 +118,4 @@
 
 
     </jsp:body>
-</t:list>
+</t:base>

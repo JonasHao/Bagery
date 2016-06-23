@@ -4,12 +4,12 @@ import po.Favoriteitem;
 
 public interface FavoriteService {
     /**
-     * 往数据库增加一条favoriteitem信息
+     * 往数据库增加一条favoriteItem信息
      */
-    void favar(Favoriteitem favoriteitem);
+    void favar(Favoriteitem favoriteItem);
 
     /**
-     * 删除数据库的一条favoriteitem信息
+     * 删除数据库的一条favoriteItem信息
      */
-    void unfavor(Favoriteitem favoriteitem);
+    void unfavor(Favoriteitem favoriteItem);
 }
