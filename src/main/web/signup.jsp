@@ -2,7 +2,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
-<t:list>
+<t:base>
     <jsp:attribute name="title">注册</jsp:attribute>
 
     <jsp:attribute name="head">
@@ -47,4 +47,4 @@
         <!--/.Main layout-->
     </jsp:body>
 
-</t:list>
+</t:base>

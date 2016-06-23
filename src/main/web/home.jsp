@@ -2,7 +2,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
-<t:list>
+<t:base>
     <jsp:attribute name="head">
             <link href="../../css/home.css" rel="stylesheet">
     </jsp:attribute>
@@ -118,4 +118,4 @@
 
 
     </jsp:body>
-</t:list>
+</t:base>

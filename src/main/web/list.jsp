@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<t:list>
+<t:base>
 
     <jsp:attribute name="title">商品列表</jsp:attribute>
     <jsp:attribute name="breadcrumb">
@@ -56,4 +56,4 @@
         </div>
         <!--/.Main layout-->
     </jsp:body>
-</t:list>
+</t:base>
