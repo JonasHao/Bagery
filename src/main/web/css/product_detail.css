@@ -48,7 +48,7 @@ a{
 }
 
 .price {
-    font-family: "Arial Black", serif;
+    font-family: "Roboto", serif;
 }
 
 .btn-cart {
@@ -74,4 +74,8 @@ a{
 
 .card-home{
     margin-bottom: 3rem;
+}
+
+.card-favorite {
+    margin-bottom: 2rem;
 }
