@@ -2,64 +2,56 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@attribute name="img" fragment="true" %>
 <%@attribute name="title" fragment="true" %>
+<%@attribute name="color" fragment="true" %>
 <%@attribute name="price" fragment="true" %>
-<%@attribute name="productID" type="java.lang.Integer" %>
+<%@attribute name="number" fragment="true" %>
+<%@attribute name="totalPrice" fragment="true" %>
 <div class="card">
-
     <div class="row">
         <div class="col-md-2">
-
-        </div>
-
-        <div class="col-md-3">
-
-        </div>
-
-        <div class="col-md-2">
-
-        </div>
-
-        <div class="col-md-2">
-
-        </div>
-
-        <div class="col-md-2">
-
-        </div>
-
-        <div class="col-md-1">
-
-        </div>
-
-    </div>
-
-    <!--Card image-->
-    <div class="view overlay hm-white-slight">
-        <img src="<jsp:invoke fragment="img"/>" class="img-fluid" alt="">
-        <a href="#">
-            <div class="mask"></div>
-        </a>
-    </div>
-    <!--/.Card image-->
-
-    <!--Card content-->
-    <div class="card-block product-text">
-        <div class="row ">
-            <div class="col-md-8 price">
-                <!--Title-->
-                <h4 class="card-title product-title">
-                    <jsp:invoke fragment="title"/>
-                </h4>
-                <!--Text-->
-                <i class="fa fa-rmb" aria-hidden="true"></i>
-                <jsp:invoke fragment="price"/>
+            <!--Card image-->
+            <div class="view overlay hm-white-slight">
+                <img src="<jsp:invoke fragment="img"/>" class="img-fluid" alt="">
+                <a href="#">
+                    <div class="mask"></div>
+                </a>
             </div>
-            <div class="col-md-4">
+            <!--/.Card image-->
+        </div>
+        <div class="col-md-10 cart-item-block">
+            <div class="row">
+                <div class="col-md-3">
+                    <div>
+                        <!--Title-->
+                        <h5 class="card-title product-title">
+                            <jsp:invoke fragment="title"/>
+                        </h5>
+                        <br/><br/>
+                        <!--Text-->
+                        <%--<i class="fa fa-circle color-icon" aria-hidden="true"></i>--%>
+                        <p class="bag-color">颜色分类：<jsp:invoke fragment="color"/></p>
+                    </div>
+                </div>
 
-                <a href="#" class="btn btn-sm grey"><i class="fa fa-shopping-cart"></i></a>
+                <div class="col-md-3">
+                    <i class="fa fa-rmb" aria-hidden="true"></i>
+                    <jsp:invoke fragment="price"/>
+                </div>
+
+                <div class="col-md-2">
+                    <jsp:invoke fragment="number"/>
+                </div>
+
+                <div class="col-md-2">
+                    <i class="fa fa-rmb" aria-hidden="true"></i>
+                    <jsp:invoke fragment="totalPrice"/>
+                </div>
+
+                <div class="col-md-2">
+                    <i class="fa fa-trash" aria-hidden="true"></i>删除
+                </div>
             </div>
         </div>
-    </div>
-    <!--/.Card content-->
 
+    </div>
 </div>

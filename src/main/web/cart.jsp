@@ -49,55 +49,16 @@
                 </div>
             </div>
             <br/>
-            <div class="card">
-                <div class="row">
-                    <div class="col-md-2">
-                        <!--Card image-->
-                        <div class="view overlay hm-white-slight">
-                            <img src="img/bags/bag1.png" class="img-fluid" alt="">
-                            <a href="#">
-                                <div class="mask"></div>
-                            </a>
-                        </div>
-                        <!--/.Card image-->
-                    </div>
-                    <div class="col-md-10 cart-item-block">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div>
-                                    <!--Title-->
-                                    <h5 class="card-title product-title">
-                                        商品标题
-                                    </h5>
-                                    <br/><br/>
-                                    <!--Text-->
-                                    <%--<i class="fa fa-circle color-icon" aria-hidden="true"></i>--%>
-                                    <p class="bag-color">颜色分类:红色</p>
-                                </div>
-                            </div>
 
-                            <div class="col-md-3">
-                                <i class="fa fa-rmb" aria-hidden="true"></i>
-                                99999.99
-                            </div>
+            <t:cartItem>
+                <jsp:attribute name="title">商品名字</jsp:attribute>
+                <jsp:attribute name="number">1</jsp:attribute>
+                <jsp:attribute name="color">红色</jsp:attribute>
+                <jsp:attribute name="img">img/bags/bag1.png</jsp:attribute>
+                <jsp:attribute name="totalPrice">999999</jsp:attribute>
+                <jsp:attribute name="price">999999</jsp:attribute>
+            </t:cartItem>
 
-                            <div class="col-md-2">
-                                1
-                            </div>
-
-                            <div class="col-md-2">
-                                <i class="fa fa-rmb" aria-hidden="true"></i>
-                                99999.99
-                            </div>
-
-                            <div class="col-md-2">
-                                <i class="fa fa-trash" aria-hidden="true"></i>删除
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
         </div>
         <!--/.Main layout-->
     </jsp:body>
