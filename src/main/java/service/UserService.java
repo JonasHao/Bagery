@@ -20,7 +20,11 @@ public interface UserService {
     /**
      * 校验用户Id和密码是否匹配
      */
-    boolean login(int userId, String password);
+    boolean login(String username, String password);
+
+    boolean existUsername(String username);
+
+    boolean existEmail(String email);
 
     /**
      * 注册一个用户，注册之前应先校验用户名是否重复
