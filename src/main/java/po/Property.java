@@ -7,7 +7,8 @@ import java.util.Collection;
  * Created by 41159 on 2016/6/23.
  */
 @Entity
-public class Propertity {
+@Table(name = "propertity")
+public class Property {
     private int proId;
     private String category;
     private String description;
@@ -48,7 +49,7 @@ public class Propertity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Propertity that = (Propertity) o;
+        Property that = (Property) o;
 
         if (proId != that.proId) return false;
         if (category != null ? !category.equals(that.category) : that.category != null) return false;

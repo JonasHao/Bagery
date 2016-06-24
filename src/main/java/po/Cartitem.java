@@ -6,7 +6,8 @@ import javax.persistence.*;
  * Created by 41159 on 2016/6/23.
  */
 @Entity
-public class Cartitem {
+@Table(name = "cartitem")
+public class CartItem {
     private int itemId;
     private int productId;
     private int num;
@@ -26,7 +27,7 @@ public class Cartitem {
     }
 
     @Basic
-    @Column(name = "product_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "product_id", nullable = false, insertable = false, updatable = false)
     public int getProductId() {
         return productId;
     }
@@ -56,7 +57,7 @@ public class Cartitem {
     }
 
     @Basic
-    @Column(name = "user_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "user_id", nullable = false, insertable = false, updatable = false)
     public int getUserId() {
         return userId;
     }
@@ -70,13 +71,13 @@ public class Cartitem {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Cartitem cartitem = (Cartitem) o;
+        CartItem cartItem = (CartItem) o;
 
-        if (itemId != cartitem.itemId) return false;
-        if (productId != cartitem.productId) return false;
-        if (num != cartitem.num) return false;
-        if (userId != cartitem.userId) return false;
-        if (totalPriced != null ? !totalPriced.equals(cartitem.totalPriced) : cartitem.totalPriced != null)
+        if (itemId != cartItem.itemId) return false;
+        if (productId != cartItem.productId) return false;
+        if (num != cartItem.num) return false;
+        if (userId != cartItem.userId) return false;
+        if (totalPriced != null ? !totalPriced.equals(cartItem.totalPriced) : cartItem.totalPriced != null)
             return false;
 
         return true;

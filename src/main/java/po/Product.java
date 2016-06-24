@@ -12,8 +12,8 @@ public class Product {
     private int pricedId;
     private String color;
     private int stock;
-    private Collection<Cartitem> cartitemsByProductId;
-    private Collection<Orderitem> orderitemsByProductId;
+    private Collection<CartItem> cartItemsByProductId;
+    private Collection<OrderItem> orderItemsByProductId;
     private Priced pricedByPricedId;
 
     @Id
@@ -27,7 +27,7 @@ public class Product {
     }
 
     @Basic
-    @Column(name = "priced_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "priced_id", nullable = false, insertable = false, updatable = false)
     public int getPricedId() {
         return pricedId;
     }
@@ -81,21 +81,21 @@ public class Product {
     }
 
     @OneToMany(mappedBy = "productByProductId")
-    public Collection<Cartitem> getCartitemsByProductId() {
-        return cartitemsByProductId;
+    public Collection<CartItem> getCartItemsByProductId() {
+        return cartItemsByProductId;
     }
 
-    public void setCartitemsByProductId(Collection<Cartitem> cartitemsByProductId) {
-        this.cartitemsByProductId = cartitemsByProductId;
+    public void setCartItemsByProductId(Collection<CartItem> cartitemsByProductId) {
+        this.cartItemsByProductId = cartitemsByProductId;
     }
 
     @OneToMany(mappedBy = "productByProductId")
-    public Collection<Orderitem> getOrderitemsByProductId() {
-        return orderitemsByProductId;
+    public Collection<OrderItem> getOrderItemsByProductId() {
+        return orderItemsByProductId;
     }
 
-    public void setOrderitemsByProductId(Collection<Orderitem> orderitemsByProductId) {
-        this.orderitemsByProductId = orderitemsByProductId;
+    public void setOrderItemsByProductId(Collection<OrderItem> orderitemsByProductId) {
+        this.orderItemsByProductId = orderitemsByProductId;
     }
 
     @ManyToOne

@@ -7,11 +7,11 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "ship_information", schema = "", catalog = "bagery")
-public class ShipInformation {
+public class Address {
     private int shipInfId;
     private int userId;
     private String address;
-    private String receicer;
+    private String receiver;
     private String mobile;
     private User userByUserId;
 
@@ -26,7 +26,7 @@ public class ShipInformation {
     }
 
     @Basic
-    @Column(name = "user_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "user_id", nullable = false, insertable = false, updatable = false)
     public int getUserId() {
         return userId;
     }
@@ -47,12 +47,12 @@ public class ShipInformation {
 
     @Basic
     @Column(name = "receicer", nullable = false, insertable = true, updatable = true, length = 30)
-    public String getReceicer() {
-        return receicer;
+    public String getReceiver() {
+        return receiver;
     }
 
-    public void setReceicer(String receicer) {
-        this.receicer = receicer;
+    public void setReceiver(String receicer) {
+        this.receiver = receicer;
     }
 
     @Basic
@@ -70,12 +70,12 @@ public class ShipInformation {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ShipInformation that = (ShipInformation) o;
+        Address that = (Address) o;
 
         if (shipInfId != that.shipInfId) return false;
         if (userId != that.userId) return false;
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
-        if (receicer != null ? !receicer.equals(that.receicer) : that.receicer != null) return false;
+        if (receiver != null ? !receiver.equals(that.receiver) : that.receiver != null) return false;
         if (mobile != null ? !mobile.equals(that.mobile) : that.mobile != null) return false;
 
         return true;
@@ -86,7 +86,7 @@ public class ShipInformation {
         int result = shipInfId;
         result = 31 * result + userId;
         result = 31 * result + (address != null ? address.hashCode() : 0);
-        result = 31 * result + (receicer != null ? receicer.hashCode() : 0);
+        result = 31 * result + (receiver != null ? receiver.hashCode() : 0);
         result = 31 * result + (mobile != null ? mobile.hashCode() : 0);
         return result;
     }

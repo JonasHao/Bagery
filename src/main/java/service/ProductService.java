@@ -3,7 +3,7 @@ package service;
 
 import po.Priced;
 import po.Product;
-import po.Propertity;
+import po.Property;
 
 import java.util.List;
 
@@ -46,6 +46,6 @@ public interface ProductService {
     /**
      * 通过类别信息获取商品列表
      */
-    List<Priced> findPricedsByProperty(List<Propertity> pros);
+    List<Priced> findPricedsByProperty(List<Property> pros);
 
 }
