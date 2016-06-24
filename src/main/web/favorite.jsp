@@ -21,7 +21,6 @@
         <!--Main layout-->
         <div class="container">
 
-
             <!--First row-->
             <div class="row">
                 <div class="col-md-3 col-lg-2 ">
