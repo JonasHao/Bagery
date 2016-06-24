@@ -3,4 +3,12 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <bean class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" id="sessionFactory">
+        <property name="configLocations" value="classpath:hibernate.cfg.xml"/>
+    </bean>
+
+    <bean class="dao.Dao" id="dao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
 </beans>
