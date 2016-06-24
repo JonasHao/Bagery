@@ -58,7 +58,6 @@
                                 <input class="form-control" type="text" placeholder="搜索订单">
                             </s:form>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -71,8 +70,12 @@
                             <h5 class="h5-responsive font-weight-bold">账户设置</h5>
                             <ul>
                                 <li><a href="#">更改密码</a></li>
-                                <li><a href="#">查询积分</a></li>
                                 <li><a href="#">修改个人资料</a></li>
+                            </ul>
+                            <br/>
+                            <h5 class="h5-responsive font-weight-bold">查询积分</h5>
+                            <ul>
+                                <li>400分</li>
                             </ul>
                         </div>
 
@@ -83,8 +86,6 @@
                                 <li><a href="#">添加地址</a></li>
                             </ul>
                         </div>
-
-
                     </div>
                 </div>
 
@@ -104,14 +105,12 @@
                         <div class="col-sm-6">
                             <h5 class="h5-responsive font-weight-bold">个性化推荐</h5>
                             <ul>
-                                <li><a href="#">浏览记录</a></li>
+                                <li><a href="history.jsp">浏览记录</a></li>
                                 <li><a href="#">猜你喜欢</a></li>
                             </ul>
                         </div>
-
                     </div>
                 </div>
-
             </div>
         </div>
         <!--/.Content-->

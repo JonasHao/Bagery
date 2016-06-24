@@ -26,7 +26,6 @@ public class CommentAction extends DefaultActionSupport{
     private String content2;
     private String adminContent;
 
-
     //用户/访客查看评论
     public String viewComment(){
         comments = commentService.getByPricedId(pricedId);
