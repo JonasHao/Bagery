@@ -1,7 +1,7 @@
 /* TEMPLATE STYLES */
 
 main {
-    padding-top: 3rem;
+    padding-top: 2rem;
     padding-bottom: 2rem;
 }
 
@@ -79,4 +79,16 @@ a {
 
 .card-favorite {
     margin-bottom: 2rem;
+}
+
+.color-icon {
+    color: blue;
+}
+
+.cart-item-block {
+    padding-top:2rem ;
+}
+
+.bag-color {
+    color:gray;
 }
