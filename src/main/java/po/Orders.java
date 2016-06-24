@@ -17,7 +17,7 @@ public class Orders {
     private String courierNumber;
     private String courierCompany;
     private Collection<Comment> commentsByOrderId;
-    private Collection<Orderitem> orderitemsByOrderId;
+    private Collection<OrderItem> orderItemsByOrderId;
     private User userByUserId;
 
     @Id
@@ -31,7 +31,7 @@ public class Orders {
     }
 
     @Basic
-    @Column(name = "user_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "user_id", nullable = false, insertable = false, updatable = false)
     public int getUserId() {
         return userId;
     }
@@ -41,7 +41,7 @@ public class Orders {
     }
 
     @Basic
-    @Column(name = "ship_inf_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "ship_inf_id", nullable = false, insertable = false, updatable = false)
     public int getShipInfId() {
         return shipInfId;
     }
@@ -144,12 +144,12 @@ public class Orders {
     }
 
     @OneToMany(mappedBy = "ordersByOrderId")
-    public Collection<Orderitem> getOrderitemsByOrderId() {
-        return orderitemsByOrderId;
+    public Collection<OrderItem> getOrderItemsByOrderId() {
+        return orderItemsByOrderId;
     }
 
-    public void setOrderitemsByOrderId(Collection<Orderitem> orderitemsByOrderId) {
-        this.orderitemsByOrderId = orderitemsByOrderId;
+    public void setOrderItemsByOrderId(Collection<OrderItem> orderitemsByOrderId) {
+        this.orderItemsByOrderId = orderitemsByOrderId;
     }
 
     @ManyToOne

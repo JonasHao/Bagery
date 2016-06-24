@@ -68,7 +68,7 @@
     <!--Copyright-->
     <div class="footer-copyright">
         <div class="container-fluid">
-            © 2016 Copyright: <a href="http://www.MDBootstrap.com"> BAGERY.com </a>
+            © 2016 Copyright: <a href="index.tag"> BAGERY.com </a>
         </div>
     </div>
     <!--/.Copyright-->

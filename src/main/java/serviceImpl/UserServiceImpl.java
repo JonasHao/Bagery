@@ -19,7 +19,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean login(int userId, String password) {
+    public boolean login(String username, String password) {
+        return false;
+    }
+
+    @Override
+    public boolean existUsername(String username) {
+        return false;
+    }
+
+    @Override
+    public boolean existEmail(String email) {
         return false;
     }
 

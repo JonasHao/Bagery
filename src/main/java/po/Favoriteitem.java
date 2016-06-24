@@ -6,7 +6,8 @@ import javax.persistence.*;
  * Created by 41159 on 2016/6/23.
  */
 @Entity
-public class Favoriteitem {
+@Table(name = "favoriteitem")
+public class FavoriteItem {
     private int itemId;
     private int pricedId;
     private int userId;
@@ -24,7 +25,7 @@ public class Favoriteitem {
     }
 
     @Basic
-    @Column(name = "priced_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "priced_id", nullable = false, insertable = false    , updatable = false)
     public int getPricedId() {
         return pricedId;
     }
@@ -34,7 +35,7 @@ public class Favoriteitem {
     }
 
     @Basic
-    @Column(name = "user_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "user_id", nullable = false, insertable = false, updatable = false)
     public int getUserId() {
         return userId;
     }
@@ -48,7 +49,7 @@ public class Favoriteitem {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Favoriteitem that = (Favoriteitem) o;
+        FavoriteItem that = (FavoriteItem) o;
 
         if (itemId != that.itemId) return false;
         if (pricedId != that.pricedId) return false;

@@ -25,7 +25,7 @@ public class UserPricedRecord {
     }
 
     @Basic
-    @Column(name = "user_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "user_id", nullable = false, insertable = false, updatable = false)
     public int getUserId() {
         return userId;
     }
@@ -35,7 +35,7 @@ public class UserPricedRecord {
     }
 
     @Basic
-    @Column(name = "priced_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "priced_id", nullable = false, insertable = false, updatable = false)
     public int getPricedId() {
         return pricedId;
     }

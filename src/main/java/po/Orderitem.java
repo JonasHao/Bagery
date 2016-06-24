@@ -6,7 +6,8 @@ import javax.persistence.*;
  * Created by 41159 on 2016/6/23.
  */
 @Entity
-public class Orderitem {
+@Table(name = "orderitem")
+public class OrderItem {
     private int itemId;
     private int productId;
     private String productTitle;
@@ -27,7 +28,7 @@ public class Orderitem {
     }
 
     @Basic
-    @Column(name = "product_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "product_id", nullable = false, insertable = false, updatable = false)
     public int getProductId() {
         return productId;
     }
@@ -67,7 +68,7 @@ public class Orderitem {
     }
 
     @Basic
-    @Column(name = "order_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "order_id", nullable = false, insertable = false, updatable = false)
     public int getOrderId() {
         return orderId;
     }
@@ -81,14 +82,14 @@ public class Orderitem {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Orderitem orderitem = (Orderitem) o;
+        OrderItem orderItem = (OrderItem) o;
 
-        if (itemId != orderitem.itemId) return false;
-        if (productId != orderitem.productId) return false;
-        if (num != orderitem.num) return false;
-        if (totalPriced != orderitem.totalPriced) return false;
-        if (orderId != orderitem.orderId) return false;
-        if (productTitle != null ? !productTitle.equals(orderitem.productTitle) : orderitem.productTitle != null)
+        if (itemId != orderItem.itemId) return false;
+        if (productId != orderItem.productId) return false;
+        if (num != orderItem.num) return false;
+        if (totalPriced != orderItem.totalPriced) return false;
+        if (orderId != orderItem.orderId) return false;
+        if (productTitle != null ? !productTitle.equals(orderItem.productTitle) : orderItem.productTitle != null)
             return false;
 
         return true;

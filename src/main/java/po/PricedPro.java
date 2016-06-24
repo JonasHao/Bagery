@@ -12,7 +12,7 @@ public class PricedPro {
     private int pricedId;
     private int proId;
     private Priced pricedByPricedId;
-    private Propertity propertityByProId;
+    private Property propertyByProId;
 
     @Id
     @Column(name = "pp_id", nullable = false, insertable = true, updatable = true)
@@ -25,7 +25,7 @@ public class PricedPro {
     }
 
     @Basic
-    @Column(name = "priced_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "priced_id", nullable = false, insertable = false, updatable = false)
     public int getPricedId() {
         return pricedId;
     }
@@ -35,7 +35,7 @@ public class PricedPro {
     }
 
     @Basic
-    @Column(name = "pro_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "pro_id", nullable = false, insertable = false, updatable = false)
     public int getProId() {
         return proId;
     }
@@ -78,11 +78,11 @@ public class PricedPro {
 
     @ManyToOne
     @JoinColumn(name = "pro_id", referencedColumnName = "pro_id", nullable = false)
-    public Propertity getPropertityByProId() {
-        return propertityByProId;
+    public Property getPropertityByProId() {
+        return propertyByProId;
     }
 
-    public void setPropertityByProId(Propertity propertityByProId) {
-        this.propertityByProId = propertityByProId;
+    public void setPropertityByProId(Property propertyByProId) {
+        this.propertyByProId = propertyByProId;
     }
 }

@@ -14,8 +14,7 @@ public class Priced {
     private int unitPrice;
     private Integer salePrice;
     private Collection<Comment> commentsByPricedId;
-    private Collection<Favoriteitem> favoriteitemsByPricedId;
-    private Collection<PricedImage> pricedImagesByPricedId;
+    private Collection<FavoriteItem> favoriteItemsByPricedId;
     private Collection<PricedPro> pricedProsByPricedId;
     private Collection<Product> productsByPricedId;
     private Collection<UserPricedRecord> userPricedRecordsByPricedId;
@@ -106,21 +105,12 @@ public class Priced {
     }
 
     @OneToMany(mappedBy = "pricedByPricedId")
-    public Collection<Favoriteitem> getFavoriteitemsByPricedId() {
-        return favoriteitemsByPricedId;
+    public Collection<FavoriteItem> getFavoriteItemsByPricedId() {
+        return favoriteItemsByPricedId;
     }
 
-    public void setFavoriteitemsByPricedId(Collection<Favoriteitem> favoriteitemsByPricedId) {
-        this.favoriteitemsByPricedId = favoriteitemsByPricedId;
-    }
-
-    @OneToMany(mappedBy = "pricedByPricedId")
-    public Collection<PricedImage> getPricedImagesByPricedId() {
-        return pricedImagesByPricedId;
-    }
-
-    public void setPricedImagesByPricedId(Collection<PricedImage> pricedImagesByPricedId) {
-        this.pricedImagesByPricedId = pricedImagesByPricedId;
+    public void setFavoriteItemsByPricedId(Collection<FavoriteItem> favoriteitemsByPricedId) {
+        this.favoriteItemsByPricedId = favoriteitemsByPricedId;
     }
 
     @OneToMany(mappedBy = "pricedByPricedId")

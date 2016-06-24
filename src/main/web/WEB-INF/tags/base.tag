@@ -36,7 +36,7 @@
 
     <!--Navbar-->
     <nav class="navbar navbar-light white">
-        <%@include file="nav.tag"%>
+        <%@include file="../components/nav.tag"%>
     </nav>
     <!--/.Navbar-->
     <jsp:invoke fragment="breadcrumb"/>
@@ -48,7 +48,7 @@
     </div>
 </main>
 
-<%@include file="footer.tag"%>
+<%@include file="../components/footer.tag"%>
 
 <!-- SCRIPTS -->
 

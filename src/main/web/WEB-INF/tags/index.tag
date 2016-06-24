@@ -23,7 +23,7 @@
     <link href="../../css/mdb.min.css" rel="stylesheet">
 
     <!-- Template styles -->
-    <link href="../../css/style.css" rel="stylesheet">
+    <link href="../../css/index.css" rel="stylesheet">
 
     <jsp:invoke fragment="head"/>
 
@@ -33,7 +33,7 @@
 
 <!--Navbar-->
 <nav class="navbar navbar-light  navbar-fixed-top scrolling-navbar">
-    <%@include file="nav.tag"%>
+    <%@include file="../components/nav.tag"%>
 </nav>
 <!--/.Navbar-->
 
@@ -140,7 +140,7 @@
 
 
 
-<%@include file="footer.tag"%>
+<%@include file="../components/footer.tag"%>
 
 
 <!-- SCRIPTS -->

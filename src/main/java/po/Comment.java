@@ -70,7 +70,7 @@ public class Comment {
     }
 
     @Basic
-    @Column(name = "priced_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "priced_id", nullable = false, insertable = false, updatable = false)
     public int getPricedId() {
         return pricedId;
     }
@@ -80,7 +80,7 @@ public class Comment {
     }
 
     @Basic
-    @Column(name = "user_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "user_id", nullable = false, insertable = false, updatable = false)
     public int getUserId() {
         return userId;
     }
@@ -90,7 +90,7 @@ public class Comment {
     }
 
     @Basic
-    @Column(name = "order_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "order_id", nullable = false, insertable = false, updatable = false)
     public int getOrderId() {
         return orderId;
     }

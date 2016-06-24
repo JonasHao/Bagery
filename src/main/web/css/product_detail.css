@@ -55,15 +55,20 @@ a{
     margin: 0;
 }
 
-.product-card-wrapper{
+.btn-cart-nav {
+    padding-top: 0.425rem;
+}
+
+.product-card-wrapper {
     padding: 2rem;
 }
 
-.product-detail-img{
+.product-detail-img {
     margin-left: auto;
     margin-right: auto;
 }
-.product-wrapper{
+
+.product-wrapper {
     margin-top: 6rem;
     margin-right: auto;
 }
@@ -72,7 +77,7 @@ a{
     padding-left: 4rem;
 }
 
-.card-home{
+.card-home {
     margin-bottom: 3rem;
 }
 
@@ -90,4 +95,9 @@ a{
 
 .bag-color {
     color:gray;
+}
+
+.btn-user {
+    margin-bottom: 0;
+    padding: 0;
 }

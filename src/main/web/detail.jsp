@@ -55,7 +55,7 @@
 
                 <!--Heading-->
                 <div class="reviews">
-                    <h2 class="h2-responsive">Reviews</h2>
+                    <h2 class="h2-responsive">评论</h2>
                 </div>
 
                 <t:comment>
