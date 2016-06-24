@@ -1,7 +1,7 @@
 /* TEMPLATE STYLES */
 
 main {
-    padding-top: 2rem;
+    padding-top: 3rem;
     padding-bottom: 2rem;
 }
 
@@ -20,16 +20,15 @@ main {
     margin-bottom: 2rem;
 }
 
-.breadcrumb{
-    padding-left:10%;
+.breadcrumb {
+    padding-left: 10%;
 }
 
-a{
+a {
     color: dimgrey;
 }
 
-
-.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover{
+.list-group-item.active, .list-group-item.active:focus, .list-group-item.active:hover {
     color: #fff;
     background-color: grey;
     border-color: grey;
@@ -39,11 +38,11 @@ a{
 
 }
 
-.product-title{
+.product-title {
     margin-bottom: 0.25rem;
 }
 
-.product-text{
+.product-text {
     padding: 0.5rem;
 }
 
@@ -55,9 +54,6 @@ a{
     margin: 0;
 }
 
-.btn-cart-nav {
-    padding-top: 0.425rem;
-}
 
 .product-card-wrapper {
     padding: 2rem;
@@ -83,21 +79,4 @@ a{
 
 .card-favorite {
     margin-bottom: 2rem;
-}
-
-.color-icon {
-    color: blue;
-}
-
-.cart-item-block {
-    padding-top:2rem ;
-}
-
-.bag-color {
-    color:gray;
-}
-
-.btn-user {
-    margin-bottom: 0;
-    padding: 0;
 }

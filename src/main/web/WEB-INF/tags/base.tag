@@ -24,7 +24,9 @@
     <link href="../../css/mdb.min.css" rel="stylesheet">
 
     <!-- Template styles -->
-    <link href="../../css/product_detail.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+
+    <link href="../../css/style.css" rel="stylesheet">
     <jsp:invoke fragment="head"/>
 
 </head>

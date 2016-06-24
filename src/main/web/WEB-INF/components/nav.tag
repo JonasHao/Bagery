@@ -41,8 +41,8 @@
                     <div class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false">
-                            <button class="btn-sm btn-link btn-user">
-                                <i class="fa fa-user" aria-hidden="true"></i>
+                            <button class="btn-sm btn-link nav-btn-user">
+                                <i class="fa fa-user fa-lg" aria-hidden="true"></i>
                             </button>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
@@ -64,8 +64,8 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn-sm btn-link btn-cart-nav" type="button">
-                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                <button class="btn-sm btn-link nav-btn-cart" type="button">
+                    <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i>
                 </button>
             </div>
 
