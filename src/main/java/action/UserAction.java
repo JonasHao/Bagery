@@ -115,8 +115,7 @@ public class UserAction extends ActionSupport{
         user = new User();
         user.setUsername(getUsername());
         user.setPassword(getPassword());
-        user.setRealname(getRealname());
-        user.setSex(getSex());
+        user.setRealName(getRealname());
         user.setEmail(getEmail());
 
         userService.register(user);

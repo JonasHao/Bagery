@@ -7,7 +7,7 @@ import service.CommentService;
 import java.util.List;
 
 /**
- * Created by 41159 on 2016/6/23.
+ * Created by Ğ¡¹ÖÊŞµÄ°ÂÌØÂü½´ on 2016/6/23.
  */
 public class CommentServiceImpl implements CommentService {
 

@@ -4,6 +4,9 @@ import po.Comment;
 
 import java.util.List;
 
+/**
+ * Created by 小怪兽的奥特曼酱 on 2016/6/23.
+ */
 
 public interface CommentService {
     /**

@@ -1,5 +1,6 @@
 package action;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.dispatcher.DefaultActionSupport;
 import po.Comment;
@@ -7,8 +8,9 @@ import service.CommentService;
 
 import java.util.List;
 
+
 /**
- * Created by 41159 on 2016/6/23.
+ * Created by 小怪兽的奥特曼酱 on 2016/6/23.
  */
 public class CommentAction extends DefaultActionSupport{
 
@@ -29,6 +31,7 @@ public class CommentAction extends DefaultActionSupport{
     //用户/访客查看评论
     public String viewComment(){
         comments = commentService.getByPricedId(pricedId);
+        ActionContext.getContext().getSession().put("comments",comments);
         return SUCCESS;
     }
 
