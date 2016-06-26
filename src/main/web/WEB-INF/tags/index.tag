@@ -11,7 +11,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title><jsp:invoke fragment="title"/></title>
+    <title>
+        <jsp:invoke fragment="title"/>
+    </title>
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
@@ -23,6 +25,8 @@
     <link href="../../css/mdb.min.css" rel="stylesheet">
 
     <!-- Template styles -->
+    <link href="../../css/index.css" rel="stylesheet">
+
     <link href="../../css/style.css" rel="stylesheet">
 
     <jsp:invoke fragment="head"/>
@@ -33,7 +37,7 @@
 
 <!--Navbar-->
 <nav class="navbar navbar-light  navbar-fixed-top scrolling-navbar">
-    <%@include file="nav.tag"%>
+    <%@include file="../components/nav.tag" %>
 </nav>
 <!--/.Navbar-->
 
@@ -139,8 +143,7 @@
 <!--/.Content-->
 
 
-
-<%@include file="footer.tag"%>
+<%@include file="../components/footer.tag" %>
 
 
 <!-- SCRIPTS -->

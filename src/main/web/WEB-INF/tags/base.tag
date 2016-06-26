@@ -24,7 +24,9 @@
     <link href="../../css/mdb.min.css" rel="stylesheet">
 
     <!-- Template styles -->
-    <link href="../../css/product_detail.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+
+    <link href="../../css/style.css" rel="stylesheet">
     <jsp:invoke fragment="head"/>
 
 </head>
@@ -36,7 +38,7 @@
 
     <!--Navbar-->
     <nav class="navbar navbar-light white">
-        <%@include file="nav.tag"%>
+        <%@include file="../components/nav.tag"%>
     </nav>
     <!--/.Navbar-->
     <jsp:invoke fragment="breadcrumb"/>
@@ -48,7 +50,7 @@
     </div>
 </main>
 
-<%@include file="footer.tag"%>
+<%@include file="../components/footer.tag"%>
 
 <!-- SCRIPTS -->
 
