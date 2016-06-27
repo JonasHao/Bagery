@@ -49,5 +49,35 @@
 
     </package>
 
+    <package    name="user" namespace="/user" extends="default">
+        <default-interceptor-ref name="myStack"/>
+
+        <action name="register" class="action.UserAction" method="register">
+            <result name="success"></result>
+            <result name="input"></result>
+        </action>
+
+        <action name="login" class="action.UserAction" method="login">
+            <result name="input"></result>
+            <result name="wrong_username"></result>
+            <result name="error"></result>
+            <result name="success"></result>
+        </action>
+
+        <action name="logout" class="action.UserAction" method="logout">
+            <result name="success"></result>
+        </action>
+
+        <action name="viewInfo" class="action.UserInfoAction" method="viewInfo">
+            <result name="success"></result>
+        </action>
+
+        <action name="update" class="action.UserInfoAction" method="update">
+            <result name="success"></result>
+            <result name="error"></result>
+            <result name="input"></result>
+        </action>
+
+    </package>
 
 </struts>

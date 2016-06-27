@@ -30,16 +30,20 @@ public class UserAction extends ActionSupport{
 
     @Action("login")
     public String login(){
+        if(username.equals(null)){
+            return INPUT;
+        }
+
+        if(password.equals(null)){
+            return INPUT;
+        }
+
         user = new User();
         user.setUsername(getUsername());
         user.setPassword(getPassword());
 
-        if(user.equals(null)){
-            return ERROR;
-        }
-
         if(!userService.existUsername(username))
-            return ERROR;
+            return "wrong_username";
         else
         {
             return userService.login(username,password);
@@ -48,14 +52,17 @@ public class UserAction extends ActionSupport{
 
     @Action("register")
     public String register(){
+        if(username.equals(null)||password.equals(null)||confirmpassword.equals(null)){
+            return INPUT;
+        }
         if(userService.existUsername(username)){
-            return ERROR;
+            return INPUT;
         }
         if(userService.existEmail(email)){
-            return ERROR;
+            return INPUT;
         }
         if(!password.equals(confirmpassword)){
-            return ERROR;
+            return INPUT;
         }
 
         user = new User();
