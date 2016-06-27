@@ -50,6 +50,7 @@
                 <jsp:attribute name="phone">18819999999</jsp:attribute>
                 <jsp:attribute name="address">广东省广州市番禺区华南理工大学</jsp:attribute>
                 <jsp:attribute name="addressId">5</jsp:attribute>
+                <jsp:attribute name="isDefault">true</jsp:attribute>
             </t:addressItem>
 
             <button id="add-address" class="btn btn-primary btn-lg" data-toggle="collapse"

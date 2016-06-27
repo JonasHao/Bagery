@@ -4,6 +4,7 @@
 <%@attribute name="address" fragment="true" %>
 <%@attribute name="phone" fragment="true" %>
 <%@attribute name="addressId" type="java.lang.Integer" %>
+<%@attribute name="isDefault" type="java.lang.Boolean" %>
 <div class="card">
     <div class="row card-block">
         <div class="col-md-10 address-info">
@@ -23,6 +24,14 @@
             <a>编辑</a>
             <br>
             <a>删除</a>
+            <br>
+            <% if (isDefault) { %>
+            默认地址
+            <% } else {%>
+            <a>设为默认</a>
+            <br>
+            <% }%>
+
         </div>
     </div>
 </div>
