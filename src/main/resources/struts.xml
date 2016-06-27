@@ -16,8 +16,6 @@
             </interceptor-stack>
         </interceptors>
 
-        <default-interceptor-ref name="myStack"/>
-
         <global-results>
             <result name="login">/login.jsp</result>
             <result name="error">/error.jsp</result>
@@ -26,6 +24,8 @@
     </package>
 
     <package name="comment" namespace="/comment" extends="default">
+
+        <default-interceptor-ref name="myStack"/>
 
         <action name="viewComment" class="action.CommentAction" method="viewComment">
             <result name="success">/index.jsp</result>
