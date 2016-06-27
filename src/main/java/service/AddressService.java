@@ -18,4 +18,6 @@ public interface AddressService {
      */
     Address get(int shipInfId);
 
+    void delete(Address address);
+
 }

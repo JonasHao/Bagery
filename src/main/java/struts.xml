@@ -76,7 +76,27 @@
             <result name="error"></result>
             <result name="input"></result>
         </action>
-
     </package>
 
+    <package name="address" namespace="/address" extends="default">
+        <default-interceptor-ref name="myStack"/>
+
+        <action name="viewAddress" class="action.AddressAction" method="viewAddress">
+            <result name="success"></result>
+        </action>
+
+        <action name="addAddress" class="action.AddressAction" method="addAddress">
+            <result name="success"></result>
+            <result name="input"></result>
+        </action>
+
+        <action name="deleteAddress" class="action.AddressAction" method="deleteAddress">
+            <result name="success"></result>
+        </action>
+
+        <action name="updateAddress" class="action.AddressAction" method="updateAddress">
+            <result name="input"></result>
+            <result name="success"></result>
+        </action>
+    </package>
 </struts>
