@@ -10,12 +10,12 @@ import java.util.List;
 
 
 /**
- * Created by Ð¡¹ÖÊÞµÄ°ÂÌØÂü½´ on 2016/6/23.
+ * Created by Ð¡ï¿½ï¿½ï¿½ÞµÄ°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ on 2016/6/23.
  */
 public class CommentAction extends DefaultActionSupport{
 
     private CommentService commentService;
-    //½øÐÐÊý¾Ý¿âCRUDµÄ¶ÔÏó
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý¿ï¿½CRUDï¿½Ä¶ï¿½ï¿½ï¿½
     private List<Comment> comments;
     private Comment comment;
 
@@ -28,14 +28,14 @@ public class CommentAction extends DefaultActionSupport{
     private String content2;
     private String adminContent;
 
-    //ÓÃ»§/·Ã¿Í²é¿´ÆÀÂÛ
+    //ï¿½Ã»ï¿½/ï¿½Ã¿Í²é¿´ï¿½ï¿½ï¿½ï¿½
     public String viewComment(){
         comments = commentService.getByPricedId(pricedId);
         ActionContext.getContext().getSession().put("comments",comments);
         return SUCCESS;
     }
 
-    //ÓÃ»§ÌîÐ´ÆÀÂÛ
+    //ï¿½Ã»ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½
     public String addComment(){
         comment.setContent1(content1);
         comment.setStar(star);
@@ -45,7 +45,7 @@ public class CommentAction extends DefaultActionSupport{
         return SUCCESS;
     }
 
-    //ÓÃ»§×·¼ÓÆÀÂÛ
+    //ï¿½Ã»ï¿½×·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public String appendComment(){
         comment = commentService.getByPricedIdAndOrderId(pricedId, orderId);
         comment.setContent2(content1);
@@ -53,13 +53,13 @@ public class CommentAction extends DefaultActionSupport{
         return SUCCESS;
     }
 
-    //¹ÜÀíÔ±É¾³ýÆÀÂÛ
+    //ï¿½ï¿½ï¿½ï¿½Ô±É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public String deleteComment(){
         commentService.deleteComment(commentId);
         return SUCCESS;
     }
 
-    //¹ÜÀíÔ±»Ø¸´ÆÀÂÛ
+    //ï¿½ï¿½ï¿½ï¿½Ô±ï¿½Ø¸ï¿½ï¿½ï¿½ï¿½ï¿½
     public String replyComment(){
         comment = commentService.getByCommentId(commentId);
         comment.setAdminContent(adminContent);

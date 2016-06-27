@@ -12,6 +12,7 @@ import service.UserService;
 public class UserAction extends ActionSupport{
     public UserService userService;
     public User user;
+    public ShipInformationAction shipInformationAction;
 
     private String username;
     private String password;
@@ -19,6 +20,61 @@ public class UserAction extends ActionSupport{
     private String sex;
     private String email;
     private String confirmpassword;
+    private String isadmin;
+    private String usergroup;
+
+
+    @Action("logout")
+    public String logout(){
+        ActionContext.getContext().getSession().clear();
+        return SUCCESS;
+    }
+
+    @Action("login")
+    public String login(){
+        user = new User();
+        user.setUsername(getUsername());
+        user.setPassword(getPassword());
+
+        if(user.equals(null)){
+            return ERROR;
+        }
+
+        if(!userService.existUsername(username))
+            return ERROR;
+        else
+        {
+            return userService.login(username,password);
+        }
+    }
+
+    @Action("register")
+    public String register(){
+        if(userService.existUsername(username)){
+            return ERROR;
+        }
+        if(userService.existEmail(email)){
+            return ERROR;
+        }
+        if(!password.equals(confirmpassword)){
+            return ERROR;
+        }
+
+        user = new User();
+        user.setUsername(getUsername());
+        user.setPassword(getPassword());
+        user.setRealName(getRealname());
+        user.setEmail(getEmail());
+        user.setUserGroup("r");
+
+        userService.register(user);
+        ActionContext.getContext().getSession().put("User",user);
+        return SUCCESS;
+    }
+
+    public void setUsergroup(String usergroup) {
+        this.usergroup = usergroup;
+    }
 
     public void setUsername(String username){
         this.username=username;
@@ -42,6 +98,10 @@ public class UserAction extends ActionSupport{
 
     public void setConfirmpassword(String confirmpassword) {
         this.confirmpassword = confirmpassword;
+    }
+
+    public void setIsadmin(String isadmin){
+        this.isadmin=isadmin;
     }
 
     public String getUsername(){
@@ -68,60 +128,19 @@ public class UserAction extends ActionSupport{
         return confirmpassword;
     }
 
+    public String getIsadmin(){
+        return isadmin;
+    }
+
     public void setUser(User user){
         this.user=user;
     }
 
+    public String getUsergroup() {
+        return usergroup;
+    }
+
     public void setUserService(UserService userService){
         this.userService=userService;
-    }
-
-    public String logout(){
-        ActionContext.getContext().getSession().clear();
-        return SUCCESS;
-    }
-
-    public String login(){
-        user = new User();
-        user.setUsername(getUsername());
-        user.setPassword(getPassword());
-        if(user.equals(null)){
-            return ERROR;
-        }
-        if(!userService.existUsername(username))
-            return ERROR;
-        else
-        {
-            if(userService.login(username,password))
-            {
-                return SUCCESS;
-            }
-            return ERROR;
-        }
-    }
-
-    @Action("register")
-    public String register(){
-        if(userService.existUsername(username)){
-            return ERROR;
-        }
-
-        if(userService.existEmail(email)){
-            return ERROR;
-        }
-
-        if(!password.equals(confirmpassword)){
-            return ERROR;
-        }
-
-        user = new User();
-        user.setUsername(getUsername());
-        user.setPassword(getPassword());
-        user.setRealName(getRealname());
-        user.setEmail(getEmail());
-
-        userService.register(user);
-        ActionContext.getContext().getSession().put("User",user);
-        return SUCCESS;
     }
 }

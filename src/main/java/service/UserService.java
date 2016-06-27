@@ -20,16 +20,18 @@ public interface UserService {
     /**
      * 校验用户Id和密码是否匹配
      */
-    boolean login(String username, String password);
+    String login(String username, String password);
 
     boolean existUsername(String username);
 
     boolean existEmail(String email);
 
+    String getUserGroup(String username);
+
     /**
      * 注册一个用户，注册之前应先校验用户名是否重复
      */
-    User register(User user);
+    void register(User user);
 
     /**
      * 更新user到持久化层
