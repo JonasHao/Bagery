@@ -10,14 +10,12 @@ import service.UserService;
  * Created by zhang on 2016/6/23.
  */
 public class UserAction extends ActionSupport{
-    public UserService userService;
-    public User user;
-    public ShipInformationAction shipInformationAction;
+    private UserService userService;
+    private User user;
 
     private String username;
     private String password;
     private String realname;
-    private String sex;
     private String email;
     private String confirmpassword;
     private String isadmin;
@@ -88,10 +86,6 @@ public class UserAction extends ActionSupport{
         this.realname = realname;
     }
 
-    public void setSex(String sex){
-        this.sex=sex;
-    }
-
     public void setEmail(String email){
         this.email=email;
     }
@@ -114,10 +108,6 @@ public class UserAction extends ActionSupport{
 
     public String getRealname() {
         return realname;
-    }
-
-    public String getSex(){
-        return sex;
     }
 
     public String getEmail(){

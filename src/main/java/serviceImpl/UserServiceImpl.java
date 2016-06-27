@@ -1,5 +1,6 @@
 package serviceImpl;
 
+import com.opensymphony.xwork2.ActionContext;
 import po.User;
 import service.UserService;
 import dao.Dao;
@@ -24,8 +25,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public String login(String username, String password) {
         user=(User)dao.query("from User where username=?").setParameter(0,username);
+
         if(user.getPassword().equals(password))
         {
+            ActionContext.getContext().getSession().put("User",user);
             if(user.getUserGroup().equals("product_admin")){
                 return "product_admin_success";
             }
@@ -64,7 +67,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void update(User user) {
-
+        dao.update(user);
     }
 
     @Override
