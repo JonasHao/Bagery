@@ -5,9 +5,7 @@
         "http://struts.apache.org/dtds/struts-2.3.dtd">
 <struts>
 
-
     <package name="default" extends="struts-default">
-
         <interceptors>
             <interceptor name="loginChecker" class="interceptor.CheckLoginInterceptor"/>
             <interceptor-stack name="myStack">
@@ -46,10 +44,9 @@
         <action name="replyComment" class="action.CommentAction" method="replyComment">
             <result name="success">/index.jsp</result>
         </action>
-
     </package>
 
-    <package    name="user" namespace="/user" extends="default">
+    <package name="user" namespace="/user" extends="default">
         <default-interceptor-ref name="myStack"/>
 
         <action name="register" class="action.UserAction" method="register">
