@@ -21,7 +21,7 @@ public class CheckLoginInterceptor implements Interceptor {
     @Override
     public String intercept(ActionInvocation invocation) throws Exception {
         if (Config.DEBUG) {
-            return Action.SUCCESS;
+            return invocation.invoke();
         }
 
         Map session = ActionContext.getContext().getSession();

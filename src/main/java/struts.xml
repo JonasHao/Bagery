@@ -46,6 +46,8 @@
         </action>
     </package>
 
+
+
     <package name="user" namespace="/user" extends="default">
         <default-interceptor-ref name="myStack"/>
 
