@@ -1,5 +1,6 @@
 package serviceImpl;
 
+import dao.Dao;
 import po.User;
 import service.UserService;
 
@@ -7,7 +8,7 @@ import service.UserService;
  * Created by zhang on 2016/6/23.
  */
 public class UserServiceImpl implements UserService {
-
+    private Dao dao;
     @Override
     public User getCurrentUser() {
         return null;
@@ -46,5 +47,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public int checkUserGroup(int userId) {
         return 0;
+    }
+
+    public void setDao(Dao dao) {
+        this.dao = dao;
     }
 }

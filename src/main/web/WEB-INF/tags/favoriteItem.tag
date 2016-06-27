@@ -3,7 +3,7 @@
 <%@attribute name="img" fragment="true" %>
 <%@attribute name="title" fragment="true" %>
 <%@attribute name="price" fragment="true" %>
-<%@attribute name="productID" type="java.lang.Integer" %>
+<%@attribute name="favoriteId" type="java.lang.Integer" %>
 <div class="card card-favorite">
     <!--Card image-->
     <div class="view overlay hm-white-slight">

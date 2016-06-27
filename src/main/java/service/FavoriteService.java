@@ -11,5 +11,5 @@ public interface FavoriteService {
     /**
      * 删除数据库的一条favoriteItem信息
      */
-    void unfavor(FavoriteItem favoriteItem);
+    void unfavor(int itemId,int userId);
 }
