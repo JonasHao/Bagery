@@ -60,14 +60,15 @@ public class ProductionAction extends DefaultActionSupport {
 
 	public String viewProduct()
 	{
-		try {
-			priced=productService.findPriced(priced_id);
-            products=productService.findProductsByPriced(priced_id);
-			return SUCCESS;
-		}catch(HibernateException e){
-           e.printStackTrace();
-            return ERROR;
-       }
+        return SUCCESS;
+//		try {
+//			priced=productService.findPriced(priced_id);
+//            products=productService.findProductsByPriced(priced_id);
+//			return SUCCESS;
+//		}catch(HibernateException e){
+//           e.printStackTrace();
+//            return ERROR;
+//       }
 	}
 
 	public String updatePriced()

@@ -15,7 +15,7 @@
 
                     <div class="col-md-5">
                         <div class="view overlay hm-white-slight product-detail-img">
-                            <img src="img/bags/bag1.png" class="img-fluid" alt="">
+                            <img src="../img/bags/bag1.png" class="img-fluid" alt="">
                             <a href="#">
                                 <div class="mask"></div>
                             </a>

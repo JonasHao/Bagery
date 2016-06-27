@@ -23,7 +23,7 @@
 
     <package name="comment" namespace="/comment" extends="default">
 
-        <default-interceptor-ref name="myStack"/>
+        <!--<default-interceptor-ref name="myStack"/>-->
 
         <action name="viewComment" class="action.CommentAction" method="viewComment">
             <result name="success">/index.jsp</result>
@@ -49,7 +49,7 @@
 
 
     <package name="user" namespace="/user" extends="default">
-        <default-interceptor-ref name="myStack"/>
+        <!--<default-interceptor-ref name="myStack"/>-->
 
         <action name="register" class="action.UserAction" method="register">
             <result name="success"></result>
@@ -75,6 +75,48 @@
             <result name="success"></result>
             <result name="error"></result>
             <result name="input"></result>
+        </action>
+    </package>
+    <package name="favorite" namespace="/favorite" extends="default">
+        <!--<default-interceptor-ref name="myStack"/>-->
+
+        <action name="favor" class="action.FavoriteAction" method="favor">
+            <result name="success">/login.jsp</result>
+        </action>
+
+        <action name="unfavor" class="action.FavoriteAction" method="unfavor">
+            <result name="success">/login.jsp</result>
+        </action>
+
+        <action name="queryFavorite" class="action.FavoriteAction" method="queryFavorite">
+            <result name="success">/favorite.jsp</result>
+        </action>
+
+        <action name="viewProduct" class="action.ProductionAction" method="viewProduct">
+            <result name="success">/detail.jsp</result>
+        </action>
+    </package>
+
+    <package name="cart" namespace="/cart" extends="default">
+        <global-results>
+            <result name="error">/error.jsp</result>
+            <result name="login">/login.jsp</result>
+        </global-results>
+
+        <action name="addCart" class="action.CartAction" method="addCart">
+            <result name="success">/login.jsp</result>
+        </action>
+
+        <action name="deleteCart" class="action.CartAction" method="deleteCart">
+            <result name="success">/login.jsp</result>
+        </action>
+
+        <action name="queryCart" class="action.CartAction" method="queryCart">
+            <result name="success">/login.jsp</result>
+        </action>
+
+        <action name="updateCart" class="action.CartAction" method="updateCart">
+            <result name="success">/login.jsp</result>
         </action>
     </package>
 

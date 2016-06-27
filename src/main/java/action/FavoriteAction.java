@@ -2,13 +2,13 @@ package action;
 
 import com.opensymphony.xwork2.ActionSupport;
 import po.FavoriteItem;
+import po.Priced;
 import po.User;
 import service.FavoriteService;
 import service.UserService;
 
-import javax.faces.component.ActionSource;
-import javax.swing.*;
-import java.awt.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,7 +21,7 @@ public class FavoriteAction extends ActionSupport {
     private FavoriteService favoriteService;
     private int itemId;
     private User user;
-    private List<FavoriteItem> favoriteItemList;
+    private List<FavoriteItem> favoriteItemList=new ArrayList<FavoriteItem>();
 
     public String favor() {
         user = userService.getCurrentUser();
@@ -39,8 +39,27 @@ public class FavoriteAction extends ActionSupport {
     }
 
     public String queryFavorite() {
-        user = userService.getCurrentUser();
-        favoriteItemList = (List<FavoriteItem>) user.getFavoriteItemsByUserId();
+//        user = userService.getCurrentUser();
+//        favoriteItemList = (List<FavoriteItem>) user.getFavoriteItemsByUserId();
+        FavoriteItem item = new FavoriteItem();
+        item.setItemId(1);
+        Priced priced = new Priced();
+        priced.setTitle("TITLE TEST");
+        priced.setUnitPrice(999);
+        item.setPricedByPricedId(priced);
+        item.setPricedId(1);
+
+        FavoriteItem favoriteItem1 = new FavoriteItem();
+        favoriteItem1.setItemId(1);
+        Priced P2 = new Priced();
+        P2.setTitle("TITLE TEST2");
+        P2.setUnitPrice(999);
+        favoriteItem1.setPricedId(2);
+        favoriteItem1.setPricedByPricedId(P2);
+
+
+        favoriteItemList.add(item);
+        favoriteItemList.add(favoriteItem1);
         return SUCCESS;
     }
 
