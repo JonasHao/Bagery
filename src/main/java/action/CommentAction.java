@@ -2,6 +2,9 @@ package action;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.Result;
+import org.apache.struts2.convention.annotation.Results;
 import org.apache.struts2.dispatcher.DefaultActionSupport;
 import po.Comment;
 import service.CommentService;
@@ -12,7 +15,7 @@ import java.util.List;
 /**
  * Created by С���޵İ������� on 2016/6/23.
  */
-public class CommentAction extends DefaultActionSupport{
+public class CommentAction extends DefaultActionSupport {
 
     private CommentService commentService;
     //�������ݿ�CRUD�Ķ���
@@ -29,14 +32,20 @@ public class CommentAction extends DefaultActionSupport{
     private String adminContent;
 
     //�û�/�ÿͲ鿴����
-    public String viewComment(){
+    public String viewComment() throws Exception {
         comments = commentService.getByPricedId(pricedId);
-        ActionContext.getContext().getSession().put("comments",comments);
+        ActionContext.getContext().getSession().put("comments", comments);
+        return SUCCESS;
+    }
+
+
+    @Action("view")
+    public String view() throws Exception {
         return SUCCESS;
     }
 
     //�û���д����
-    public String addComment(){
+    public String addComment() {
         comment.setContent1(content1);
         comment.setStar(star);
         comment.setContent2(null);
@@ -46,7 +55,7 @@ public class CommentAction extends DefaultActionSupport{
     }
 
     //�û�׷������
-    public String appendComment(){
+    public String appendComment() {
         comment = commentService.getByPricedIdAndOrderId(pricedId, orderId);
         comment.setContent2(content1);
         commentService.updateComment(comment);
@@ -54,19 +63,18 @@ public class CommentAction extends DefaultActionSupport{
     }
 
     //����Աɾ������
-    public String deleteComment(){
+    public String deleteComment() {
         commentService.deleteComment(commentId);
         return SUCCESS;
     }
 
     //����Ա�ظ�����
-    public String replyComment(){
+    public String replyComment() {
         comment = commentService.getByCommentId(commentId);
         comment.setAdminContent(adminContent);
         commentService.updateComment(comment);
         return SUCCESS;
     }
-
 
 
     public CommentService getCommentService() {
