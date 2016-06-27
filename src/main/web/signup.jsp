@@ -16,6 +16,7 @@
                 <div class="card card-login col-sm-push-2 col-sm-8 col-lg-push-4 col-lg-4 ">
                     <div class="card-block">
                             <%--<h2><strong>登录</strong></h2>--%>
+
                         <div class="md-form">
                             <s:textfield label="用户名" id="form1"  name="username" class="form-control"/>
                         </div>

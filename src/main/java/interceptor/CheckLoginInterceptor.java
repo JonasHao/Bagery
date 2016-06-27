@@ -14,6 +14,7 @@ public class CheckLoginInterceptor implements Interceptor {
 
     @Override
     public String intercept(ActionInvocation invocation) throws Exception {
+        System.out.println("Check login");
         return Action.SUCCESS;
     }
 

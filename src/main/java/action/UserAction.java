@@ -2,6 +2,7 @@ package action;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import org.apache.struts2.convention.annotation.Action;
 import po.User;
 import service.UserService;
 
@@ -99,6 +100,7 @@ public class UserAction extends ActionSupport{
         }
     }
 
+    @Action("register")
     public String register(){
         if(userService.existUsername(username)){
             return ERROR;

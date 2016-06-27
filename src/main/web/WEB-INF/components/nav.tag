@@ -9,7 +9,7 @@
 
     <div class="collapse navbar-toggleable-xs" id="collapseEx">
         <div class="row">
-            <div class="col-md-10">
+            <div class="col-sm-12 col-md-10">
                 <div class="container">
                     <!--Navbar Brand-->
                     <a class="navbar-brand" href="../../index.jsp"
@@ -36,7 +36,7 @@
                 </div>
             </div>
 
-            <div class="col-md-2  pull-right">
+            <div class="col-sm-3 col-md-2">
                 <div class="nav navbar-nav">
                     <div class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
