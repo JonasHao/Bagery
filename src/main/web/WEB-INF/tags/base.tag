@@ -3,6 +3,7 @@
 <%@attribute name="title" fragment="true" %>
 <%@attribute name="full" fragment="true" %>
 <%@attribute name="breadcrumb" fragment="true" %>
+<%@attribute name="scripts" fragment="true" %>
 <!DOCTYPE html>
 <html>
 
@@ -65,7 +66,7 @@
 
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="../../js/mdb.min.js"></script>
-
+<jsp:invoke fragment="scripts"/>
 
 </body>
 

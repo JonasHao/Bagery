@@ -28,6 +28,7 @@
 
     <package name="comment" namespace="/comment" extends="default">
 
+
         <action name="viewComment" class="action.CommentAction" method="viewComment">
             <result name="success">/index.jsp</result>
         </action>

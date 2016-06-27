@@ -21,52 +21,60 @@
            <li class="active">管理地址簿</li>
        </ol>
     </jsp:attribute>
+
+    <jsp:attribute name="scripts">
+        <script type="text/javascript">
+            var addressForm = $('#address-form');
+            addressForm.on('hidden.bs.collapse', function () {
+                $('#btn-add-address').text("添加新地址");
+            });
+            addressForm.on('show.bs.collapse', function () {
+                $('#btn-add-address').text("取消添加");
+            });
+
+            $(function(){
+                var hash = document.location.hash;
+                if (hash) {
+                    $(hash).click();
+                }
+            });
+        </script>
+    </jsp:attribute>
     <jsp:body>
         <!--Main layout-->
         <div class="container">
 
             <h1 class="address-title">地址簿</h1>
-            <div class="card">
-                <div class="row card-block">
-                    <div class="col-md-10 address-info">
-                        <div class="row">
-                            <div class="col-md-10 address-line">
-                                郝俊楠
-                            </div>
-                            <div class="col-md-10 address-line">
-                                广东省广州市番禺区华南理工大学
-                            </div>
-                            <div class="col-md-10 address-line">
-                                18819999999
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-2 col-sm-2">
-                        <a >编辑</a>
-                        <br>
-                        <a >删除</a>
-                    </div>
-                </div>
-            </div>
+            <t:addressItem>
+                <jsp:attribute name="receiver">Bagery</jsp:attribute>
+                <jsp:attribute name="phone">18819999999</jsp:attribute>
+                <jsp:attribute name="address">广东省广州市番禺区华南理工大学</jsp:attribute>
+                <jsp:attribute name="addressId">5</jsp:attribute>
+            </t:addressItem>
 
-            <a class="btn btn-primary btn-lg">添加新地址</a>
-            <div class="address-form">
-                <div class="md-form">
-                    <s:textfield label="收件人" id="receiver"  name="receiver" class="form-control"/>
-                </div>
+            <button id="add-address" class="btn btn-primary btn-lg" data-toggle="collapse"
+                    data-target="#address-form">添加新地址
+            </button>
 
-                <div class="md-form">
-                    <s:textfield label="电话" name="phone" class="form-control"/>
-                </div>
+            <div id="address-form" class="collapse">
 
                 <div class="row">
+                    <div class="col-md-4">
+                        <div class="md-form">
+                            <s:textfield label="收件人" id="receiver" name="receiver" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="md-form">
+                            <s:textfield label="电话" name="phone" class="form-control"/>
+                        </div>
+                    </div>
                     <div class="col-md-4">
                         <div class="md-form">
                             <s:textfield label="省" name="province" class="form-control"/>
                         </div>
                     </div>
                     <div class="col-md-4">
-
                         <div class="md-form">
                             <s:textfield label="市" name="city" class="form-control" cssClass="form-control"/>
                         </div>
@@ -76,21 +84,23 @@
                             <s:textfield label="区" name="district" class="form-control"/>
                         </div>
                     </div>
+
+                    <div class="col-md-12">
+                        <div class="md-form">
+                            <s:textfield label="详细地址" name="detail" class="form-control"/>
+                        </div>
+                    </div>
                 </div>
 
 
-
-                <div class="md-form">
-                    <s:textfield label="详细地址" name="detail" class="form-control"/>
-                </div>
                 <s:submit cssClass="grey btn btn-primary" value="保存"/>
-                <a class="grey btn btn-primary">取消</a>
 
             </div>
 
         </div>
         <!--/.Main layout-->
-
-
     </jsp:body>
+
 </t:base>
+
+
