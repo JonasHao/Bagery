@@ -11,17 +11,20 @@ public interface ProductService {
      */
     void addPriced(Priced priced);
     void addProduct(Product product);
+    void addPricedPro(PricedPro pricedPro);
 
     /**
      * 更改商品对象信息
      */
     void updatePriced(Priced priced);
     void updateProduct(Product product);
+    void updatePricedPro(PricedPro pricedPro);
     /**
      * 通过productID查找商品对象
      */
     Priced findPriced(int PricedID);
     Product findProduct(int ProductID);
+    PricedPro findPricedPro(int pricedProID);
 
     /**
      * 获得全部商品列表

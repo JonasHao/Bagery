@@ -25,6 +25,10 @@ public class ProductServiceImpl implements ProductService {
     {
     	dao.save(product);
     }
+    public void addPricedPro(PricedPro pricedPro)
+    {
+        dao.save(pricedPro);
+    }
     /**
      * 更改商品对象信息
      */
@@ -32,15 +36,23 @@ public class ProductServiceImpl implements ProductService {
     {
     	dao.update(priced);
     }
-    public  void updateProduct(Product product){dao.update(product);}
+    public void updateProduct(Product product){dao.update(product);}
+    public void updatePricedPro(PricedPro pricedPro)
+    {
+        dao.update(pricedPro);
+    }
     /**
      * 通过productID查找商品对象
      */
-    public Priced findPriced(int PricedID){
-        return dao.get(Priced.class, PricedID);
+    public Priced findPriced(int pricedID){
+        return dao.get(Priced.class,pricedID);
     }
-    public Product findProduct(int ProductID){
-        return dao.get(Product.class, ProductID);
+    public Product findProduct(int productID){
+        return dao.get(Product.class,productID);
+    }
+    public PricedPro findPricedPro(int pricedProID)
+    {
+        return dao.get(PricedPro.class,pricedProID);
     }
 
     /**
