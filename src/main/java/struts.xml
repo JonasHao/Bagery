@@ -21,6 +21,12 @@
 
     </package>
 
+    <package name="test" namespace="/test" extends="default">
+        <action name="addList" class="action.TestAction">
+            <result>/index.jsp</result>
+        </action>
+    </package>
+
     <package name="comment" namespace="/comment" extends="default">
 
         <!--<default-interceptor-ref name="myStack"/>-->
