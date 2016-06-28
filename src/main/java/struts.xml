@@ -21,6 +21,12 @@
 
     </package>
 
+    <package name="test" namespace="/test" extends="default">
+        <action name="addList" class="action.TestAction">
+            <result>/index.jsp</result>
+        </action>
+    </package>
+
     <package name="comment" namespace="/comment" extends="default">
 
         <!--<default-interceptor-ref name="myStack"/>-->
@@ -52,7 +58,7 @@
         <!--<default-interceptor-ref name="myStack"/>-->
 
         <action name="register" class="action.UserAction" method="register">
-            <result name="success"></result>
+            <result name="success">/home.jsp</result>
             <result name="input"></result>
         </action>
 
@@ -60,11 +66,11 @@
             <result name="input"></result>
             <result name="wrong_username"></result>
             <result name="error"></result>
-            <result name="success"></result>
+            <result name="success">/home.jsp</result>
         </action>
 
         <action name="logout" class="action.UserAction" method="logout">
-            <result name="success"></result>
+            <result name="success">/home.jsp</result>
         </action>
 
         <action name="viewInfo" class="action.UserInfoAction" method="viewInfo">

@@ -40,4 +40,17 @@
         <property name="commentService" ref="commentService"/>
         <property name="productService" ref="productService"/>
     </bean>
+    <bean class="serviceImpl.AddressServiceImpl" id="addressService">
+        <property name="dao" ref="dao"/>
+    </bean>
+    <bean class="action.AddressAction" id="addressAction">
+        <property name="addressService" ref="addressService"/>
+        <property name="userService" ref="userService"/>
+    </bean>
+    <bean class="action.UserInfoAction" id="userInfoAction">
+        <property name="userService" ref="userService"/>
+    </bean>
+    <bean class="action.UserAction" id="userAction">
+        <property name="userService" ref="userService"/>
+    </bean>
 </beans>

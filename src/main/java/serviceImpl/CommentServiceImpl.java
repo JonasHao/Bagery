@@ -9,6 +9,7 @@ import java.util.List;
 
 
 public class CommentServiceImpl implements CommentService {
+
     private Dao dao;
 
     @Override
@@ -44,8 +45,5 @@ public class CommentServiceImpl implements CommentService {
     public void deleteComment(int commentId) {
         dao.delete(commentId);
 
-    }
-    public void setDao(Dao dao) {
-        this.dao = dao;
     }
 }
