@@ -3,9 +3,11 @@
 <%@attribute name="img" fragment="true" %>
 <%@attribute name="title" fragment="true" %>
 <%@attribute name="color" fragment="true" %>
-<%@attribute name="price" fragment="true" %>
+<%@attribute name="salePrice" fragment="true" %>
+<%@attribute name="unitPrice" fragment="true" %>
 <%@attribute name="number" fragment="true" %>
 <%@attribute name="totalPrice" fragment="true" %>
+<%@attribute name="itemId" fragment="true" %>
 <div class="card">
     <div class="row">
         <div class="col-md-2">
@@ -34,8 +36,10 @@
                 </div>
 
                 <div class="col-md-3">
+                    <div class="unit-price"><i class="fa fa-rmb" aria-hidden="true"></i>
+                        <jsp:invoke fragment="unitPrice"/></div>
                     <i class="fa fa-rmb" aria-hidden="true"></i>
-                    <jsp:invoke fragment="price"/>
+                        <jsp:invoke fragment="salePrice"/>
                 </div>
 
                 <div class="col-md-2">
@@ -46,10 +50,17 @@
                     <i class="fa fa-rmb" aria-hidden="true"></i>
                     <jsp:invoke fragment="totalPrice"/>
                 </div>
-
+                <s:url var="deleteCartUrl" action="deleteCart">
+                    <s:param name="itemId">
+                        <jsp:invoke fragment="itemId"/>
+                    </s:param>
+                </s:url>
                 <div class="col-md-2">
-                    <i class="fa fa-trash" aria-hidden="true"></i>删除
+                    <s:a href="%{deleteCartUrl}">
+                        <i class="fa fa-trash" aria-hidden="true"></i>删除
+                    </s:a>
                 </div>
+
             </div>
         </div>
 

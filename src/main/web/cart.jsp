@@ -7,13 +7,14 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 
 <t:base>
 
     <jsp:attribute name="title">购物车列表</jsp:attribute>
     <jsp:attribute name="breadcrumb">
        <ol class="breadcrumb">
-           <li><a href="index.jsp">首页</a></li>
+           <li><a href="/index.jsp">首页</a></li>
            <li class="active">购物车列表</li>
        </ol>
     </jsp:attribute>
@@ -49,16 +50,18 @@
                 </div>
             </div>
             <br/>
-
+            <s:iterator value="cartItemList">
             <t:cartItem>
-                <jsp:attribute name="title">商品名字</jsp:attribute>
-                <jsp:attribute name="number">1</jsp:attribute>
-                <jsp:attribute name="color">红色</jsp:attribute>
-                <jsp:attribute name="img">img/bags/bag1.png</jsp:attribute>
-                <jsp:attribute name="totalPrice">999999</jsp:attribute>
-                <jsp:attribute name="price">999999</jsp:attribute>
+                <jsp:attribute name="title"><s:property value="productByProductId.pricedByPricedId.title"/></jsp:attribute>
+                <jsp:attribute name="number"><s:property value="num"/></jsp:attribute>
+                <jsp:attribute name="color"><s:property value="productByProductId.color"/></jsp:attribute>
+                <jsp:attribute name="img">../img/bags/bag1.png</jsp:attribute>
+                <jsp:attribute name="totalPrice"><s:property value="totalPriced"/></jsp:attribute>
+                <jsp:attribute name="unitPrice"><s:property value="productByProductId.pricedByPricedId.unitPrice"/></jsp:attribute>
+                <jsp:attribute name="salePrice"><s:property value="productByProductId.pricedByPricedId.salePrice"/></jsp:attribute>
+                <jsp:attribute name="itemId"><s:property value="itemId"/></jsp:attribute>
             </t:cartItem>
-
+            </s:iterator>
         </div>
         <!--/.Main layout-->
     </jsp:body>

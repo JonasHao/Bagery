@@ -5,6 +5,7 @@
 <%@attribute name="price" fragment="true" %>
 <%@attribute name="favoriteId" type="java.lang.Integer" %>
 <%@attribute name="pricedId" fragment="true" %>
+<%@attribute name="itemId" fragment="true" %>
 <div class="card card-favorite">
 
     <%--todo 更新商品详情action--%>
@@ -14,17 +15,32 @@
         </s:param>
     </s:url>
 
+    <s:url var="unfavorUrl" action="unfavor">
+        <s:param name="itemId">
+            <jsp:invoke fragment="itemId"/>
+        </s:param>
+    </s:url>
+
+    <!--Card image-->
+    <div class="view overlay hm-white-slight ">
+        <img src="<jsp:invoke fragment="img"/>" class="img-fluid" alt="">
+
+        <s:a href="%{productUrl}">
+            <div class="mask">
+                <s:a cssClass="label-delete" href="%{unfavorUrl}">
+                    <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
+                </s:a>
+
+            </div>
+        </s:a>
 
 
-        <!--Card image-->
-        <div class="view overlay hm-white-slight">
-            <img src="<jsp:invoke fragment="img"/>" class="img-fluid" alt="">
 
-            <s:a href="%{productUrl}">
-                <div class="mask"></div>
-            </s:a>
-        </div>
-        <!--/.Card image-->
+    </div>
+    <!--/.Card image-->
+
+
+
 
     <!--Card content-->
     <div class="card-block product-text">

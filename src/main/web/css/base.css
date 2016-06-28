@@ -81,21 +81,33 @@ a {
 }
 
 .color-icon {
-    color: blue;=
+    color: blue;
+=
 }
 
 .cart-item-block {
-    padding-top:2rem ;
+    padding-top: 2rem;
 }
 
 .bag-color {
-    color:gray;
+    color: gray;
 }
 
 #body {
     min-height: 30rem;
 }
 
-.btn-primary{
+.btn-primary {
     background: #687790;
+}
+
+.unit-price {
+    color: grey;
+    text-decoration: line-through;
+}
+
+.label-delete {
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
 }

@@ -1,3 +1,4 @@
+<%@ tag import="constant.Config" %>
 <%@tag description="Overall Page template" pageEncoding="UTF-8" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <!-- Collapse button-->
@@ -47,13 +48,14 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
                             <%
-                                Object user = session.getAttribute("user");
-                                boolean logged = (user != null);
+                                if(Config.DEBUG){
+                                    session.setAttribute("user","Bagery");
+                                }
                             %>
-                            <s:if test="logged">
+                            <s:if test="#session.user!=null">
                                 <a class="dropdown-item" href="#">个人中心</a>
                                 <a class="dropdown-item" href="#">我的订单</a>
-                                <a class="dropdown-item" href="#">收藏夹</a>
+                                <s:a class="dropdown-item" action="queryFavorite" namespace="/favorite">收藏夹</s:a>
                                 <a class="dropdown-item" href="#">退出</a>
                             </s:if>
                             <s:else>
@@ -64,9 +66,11 @@
                         </div>
                     </div>
                 </div>
+                <s:a action="queryCart" namespace="/cart">
                 <button class="btn-sm btn-link nav-btn-cart" type="button">
                     <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i>
                 </button>
+                </s:a>
             </div>
 
         </div>

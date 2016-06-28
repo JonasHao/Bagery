@@ -33,7 +33,7 @@
                             <jsp:attribute name="price"><s:property value="pricedByPricedId.unitPrice" /></jsp:attribute>
                             <jsp:attribute name="favoriteId"><s:property value="itemId" /></jsp:attribute>
                             <jsp:attribute name="pricedId"><s:property value="pricedId" /></jsp:attribute>
-
+                            <jsp:attribute name="itemId"><s:property value="itemId" /></jsp:attribute>
                         </t:favoriteItem>
                     </div>
                 </s:iterator>
