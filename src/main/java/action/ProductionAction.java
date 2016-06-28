@@ -23,6 +23,7 @@ public class ProductionAction extends DefaultActionSupport {
     private Priced priced;
     private Product product;
     private User user;
+    private PricedPro pricedPro;
 	private List<Product> products;
 	private List<Priced> priceds;
     private List<Property> pros;
@@ -49,7 +50,6 @@ public class ProductionAction extends DefaultActionSupport {
             return ERROR;
        }
 	}
-
 	public String addProduct()
 	{
  		try {
@@ -64,22 +64,37 @@ public class ProductionAction extends DefaultActionSupport {
             return ERROR;
        }
 	}
-//    public String add()
-//    {
-//        try {
-//            priced=new Priced();
-//            priced.setTitle(title);
-//            priced.setDescription(description);
-//            priced.setUnitPrice(unit_price);
-//            priced.setSalePrice(sale_price);
-//            productService.addPriced(priced);
-//
-//            return SUCCESS;
-//        }catch(HibernateException e){
-//            e.printStackTrace();
-//            return ERROR;
-//        }
-//    }
+    public String add()
+    {
+        try {
+            priced=new Priced();
+            priced.setTitle(title);
+            priced.setDescription(description);
+            priced.setUnitPrice(unit_price);
+            priced.setSalePrice(sale_price);
+            productService.addPriced(priced);
+            priced_id=priced.getPricedId();
+            for(Product product:products)
+            {
+                product=new Product();
+                product.setPricedId(priced_id);
+                product.setColor(color);
+                product.setStock(stock);
+                productService.addProduct(product);
+            }
+            for(Property property:pros)
+            {
+                pricedPro=new PricedPro();
+                pricedPro.setPricedId(priced_id);
+                pricedPro.setProId(property.getProId());
+                productService.addProduct(product);
+            }
+            return SUCCESS;
+        }catch(HibernateException e){
+            e.printStackTrace();
+            return ERROR;
+        }
+    }
 	public String viewProduct()
 	{
 		try {
@@ -120,6 +135,10 @@ public class ProductionAction extends DefaultActionSupport {
             e.printStackTrace();
             return ERROR;
         }
+    }
+    public String update()
+    {
+            return SUCCESS;
     }
     public String deletePriced()
     {
@@ -354,5 +373,12 @@ public class ProductionAction extends DefaultActionSupport {
 
     public void setConmments(List<Comment> conmments) {
         this.comments = conmments;
+    }
+    public PricedPro getPricedpro() {
+        return pricedPro;
+    }
+
+    public void setPricedpro(PricedPro pricedPro) {
+        this.pricedPro = pricedPro;
     }
 }
