@@ -348,11 +348,11 @@ public class ProductionAction extends DefaultActionSupport {
         this.commentService = commentService;
     }
 
-    public List<Comment> getConmments() {
-        return conmments;
+    public List<Comment> getComments() {
+        return comments;
     }
 
     public void setConmments(List<Comment> conmments) {
-        this.conmments = conmments;
+        this.comments = conmments;
     }
 }
