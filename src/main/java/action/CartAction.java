@@ -2,10 +2,13 @@ package action;
 
 import com.opensymphony.xwork2.ActionSupport;
 import po.CartItem;
+import po.Priced;
+import po.Product;
 import po.User;
 import service.CartService;
 import service.UserService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,10 +22,23 @@ public class CartAction extends ActionSupport{
     private int itemId;
     private CartService cartService;
     private UserService userService;
-    private List<CartItem> cartItemList;
+    private List<CartItem> cartItemList=new ArrayList<CartItem>();
     public String queryCart(){
-        user=userService.getCurrentUser();
-        cartItemList= (List<CartItem>) user.getCartItemsByUserId();
+//        user=userService.getCurrentUser();
+//        cartItemList= (List<CartItem>) user.getCartItemsByUserId();
+        cartItem=new CartItem();
+        cartItem.setNum(2);
+        cartItem.setItemId(1);
+        cartItem.setTotalPriced(9999);
+        Product product=new Product();
+        product.setColor("red");
+        Priced priced=new Priced();
+        priced.setTitle("TITLE TEST");
+        priced.setUnitPrice(10000);
+        priced.setSalePrice(9999);
+        product.setPricedByPricedId(priced);
+        cartItem.setProductByProductId(product);
+        cartItemList.add(cartItem);
         return SUCCESS;
     }
     public String addCart(){
