@@ -12,7 +12,7 @@
     <title>List</title>
 </head>
 <body>
-<s:form  action="test/addList">
+<s:form  namespace="/test" action="addList">
     <s:iterator status="st" begin="1" end="4">
         <s:textfield label="id" name="%{'itemList['+#st.index+'].id'}"/>
         <s:textfield label="tag" name="%{'itemList['+#st.index+'].tag'}"/>
