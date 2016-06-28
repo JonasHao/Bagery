@@ -64,22 +64,22 @@ public class ProductionAction extends DefaultActionSupport {
             return ERROR;
        }
 	}
-    public String add()
-    {
-        try {
-            priced=new Priced();
-            priced.setTitle(title);
-            priced.setDescription(description);
-            priced.setUnitPrice(unit_price);
-            priced.setSalePrice(sale_price);
-            productService.addPriced(priced);
-
-            return SUCCESS;
-        }catch(HibernateException e){
-            e.printStackTrace();
-            return ERROR;
-        }
-    }
+//    public String add()
+//    {
+//        try {
+//            priced=new Priced();
+//            priced.setTitle(title);
+//            priced.setDescription(description);
+//            priced.setUnitPrice(unit_price);
+//            priced.setSalePrice(sale_price);
+//            productService.addPriced(priced);
+//
+//            return SUCCESS;
+//        }catch(HibernateException e){
+//            e.printStackTrace();
+//            return ERROR;
+//        }
+//    }
 	public String viewProduct()
 	{
 		try {
