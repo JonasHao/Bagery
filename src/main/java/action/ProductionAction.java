@@ -12,6 +12,7 @@ import service.*;
 public class ProductionAction extends DefaultActionSupport {
 	private int product_id;
     private int priced_id;
+    private int pricedpro_id;
     private int user_id;
 	private String title;
     private String description;
@@ -32,8 +33,6 @@ public class ProductionAction extends DefaultActionSupport {
 	private ProductService productService;
     private UserService userService;
     private CommentService commentService;
-
-
 
 	public String addPriced()throws Exception
 	{
@@ -87,7 +86,7 @@ public class ProductionAction extends DefaultActionSupport {
                 pricedPro=new PricedPro();
                 pricedPro.setPricedId(priced_id);
                 pricedPro.setProId(property.getProId());
-                productService.addProduct(product);
+                productService.addPricedPro(pricedPro);
             }
             return SUCCESS;
         }catch(HibernateException e){
@@ -107,7 +106,6 @@ public class ProductionAction extends DefaultActionSupport {
             return ERROR;
        }
 	}
-
 	public String updatePriced()
 	{
         try {
@@ -136,9 +134,30 @@ public class ProductionAction extends DefaultActionSupport {
             return ERROR;
         }
     }
-    public String update()
-    {
+    public String update() {
+        try {
+            priced = productService.findPriced(priced_id);
+            priced.setTitle(title);
+            priced.setDescription(description);
+            priced.setUnitPrice(unit_price);
+            priced.setSalePrice(sale_price);
+            productService.updatePriced(priced);
+            for (Product product : products) {
+                product = productService.findProduct(product_id);
+                product.setColor(color);
+                product.setStock(stock);
+                productService.updateProduct(product);
+            }
+            for (Property property : pros) {
+                pricedPro = productService.findPricedPro(pricedpro_id);
+                pricedPro.setProId(property.getProId());
+                productService.updatePricedPro(pricedPro);
+            }
             return SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ERROR;
+        }
     }
     public String deletePriced()
     {
@@ -371,14 +390,33 @@ public class ProductionAction extends DefaultActionSupport {
         return comments;
     }
 
-    public void setConmments(List<Comment> conmments) {
-        this.comments = conmments;
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
+
     public PricedPro getPricedpro() {
         return pricedPro;
     }
 
-    public void setPricedpro(PricedPro pricedPro) {
+    public void setPricedpro(PricedPro pricedpro) {
+        this.pricedPro = pricedpro;
+    }
+
+    public int getPricedpro_id() {
+        return pricedpro_id;
+    }
+
+    public void setPricedpro_id(int pricedpro_id) {
+        this.pricedpro_id = pricedpro_id;
+    }
+
+    public PricedPro getPricedPro() {
+        return pricedPro;
+    }
+
+    public void setPricedPro(PricedPro pricedPro) {
         this.pricedPro = pricedPro;
     }
+
+
 }

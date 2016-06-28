@@ -148,4 +148,37 @@
             <result name="success"></result>
         </action>
     </package>
+
+
+    <package name="product" namespace="/product" extends="default">
+        <default-interceptor-ref name="myStack"/>
+
+        <action name="add" class="action.ProductionAction" method="add">
+            <result name="success"></result>
+            <result name="input"></result>
+        </action>
+        <action name="viewProduct" class="action.ProductionAction" method="viewProduct">
+            <result name="success"></result>
+        </action>
+        <action name="update" class="action.ProductionAction" method="update">
+            <result name="success"></result>
+            <result name="input"></result>
+        </action>
+        <action name="deletePriced" class="action.ProductionAction" method="deletePriced">
+            <result name="success"></result>
+        </action>
+        <action name="viewPricedList" class="action.ProductionAction" method="viewPricedList">
+            <result name="success"></result>
+        </action>
+        <action name="viewHistoryRecord" class="action.ProductionAction" method="viewHistoryRecord">
+            <result name="success"></result>
+        </action>
+        <action name="findPricedsByWord" class="action.ProductionAction" method="findPricedsByWord">
+            <result name="success"></result>
+        </action>
+        <action name="findPricedsByPro" class="action.ProductionAction" method="findPricedsByPro">
+            <result name="success"></result>
+        </action>
+    </package>
+
 </struts>
