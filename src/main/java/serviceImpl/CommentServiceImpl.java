@@ -6,8 +6,6 @@ import service.CommentService;
 
 import java.util.List;
 
-
-
 public class CommentServiceImpl implements CommentService {
 
     private Dao dao;

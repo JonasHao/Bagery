@@ -9,6 +9,8 @@ import service.AddressService;
  */
 public class AddressServiceImpl implements AddressService {
 
+
+
     private Dao dao;
     @Override
     public void add(Address address) {
@@ -28,5 +30,10 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public void delete(Address address) {
         dao.delete(address);
+    }
+
+
+    public void setDao(Dao dao) {
+        this.dao = dao;
     }
 }

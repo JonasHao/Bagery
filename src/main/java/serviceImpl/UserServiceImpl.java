@@ -24,21 +24,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String login(String username, String password) {
-        user=(User)dao.query("from User where username=?").setParameter(0,username);
+        user=(User)dao.query("from User where username=?").setParameter(0,username).list().get(0);
 
         if(user.getPassword().equals(password))
         {
             ActionContext.getContext().getSession().put("User",user);
             if(user.getUserGroup().equals("product_admin")){
-                return "product_admin_success";
+                return "success";
             }
             else
             {
                 if(user.getUserGroup().equals("order_admin")){
-                    return "order_amdin_success";
+                    return "success";
                 }
                 else
-                    return "user_success";
+                    return "success";
             }
         }
         else return "error";
