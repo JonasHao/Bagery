@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+
+    <package name="default" extends="struts-default">
+        <interceptors>
+            <interceptor name="loginChecker" class="interceptor.CheckLoginInterceptor"/>
+            <interceptor-stack name="myStack">
+                <interceptor-ref name="loginChecker"/>
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+        </interceptors>
+
+        <global-results>
+            <result name="login">/login.jsp</result>
+            <result name="error">/error.jsp</result>
+        </global-results>
+
+    </package>
+
+    <package name="comment" namespace="/comment" extends="default">
+
+        <!--<default-interceptor-ref name="myStack"/>-->
+
+        <action name="viewComment" class="action.CommentAction" method="viewComment">
+            <result name="success">/index.jsp</result>
+        </action>
+
+        <action name="addComment" class="action.CommentAction" method="addComment">
+            <result name="success">/index.jsp</result>
+        </action>
+
+        <action name="appendComment" class="action.CommentAction" method="appendComment">
+            <result name="success">/index.jsp</result>
+        </action>
+
+        <action name="deleteComment" class="action.CommentAction" method="deleteComment">
+            <result name="success">/index.jsp</result>
+        </action>
+
+        <action name="replyComment" class="action.CommentAction" method="replyComment">
+            <result name="success">/index.jsp</result>
+        </action>
+    </package>
+
+
+
+    <package name="user" namespace="/user" extends="default">
+        <!--<default-interceptor-ref name="myStack"/>-->
+
+        <action name="register" class="action.UserAction" method="register">
+            <result name="success"></result>
+            <result name="input"></result>
+        </action>
+
+        <action name="login" class="action.UserAction" method="login">
+            <result name="input"></result>
+            <result name="wrong_username"></result>
+            <result name="error"></result>
+            <result name="success"></result>
+        </action>
+
+        <action name="logout" class="action.UserAction" method="logout">
+            <result name="success"></result>
+        </action>
+
+        <action name="viewInfo" class="action.UserInfoAction" method="viewInfo">
+            <result name="success"></result>
+        </action>
+
+        <action name="update" class="action.UserInfoAction" method="update">
+            <result name="success"></result>
+            <result name="error"></result>
+            <result name="input"></result>
+        </action>
+    </package>
+
+    <package name="favorite" namespace="/favorite" extends="default">
+        <!--<default-interceptor-ref name="myStack"/>-->
+
+        <action name="favor" class="action.FavoriteAction" method="favor">
+            <result name="success">/login.jsp</result>
+        </action>
+
+        <action name="unfavor" class="action.FavoriteAction" method="unfavor">
+            <result name="success">/login.jsp</result>
+        </action>
+
+        <action name="queryFavorite" class="action.FavoriteAction" method="queryFavorite">
+            <result name="success">/favorite.jsp</result>
+        </action>
+
+        <action name="viewProduct" class="action.ProductionAction" method="viewProduct">
+            <result name="success">/detail.jsp</result>
+        </action>
+    </package>
+
+    <package name="cart" namespace="/cart" extends="default">
+        <global-results>
+            <result name="error">/error.jsp</result>
+            <result name="login">/login.jsp</result>
+        </global-results>
+
+        <action name="addCart" class="action.CartAction" method="addCart">
+            <result name="success">/login.jsp</result>
+        </action>
+
+        <action name="deleteCart" class="action.CartAction" method="deleteCart">
+            <result name="success">/login.jsp</result>
+        </action>
+
+        <action name="queryCart" class="action.CartAction" method="queryCart">
+            <result name="success">/login.jsp</result>
+        </action>
+
+        <action name="updateCart" class="action.CartAction" method="updateCart">
+            <result name="success">/login.jsp</result>
+        </action>
+    </package>
+
+    <package name="address" namespace="/address" extends="default">
+        <default-interceptor-ref name="myStack"/>
+
+        <action name="viewAddress" class="action.AddressAction" method="viewAddress">
+            <result name="success"></result>
+        </action>
+
+        <action name="addAddress" class="action.AddressAction" method="addAddress">
+            <result name="success"></result>
+            <result name="input"></result>
+        </action>
+
+        <action name="deleteAddress" class="action.AddressAction" method="deleteAddress">
+            <result name="success"></result>
+        </action>
+
+        <action name="updateAddress" class="action.AddressAction" method="updateAddress">
+            <result name="input"></result>
+            <result name="success"></result>
+        </action>
+    </package>
+</struts>

@@ -1,7 +1,7 @@
 /* TEMPLATE STYLES */
 
 main {
-    padding-top: 2rem;
+    padding-top: 1rem;
     padding-bottom: 2rem;
 }
 
@@ -54,7 +54,6 @@ a {
     margin: 0;
 }
 
-
 .product-card-wrapper {
     padding: 2rem;
 }
@@ -82,7 +81,7 @@ a {
 }
 
 .color-icon {
-    color: blue;
+    color: blue;=
 }
 
 .cart-item-block {
@@ -91,4 +90,12 @@ a {
 
 .bag-color {
     color:gray;
+}
+
+#body {
+    min-height: 30rem;
+}
+
+.btn-primary{
+    background: #687790;
 }

@@ -2,3 +2,19 @@
     padding-left: 5rem;
     padding-right: 5rem;
 }
+
+.address-info {
+    font-family: "Microsoft YaHei UI", serif;
+}
+
+.address-line {
+    padding-bottom: .5rem;
+}
+
+.address-title {
+    margin-bottom: 2rem;
+}
+
+#address-form {
+    margin-top: 3rem;
+}

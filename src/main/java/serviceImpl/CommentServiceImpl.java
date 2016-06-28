@@ -6,9 +6,8 @@ import service.CommentService;
 
 import java.util.List;
 
-/**
- * Created by Ğ¡¹ÖÊŞµÄ°ÂÌØÂü½´ on 2016/6/23.
- */
+
+
 public class CommentServiceImpl implements CommentService {
 
     private Dao dao;
