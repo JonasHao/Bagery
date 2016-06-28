@@ -2,10 +2,12 @@ package action;
 
 import java.util.List;
 
+import com.opensymphony.xwork2.ActionContext;
 import org.apache.struts2.dispatcher.DefaultActionSupport;
 import org.hibernate.HibernateException;
 import service.ProductService;
 import po.*;
+import service.*;
 
 public class ProductionAction extends DefaultActionSupport {
 	private int product_id;
@@ -20,11 +22,16 @@ public class ProductionAction extends DefaultActionSupport {
     private String word;
     private Priced priced;
     private Product product;
+    private User user;
 	private List<Product> products;
 	private List<Priced> priceds;
     private List<Property> pros;
     private List<UserPricedRecord> records;
+    private List<Comment> comments;
 	private ProductService productService;
+    private UserService userService;
+    private CommentService commentService;
+
 
 
 	public String addPriced()throws Exception
@@ -46,7 +53,7 @@ public class ProductionAction extends DefaultActionSupport {
 	public String addProduct()
 	{
  		try {
-            Product product=new Product();
+            product=new Product();
             product.setPricedId(priced_id);
             product.setColor(color);
             product.setStock(stock);
@@ -57,18 +64,33 @@ public class ProductionAction extends DefaultActionSupport {
             return ERROR;
        }
 	}
-
+//    public String add()
+//    {
+//        try {
+//            priced=new Priced();
+//            priced.setTitle(title);
+//            priced.setDescription(description);
+//            priced.setUnitPrice(unit_price);
+//            priced.setSalePrice(sale_price);
+//            productService.addPriced(priced);
+//
+//            return SUCCESS;
+//        }catch(HibernateException e){
+//            e.printStackTrace();
+//            return ERROR;
+//        }
+//    }
 	public String viewProduct()
 	{
-        return SUCCESS;
-//		try {
-//			priced=productService.findPriced(priced_id);
-//            products=productService.findProductsByPriced(priced_id);
-//			return SUCCESS;
-//		}catch(HibernateException e){
-//           e.printStackTrace();
-//            return ERROR;
-//       }
+		try {
+			priced=productService.findPriced(priced_id);
+            products=productService.findProductsByPriced(priced_id);
+            comments=commentService.getByPricedId(priced_id);
+			return SUCCESS;
+		}catch(HibernateException e){
+           e.printStackTrace();
+            return ERROR;
+       }
 	}
 
 	public String updatePriced()
@@ -144,7 +166,8 @@ public class ProductionAction extends DefaultActionSupport {
     public String viewHistoryRecord()
     {
         try {
-            records=productService.findHistoryRecord(user_id);
+            user = userService.getCurrentUser();
+            records=productService.findHistoryRecord(user.getUserId());
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -300,4 +323,36 @@ public class ProductionAction extends DefaultActionSupport {
     public String getWord() {return word;}
 
     public void setWord(String word) {this.word = word;}
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public UserService getUserService() {
+        return userService;
+    }
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
+    public CommentService getCommentService() {
+        return commentService;
+    }
+
+    public void setCommentService(CommentService commentService) {
+        this.commentService = commentService;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setConmments(List<Comment> conmments) {
+        this.comments = conmments;
+    }
 }

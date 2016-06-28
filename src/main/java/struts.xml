@@ -83,6 +83,7 @@
             <result name="input"></result>
         </action>
     </package>
+
     <package name="favorite" namespace="/favorite" extends="default">
         <!--<default-interceptor-ref name="myStack"/>-->
 

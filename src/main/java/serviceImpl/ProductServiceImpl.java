@@ -8,6 +8,10 @@ import java.util.List;
 
 
 public class ProductServiceImpl implements ProductService {
+    public void setDao(Dao dao) {
+        this.dao = dao;
+    }
+
     private Dao dao;
 
     /**
@@ -62,7 +66,8 @@ public class ProductServiceImpl implements ProductService {
      */
     public List<Priced>findPricedsByWord(String keyword)
     {
-        return null;
+        return dao.query("from Priced where Priced.title like '%?%'").setParameter(0,keyword).list();
+
     }
     /**
      * 通过商品查找商品颜色
