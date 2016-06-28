@@ -14,19 +14,30 @@
     <bean class="serviceImpl.CartServiceImpl" id="cartService">
         <property name="dao" ref="dao"/>
     </bean>
+    <bean class="serviceImpl.UserServiceImpl" id="userService">
+        <property name="dao" ref="dao"/>
+    </bean>
+    <bean class="serviceImpl.FavoriteServiceImpl" id="favoriteService">
+        <property name="dao" ref="dao"/>
+    </bean>
+    <bean class="serviceImpl.ProductServiceImpl" id="productService">
+        <property name="dao" ref="dao"/>
+    </bean>
+    <bean class="serviceImpl.CommentServiceImpl" id="commentService">
+        <property name="dao" ref="dao"/>
+    </bean>
+
     <bean class="action.CartAction" id="cartAction">
         <property name="cartService" ref="cartService"/>
         <property name="userService" ref="userService"/>
-    </bean>
-    <bean class="serviceImpl.UserServiceImpl" id="userService">
-        <property name="dao" ref="dao"/>
     </bean>
     <bean class="action.FavoriteAction" id="favoriteAction">
         <property name="userService" ref="userService"/>
         <property name="favoriteService" ref="favoriteService"/>
     </bean>
-    <bean class="serviceImpl.FavoriteServiceImpl" id="favoriteService">
-        <property name="dao" ref="dao"/>
+    <bean class="action.ProductionAction" id="productAction">
+        <property name="userService" ref="userService"/>
+        <property name="commentService" ref="commentService"/>
+        <property name="productService" ref="productService"/>
     </bean>
-
 </beans>
