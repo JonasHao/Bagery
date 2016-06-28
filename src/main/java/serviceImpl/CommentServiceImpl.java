@@ -46,4 +46,7 @@ public class CommentServiceImpl implements CommentService {
         dao.delete(commentId);
 
     }
+    public void setDao(Dao dao) {
+        this.dao = dao;
+    }
 }
