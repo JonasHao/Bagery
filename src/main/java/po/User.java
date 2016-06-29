@@ -11,7 +11,7 @@ public class User {
     private int userId;
     private String username;
     private String password;
-    private String realname;
+    private String realName;
     private String email;
     private String img;
     private int score;
@@ -57,12 +57,12 @@ public class User {
 
     @Basic
     @Column(name = "realname", nullable = true, insertable = true, updatable = true, length = 30)
-    public String getRealname() {
-        return realname;
+    public String getRealName() {
+        return realName;
     }
 
-    public void setRealname(String realname) {
-        this.realname = realname;
+    public void setRealName(String realname) {
+        this.realName = realname;
     }
 
     @Basic
@@ -137,7 +137,7 @@ public class User {
         if (isActivate != user.isActivate) return false;
         if (username != null ? !username.equals(user.username) : user.username != null) return false;
         if (password != null ? !password.equals(user.password) : user.password != null) return false;
-        if (realname != null ? !realname.equals(user.realname) : user.realname != null) return false;
+        if (realName != null ? !realName.equals(user.realName) : user.realName != null) return false;
         if (email != null ? !email.equals(user.email) : user.email != null) return false;
         if (img != null ? !img.equals(user.img) : user.img != null) return false;
         if (defShipInfId != null ? !defShipInfId.equals(user.defShipInfId) : user.defShipInfId != null) return false;
@@ -151,7 +151,7 @@ public class User {
         int result = userId;
         result = 31 * result + (username != null ? username.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (realname != null ? realname.hashCode() : 0);
+        result = 31 * result + (realName != null ? realName.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (img != null ? img.hashCode() : 0);
         result = 31 * result + score;

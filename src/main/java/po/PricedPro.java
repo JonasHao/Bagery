@@ -12,7 +12,7 @@ public class PricedPro {
     private int pricedId;
     private int proId;
     private Priced priced;
-    private Propertity propertity;
+    private Property property;
 
     @Id
     @Column(name = "pp_id", nullable = false, insertable = true, updatable = true)
@@ -78,11 +78,11 @@ public class PricedPro {
 
     @ManyToOne
     @JoinColumn(name = "pro_id", referencedColumnName = "pro_id", nullable = false)
-    public Propertity getPropertity() {
-        return propertity;
+    public Property getProperty() {
+        return property;
     }
 
-    public void setPropertity(Propertity propertity) {
-        this.propertity = propertity;
+    public void setProperty(Property property) {
+        this.property = property;
     }
 }

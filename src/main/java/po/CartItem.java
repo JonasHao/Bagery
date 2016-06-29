@@ -1,7 +1,7 @@
 package po;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
+
 
 /**
  * Created by 41159 on 2016/6/29.
@@ -11,7 +11,7 @@ public class CartItem {
     private int itemId;
     private int productId;
     private int num;
-    private BigDecimal totalPriced;
+    private Double totalPriced;
     private int userId;
     private Product product;
     private User user;
@@ -48,11 +48,11 @@ public class CartItem {
 
     @Basic
     @Column(name = "total_priced", nullable = true, insertable = true, updatable = true, precision = 0)
-    public BigDecimal getTotalPriced() {
+    public Double getTotalPriced() {
         return totalPriced;
     }
 
-    public void setTotalPriced(BigDecimal totalPriced) {
+    public void setTotalPriced(Double totalPriced) {
         this.totalPriced = totalPriced;
     }
 

@@ -1,7 +1,6 @@
 package po;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Collection;
 
 /**
@@ -13,7 +12,7 @@ public class Order {
     private int orderId;
     private int userId;
     private int addressId;
-    private BigDecimal total;
+    private Double total;
     private String instruction;
     private String orderStatus;
     private String courierNumber;
@@ -54,11 +53,11 @@ public class Order {
 
     @Basic
     @Column(name = "total", nullable = true, insertable = true, updatable = true, precision = 0)
-    public BigDecimal getTotal() {
+    public Double getTotal() {
         return total;
     }
 
-    public void setTotal(BigDecimal total) {
+    public void setTotal(Double total) {
         this.total = total;
     }
 

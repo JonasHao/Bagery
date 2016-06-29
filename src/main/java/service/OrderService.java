@@ -1,6 +1,7 @@
 package service;
 
 
+import po.Comment;
 import po.Order;
 
 import java.util.List;
@@ -14,7 +15,12 @@ public interface OrderService {
     /**
      * 查询订单
      */
-    Order getOrder(int orderId);
+    Order getByOrderId(int orderId);
+
+    /**
+     * 在数据库中更新comment信息
+     */
+    void updateOrder(Order order);
 
     /**
      * 删除订单

@@ -49,7 +49,17 @@
             <result name="success">/index.jsp</result>
         </action>
 
+        <action name="queryOrder" class="action.OrderAction" method="queryOrder">
+            <result name="success">/index.jsp</result>
+        </action>
 
+        <action name="deleteOrder" class="action.OrderAction" method="deleteOrder">
+            <result name="success">/index.jsp</result>
+        </action>
+
+        <action name="cancelOrder" class="action.OrderAction" method="cancelOrder">
+            <result name="success">/index.jsp</result>
+        </action>
     </package>
 
 

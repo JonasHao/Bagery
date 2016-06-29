@@ -46,7 +46,7 @@ public class FavoriteAction extends ActionSupport {
         Priced priced = new Priced();
         priced.setTitle("TITLE TEST");
         priced.setUnitPrice(999);
-        item.setPricedByPricedId(priced);
+        item.setPriced(priced);
         item.setPricedId(1);
 
         FavoriteItem favoriteItem1 = new FavoriteItem();
@@ -55,7 +55,7 @@ public class FavoriteAction extends ActionSupport {
         P2.setTitle("TITLE TEST2");
         P2.setUnitPrice(999);
         favoriteItem1.setPricedId(2);
-        favoriteItem1.setPricedByPricedId(P2);
+        favoriteItem1.setPriced(P2);
 
 
         favoriteItemList.add(item);
