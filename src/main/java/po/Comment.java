@@ -3,7 +3,7 @@ package po;
 import javax.persistence.*;
 
 /**
- * Created by 41159 on 2016/6/23.
+ * Created by 41159 on 2016/6/29.
  */
 @Entity
 public class Comment {
@@ -17,7 +17,7 @@ public class Comment {
     private int orderId;
     private User userByUserId;
     private Priced pricedByPricedId;
-    private Orders ordersByOrderId;
+    private Order orderByOrderId;
 
     @Id
     @Column(name = "comment_id", nullable = false, insertable = true, updatable = true)
@@ -70,7 +70,7 @@ public class Comment {
     }
 
     @Basic
-    @Column(name = "priced_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "priced_id", nullable = false, insertable = true, updatable = true)
     public int getPricedId() {
         return pricedId;
     }
@@ -80,7 +80,7 @@ public class Comment {
     }
 
     @Basic
-    @Column(name = "user_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "user_id", nullable = false, insertable = true, updatable = true)
     public int getUserId() {
         return userId;
     }
@@ -90,7 +90,7 @@ public class Comment {
     }
 
     @Basic
-    @Column(name = "order_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "order_id", nullable = false, insertable = true, updatable = true)
     public int getOrderId() {
         return orderId;
     }
@@ -154,11 +154,11 @@ public class Comment {
 
     @ManyToOne
     @JoinColumn(name = "order_id", referencedColumnName = "order_id", nullable = false)
-    public Orders getOrdersByOrderId() {
-        return ordersByOrderId;
+    public Order getOrderByOrderId() {
+        return orderByOrderId;
     }
 
-    public void setOrdersByOrderId(Orders ordersByOrderId) {
-        this.ordersByOrderId = ordersByOrderId;
+    public void setOrderByOrderId(Order orderByOrderId) {
+        this.orderByOrderId = orderByOrderId;
     }
 }

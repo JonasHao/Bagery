@@ -4,17 +4,18 @@ import javax.persistence.*;
 import java.util.Collection;
 
 /**
- * Created by 41159 on 2016/6/23.
+ * Created by 41159 on 2016/6/29.
  */
 @Entity
 public class Priced {
     private int pricedId;
     private String title;
+    private String img;
     private String description;
     private int unitPrice;
     private Integer salePrice;
     private Collection<Comment> commentsByPricedId;
-    private Collection<FavoriteItem> favoriteItemsByPricedId;
+    private Collection<FavoriteItem> favoriteitemsByPricedId;
     private Collection<PricedPro> pricedProsByPricedId;
     private Collection<Product> productsByPricedId;
     private Collection<UserPricedRecord> userPricedRecordsByPricedId;
@@ -37,6 +38,16 @@ public class Priced {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    @Basic
+    @Column(name = "img", nullable = true, insertable = true, updatable = true, length = 65535)
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 
     @Basic
@@ -79,6 +90,7 @@ public class Priced {
         if (pricedId != priced.pricedId) return false;
         if (unitPrice != priced.unitPrice) return false;
         if (title != null ? !title.equals(priced.title) : priced.title != null) return false;
+        if (img != null ? !img.equals(priced.img) : priced.img != null) return false;
         if (description != null ? !description.equals(priced.description) : priced.description != null) return false;
         if (salePrice != null ? !salePrice.equals(priced.salePrice) : priced.salePrice != null) return false;
 
@@ -89,6 +101,7 @@ public class Priced {
     public int hashCode() {
         int result = pricedId;
         result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + (img != null ? img.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + unitPrice;
         result = 31 * result + (salePrice != null ? salePrice.hashCode() : 0);
@@ -105,12 +118,12 @@ public class Priced {
     }
 
     @OneToMany(mappedBy = "pricedByPricedId")
-    public Collection<FavoriteItem> getFavoriteItemsByPricedId() {
-        return favoriteItemsByPricedId;
+    public Collection<FavoriteItem> getFavoriteitemsByPricedId() {
+        return favoriteitemsByPricedId;
     }
 
-    public void setFavoriteItemsByPricedId(Collection<FavoriteItem> favoriteitemsByPricedId) {
-        this.favoriteItemsByPricedId = favoriteitemsByPricedId;
+    public void setFavoriteitemsByPricedId(Collection<FavoriteItem> favoriteitemsByPricedId) {
+        this.favoriteitemsByPricedId = favoriteitemsByPricedId;
     }
 
     @OneToMany(mappedBy = "pricedByPricedId")

@@ -27,6 +27,19 @@
         </action>
     </package>
 
+    <package name="order" namespace="/order" extends="default">
+        <action name="balance" class="action.OrderAction" method="balance">
+            <result name="success">/index.jsp</result>
+        </action>
+
+        <action name="addOrder" class="action.OrderAction" method="addOrder">
+            <result name="success">/index.jsp</result>
+        </action>
+
+
+    </package>
+
+
     <package name="comment" namespace="/comment" extends="default">
 
         <!--<default-interceptor-ref name="myStack"/>-->

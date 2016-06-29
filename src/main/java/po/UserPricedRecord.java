@@ -1,9 +1,10 @@
 package po;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 /**
- * Created by 41159 on 2016/6/23.
+ * Created by 41159 on 2016/6/29.
  */
 @Entity
 @Table(name = "user_priced_record", schema = "", catalog = "bagery")
@@ -11,6 +12,7 @@ public class UserPricedRecord {
     private int userPricedId;
     private int userId;
     private int pricedId;
+    private Timestamp recordDate;
     private Priced pricedByPricedId;
     private User userByUserId;
 
@@ -25,7 +27,7 @@ public class UserPricedRecord {
     }
 
     @Basic
-    @Column(name = "user_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "user_id", nullable = false, insertable = true, updatable = true)
     public int getUserId() {
         return userId;
     }
@@ -35,13 +37,23 @@ public class UserPricedRecord {
     }
 
     @Basic
-    @Column(name = "priced_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "priced_id", nullable = false, insertable = true, updatable = true)
     public int getPricedId() {
         return pricedId;
     }
 
     public void setPricedId(int pricedId) {
         this.pricedId = pricedId;
+    }
+
+    @Basic
+    @Column(name = "record_date", nullable = false, insertable = true, updatable = true)
+    public Timestamp getRecordDate() {
+        return recordDate;
+    }
+
+    public void setRecordDate(Timestamp recordDate) {
+        this.recordDate = recordDate;
     }
 
     @Override
@@ -54,6 +66,7 @@ public class UserPricedRecord {
         if (userPricedId != that.userPricedId) return false;
         if (userId != that.userId) return false;
         if (pricedId != that.pricedId) return false;
+        if (recordDate != null ? !recordDate.equals(that.recordDate) : that.recordDate != null) return false;
 
         return true;
     }
@@ -63,6 +76,7 @@ public class UserPricedRecord {
         int result = userPricedId;
         result = 31 * result + userId;
         result = 31 * result + pricedId;
+        result = 31 * result + (recordDate != null ? recordDate.hashCode() : 0);
         return result;
     }
 

@@ -3,7 +3,7 @@ package po;
 import javax.persistence.*;
 
 /**
- * Created by 41159 on 2016/6/23.
+ * Created by 41159 on 2016/6/29.
  */
 @Entity
 @Table(name = "priced_pro", schema = "", catalog = "bagery")
@@ -25,7 +25,7 @@ public class PricedPro {
     }
 
     @Basic
-    @Column(name = "priced_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "priced_id", nullable = false, insertable = true, updatable = true)
     public int getPricedId() {
         return pricedId;
     }
@@ -35,7 +35,7 @@ public class PricedPro {
     }
 
     @Basic
-    @Column(name = "pro_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "pro_id", nullable = false, insertable = true, updatable = true)
     public int getProId() {
         return proId;
     }
@@ -78,11 +78,11 @@ public class PricedPro {
 
     @ManyToOne
     @JoinColumn(name = "pro_id", referencedColumnName = "pro_id", nullable = false)
-    public Property getPropertityByProId() {
+    public Property getPropertyByProId() {
         return propertyByProId;
     }
 
-    public void setPropertityByProId(Property propertyByProId) {
+    public void setPropertyByProId(Property propertyByProId) {
         this.propertyByProId = propertyByProId;
     }
 }

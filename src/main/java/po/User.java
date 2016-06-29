@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Collection;
 
 /**
- * Created by 41159 on 2016/6/23.
+ * Created by 41159 on 2016/6/29.
  */
 @Entity
 public class User {
@@ -13,15 +13,16 @@ public class User {
     private String password;
     private String realName;
     private String email;
+    private String img;
     private int score;
     private Integer defShipInfId;
     private String userGroup;
-    private byte isAdmin;
-    private Collection<CartItem> cartItemsByUserId;
+    private byte isActivate;
+    private Collection<CartItem> cartitemsByUserId;
     private Collection<Comment> commentsByUserId;
-    private Collection<FavoriteItem> favoriteItemsByUserId;
-    private Collection<Orders> ordersByUserId;
-    private Collection<Address> addressesByUserId;
+    private Collection<FavoriteItem> favoriteitemsByUserId;
+    private Collection<Order> ordersesByUserId;
+    private Collection<Address> shipInformationsByUserId;
     private Collection<UserPricedRecord> userPricedRecordsByUserId;
 
     @Id
@@ -60,8 +61,8 @@ public class User {
         return realName;
     }
 
-    public void setRealName(String realName) {
-        this.realName = realName;
+    public void setRealName(String realname) {
+        this.realName = realname;
     }
 
     @Basic
@@ -75,6 +76,16 @@ public class User {
     }
 
     @Basic
+    @Column(name = "img", nullable = true, insertable = true, updatable = true, length = 65535)
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    @Basic
     @Column(name = "score", nullable = false, insertable = true, updatable = true)
     public int getScore() {
         return score;
@@ -85,7 +96,7 @@ public class User {
     }
 
     @Basic
-    @Column(name = "def_ship_inf_id", nullable = true, insertable = false, updatable = false)
+    @Column(name = "def_ship_inf_id", nullable = true, insertable = true, updatable = true)
     public Integer getDefShipInfId() {
         return defShipInfId;
     }
@@ -105,13 +116,13 @@ public class User {
     }
 
     @Basic
-    @Column(name = "is_admin", nullable = false, insertable = true, updatable = true)
-    public byte getIsAdmin() {
-        return isAdmin;
+    @Column(name = "is_activate", nullable = false, insertable = true, updatable = true)
+    public byte getIsActivate() {
+        return isActivate;
     }
 
-    public void setIsAdmin(byte isAdmin) {
-        this.isAdmin = isAdmin;
+    public void setIsActivate(byte isActivate) {
+        this.isActivate = isActivate;
     }
 
     @Override
@@ -123,11 +134,12 @@ public class User {
 
         if (userId != user.userId) return false;
         if (score != user.score) return false;
-        if (isAdmin != user.isAdmin) return false;
+        if (isActivate != user.isActivate) return false;
         if (username != null ? !username.equals(user.username) : user.username != null) return false;
         if (password != null ? !password.equals(user.password) : user.password != null) return false;
         if (realName != null ? !realName.equals(user.realName) : user.realName != null) return false;
         if (email != null ? !email.equals(user.email) : user.email != null) return false;
+        if (img != null ? !img.equals(user.img) : user.img != null) return false;
         if (defShipInfId != null ? !defShipInfId.equals(user.defShipInfId) : user.defShipInfId != null) return false;
         if (userGroup != null ? !userGroup.equals(user.userGroup) : user.userGroup != null) return false;
 
@@ -141,20 +153,21 @@ public class User {
         result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (realName != null ? realName.hashCode() : 0);
         result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (img != null ? img.hashCode() : 0);
         result = 31 * result + score;
         result = 31 * result + (defShipInfId != null ? defShipInfId.hashCode() : 0);
         result = 31 * result + (userGroup != null ? userGroup.hashCode() : 0);
-        result = 31 * result + (int) isAdmin;
+        result = 31 * result + (int) isActivate;
         return result;
     }
 
     @OneToMany(mappedBy = "userByUserId")
-    public Collection<CartItem> getCartItemsByUserId() {
-        return cartItemsByUserId;
+    public Collection<CartItem> getCartitemsByUserId() {
+        return cartitemsByUserId;
     }
 
-    public void setCartItemsByUserId(Collection<CartItem> cartitemsByUserId) {
-        this.cartItemsByUserId = cartitemsByUserId;
+    public void setCartitemsByUserId(Collection<CartItem> cartitemsByUserId) {
+        this.cartitemsByUserId = cartitemsByUserId;
     }
 
     @OneToMany(mappedBy = "userByUserId")
@@ -167,30 +180,30 @@ public class User {
     }
 
     @OneToMany(mappedBy = "userByUserId")
-    public Collection<FavoriteItem> getFavoriteItemsByUserId() {
-        return favoriteItemsByUserId;
+    public Collection<FavoriteItem> getFavoriteitemsByUserId() {
+        return favoriteitemsByUserId;
     }
 
-    public void setFavoriteItemsByUserId(Collection<FavoriteItem> favoriteitemsByUserId) {
-        this.favoriteItemsByUserId = favoriteitemsByUserId;
-    }
-
-    @OneToMany(mappedBy = "userByUserId")
-    public Collection<Orders> getOrdersByUserId() {
-        return ordersByUserId;
-    }
-
-    public void setOrdersByUserId(Collection<Orders> ordersesByUserId) {
-        this.ordersByUserId = ordersesByUserId;
+    public void setFavoriteitemsByUserId(Collection<FavoriteItem> favoriteitemsByUserId) {
+        this.favoriteitemsByUserId = favoriteitemsByUserId;
     }
 
     @OneToMany(mappedBy = "userByUserId")
-    public Collection<Address> getAddressesByUserId() {
-        return addressesByUserId;
+    public Collection<Order> getOrdersesByUserId() {
+        return ordersesByUserId;
     }
 
-    public void setAddressesByUserId(Collection<Address> shipInformationsByUserId) {
-        this.addressesByUserId = shipInformationsByUserId;
+    public void setOrdersesByUserId(Collection<Order> ordersesByUserId) {
+        this.ordersesByUserId = ordersesByUserId;
+    }
+
+    @OneToMany(mappedBy = "userByUserId")
+    public Collection<Address> getShipInformationsByUserId() {
+        return shipInformationsByUserId;
+    }
+
+    public void setShipInformationsByUserId(Collection<Address> shipInformationsByUserId) {
+        this.shipInformationsByUserId = shipInformationsByUserId;
     }
 
     @OneToMany(mappedBy = "userByUserId")
