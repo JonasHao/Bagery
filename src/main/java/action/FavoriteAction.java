@@ -85,7 +85,7 @@ public class FavoriteAction extends ActionSupport {
     @Override
     public String execute() throws Exception {
         user = userService.getCurrentUser();
-        favoriteItemList = (List<FavoriteItem>) user.getFavoriteItemsByUserId();
+        favoriteItemList = (List<FavoriteItem>) user.getFavoriteitemsByUserId();
         return SUCCESS;
     }
 

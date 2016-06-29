@@ -108,7 +108,7 @@ public class AddressAction extends ActionSupport {
 
     public String viewAddress(){
         user=userService.getCurrentUser();
-        addresses=user.getAddressesByUserId();
+        // todo: 分区省市区
         return SUCCESS;
     }
 
@@ -120,7 +120,7 @@ public class AddressAction extends ActionSupport {
 
         address=new Address();
         address.setUserId(user.getUserId());
-        address.setAddress(dizhi);
+        //todo 分省市区
         address.setReceiver(receiver);
         address.setMobile(mobile);
         addressService.add(address);
@@ -137,7 +137,7 @@ public class AddressAction extends ActionSupport {
             return INPUT;
 
         address=addressService.get(shipInfId);
-        address.setAddress(dizhi);
+//        address.setAddress(dizhi);
         address.setMobile(mobile);
         address.setReceiver(receiver);
 

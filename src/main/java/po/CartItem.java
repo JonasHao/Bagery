@@ -1,20 +1,20 @@
 package po;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 /**
- * Created by 41159 on 2016/6/23.
+ * Created by 41159 on 2016/6/29.
  */
 @Entity
-@Table(name = "cartitem")
 public class CartItem {
     private int itemId;
     private int productId;
     private int num;
-    private Integer totalPriced;
+    private BigDecimal totalPriced;
     private int userId;
-    private Product productByProductId;
-    private User userByUserId;
+    private Product product;
+    private User user;
 
     @Id
     @Column(name = "item_id", nullable = false, insertable = true, updatable = true)
@@ -27,7 +27,7 @@ public class CartItem {
     }
 
     @Basic
-    @Column(name = "product_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "product_id", nullable = false, insertable = true, updatable = true)
     public int getProductId() {
         return productId;
     }
@@ -48,16 +48,16 @@ public class CartItem {
 
     @Basic
     @Column(name = "total_priced", nullable = true, insertable = true, updatable = true, precision = 0)
-    public Integer getTotalPriced() {
+    public BigDecimal getTotalPriced() {
         return totalPriced;
     }
 
-    public void setTotalPriced(Integer totalPriced) {
+    public void setTotalPriced(BigDecimal totalPriced) {
         this.totalPriced = totalPriced;
     }
 
     @Basic
-    @Column(name = "user_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "user_id", nullable = false, insertable = true, updatable = true)
     public int getUserId() {
         return userId;
     }
@@ -95,21 +95,21 @@ public class CartItem {
 
     @ManyToOne
     @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false)
-    public Product getProductByProductId() {
-        return productByProductId;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProductByProductId(Product productByProductId) {
-        this.productByProductId = productByProductId;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
-    public User getUserByUserId() {
-        return userByUserId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserByUserId(User userByUserId) {
-        this.userByUserId = userByUserId;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

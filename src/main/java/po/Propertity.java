@@ -4,11 +4,10 @@ import javax.persistence.*;
 import java.util.Collection;
 
 /**
- * Created by 41159 on 2016/6/23.
+ * Created by 41159 on 2016/6/29.
  */
 @Entity
-@Table(name = "propertity")
-public class Property {
+public class Propertity {
     private int proId;
     private String category;
     private String description;
@@ -49,7 +48,7 @@ public class Property {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Property that = (Property) o;
+        Propertity that = (Propertity) o;
 
         if (proId != that.proId) return false;
         if (category != null ? !category.equals(that.category) : that.category != null) return false;
@@ -66,7 +65,7 @@ public class Property {
         return result;
     }
 
-    @OneToMany(mappedBy = "propertityByProId")
+    @OneToMany(mappedBy = "propertity")
     public Collection<PricedPro> getPricedProsByProId() {
         return pricedProsByProId;
     }

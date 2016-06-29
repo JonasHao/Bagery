@@ -6,8 +6,6 @@
     <session-factory>
         <!-- Database connection settings -->
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.username">exciting</property>
-        <property name="connection.password">exciting</property>
         <property name="connection.url">jdbc:mysql://localhost:3306/bagery</property>
 
         <!-- JDBC connection pool (use the built-in) -->
@@ -26,14 +24,15 @@
         <mapping class="po.Comment"/>
         <mapping class="po.FavoriteItem"/>
         <mapping class="po.OrderItem"/>
-        <mapping class="po.Orders"/>
+        <mapping class="po.Order"/>
         <mapping class="po.Priced"/>
         <mapping class="po.PricedPro"/>
         <mapping class="po.Product"/>
-        <mapping class="po.Property"/>
+        <mapping class="po.Propertity"/>
         <mapping class="po.Address"/>
         <mapping class="po.User"/>
         <mapping class="po.UserPricedRecord"/>
+
 
         <!--&lt;!&ndash; Drop and re-save the database schema on startup &ndash;&gt;-->
         <!--<property name="hbm2ddl.auto">update</property>-->

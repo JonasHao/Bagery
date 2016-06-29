@@ -3,16 +3,15 @@ package po;
 import javax.persistence.*;
 
 /**
- * Created by 41159 on 2016/6/23.
+ * Created by 41159 on 2016/6/29.
  */
 @Entity
-@Table(name = "favoriteitem")
 public class FavoriteItem {
     private int itemId;
     private int pricedId;
     private int userId;
-    private Priced pricedByPricedId;
-    private User userByUserId;
+    private Priced priced;
+    private User user;
 
     @Id
     @Column(name = "item_id", nullable = false, insertable = true, updatable = true)
@@ -25,7 +24,7 @@ public class FavoriteItem {
     }
 
     @Basic
-    @Column(name = "priced_id", nullable = false, insertable = false    , updatable = false)
+    @Column(name = "priced_id", nullable = false, insertable = true, updatable = true)
     public int getPricedId() {
         return pricedId;
     }
@@ -35,7 +34,7 @@ public class FavoriteItem {
     }
 
     @Basic
-    @Column(name = "user_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "user_id", nullable = false, insertable = true, updatable = true)
     public int getUserId() {
         return userId;
     }
@@ -68,21 +67,21 @@ public class FavoriteItem {
 
     @ManyToOne
     @JoinColumn(name = "priced_id", referencedColumnName = "priced_id", nullable = false)
-    public Priced getPricedByPricedId() {
-        return pricedByPricedId;
+    public Priced getPriced() {
+        return priced;
     }
 
-    public void setPricedByPricedId(Priced pricedByPricedId) {
-        this.pricedByPricedId = pricedByPricedId;
+    public void setPriced(Priced priced) {
+        this.priced = priced;
     }
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
-    public User getUserByUserId() {
-        return userByUserId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserByUserId(User userByUserId) {
-        this.userByUserId = userByUserId;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

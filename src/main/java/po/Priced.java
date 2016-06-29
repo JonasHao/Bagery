@@ -4,15 +4,16 @@ import javax.persistence.*;
 import java.util.Collection;
 
 /**
- * Created by 41159 on 2016/6/23.
+ * Created by 41159 on 2016/6/29.
  */
 @Entity
 public class Priced {
     private int pricedId;
     private String title;
+    private String img;
     private String description;
     private int unitPrice;
-    private Integer salePrice;
+    private Double salePrice;
     private Collection<Comment> commentsByPricedId;
     private Collection<FavoriteItem> favoriteItemsByPricedId;
     private Collection<PricedPro> pricedProsByPricedId;
@@ -40,6 +41,16 @@ public class Priced {
     }
 
     @Basic
+    @Column(name = "img", nullable = true, insertable = true, updatable = true, length = 65535)
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    @Basic
     @Column(name = "description", nullable = true, insertable = true, updatable = true, length = 65535)
     public String getDescription() {
         return description;
@@ -61,11 +72,11 @@ public class Priced {
 
     @Basic
     @Column(name = "sale_price", nullable = true, insertable = true, updatable = true, precision = 0)
-    public Integer getSalePrice() {
+    public Double getSalePrice() {
         return salePrice;
     }
 
-    public void setSalePrice(Integer salePrice) {
+    public void setSalePrice(Double salePrice) {
         this.salePrice = salePrice;
     }
 
@@ -79,6 +90,7 @@ public class Priced {
         if (pricedId != priced.pricedId) return false;
         if (unitPrice != priced.unitPrice) return false;
         if (title != null ? !title.equals(priced.title) : priced.title != null) return false;
+        if (img != null ? !img.equals(priced.img) : priced.img != null) return false;
         if (description != null ? !description.equals(priced.description) : priced.description != null) return false;
         if (salePrice != null ? !salePrice.equals(priced.salePrice) : priced.salePrice != null) return false;
 
@@ -89,13 +101,14 @@ public class Priced {
     public int hashCode() {
         int result = pricedId;
         result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + (img != null ? img.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + unitPrice;
         result = 31 * result + (salePrice != null ? salePrice.hashCode() : 0);
         return result;
     }
 
-    @OneToMany(mappedBy = "pricedByPricedId")
+    @OneToMany(mappedBy = "priced")
     public Collection<Comment> getCommentsByPricedId() {
         return commentsByPricedId;
     }
@@ -104,16 +117,16 @@ public class Priced {
         this.commentsByPricedId = commentsByPricedId;
     }
 
-    @OneToMany(mappedBy = "pricedByPricedId")
+    @OneToMany(mappedBy = "priced")
     public Collection<FavoriteItem> getFavoriteItemsByPricedId() {
         return favoriteItemsByPricedId;
     }
 
-    public void setFavoriteItemsByPricedId(Collection<FavoriteItem> favoriteitemsByPricedId) {
-        this.favoriteItemsByPricedId = favoriteitemsByPricedId;
+    public void setFavoriteItemsByPricedId(Collection<FavoriteItem> favoriteItemsByPricedId) {
+        this.favoriteItemsByPricedId = favoriteItemsByPricedId;
     }
 
-    @OneToMany(mappedBy = "pricedByPricedId")
+    @OneToMany(mappedBy = "priced")
     public Collection<PricedPro> getPricedProsByPricedId() {
         return pricedProsByPricedId;
     }

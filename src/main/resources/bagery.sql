@@ -296,9 +296,12 @@ DROP TABLE IF EXISTS `ship_information`;
 CREATE TABLE `ship_information` (
   `ship_inf_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
-  `address` varchar(100) NOT NULL,
   `receicer` varchar(30) NOT NULL,
   `mobile` varchar(30) NOT NULL,
+  `address_province` varchar(45) DEFAULT NULL,
+  `address_city` varchar(45) DEFAULT NULL,
+  `address_district` varchar(45) DEFAULT NULL,
+  `address_detail` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`ship_inf_id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `ship_information_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -311,7 +314,7 @@ CREATE TABLE `ship_information` (
 
 LOCK TABLES `ship_information` WRITE;
 /*!40000 ALTER TABLE `ship_information` DISABLE KEYS */;
-INSERT INTO `ship_information` VALUES (1,1,'华南理工大学','cc','110');
+INSERT INTO `ship_information` VALUES (1,1,'cc','110','广东','广州','天河','华南理工大学');
 /*!40000 ALTER TABLE `ship_information` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -328,10 +331,11 @@ CREATE TABLE `user` (
   `password` varchar(100) NOT NULL,
   `realname` varchar(30) DEFAULT NULL,
   `email` varchar(30) DEFAULT NULL,
+  `img` text,
   `score` int(11) NOT NULL DEFAULT '0',
   `def_ship_inf_id` int(11) DEFAULT NULL,
   `user_group` enum('product_admin','order_admin','r','cu','ag','au','d') NOT NULL DEFAULT 'r',
-  `is_admin` tinyint(1) NOT NULL,
+  `is_activate` tinyint(1) NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
@@ -343,7 +347,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'cc','cc','ccc','cc@qq.com',100,1,'r',0);
+INSERT INTO `user` VALUES (1,'cc','cc','ccc','cc@qq.com',NULL,100,1,'r',0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -386,4 +390,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-28 16:31:15
+-- Dump completed on 2016-06-28 18:30:39
