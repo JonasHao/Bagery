@@ -28,6 +28,12 @@ public class ProductionAction extends DefaultActionSupport {
 	private List<Product> products;
 	private List<Priced> priceds;
     private List<Property> pros;
+    private List<Property> pros1;
+    private List<Property> pros2;
+    private List<Property> pros3;
+    private List<Integer> proIDs1;
+    private List<Integer> proIDs2;
+    private List<Integer> proIDs3;
     private List<UserPricedRecord> records;
     private List<Comment> comments;
 	private ProductService productService;
@@ -195,6 +201,9 @@ public class ProductionAction extends DefaultActionSupport {
     {
         try {
             priceds=productService.findAll();
+            pros1=productService.findProsByCategory("品牌");
+            pros2=productService.findProsByCategory("材质");
+            pros3=productService.findProsByCategory("款式");
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -225,14 +234,13 @@ public class ProductionAction extends DefaultActionSupport {
     public String findPricedsByPro()
     {
         try {
-            priceds=productService.findPricedsByProperty(pros);
+            priceds=productService.findPricedsByProperty(proIDs1,proIDs2,proIDs3);
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
             return ERROR;
         }
     }
-
 
     public int getProduct_id() {
         return product_id;
@@ -354,10 +362,6 @@ public class ProductionAction extends DefaultActionSupport {
         this.productService = productService;
     }
 
-    public List<Property> getPros() {return pros;}
-
-    public void setPros(List<Property> pros) {this.pros = pros;}
-
     public String getWord() {return word;}
 
     public void setWord(String word) {this.word = word;}
@@ -417,6 +421,57 @@ public class ProductionAction extends DefaultActionSupport {
     public void setPricedPro(PricedPro pricedPro) {
         this.pricedPro = pricedPro;
     }
+    public List<Property> getPros1() {
+        return pros1;
+    }
 
+    public void setPros1(List<Property> pros1) {
+        this.pros1 = pros1;
+    }
 
+    public List<Property> getPros2() {
+        return pros2;
+    }
+
+    public void setPros2(List<Property> pros2) {
+        this.pros2 = pros2;
+    }
+
+    public List<Property> getPros3() {
+        return pros3;
+    }
+
+    public void setPros3(List<Property> pros3) {
+        this.pros3 = pros3;
+    }
+    public List<Property> getPros() {
+        return pros;
+    }
+
+    public void setPros(List<Property> pros) {
+        this.pros = pros;
+    }
+    public List<Integer> getProIDs1() {
+        return proIDs1;
+    }
+
+    public void setProIDs1(List<Integer> proIDs1) {
+        this.proIDs1 = proIDs1;
+    }
+
+    public List<Integer> getProIDs2() {
+        return proIDs2;
+    }
+
+    public void setProIDs2(List<Integer> proIDs2) {
+        this.proIDs2 = proIDs2;
+    }
+
+    public List<Integer> getProIDs3() {
+        return proIDs3;
+    }
+
+    public void setProIDs3(List<Integer> proIDs3) {
+        this.proIDs3 = proIDs3;
+    }
 }

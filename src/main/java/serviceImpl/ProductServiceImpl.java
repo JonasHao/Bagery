@@ -88,12 +88,27 @@ public class ProductServiceImpl implements ProductService {
     {
         return dao.query("from Product where pricedId=?").setParameter(0,pricedID).list();
     }
-
+    /**
+     * 工具-属性数组转SQL字符串
+     */
+    public String convertToStr(List<Integer> list)
+    {
+        StringBuilder sb=new StringBuilder("(");
+        for(Integer i:list)
+            sb.append(i+",");
+        sb.deleteCharAt(sb.length()-1);
+        sb.append(")");
+        return sb.toString();
+    }
     /**
      * 通过类别信息获取商品列表
      */
-    public List<Priced> findPricedsByProperty(List<Property> pros){
-        return null;
+    public List<Priced> findPricedsByProperty(List<Integer> pro1,List<Integer> pro2,List<Integer> pro3){
+        String l1=convertToStr(pro1);
+        String l2=convertToStr(pro2);
+        String l3=convertToStr(pro3);
+        return dao.query("select Priced from PricedPro join Priced where proId in ? and proId in ? and proId in ?").setParameter(0,l1).
+                setParameter(1,l2).setParameter(2,l3).list();
     }
     /**
      * 通过用户ID找历史记录
@@ -103,7 +118,11 @@ public class ProductServiceImpl implements ProductService {
         return dao.query("from UserPricedRecord where userId=?").
                 setParameter(0, userID).list();
     }
-
-
+    /**
+     * 通过分类找属性列表
+     */
+    public List<Property> findProsByCategory(String category){
+        return dao.query("from Property where category=?").setParameter(0,category).list();
+    }
 
 }

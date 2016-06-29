@@ -49,9 +49,11 @@ public interface ProductService {
     /**
      * 通过类别信息获取商品列表
      */
-    List<Priced> findPricedsByProperty(List<Property> pros);
+    List<Priced> findPricedsByProperty(List<Integer> pro1,List<Integer> pro2,List<Integer> pro3);
     /**
      * 通过用户ID找历史记录
      */
     List<UserPricedRecord> findHistoryRecord(int userID);
+
+    List<Property> findProsByCategory(String category);
 }
