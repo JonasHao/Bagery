@@ -28,7 +28,7 @@
         <mapping class="po.Priced"/>
         <mapping class="po.PricedPro"/>
         <mapping class="po.Product"/>
-        <mapping class="po.Property"/>
+        <mapping class="po.Propertity"/>
         <mapping class="po.Address"/>
         <mapping class="po.User"/>
         <mapping class="po.UserPricedRecord"/>
