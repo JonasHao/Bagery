@@ -32,6 +32,8 @@ public class CheckOrdAdLoginInterceptor implements Interceptor{
 
         Map session = ActionContext.getContext().getSession();
         String username=(String)session.get(Key.USER);
+
+        //todo: Try to use Spring to inject dependence with Services
         UserServiceImpl userService=new UserServiceImpl();
 
         if(username.equals(null))

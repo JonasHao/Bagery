@@ -9,7 +9,7 @@ import service.UserService;
 /**
  * Created by zhang on 2016/6/23.
  */
-public class UserAction extends ActionSupport{
+public class UserAction extends ActionSupport {
     private UserService userService;
     private User user;
 
@@ -23,21 +23,21 @@ public class UserAction extends ActionSupport{
 
 
     @Action("logout")
-    public String logout(){
+    public String logout() {
         ActionContext.getContext().getSession().clear();
         return SUCCESS;
     }
 
     @Action("login")
-    public String login(){
-        if(username.equals(null)){
+    public String login() {
+        //todo: use validator to validate columns
+        if (username.equals(null)) {
             return INPUT;
         }
 
-        if(password.equals(null)){
+        if (password.equals(null)) {
             return INPUT;
         }
-
 
 
         user = new User();
@@ -45,26 +45,26 @@ public class UserAction extends ActionSupport{
         user.setPassword(getPassword());
 
         System.out.println(user);
-        if(!userService.existUsername(username))
-            return "wrong_username";
-        else
-        {
-            return userService.login(username,password);
+        if (!userService.existUsername(username)) {
+            addFieldError("username","用户名不存在");
+            return INPUT;
+        } else {
+            return userService.login(username, password);
         }
     }
 
     @Action("register")
-    public String register(){
-        if(username.equals(null)||password.equals(null)||confirmpassword.equals(null)){
+    public String register() {
+        if (username.equals(null) || password.equals(null) || confirmpassword.equals(null)) {
             return INPUT;
         }
-        if(userService.existUsername(username)){
+        if (userService.existUsername(username)) {
             return INPUT;
         }
-        if(userService.existEmail(email)){
+        if (userService.existEmail(email)) {
             return INPUT;
         }
-        if(!password.equals(confirmpassword)){
+        if (!password.equals(confirmpassword)) {
             return INPUT;
         }
 
@@ -76,7 +76,7 @@ public class UserAction extends ActionSupport{
         user.setUserGroup("r");
 
         userService.register(user);
-        ActionContext.getContext().getSession().put("User",user);
+        ActionContext.getContext().getSession().put("User", user);
         return SUCCESS;
     }
 
@@ -84,35 +84,35 @@ public class UserAction extends ActionSupport{
         this.usergroup = usergroup;
     }
 
-    public void setUsername(String username){
-        this.username=username;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public void setPassword(String password){
-        this.password=password;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setRealname(String realname) {
         this.realname = realname;
     }
 
-    public void setEmail(String email){
-        this.email=email;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setConfirmpassword(String confirmpassword) {
         this.confirmpassword = confirmpassword;
     }
 
-    public void setIsadmin(String isadmin){
-        this.isadmin=isadmin;
+    public void setIsadmin(String isadmin) {
+        this.isadmin = isadmin;
     }
 
-    public String getUsername(){
+    public String getUsername() {
         return username;
     }
 
-    public String getPassword(){
+    public String getPassword() {
         return password;
     }
 
@@ -120,7 +120,7 @@ public class UserAction extends ActionSupport{
         return realname;
     }
 
-    public String getEmail(){
+    public String getEmail() {
         return email;
     }
 
@@ -128,19 +128,19 @@ public class UserAction extends ActionSupport{
         return confirmpassword;
     }
 
-    public String getIsadmin(){
+    public String getIsadmin() {
         return isadmin;
     }
 
-    public void setUser(User user){
-        this.user=user;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getUsergroup() {
         return usergroup;
     }
 
-    public void setUserService(UserService userService){
-        this.userService=userService;
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 }

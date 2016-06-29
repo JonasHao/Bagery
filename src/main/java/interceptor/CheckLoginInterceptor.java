@@ -10,7 +10,6 @@ import constant.Key;
 
 import java.util.Map;
 
-
 public class CheckLoginInterceptor implements Interceptor {
 
     @Override

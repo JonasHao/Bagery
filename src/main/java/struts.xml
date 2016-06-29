@@ -34,12 +34,6 @@
 
     </package>
 
-    <package name="test" namespace="/test" extends="default">
-        <action name="addList" class="action.TestAction">
-            <result>/index.jsp</result>
-        </action>
-    </package>
-
     <package name="order" namespace="/order" extends="default">
         <action name="balance" class="action.OrderAction" method="balance">
             <result name="success">/index.jsp</result>
@@ -111,13 +105,11 @@
 
         <action name="register" class="action.UserAction" method="register">
             <result name="success">/home.jsp</result>
-            <result name="input"></result>
+            <result name="input">/signUp.jsp</result>
         </action>
 
         <action name="login" class="action.UserAction" method="login">
-            <result name="input"></result>
-            <result name="wrong_username"></result>
-            <result name="error"></result>
+            <result name="input">/login.jsp</result>
             <result name="success">/home.jsp</result>
         </action>
 

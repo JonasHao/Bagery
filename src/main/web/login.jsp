@@ -27,7 +27,7 @@
                         <s:textfield label="密码" id="form2" name="password" class="form-control"/>
                     </div>
                     <s:submit cssClass="grey btn btn-primary" value="登录"/>
-                    <a href="signup.jsp">注册</a>
+                    <a href="signUp.jsp">注册</a>
                     <a href="#">忘记密码</a>
                 </div>
                 </form>

@@ -11,7 +11,6 @@
 
     <jsp:body>
         <!--Main layout-->
-
         <div class="container">
         <s:form action="addComment" namespace="/comment">
             <s:iterator begin="1" end="2">

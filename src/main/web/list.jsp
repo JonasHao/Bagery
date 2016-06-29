@@ -78,6 +78,9 @@
                         <li class="nav-item page-item">
                             <a class="nav-link page-link" data-toggle="tab" href="#products-page-5" role="tab">5</a>
                         </li>
+                        <li class="nav-item page-item">
+                            <a class="nav-link page-link" data-toggle="tab" href="#products-page-5" role="tab">..</a>
+                        </li>
                     </ul>
                     <div class="tab-content">
                         <div class="page tab-pane active" id="products-page-1" role="tabpanel">
