@@ -18,10 +18,10 @@ public class User {
     private Integer defShipInfId;
     private String userGroup;
     private byte isActivate;
-    private Collection<CartItem> cartitemsByUserId;
+    private Collection<CartItem> cartItems;
     private Collection<Comment> commentsByUserId;
-    private Collection<FavoriteItem> favoriteitemsByUserId;
-    private Collection<Order> ordersesByUserId;
+    private Collection<FavoriteItem> favoriteItems;
+    private Collection<Order> orders;
     private Collection<Address> shipInformationsByUserId;
     private Collection<UserPricedRecord> userPricedRecordsByUserId;
 
@@ -162,12 +162,12 @@ public class User {
     }
 
     @OneToMany(mappedBy = "user")
-    public Collection<CartItem> getCartitemsByUserId() {
-        return cartitemsByUserId;
+    public Collection<CartItem> getCartItems() {
+        return cartItems;
     }
 
-    public void setCartitemsByUserId(Collection<CartItem> cartitemsByUserId) {
-        this.cartitemsByUserId = cartitemsByUserId;
+    public void setCartItems(Collection<CartItem> cartitemsByUserId) {
+        this.cartItems = cartitemsByUserId;
     }
 
     @OneToMany(mappedBy = "user")
@@ -180,21 +180,21 @@ public class User {
     }
 
     @OneToMany(mappedBy = "user")
-    public Collection<FavoriteItem> getFavoriteitemsByUserId() {
-        return favoriteitemsByUserId;
+    public Collection<FavoriteItem> getFavoriteItems() {
+        return favoriteItems;
     }
 
-    public void setFavoriteitemsByUserId(Collection<FavoriteItem> favoriteitemsByUserId) {
-        this.favoriteitemsByUserId = favoriteitemsByUserId;
+    public void setFavoriteItems(Collection<FavoriteItem> favoriteitemsByUserId) {
+        this.favoriteItems = favoriteitemsByUserId;
     }
 
     @OneToMany(mappedBy = "user")
-    public Collection<Order> getOrdersesByUserId() {
-        return ordersesByUserId;
+    public Collection<Order> getOrders() {
+        return orders;
     }
 
-    public void setOrdersesByUserId(Collection<Order> ordersesByUserId) {
-        this.ordersesByUserId = ordersesByUserId;
+    public void setOrders(Collection<Order> ordersesByUserId) {
+        this.orders = ordersesByUserId;
     }
 
     @OneToMany(mappedBy = "user")
@@ -213,5 +213,10 @@ public class User {
 
     public void setUserPricedRecordsByUserId(Collection<UserPricedRecord> userPricedRecordsByUserId) {
         this.userPricedRecordsByUserId = userPricedRecordsByUserId;
+    }
+
+    @Override
+    public String toString() {
+        return username + " " + password;
     }
 }

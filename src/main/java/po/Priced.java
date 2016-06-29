@@ -14,11 +14,11 @@ public class Priced {
     private String description;
     private int unitPrice;
     private Double salePrice;
-    private Collection<Comment> commentsByPricedId;
-    private Collection<FavoriteItem> favoriteItemsByPricedId;
-    private Collection<PricedPro> pricedProsByPricedId;
-    private Collection<Product> productsByPricedId;
-    private Collection<UserPricedRecord> userPricedRecordsByPricedId;
+    private Collection<Comment> comments;
+    private Collection<FavoriteItem> favoriteItems;
+    private Collection<PricedPro> pricedPros;
+    private Collection<Product> products;
+    private Collection<UserPricedRecord> userPricedRecords;
 
     @Id
     @Column(name = "priced_id", nullable = false, insertable = true, updatable = true)
@@ -109,47 +109,47 @@ public class Priced {
     }
 
     @OneToMany(mappedBy = "priced")
-    public Collection<Comment> getCommentsByPricedId() {
-        return commentsByPricedId;
+    public Collection<Comment> getComments() {
+        return comments;
     }
 
-    public void setCommentsByPricedId(Collection<Comment> commentsByPricedId) {
-        this.commentsByPricedId = commentsByPricedId;
-    }
-
-    @OneToMany(mappedBy = "priced")
-    public Collection<FavoriteItem> getFavoriteItemsByPricedId() {
-        return favoriteItemsByPricedId;
-    }
-
-    public void setFavoriteItemsByPricedId(Collection<FavoriteItem> favoriteItemsByPricedId) {
-        this.favoriteItemsByPricedId = favoriteItemsByPricedId;
+    public void setComments(Collection<Comment> commentsByPricedId) {
+        this.comments = commentsByPricedId;
     }
 
     @OneToMany(mappedBy = "priced")
-    public Collection<PricedPro> getPricedProsByPricedId() {
-        return pricedProsByPricedId;
+    public Collection<FavoriteItem> getFavoriteItems() {
+        return favoriteItems;
     }
 
-    public void setPricedProsByPricedId(Collection<PricedPro> pricedProsByPricedId) {
-        this.pricedProsByPricedId = pricedProsByPricedId;
+    public void setFavoriteItems(Collection<FavoriteItem> favoriteItemsByPricedId) {
+        this.favoriteItems = favoriteItemsByPricedId;
+    }
+
+    @OneToMany(mappedBy = "priced")
+    public Collection<PricedPro> getPricedPros() {
+        return pricedPros;
+    }
+
+    public void setPricedPros(Collection<PricedPro> pricedProsByPricedId) {
+        this.pricedPros = pricedProsByPricedId;
     }
 
     @OneToMany(mappedBy = "pricedByPricedId")
-    public Collection<Product> getProductsByPricedId() {
-        return productsByPricedId;
+    public Collection<Product> getProducts() {
+        return products;
     }
 
-    public void setProductsByPricedId(Collection<Product> productsByPricedId) {
-        this.productsByPricedId = productsByPricedId;
+    public void setProducts(Collection<Product> productsByPricedId) {
+        this.products = productsByPricedId;
     }
 
     @OneToMany(mappedBy = "pricedByPricedId")
-    public Collection<UserPricedRecord> getUserPricedRecordsByPricedId() {
-        return userPricedRecordsByPricedId;
+    public Collection<UserPricedRecord> getUserPricedRecords() {
+        return userPricedRecords;
     }
 
-    public void setUserPricedRecordsByPricedId(Collection<UserPricedRecord> userPricedRecordsByPricedId) {
-        this.userPricedRecordsByPricedId = userPricedRecordsByPricedId;
+    public void setUserPricedRecords(Collection<UserPricedRecord> userPricedRecordsByPricedId) {
+        this.userPricedRecords = userPricedRecordsByPricedId;
     }
 }

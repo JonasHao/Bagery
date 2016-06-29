@@ -5,7 +5,7 @@
 
     <jsp:attribute name="title">商品列表</jsp:attribute>
     <jsp:attribute name="breadcrumb">
-       <ol class="breadcrumb" >
+       <ol class="breadcrumb">
            <li><a href="index.jsp">首页</a></li>
            <li class="active">商品列表</li>
        </ol>
@@ -18,140 +18,126 @@
                 <div class="col-md-3">
 
                     <div class="widget-wrapper">
-                        <h4>分类:</h4>
-                        <br>
+                        <h6>性别:</h6>
                         <div class="list-group">
-                            <a href="#" class="list-group-item active">Woman</a>
-                            <a href="#" class="list-group-item">Man</a>
-                            <a href="#" class="list-group-item">Shoes</a>
-                            <a href="#" class="list-group-item">T-shirt</a>
-                            <a href="#" class="list-group-item">Jewellery</a>
+                            <a href="#" class="list-group-item filter-list-group-item  active">Woman</a>
+                            <a href="#" class="list-group-item filter-list-group-item ">Man</a>
                         </div>
                     </div>
 
+                    <div class="widget-wrapper">
+                        <h6>品牌:</h6>
+                        <div class="list-group">
+                            <a href="#" class="list-group-item filter-list-group-item  active">Woman</a>
+                            <a href="#" class="list-group-item filter-list-group-item ">Man</a>
+                            <a href="#" class="list-group-item filter-list-group-item ">Shoes</a>
+                            <a href="#" class="list-group-item filter-list-group-item ">T-shirt</a>
+                            <a href="#" class="list-group-item filter-list-group-item ">Jewellery</a>
+                        </div>
+                    </div>
 
+                    <div class="widget-wrapper">
+                        <h6>功能:</h6>
+                        <div class="list-group">
+                            <a href="#" class="list-group-item filter-list-group-item  active">Woman</a>
+                            <a href="#" class="list-group-item filter-list-group-item ">Man</a>
+                            <a href="#" class="list-group-item filter-list-group-item ">Shoes</a>
+                            <a href="#" class="list-group-item filter-list-group-item ">T-shirt</a>
+                            <a href="#" class="list-group-item filter-list-group-item ">Jewellery</a>
+                        </div>
+                    </div>
+
+                    <div class="widget-wrapper">
+                        <h6>材质:</h6>
+                        <div class="list-group">
+                            <a href="#" class="list-group-item filter-list-group-item  active">Woman</a>
+                            <a href="#" class="list-group-item filter-list-group-item ">Man</a>
+                            <a href="#" class="list-group-item filter-list-group-item ">Shoes</a>
+                            <a href="#" class="list-group-item filter-list-group-item ">T-shirt</a>
+                            <a href="#" class="list-group-item filter-list-group-item ">Jewellery</a>
+                        </div>
+                    </div>
                 </div>
                 <!--/.Sidebar-->
-
                 <!--Main column-->
                 <div class="col-md-9">
-                    <nav>
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#products-page-1">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#products-page-2">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#products-page-3">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#products-page-4">4</a></li>
-                            <li class="page-item"><a class="page-link" href="#products-page-5">5</a></li>
-                            <li class="page-item"><a class="page-link" href="#products-page-6">6</a></li>
-
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                    <span class="sr-only">Next</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-
-                    <div class="page" id="products-page-1">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <t:product>
-                                    <jsp:attribute name="img">img/bags/bag1.png</jsp:attribute>
-                                    <jsp:attribute name="title">包包标题</jsp:attribute>
-                                    <jsp:attribute name="price">99999.00</jsp:attribute>
-                                </t:product>
+                    <ul class="nav nav-tabs tabs-5 pagination" role="tablist">
+                        <li class="nav-item page-item">
+                            <a class="nav-link active page-link" data-toggle="tab" href="#products-page-1"
+                               role="tab">1</a>
+                        </li>
+                        <li class="nav-item page-item">
+                            <a class="nav-link page-link" data-toggle="tab" href="#products-page-2" role="tab">2</a>
+                        </li>
+                        <li class="nav-item page-item">
+                            <a class="nav-link  page-link" data-toggle="tab" href="#products-page-3" role="tab">3</a>
+                        </li>
+                        <li class="nav-item page-item">
+                            <a class="nav-link page-link" data-toggle="tab" href="#products-page-4" role="tab">4</a>
+                        </li>
+                        <li class="nav-item page-item">
+                            <a class="nav-link page-link" data-toggle="tab" href="#products-page-5" role="tab">5</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="page tab-pane active" id="products-page-1" role="tabpanel">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <t:product>
+                                        <jsp:attribute name="img">img/bags/bag1.png</jsp:attribute>
+                                        <jsp:attribute name="title">包包标题</jsp:attribute>
+                                        <jsp:attribute name="price">99999.00</jsp:attribute>
+                                    </t:product>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page tab-pane" id="products-page-2" role="tabpanel">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <t:product>
+                                        <jsp:attribute name="img">img/bags/bag1.png</jsp:attribute>
+                                        <jsp:attribute name="title">包包标题2</jsp:attribute>
+                                        <jsp:attribute name="price">99999.00</jsp:attribute>
+                                    </t:product>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page tab-pane" id="products-page-3" role="tabpanel">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <t:product>
+                                        <jsp:attribute name="img">img/bags/bag1.png</jsp:attribute>
+                                        <jsp:attribute name="title">包包标题3</jsp:attribute>
+                                        <jsp:attribute name="price">99999.00</jsp:attribute>
+                                    </t:product>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page tab-pane" id="products-page-4" role="tabpanel">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <t:product>
+                                        <jsp:attribute name="img">img/bags/bag1.png</jsp:attribute>
+                                        <jsp:attribute name="title">包包标题4</jsp:attribute>
+                                        <jsp:attribute name="price">99999.00</jsp:attribute>
+                                    </t:product>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page tab-pane" id="products-page-5" role="tabpanel">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <t:product>
+                                        <jsp:attribute name="img">img/bags/bag1.png</jsp:attribute>
+                                        <jsp:attribute name="title">包包标题5</jsp:attribute>
+                                        <jsp:attribute name="price">99999.00</jsp:attribute>
+                                    </t:product>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div id="products-page-2">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <t:product>
-                                    <jsp:attribute name="img">img/bags/bag1.png</jsp:attribute>
-                                    <jsp:attribute name="title">包包标题</jsp:attribute>
-                                    <jsp:attribute name="price">99999.00</jsp:attribute>
-                                </t:product>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="products-page-3">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <t:product>
-                                    <jsp:attribute name="img">img/bags/bag1.png</jsp:attribute>
-                                    <jsp:attribute name="title">包包标题</jsp:attribute>
-                                    <jsp:attribute name="price">99999.00</jsp:attribute>
-                                </t:product>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="products-page-4">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <t:product>
-                                <jsp:attribute name="img">img/bags/bag1.png</jsp:attribute>
-                                <jsp:attribute name="title">包包标题</jsp:attribute>
-                                <jsp:attribute name="price">99999.00</jsp:attribute>
-                            </t:product>
-                        </div>
-                    </div>
-                </div>
-                    <div id="products-page-5">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <t:product>
-                                    <jsp:attribute name="img">img/bags/bag1.png</jsp:attribute>
-                                    <jsp:attribute name="title">包包标题</jsp:attribute>
-                                    <jsp:attribute name="price">99999.00</jsp:attribute>
-                                </t:product>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="products-page-6">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <t:product>
-                                    <jsp:attribute name="img">img/bags/bag1.png</jsp:attribute>
-                                    <jsp:attribute name="title">包包标题</jsp:attribute>
-                                    <jsp:attribute name="price">99999.00</jsp:attribute>
-                                </t:product>
-                            </div>
-                        </div>
-                    </div>
-
-                    <nav>
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#products-page-1">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#products-page-2">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#products-page-3">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#products-page-4">4</a></li>
-                            <li class="page-item"><a class="page-link" href="#products-page-5">5</a></li>
-                            <li class="page-item"><a class="page-link" href="#products-page-6">6</a></li>
-
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                    <span class="sr-only">Next</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
                 </div>
                 <!--/.Main column-->
-
             </div>
         </div>
         <!--/.Main layout-->

@@ -12,7 +12,7 @@ public class Property {
     private int proId;
     private String category;
     private String description;
-    private Collection<PricedPro> pricedProsByProId;
+    private Collection<PricedPro> pricedPros;
 
     @Id
     @Column(name = "pro_id", nullable = false, insertable = true, updatable = true)
@@ -67,11 +67,11 @@ public class Property {
     }
 
     @OneToMany(mappedBy = "property")
-    public Collection<PricedPro> getPricedProsByProId() {
-        return pricedProsByProId;
+    public Collection<PricedPro> getPricedPros() {
+        return pricedPros;
     }
 
-    public void setPricedProsByProId(Collection<PricedPro> pricedProsByProId) {
-        this.pricedProsByProId = pricedProsByProId;
+    public void setPricedPros(Collection<PricedPro> pricedProsByProId) {
+        this.pricedPros = pricedProsByProId;
     }
 }

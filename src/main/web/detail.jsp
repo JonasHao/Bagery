@@ -8,12 +8,14 @@
     <jsp:attribute name="scripts">
         <script type="text/javascript">
             function changeFavorState() {
-                if(document.getElementById("favor-icon").className=="fa fa-star fa-lg amber-text"){
-                    var url="/favorite/unfavor";
-                    var classname="fa fa-star-o fa-lg amber-text";
-                } else{
-                    var url="/favorite/favor";
-                    var classname="fa fa-star fa-lg amber-text";
+                var url;
+                var classname;
+                if (document.getElementById("favor-icon").className == "fa fa-star fa-lg amber-text") {
+                    url = "/favorite/unfavor";
+                    classname = "fa fa-star-o fa-lg amber-text";
+                } else {
+                    url = "/favorite/favor";
+                    classname = "fa fa-star fa-lg amber-text";
                 }
                 $.ajax(
                         {
@@ -22,15 +24,14 @@
                             type: 'post',
                             data: {priceId: 1},
                             success: function (data) {
-//                                console.log(data);
                                 if (data.result == "success") {
 //                                    var tmp = document.getElementById("favor-icon");
 //                                    console.log(tmp);
-                                    document.getElementById("favor-icon").className=classname;
-                                    if(classname=="fa fa-star fa-lg amber-text"){
+                                    document.getElementById("favor-icon").className = classname;
+                                    if (classname == "fa fa-star fa-lg amber-text") {
                                         alert("收藏成功！");
                                     }
-                                    else{
+                                    else {
                                         alert("取消收藏！");
                                     }
                                 } else {
@@ -39,18 +40,16 @@
                             }
                         })
             }
-
-
         </script>
     </jsp:attribute>
     <jsp:body>
         <!--Main layout-->
         <div class="container">
-                <s:url id="favor" var="favorUrl" action="favor" namespace="/favorite">
+            <s:url id="favor" var="favorUrl" action="favor" namespace="/favorite">
                 <s:param name="priceId">
-                <%--<s:property value="priceId" />--%>1
+                    <%--<s:property value="priceId" />--%>1
                 </s:param>
-                </s:url>
+            </s:url>
 
             <div class="card">
                 <!--First row-->
@@ -63,14 +62,14 @@
                                 <div class="mask"></div>
                             </a>
                         </div>
-                            <a onclick="changeFavorState()">
-                                <s:if test="true">
-                                    <i class="fa fa-star-o fa-lg amber-text" aria-hidden="true" id="favor-icon"></i>
-                                </s:if>
-                                <s:else>
-                                    <i class="fa fa-star fa-lg amber-text" aria-hidden="true" id="favor-icon"></i>
-                                </s:else>
-                            </a>
+                        <a onclick="changeFavorState()">
+                            <s:if test="true">
+                                <i class="fa fa-star-o fa-lg amber-text" aria-hidden="true" id="favor-icon"></i>
+                            </s:if>
+                            <s:else>
+                                <i class="fa fa-star fa-lg amber-text" aria-hidden="true" id="favor-icon"></i>
+                            </s:else>
+                        </a>
 
                     </div>
 

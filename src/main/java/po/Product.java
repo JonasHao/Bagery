@@ -12,8 +12,8 @@ public class Product {
     private int pricedId;
     private String color;
     private int stock;
-    private Collection<CartItem> cartitemsByProductId;
-    private Collection<OrderItem> orderitemsByProductId;
+    private Collection<CartItem> cartItems;
+    private Collection<OrderItem> orderItems;
     private Priced pricedByPricedId;
 
     @Id
@@ -81,21 +81,21 @@ public class Product {
     }
 
     @OneToMany(mappedBy = "product")
-    public Collection<CartItem> getCartitemsByProductId() {
-        return cartitemsByProductId;
+    public Collection<CartItem> getCartItems() {
+        return cartItems;
     }
 
-    public void setCartitemsByProductId(Collection<CartItem> cartitemsByProductId) {
-        this.cartitemsByProductId = cartitemsByProductId;
+    public void setCartItems(Collection<CartItem> cartitemsByProductId) {
+        this.cartItems = cartitemsByProductId;
     }
 
     @OneToMany(mappedBy = "product")
-    public Collection<OrderItem> getOrderitemsByProductId() {
-        return orderitemsByProductId;
+    public Collection<OrderItem> getOrderItems() {
+        return orderItems;
     }
 
-    public void setOrderitemsByProductId(Collection<OrderItem> orderitemsByProductId) {
-        this.orderitemsByProductId = orderitemsByProductId;
+    public void setOrderItems(Collection<OrderItem> orderitemsByProductId) {
+        this.orderItems = orderitemsByProductId;
     }
 
     @ManyToOne

@@ -38,10 +38,13 @@ public class UserAction extends ActionSupport{
             return INPUT;
         }
 
+
+
         user = new User();
         user.setUsername(getUsername());
         user.setPassword(getPassword());
 
+        System.out.println(user);
         if(!userService.existUsername(username))
             return "wrong_username";
         else

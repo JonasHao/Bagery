@@ -8,7 +8,7 @@
         <!--Content-->
         <div class="container">
             <div class="row">
-                <!--First columnn-->
+                <!--First column-->
                 <div class="col-md-4">
                     <!--Card-->
                     <div class="card">
@@ -37,9 +37,9 @@
                     </div>
                     <!--/.Card-->
                 </div>
-                <!--First columnn-->
+                <!--First column-->
 
-                <!--Second columnn-->
+                <!--Second column-->
                 <div class="col-md-4">
                     <!--Card-->
                     <div class="card">
@@ -68,9 +68,9 @@
                     </div>
                     <!--/.Card-->
                 </div>
-                <!--Second columnn-->
+                <!--Second column-->
 
-                <!--Third columnn-->
+                <!--Third column-->
                 <div class="col-md-4">
                     <!--Card-->
                     <div class="card">
@@ -99,7 +99,7 @@
                     </div>
                     <!--/.Card-->
                 </div>
-                <!--Third columnn-->
+                <!--Third column-->
             </div>
         </div>
         <!--/.Content-->

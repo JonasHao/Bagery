@@ -15,7 +15,7 @@
         <div class="container">
         <s:form action="addComment" namespace="/comment">
             <s:iterator begin="1" end="2">
-                    <s:textfield name="context1"/>
+                    <s:textfield name="content1"/>
                     <s:textfield name="star"/>
             </s:iterator>
             <s:submit value="提交评论"/>

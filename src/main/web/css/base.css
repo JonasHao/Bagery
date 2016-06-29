@@ -111,3 +111,9 @@ a {
     top: .5rem;
     right: .5rem;
 }
+
+
+.filter-list-group-item {
+    padding: .25rem 1.25rem;
+    width: 100%;
+}
