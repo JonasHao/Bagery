@@ -84,11 +84,13 @@
         </action>
     </package>
 
-    <package name="favorite" namespace="/favorite" extends="default">
+    <package name="favorite" namespace="/favorite" extends="default,json-default">
         <!--<default-interceptor-ref name="myStack"/>-->
 
         <action name="favor" class="action.FavoriteAction" method="favor">
-            <result name="success">/login.jsp</result>
+            <result name="success" type="json">
+                <param name="root">data</param>
+            </result>
         </action>
 
         <action name="unfavor" class="action.FavoriteAction" method="unfavor">

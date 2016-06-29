@@ -1,15 +1,20 @@
 package action;
 
 import com.opensymphony.xwork2.ActionSupport;
+import constant.Config;
+import org.hibernate.HibernateException;
 import po.FavoriteItem;
 import po.Priced;
 import po.User;
 import service.FavoriteService;
 import service.UserService;
 
-
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static constant.Key.RESULT;
 
 /**
  * Created by jinzil on 2016/6/27.
@@ -23,12 +28,26 @@ public class FavoriteAction extends ActionSupport {
     private User user;
     private List<FavoriteItem> favoriteItemList=new ArrayList<FavoriteItem>();
 
+    private Map<String,Object> data=new HashMap<>();
+
+    /**
+     * 异步加载的action
+     */
     public String favor() {
-        user = userService.getCurrentUser();
-        favoriteItem = new FavoriteItem();
-        favoriteItem.setPricedId(priceId);
-        favoriteItem.setUserId(user.getUserId());
-        favoriteService.favar(favoriteItem);
+        try {
+            user = userService.getCurrentUser();
+            favoriteItem = new FavoriteItem();
+            favoriteItem.setPricedId(priceId);
+            favoriteItem.setUserId(user.getUserId());
+            favoriteService.favar(favoriteItem);
+            data.put(RESULT, SUCCESS);
+        }catch( HibernateException  e){
+            if(Config.DEBUG) {
+                data.put(RESULT, SUCCESS);
+            } else {
+                data.put(RESULT, ERROR);
+            }
+        }
         return SUCCESS;
     }
 
@@ -119,5 +138,13 @@ public class FavoriteAction extends ActionSupport {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Map<String, Object> getData() {
+        return data;
+    }
+
+    public void setData(Map<String, Object> data) {
+        this.data = data;
     }
 }
