@@ -60,6 +60,22 @@
         <action name="cancelOrder" class="action.OrderAction" method="cancelOrder">
             <result name="success">/index.jsp</result>
         </action>
+
+        <action name="payment" class="action.OrderAction" method="payment">
+            <result name="success">/index.jsp</result>
+        </action>
+
+        <action name="confirmReceive" class="action.OrderAction" method="confirmReceive">
+            <result name="success">/index.jsp</result>
+        </action>
+
+        <action name="getLogisticsStatus" class="action.OrderAction" method="getLogisticsStatus">
+            <result name="success">/index.jsp</result>
+        </action>
+
+        <action name="sendPackage" class="action.OrderAction" method="sendPackage">
+            <result name="success">/index.jsp</result>
+        </action>
     </package>
 
 
