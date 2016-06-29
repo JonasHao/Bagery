@@ -1,6 +1,7 @@
 package serviceImpl;
 
 import dao.Dao;
+import org.hibernate.HibernateException;
 import po.CartItem;
 import po.OrderItem;
 import po.Order;
@@ -70,6 +71,11 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void sendPackage(int orderId, String logisticsNum, String logisticsCompany){
 
+        Order order = dao.get(Order.class, orderId);
+        order.setCourierCompany(logisticsCompany);
+        order.setCourierNumber(logisticsNum);
+        dao.update(order);
+
     }
 
     /**
@@ -77,7 +83,7 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public String getLogiticsStatus(int orderId){
-        Order order = dao.get(Order.class,orderId);
+        Order order = dao.get(Order.class, orderId);
         String company = order.getCourierCompany();
         String number = order.getCourierNumber();
         return queryLogisticsAPI(company,number);
