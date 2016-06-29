@@ -1,13 +1,42 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 
 <t:base>
 
     <jsp:attribute name="title">商品详情</jsp:attribute>
+    <jsp:attribute name="scripts">
+        <script type="text/javascript">
+            function favor() {
+                $.ajax(
+                        {
+                            url: "favor.action",
+                            dataType: "json",   //返回格式为json
+                            type: 'post',
+                            data: {priceId: 1},
+                            success: function (data) {
+                                if (data.result == "SUCESS") {
+                                    alert("收藏成功！");
+                                    window.location.reload();
+                                } else {
+                                    view(data.result);
+                                }
+                                alert(data);
+                            }
+                        })
+            }
 
+
+        </script>
+    </jsp:attribute>
     <jsp:body>
         <!--Main layout-->
         <div class="container">
+                <s:url id="favor" var="favorUrl" action="favor" namespace="/favorite">
+                <s:param name="priceId">
+                <%--<s:property value="priceId" />--%>1
+                </s:param>
+                </s:url>
 
             <div class="card">
                 <!--First row-->
@@ -20,7 +49,17 @@
                                 <div class="mask"></div>
                             </a>
                         </div>
+                            <s:a href="%{favorUrl}">
+                               <i class="fa fa-star-o fa-lg amber-text" aria-hidden="true"></i>
+                            </s:a>
+                            <%--<s:if test="true">--%>
+                            <%--<i class="fa fa-star-o fa-lg amber-text" aria-hidden="true" id="priced_id"></i>--%>
+                            <%--</s:if>--%>
+                            <%--<s:else>--%>
+                            <%--<i class="fa fa-star fa-lg amber-text" aria-hidden="true" id="priced_id"></i>--%>
+                            <%--</s:else>--%>
                     </div>
+
 
                     <div class="col-md-7">
                         <div class="product-wrapper">
@@ -77,5 +116,7 @@
 
         </div>
         <!--/.Main layout-->
+
     </jsp:body>
+
 </t:base>
