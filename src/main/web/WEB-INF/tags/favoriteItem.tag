@@ -30,7 +30,6 @@
                 <s:a cssClass="label-delete" href="%{unfavorUrl}">
                     <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
                 </s:a>
-
             </div>
         </s:a>
 

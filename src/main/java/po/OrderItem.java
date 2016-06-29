@@ -3,19 +3,18 @@ package po;
 import javax.persistence.*;
 
 /**
- * Created by 41159 on 2016/6/23.
+ * Created by 41159 on 2016/6/29.
  */
 @Entity
-@Table(name = "orderitem")
 public class OrderItem {
     private int itemId;
     private int productId;
     private String productTitle;
     private int num;
-    private int totalPriced;
+    private double totalPriced;
     private int orderId;
-    private Orders ordersByOrderId;
-    private Product productByProductId;
+    private Order order;
+    private Product product;
 
     @Id
     @Column(name = "item_id", nullable = false, insertable = true, updatable = true)
@@ -28,7 +27,7 @@ public class OrderItem {
     }
 
     @Basic
-    @Column(name = "product_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "product_id", nullable = false, insertable = true, updatable = true)
     public int getProductId() {
         return productId;
     }
@@ -59,16 +58,16 @@ public class OrderItem {
 
     @Basic
     @Column(name = "total_priced", nullable = false, insertable = true, updatable = true, precision = 0)
-    public int getTotalPriced() {
+    public double getTotalPriced() {
         return totalPriced;
     }
 
-    public void setTotalPriced(int totalPriced) {
+    public void setTotalPriced(double totalPriced) {
         this.totalPriced = totalPriced;
     }
 
     @Basic
-    @Column(name = "order_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "order_id", nullable = false, insertable = true, updatable = true)
     public int getOrderId() {
         return orderId;
     }
@@ -87,7 +86,7 @@ public class OrderItem {
         if (itemId != orderItem.itemId) return false;
         if (productId != orderItem.productId) return false;
         if (num != orderItem.num) return false;
-        if (totalPriced != orderItem.totalPriced) return false;
+        if (Double.compare(orderItem.totalPriced, totalPriced) != 0) return false;
         if (orderId != orderItem.orderId) return false;
         if (productTitle != null ? !productTitle.equals(orderItem.productTitle) : orderItem.productTitle != null)
             return false;
@@ -97,32 +96,35 @@ public class OrderItem {
 
     @Override
     public int hashCode() {
-        int result = itemId;
+        int result;
+        long temp;
+        result = itemId;
         result = 31 * result + productId;
         result = 31 * result + (productTitle != null ? productTitle.hashCode() : 0);
         result = 31 * result + num;
-        result = 31 * result + totalPriced;
+        temp = Double.doubleToLongBits(totalPriced);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + orderId;
         return result;
     }
 
     @ManyToOne
     @JoinColumn(name = "order_id", referencedColumnName = "order_id", nullable = false)
-    public Orders getOrdersByOrderId() {
-        return ordersByOrderId;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setOrdersByOrderId(Orders ordersByOrderId) {
-        this.ordersByOrderId = ordersByOrderId;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     @ManyToOne
     @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false)
-    public Product getProductByProductId() {
-        return productByProductId;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProductByProductId(Product productByProductId) {
-        this.productByProductId = productByProductId;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }

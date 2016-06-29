@@ -3,7 +3,7 @@ package po;
 import javax.persistence.*;
 
 /**
- * Created by 41159 on 2016/6/23.
+ * Created by 41159 on 2016/6/29.
  */
 @Entity
 @Table(name = "priced_pro", schema = "", catalog = "bagery")
@@ -11,8 +11,8 @@ public class PricedPro {
     private int ppId;
     private int pricedId;
     private int proId;
-    private Priced pricedByPricedId;
-    private Property propertyByProId;
+    private Priced priced;
+    private Property property;
 
     @Id
     @Column(name = "pp_id", nullable = false, insertable = true, updatable = true)
@@ -25,7 +25,7 @@ public class PricedPro {
     }
 
     @Basic
-    @Column(name = "priced_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "priced_id", nullable = false, insertable = true, updatable = true)
     public int getPricedId() {
         return pricedId;
     }
@@ -35,7 +35,7 @@ public class PricedPro {
     }
 
     @Basic
-    @Column(name = "pro_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "pro_id", nullable = false, insertable = true, updatable = true)
     public int getProId() {
         return proId;
     }
@@ -68,21 +68,21 @@ public class PricedPro {
 
     @ManyToOne
     @JoinColumn(name = "priced_id", referencedColumnName = "priced_id", nullable = false)
-    public Priced getPricedByPricedId() {
-        return pricedByPricedId;
+    public Priced getPriced() {
+        return priced;
     }
 
-    public void setPricedByPricedId(Priced pricedByPricedId) {
-        this.pricedByPricedId = pricedByPricedId;
+    public void setPriced(Priced priced) {
+        this.priced = priced;
     }
 
     @ManyToOne
     @JoinColumn(name = "pro_id", referencedColumnName = "pro_id", nullable = false)
-    public Property getPropertityByProId() {
-        return propertyByProId;
+    public Property getProperty() {
+        return property;
     }
 
-    public void setPropertityByProId(Property propertyByProId) {
-        this.propertyByProId = propertyByProId;
+    public void setProperty(Property property) {
+        this.property = property;
     }
 }

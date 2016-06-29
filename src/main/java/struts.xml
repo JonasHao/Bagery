@@ -8,8 +8,21 @@
     <package name="default" extends="struts-default">
         <interceptors>
             <interceptor name="loginChecker" class="interceptor.CheckLoginInterceptor"/>
+            <interceptor name="ProADLoginChecker" class="interceptor.CheckProAdLoginInterceptor"/>
+            <interceptor name="OrdADLoginChecker" class="interceptor.CheckOrdAdLoginInterceptor"/>
+
             <interceptor-stack name="myStack">
                 <interceptor-ref name="loginChecker"/>
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+
+            <interceptor-stack name="proStack">
+                <interceptor-ref name="ProADLoginChecker"/>
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+
+            <interceptor-stack name="ordStack">
+                <interceptor-ref name="OrdADLoginChecker"/>
                 <interceptor-ref name="defaultStack"/>
             </interceptor-stack>
         </interceptors>
@@ -26,6 +39,29 @@
             <result>/index.jsp</result>
         </action>
     </package>
+
+    <package name="order" namespace="/order" extends="default">
+        <action name="balance" class="action.OrderAction" method="balance">
+            <result name="success">/index.jsp</result>
+        </action>
+
+        <action name="addOrder" class="action.OrderAction" method="addOrder">
+            <result name="success">/index.jsp</result>
+        </action>
+
+        <action name="queryOrder" class="action.OrderAction" method="queryOrder">
+            <result name="success">/index.jsp</result>
+        </action>
+
+        <action name="deleteOrder" class="action.OrderAction" method="deleteOrder">
+            <result name="success">/index.jsp</result>
+        </action>
+
+        <action name="cancelOrder" class="action.OrderAction" method="cancelOrder">
+            <result name="success">/index.jsp</result>
+        </action>
+    </package>
+
 
     <package name="comment" namespace="/comment" extends="default">
 
@@ -78,17 +114,20 @@
         </action>
 
         <action name="update" class="action.UserInfoAction" method="update">
+            <!--<interceptor-ref name="loginChecker"/>-->
             <result name="success"></result>
             <result name="error"></result>
             <result name="input"></result>
         </action>
     </package>
 
-    <package name="favorite" namespace="/favorite" extends="default">
+    <package name="favorite" namespace="/favorite" extends="default,json-default">
         <!--<default-interceptor-ref name="myStack"/>-->
 
         <action name="favor" class="action.FavoriteAction" method="favor">
-            <result name="success">/login.jsp</result>
+            <result name="success" type="json">
+                <param name="root">data</param>
+            </result>
         </action>
 
         <action name="unfavor" class="action.FavoriteAction" method="unfavor">

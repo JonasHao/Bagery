@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Collection;
 
 /**
- * Created by 41159 on 2016/6/23.
+ * Created by 41159 on 2016/6/29.
  */
 @Entity
 public class Product {
@@ -12,8 +12,8 @@ public class Product {
     private int pricedId;
     private String color;
     private int stock;
-    private Collection<CartItem> cartItemsByProductId;
-    private Collection<OrderItem> orderItemsByProductId;
+    private Collection<CartItem> cartitemsByProductId;
+    private Collection<OrderItem> orderitemsByProductId;
     private Priced pricedByPricedId;
 
     @Id
@@ -27,7 +27,7 @@ public class Product {
     }
 
     @Basic
-    @Column(name = "priced_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "priced_id", nullable = false, insertable = true, updatable = true)
     public int getPricedId() {
         return pricedId;
     }
@@ -80,22 +80,22 @@ public class Product {
         return result;
     }
 
-    @OneToMany(mappedBy = "productByProductId")
-    public Collection<CartItem> getCartItemsByProductId() {
-        return cartItemsByProductId;
+    @OneToMany(mappedBy = "product")
+    public Collection<CartItem> getCartitemsByProductId() {
+        return cartitemsByProductId;
     }
 
-    public void setCartItemsByProductId(Collection<CartItem> cartitemsByProductId) {
-        this.cartItemsByProductId = cartitemsByProductId;
+    public void setCartitemsByProductId(Collection<CartItem> cartitemsByProductId) {
+        this.cartitemsByProductId = cartitemsByProductId;
     }
 
-    @OneToMany(mappedBy = "productByProductId")
-    public Collection<OrderItem> getOrderItemsByProductId() {
-        return orderItemsByProductId;
+    @OneToMany(mappedBy = "product")
+    public Collection<OrderItem> getOrderitemsByProductId() {
+        return orderitemsByProductId;
     }
 
-    public void setOrderItemsByProductId(Collection<OrderItem> orderitemsByProductId) {
-        this.orderItemsByProductId = orderitemsByProductId;
+    public void setOrderitemsByProductId(Collection<OrderItem> orderitemsByProductId) {
+        this.orderitemsByProductId = orderitemsByProductId;
     }
 
     @ManyToOne

@@ -4,21 +4,22 @@ import javax.persistence.*;
 import java.util.Collection;
 
 /**
- * Created by 41159 on 2016/6/23.
+ * Created by 41159 on 2016/6/29.
  */
 @Entity
-public class Orders {
+@Table(name = "orders", schema = "", catalog = "bagery")
+public class Order {
     private int orderId;
     private int userId;
-    private int shipInfId;
-    private Integer total;
+    private int addressId;
+    private Double total;
     private String instruction;
     private String orderStatus;
     private String courierNumber;
     private String courierCompany;
-    private Collection<Comment> commentsByOrderId;
-    private Collection<OrderItem> orderItemsByOrderId;
-    private User userByUserId;
+    private Collection<Comment> comments;
+    private Collection<OrderItem> orderItems;
+    private User user;
 
     @Id
     @Column(name = "order_id", nullable = false, insertable = true, updatable = true)
@@ -31,7 +32,7 @@ public class Orders {
     }
 
     @Basic
-    @Column(name = "user_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "user_id", nullable = false, insertable = true, updatable = true)
     public int getUserId() {
         return userId;
     }
@@ -41,22 +42,22 @@ public class Orders {
     }
 
     @Basic
-    @Column(name = "ship_inf_id", nullable = false, insertable = false, updatable = false)
-    public int getShipInfId() {
-        return shipInfId;
+    @Column(name = "ship_inf_id", nullable = false, insertable = true, updatable = true)
+    public int getAddressId() {
+        return addressId;
     }
 
-    public void setShipInfId(int shipInfId) {
-        this.shipInfId = shipInfId;
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
     }
 
     @Basic
     @Column(name = "total", nullable = true, insertable = true, updatable = true, precision = 0)
-    public Integer getTotal() {
+    public Double getTotal() {
         return total;
     }
 
-    public void setTotal(Integer total) {
+    public void setTotal(Double total) {
         this.total = total;
     }
 
@@ -105,17 +106,17 @@ public class Orders {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Orders orders = (Orders) o;
+        Order order = (Order) o;
 
-        if (orderId != orders.orderId) return false;
-        if (userId != orders.userId) return false;
-        if (shipInfId != orders.shipInfId) return false;
-        if (total != null ? !total.equals(orders.total) : orders.total != null) return false;
-        if (instruction != null ? !instruction.equals(orders.instruction) : orders.instruction != null) return false;
-        if (orderStatus != null ? !orderStatus.equals(orders.orderStatus) : orders.orderStatus != null) return false;
-        if (courierNumber != null ? !courierNumber.equals(orders.courierNumber) : orders.courierNumber != null)
+        if (orderId != order.orderId) return false;
+        if (userId != order.userId) return false;
+        if (addressId != order.addressId) return false;
+        if (total != null ? !total.equals(order.total) : order.total != null) return false;
+        if (instruction != null ? !instruction.equals(order.instruction) : order.instruction != null) return false;
+        if (orderStatus != null ? !orderStatus.equals(order.orderStatus) : order.orderStatus != null) return false;
+        if (courierNumber != null ? !courierNumber.equals(order.courierNumber) : order.courierNumber != null)
             return false;
-        if (courierCompany != null ? !courierCompany.equals(orders.courierCompany) : orders.courierCompany != null)
+        if (courierCompany != null ? !courierCompany.equals(order.courierCompany) : order.courierCompany != null)
             return false;
 
         return true;
@@ -125,7 +126,7 @@ public class Orders {
     public int hashCode() {
         int result = orderId;
         result = 31 * result + userId;
-        result = 31 * result + shipInfId;
+        result = 31 * result + addressId;
         result = 31 * result + (total != null ? total.hashCode() : 0);
         result = 31 * result + (instruction != null ? instruction.hashCode() : 0);
         result = 31 * result + (orderStatus != null ? orderStatus.hashCode() : 0);
@@ -134,31 +135,31 @@ public class Orders {
         return result;
     }
 
-    @OneToMany(mappedBy = "ordersByOrderId")
-    public Collection<Comment> getCommentsByOrderId() {
-        return commentsByOrderId;
+    @OneToMany(mappedBy = "order")
+    public Collection<Comment> getComments() {
+        return comments;
     }
 
-    public void setCommentsByOrderId(Collection<Comment> commentsByOrderId) {
-        this.commentsByOrderId = commentsByOrderId;
+    public void setComments(Collection<Comment> comments) {
+        this.comments = comments;
     }
 
-    @OneToMany(mappedBy = "ordersByOrderId")
-    public Collection<OrderItem> getOrderItemsByOrderId() {
-        return orderItemsByOrderId;
+    @OneToMany(mappedBy = "order")
+    public Collection<OrderItem> getOrderItems() {
+        return orderItems;
     }
 
-    public void setOrderItemsByOrderId(Collection<OrderItem> orderitemsByOrderId) {
-        this.orderItemsByOrderId = orderitemsByOrderId;
+    public void setOrderItems(Collection<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
-    public User getUserByUserId() {
-        return userByUserId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserByUserId(User userByUserId) {
-        this.userByUserId = userByUserId;
+    public void setUser(User user) {
+        this.user = user;
     }
 }
