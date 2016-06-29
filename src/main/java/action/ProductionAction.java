@@ -17,7 +17,7 @@ public class ProductionAction extends DefaultActionSupport {
 	private String title;
     private String description;
 	private int unit_price;
-	private int sale_price;
+	private double sale_price;
 	private String color;
     private int stock;
     private String word;
@@ -282,11 +282,11 @@ public class ProductionAction extends DefaultActionSupport {
         this.unit_price = unit_price;
     }
 
-    public int getSale_price() {
+    public double getSale_price() {
         return sale_price;
     }
 
-    public void setSale_price(int sale_price) {
+    public void setSale_price(double sale_price) {
         this.sale_price = sale_price;
     }
 

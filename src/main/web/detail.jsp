@@ -7,21 +7,35 @@
     <jsp:attribute name="title">商品详情</jsp:attribute>
     <jsp:attribute name="scripts">
         <script type="text/javascript">
-            function favor() {
+            function changeFavorState() {
+                if(document.getElementById("favor-icon").className=="fa fa-star fa-lg amber-text"){
+                    var url="/favorite/unfavor";
+                    var classname="fa fa-star-o fa-lg amber-text";
+                } else{
+                    var url="/favorite/favor";
+                    var classname="fa fa-star fa-lg amber-text";
+                }
                 $.ajax(
                         {
-                            url: "favor.action",
+                            url: url,
                             dataType: "json",   //返回格式为json
                             type: 'post',
                             data: {priceId: 1},
                             success: function (data) {
-                                if (data.result == "SUCESS") {
-                                    alert("收藏成功！");
-                                    window.location.reload();
+//                                console.log(data);
+                                if (data.result == "success") {
+//                                    var tmp = document.getElementById("favor-icon");
+//                                    console.log(tmp);
+                                    document.getElementById("favor-icon").className=classname;
+                                    if(classname=="fa fa-star fa-lg amber-text"){
+                                        alert("收藏成功！");
+                                    }
+                                    else{
+                                        alert("取消收藏！");
+                                    }
                                 } else {
-                                    view(data.result);
+                                    alert("收藏失败！");
                                 }
-                                alert(data);
                             }
                         })
             }
@@ -49,15 +63,15 @@
                                 <div class="mask"></div>
                             </a>
                         </div>
-                            <s:a href="%{favorUrl}">
-                               <i class="fa fa-star-o fa-lg amber-text" aria-hidden="true"></i>
-                            </s:a>
-                            <%--<s:if test="true">--%>
-                            <%--<i class="fa fa-star-o fa-lg amber-text" aria-hidden="true" id="priced_id"></i>--%>
-                            <%--</s:if>--%>
-                            <%--<s:else>--%>
-                            <%--<i class="fa fa-star fa-lg amber-text" aria-hidden="true" id="priced_id"></i>--%>
-                            <%--</s:else>--%>
+                            <a onclick="changeFavorState()">
+                                <s:if test="true">
+                                    <i class="fa fa-star-o fa-lg amber-text" aria-hidden="true" id="favor-icon"></i>
+                                </s:if>
+                                <s:else>
+                                    <i class="fa fa-star fa-lg amber-text" aria-hidden="true" id="favor-icon"></i>
+                                </s:else>
+                            </a>
+
                     </div>
 
 

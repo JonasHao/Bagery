@@ -29,15 +29,15 @@ public class CartAction extends ActionSupport{
         cartItem=new CartItem();
         cartItem.setNum(2);
         cartItem.setItemId(1);
-        cartItem.setTotalPriced(9999);
+        cartItem.setTotalPriced(9999.00);
         Product product=new Product();
         product.setColor("red");
         Priced priced=new Priced();
         priced.setTitle("TITLE TEST");
         priced.setUnitPrice(10000);
-        priced.setSalePrice(9999);
+        priced.setSalePrice(9999.0);
         product.setPricedByPricedId(priced);
-        cartItem.setProductByProductId(product);
+        cartItem.setProduct(product);
         cartItemList.add(cartItem);
         return SUCCESS;
     }

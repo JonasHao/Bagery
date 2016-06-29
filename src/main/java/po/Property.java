@@ -66,7 +66,7 @@ public class Property {
         return result;
     }
 
-    @OneToMany(mappedBy = "getProperty")
+    @OneToMany(mappedBy = "property")
     public Collection<PricedPro> getPricedProsByProId() {
         return pricedProsByProId;
     }

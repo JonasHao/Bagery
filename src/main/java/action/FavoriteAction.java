@@ -52,8 +52,17 @@ public class FavoriteAction extends ActionSupport {
     }
 
     public String unfavor() {
-        user = userService.getCurrentUser();
-        favoriteService.unfavor(itemId, user.getUserId());
+        try {
+            user = userService.getCurrentUser();
+            favoriteService.unfavor(itemId, user.getUserId());
+            data.put(RESULT, SUCCESS);
+        } catch (HibernateException e) {
+            if (Config.DEBUG) {
+                data.put(RESULT, SUCCESS);
+            } else {
+                data.put(RESULT, ERROR);
+            }
+        }
         return SUCCESS;
     }
 

@@ -131,7 +131,9 @@
         </action>
 
         <action name="unfavor" class="action.FavoriteAction" method="unfavor">
-            <result name="success">/login.jsp</result>
+            <result name="success" type="json">
+                <param name="root">data</param>
+            </result>
         </action>
 
         <action name="queryFavorite" class="action.FavoriteAction" method="queryFavorite">
