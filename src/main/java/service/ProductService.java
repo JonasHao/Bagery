@@ -56,4 +56,8 @@ public interface ProductService {
     List<UserPricedRecord> findHistoryRecord(int userID);
 
     List<Property> findProsByCategory(String category);
+
+    List<PricedPro> findPricedProByPriced(int pricedID);
+    void deleteProductsByPriced(int pricedID);
+    void deletePricedProsByPriced(int pricedID);
 }
