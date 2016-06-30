@@ -59,9 +59,9 @@
 
                     <div class="tab-content">
 
-                        <s:iterator value="priceds">
                         <div class="page tab-pane active" id="products-page-1" role="tabpanel">
                             <div class="row">
+                                <s:iterator value="priceds">
                                 <div class="col-md-4">
                                     <t:product>
                                         <jsp:attribute name="img"><s:property value="img"/></jsp:attribute>
@@ -70,9 +70,10 @@
                                         <jsp:attribute name="pricedID"><s:property value="pricedId"/></jsp:attribute>
                                     </t:product>
                                 </div>
+                                </s:iterator>
                             </div>
                         </div>
-                        </s:iterator>
+
 
                         <div class="page tab-pane" id="products-page-2" role="tabpanel">
                             <div class="row">

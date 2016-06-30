@@ -221,6 +221,9 @@
         <action name="deletePriced" class="action.ProductionAction" method="deletePriced">
             <result name="success"></result>
         </action>
+        <action name="viewPricedListAdmin" class="action.ProductionAction" method="viewPricedList">
+            <result name="success">/admin/product_list.jsp</result>
+        </action>
         <action name="viewPricedList" class="action.ProductionAction" method="viewPricedList">
             <result name="success">/list.jsp</result>
         </action>

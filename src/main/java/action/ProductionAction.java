@@ -19,6 +19,7 @@ public class ProductionAction extends DefaultActionSupport {
     private double unit_price;
     private double sale_price;
     private String color;
+    private int page_num;
     private int stock;
     private String word;
     private Priced priced;
@@ -209,6 +210,7 @@ public class ProductionAction extends DefaultActionSupport {
         }
     }
     */
+
     public String viewPricedList() {
         try {
             priceds = productService.findAll();
@@ -499,5 +501,13 @@ public class ProductionAction extends DefaultActionSupport {
 
     public void setProIDs(List<Integer> proIDs) {
         this.proIDs = proIDs;
+    }
+
+    public int getPage_num() {
+        return page_num;
+    }
+
+    public void setPage_num(int page_num) {
+        this.page_num = page_num;
     }
 }
