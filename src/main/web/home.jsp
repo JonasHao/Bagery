@@ -76,7 +76,7 @@
                             <br/>
                             <h5 class="h5-responsive font-weight-bold">查询积分</h5>
                             <ul>
-                                <li>400分</li>
+                                <li><s:property value="#session.user.username"/></li>
                             </ul>
                         </div>
 

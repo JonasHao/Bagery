@@ -132,4 +132,22 @@ public class ProductServiceImpl implements ProductService {
         return dao.query("from Property where category=?").setParameter(0, category).list();
     }
 
+
+
+    public List<PricedPro> findPricedProByPriced(int pricedID)
+    {
+        return dao.query("from PricedPro where pricedId=?").setParameter(0, pricedID).list();
+    }
+    public void deleteProductsByPriced(int pricedID)
+    {
+        List<Product> products=findProductsByPriced(pricedID);
+        for(Product product:products)
+            dao.delete(product);
+    }
+    public void deletePricedProsByPriced(int pricedID)
+    {
+        List<PricedPro> pps=findPricedProByPriced(pricedID);
+        for(PricedPro pp :pps)
+            dao.delete(pp);
+    }
 }

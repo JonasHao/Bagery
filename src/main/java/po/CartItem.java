@@ -28,7 +28,7 @@ public class CartItem {
     }
 
     @Basic
-    @Column(name = "product_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "product_id", nullable = false, insertable = true, updatable = true)
     public int getProductId() {
         return productId;
     }
@@ -58,7 +58,7 @@ public class CartItem {
     }
 
     @Basic
-    @Column(name = "user_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "user_id", nullable = false, insertable = true, updatable = true)
     public int getUserId() {
         return userId;
     }
@@ -95,7 +95,7 @@ public class CartItem {
     }
 
     @ManyToOne
-    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false)
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false, insertable = false, updatable = false)
     public Product getProduct() {
         return product;
     }
@@ -105,7 +105,7 @@ public class CartItem {
     }
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false, insertable = false, updatable = false)
     public User getUser() {
         return user;
     }

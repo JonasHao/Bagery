@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <t:base>
 
     <jsp:attribute name="title">商品列表</jsp:attribute>
@@ -16,7 +17,7 @@
             <div class="row">
                 <!--Sidebar-->
                 <div class="col-md-3">
-
+<!--
                     <div class="widget-wrapper">
                         <h6>性别:</h6>
                         <div class="list-group">
@@ -24,37 +25,31 @@
                             <a href="#" class="list-group-item filter-list-group-item ">Man</a>
                         </div>
                     </div>
-
+-->
                     <div class="widget-wrapper">
                         <h6>品牌:</h6>
                         <div class="list-group">
-                            <a href="#" class="list-group-item filter-list-group-item  active">Woman</a>
-                            <a href="#" class="list-group-item filter-list-group-item ">Man</a>
-                            <a href="#" class="list-group-item filter-list-group-item ">Shoes</a>
-                            <a href="#" class="list-group-item filter-list-group-item ">T-shirt</a>
-                            <a href="#" class="list-group-item filter-list-group-item ">Jewellery</a>
-                        </div>
-                    </div>
-
-                    <div class="widget-wrapper">
-                        <h6>功能:</h6>
-                        <div class="list-group">
-                            <a href="#" class="list-group-item filter-list-group-item  active">Woman</a>
-                            <a href="#" class="list-group-item filter-list-group-item ">Man</a>
-                            <a href="#" class="list-group-item filter-list-group-item ">Shoes</a>
-                            <a href="#" class="list-group-item filter-list-group-item ">T-shirt</a>
-                            <a href="#" class="list-group-item filter-list-group-item ">Jewellery</a>
+                            <s:iterator value="pros1">
+                                <a href="#" class="list-group-item filter-list-group-item "><s:property value="description"/></a>
+                            </s:iterator>
                         </div>
                     </div>
 
                     <div class="widget-wrapper">
                         <h6>材质:</h6>
                         <div class="list-group">
-                            <a href="#" class="list-group-item filter-list-group-item  active">Woman</a>
-                            <a href="#" class="list-group-item filter-list-group-item ">Man</a>
-                            <a href="#" class="list-group-item filter-list-group-item ">Shoes</a>
-                            <a href="#" class="list-group-item filter-list-group-item ">T-shirt</a>
-                            <a href="#" class="list-group-item filter-list-group-item ">Jewellery</a>
+                            <s:iterator value="pros2">
+                                <a href="#" class="list-group-item filter-list-group-item "><s:property value="description"/></a>
+                            </s:iterator>
+                        </div>
+                    </div>
+
+                    <div class="widget-wrapper">
+                        <h6>款式:</h6>
+                        <div class="list-group">
+                            <s:iterator value="pros3">
+                                <a href="#" class="list-group-item filter-list-group-item "><s:property value="description"/></a>
+                            </s:iterator>
                         </div>
                     </div>
                 </div>
@@ -64,18 +59,21 @@
 
                     <div class="tab-content">
 
+                        <s:iterator value="priceds">
                         <div class="page tab-pane active" id="products-page-1" role="tabpanel">
                             <div class="row">
                                 <div class="col-md-4">
                                     <t:product>
-                                        <jsp:attribute name="img">img/bags/bag1.png</jsp:attribute>
-                                        <jsp:attribute name="title">包包标题</jsp:attribute>
-                                        <jsp:attribute name="price">99999.00</jsp:attribute>
-                                        <jsp:attribute name="productID">1</jsp:attribute>
+                                        <jsp:attribute name="img"><s:property value="img"/></jsp:attribute>
+                                        <jsp:attribute name="title"><s:property value="title"/></jsp:attribute>
+                                        <jsp:attribute name="price"><s:property value="unitPrice"/></jsp:attribute>
+                                        <jsp:attribute name="pricedID"><s:property value="pricedId"/></jsp:attribute>
                                     </t:product>
                                 </div>
                             </div>
                         </div>
+                        </s:iterator>
+
                         <div class="page tab-pane" id="products-page-2" role="tabpanel">
                             <div class="row">
                                 <div class="col-md-4">
@@ -121,6 +119,7 @@
                             </div>
                         </div>
                     </div>
+
 
                     <ul class="nav nav-tabs tabs-5 pagination" role="tablist">
                         <li class="nav-item page-item">
