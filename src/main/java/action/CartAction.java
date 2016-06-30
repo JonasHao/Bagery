@@ -34,7 +34,7 @@ public class CartAction extends ActionSupport{
         product.setColor("red");
         Priced priced=new Priced();
         priced.setTitle("TITLE TEST");
-        priced.setUnitPrice(10000);
+        priced.setUnitPrice(10000.0);
         priced.setSalePrice(9999.0);
         product.setPricedByPricedId(priced);
         cartItem.setProduct(product);

@@ -6,7 +6,7 @@ import service.ProductService;
 
 import java.util.List;
 
-
+@SuppressWarnings("unchecked")
 public class ProductServiceImpl implements ProductService {
     public void setDao(Dao dao) {
         this.dao = dao;
