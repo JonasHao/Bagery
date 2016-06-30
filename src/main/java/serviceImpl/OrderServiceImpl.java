@@ -15,7 +15,7 @@ public class OrderServiceImpl implements OrderService {
     private Dao dao;
 
     /**
-     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * Ôö¼Ó¶©µ¥
      */
     @Override
     public void addOrder(Order order, List<Integer> cartItemIdList){
@@ -41,7 +41,7 @@ public class OrderServiceImpl implements OrderService {
 
 
     /**
-     * ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
+     * »ñÈ¡
      */
     @Override
     public Order getByOrderId(int orderId){
