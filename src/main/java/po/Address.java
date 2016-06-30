@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "ship_information", schema = "", catalog = "bagery")
 public class Address {
-    private int shipInfId;
+    private int addressId;
     private int userId;
     private String receiver;
     private String mobile;
@@ -19,17 +19,17 @@ public class Address {
     private User user;
 
     @Id
-    @Column(name = "ship_inf_id", nullable = false, insertable = true, updatable = true)
-    public int getShipInfId() {
-        return shipInfId;
+    @Column(name = "ship_inf_id", nullable = false, insertable = false, updatable = false)
+    public int getAddressId() {
+        return addressId;
     }
 
-    public void setShipInfId(int shipInfId) {
-        this.shipInfId = shipInfId;
+    public void setAddressId(int shipInfId) {
+        this.addressId = shipInfId;
     }
 
     @Basic
-    @Column(name = "user_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "user_id", nullable = false, insertable = false, updatable = false)
     public int getUserId() {
         return userId;
     }
@@ -105,7 +105,7 @@ public class Address {
 
         Address address = (Address) o;
 
-        if (shipInfId != address.shipInfId) return false;
+        if (addressId != address.addressId) return false;
         if (userId != address.userId) return false;
         if (receiver != null ? !receiver.equals(address.receiver) : address.receiver != null) return false;
         if (mobile != null ? !mobile.equals(address.mobile) : address.mobile != null) return false;
@@ -122,7 +122,7 @@ public class Address {
 
     @Override
     public int hashCode() {
-        int result = shipInfId;
+        int result = addressId;
         result = 31 * result + userId;
         result = 31 * result + (receiver != null ? receiver.hashCode() : 0);
         result = 31 * result + (mobile != null ? mobile.hashCode() : 0);

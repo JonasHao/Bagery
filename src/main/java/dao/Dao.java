@@ -12,11 +12,12 @@ import java.util.List;
 public class Dao {
     private SessionFactory sessionFactory;
 
-    public void save(Object o) throws HibernateException {
+    public Serializable save(Object o) throws HibernateException {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
-        session.save(o);
+        Serializable pk = session.save(o);
         session.getTransaction().commit();
+        return pk;
     }
 
     public void save(List<Object> ts) throws HibernateException {
@@ -25,6 +26,8 @@ public class Dao {
         ts.forEach(session::save);
         session.getTransaction().commit();
     }
+
+
 
 
     public <T> T get(Class<T> entityType, Serializable id) throws HibernateException {

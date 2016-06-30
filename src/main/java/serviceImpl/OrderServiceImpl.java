@@ -15,7 +15,7 @@ public class OrderServiceImpl implements OrderService {
     private Dao dao;
 
     /**
-     * ´´½¨¶©µ¥
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      */
     @Override
     public void addOrder(Order order, List<Integer> cartItemIdList){
@@ -32,7 +32,7 @@ public class OrderServiceImpl implements OrderService {
             orderItem.setProductId(cartItem.getProductId());
             orderItem.setProductTitle(cartItem.getProduct().getPricedByPricedId().getTitle());
             orderItem.setNum(cartItem.getNum());
-            orderItem.setTotalPriced(cartItem.getTotalPriced());
+            orderItem.setTotalPriced(cartItem.getSubtotal());
             orderItem.setOrderId(order.getOrderId());
             orderItemList.add(orderItem);
         }
@@ -41,7 +41,7 @@ public class OrderServiceImpl implements OrderService {
 
 
     /**
-     * ²éÑ¯¶©µ¥
+     * ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
      */
     @Override
     public Order getByOrderId(int orderId){
@@ -49,7 +49,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * ¸üÐÂ¶©µ¥
+     * ï¿½ï¿½ï¿½Â¶ï¿½ï¿½ï¿½
      */
     @Override
     public void updateOrder(Order order){
@@ -57,7 +57,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * É¾³ý¶©µ¥
+     * É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      */
     @Override
     public void deleteOrder(int orderId) {
@@ -65,26 +65,31 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * ·¢»õ£¬ÌîÐ´ÎïÁ÷µ¥ºÅºÍÎïÁ÷¹«Ë¾
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¾
      */
     @Override
     public void sendPackage(int orderId, String logisticsNum, String logisticsCompany){
 
+        Order order = dao.get(Order.class, orderId);
+        order.setCourierCompany(logisticsCompany);
+        order.setCourierNumber(logisticsNum);
+        dao.update(order);
+
     }
 
     /**
-     * »ñÈ¡¶©µ¥µÄÎïÁ÷ÐÅÏ¢
+     * ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
      */
     @Override
     public String getLogiticsStatus(int orderId){
-        Order order = dao.get(Order.class,orderId);
+        Order order = dao.get(Order.class, orderId);
         String company = order.getCourierCompany();
         String number = order.getCourierNumber();
         return queryLogisticsAPI(company,number);
     }
 
     private String queryLogisticsAPI(String company, String number){
-        String logistics = "ÕâÊÇÎïÁ÷ÐÅÏ¢£¡";
+        String logistics = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½";
         return logistics;
     }
 

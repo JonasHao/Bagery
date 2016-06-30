@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * Created by zhang on 2016/6/27.
  */
+//todo: Update Address with Province, City, District and Detail
 public class AddressAction extends ActionSupport {
     private UserService userService;
     private AddressService addressService;
@@ -108,13 +109,13 @@ public class AddressAction extends ActionSupport {
 
     public String viewAddress(){
         user=userService.getCurrentUser();
-        // todo: 分区省市区
+        //todo: update address
         return SUCCESS;
     }
 
     public String addAddress(){
         user=userService.getCurrentUser();
-
+        //todo: 交给Validator校验
         if(dizhi.equals(null)||receiver.equals(null)||mobile.equals(null))
             return INPUT;
 
@@ -133,6 +134,7 @@ public class AddressAction extends ActionSupport {
     }
 
     public String updateAddress(){
+        //todo: 交给Validator校验
         if(dizhi.equals(null)||mobile.equals(null)||receiver.equals(null))
             return INPUT;
 
