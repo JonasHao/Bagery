@@ -14,6 +14,7 @@ public class ProductionAction extends DefaultActionSupport {
     private int priced_id;
     private int pricedpro_id;
     private int user_id;
+    private int page_num;
 	private String title;
     private String description;
 	private double unit_price;
@@ -29,9 +30,6 @@ public class ProductionAction extends DefaultActionSupport {
 	private List<Priced> priceds;
     private List<Property> pros;
     private List<Property> pros1;
-
-
-
     private List<Property> pros2;
     private List<Property> pros3;
     private List<Integer> proIDs;
@@ -44,6 +42,7 @@ public class ProductionAction extends DefaultActionSupport {
     private UserService userService;
     private CommentService commentService;
 
+    /*
 	public String addPriced()throws Exception
 	{
         try {
@@ -73,6 +72,7 @@ public class ProductionAction extends DefaultActionSupport {
             return ERROR;
        }
 	}
+	*/
     public String add() {
         try {
             priced = new Priced();
@@ -116,6 +116,7 @@ public class ProductionAction extends DefaultActionSupport {
             return ERROR;
        }
 	}
+    /*
 	public String updatePriced()
 	{
         try {
@@ -144,6 +145,7 @@ public class ProductionAction extends DefaultActionSupport {
             return ERROR;
         }
     }
+    */
     public String update() {
         try {
             priced = productService.findPriced(priced_id);
@@ -152,11 +154,13 @@ public class ProductionAction extends DefaultActionSupport {
             priced.setUnitPrice(unit_price);
             priced.setSalePrice(sale_price);
             productService.updatePriced(priced);
+
             for (Product product : products) {
-                product = productService.findProduct(product_id);
+                product=new Product();
+                product.setPricedId(priced_id);
                 product.setColor(color);
                 product.setStock(stock);
-                productService.updateProduct(product);
+                productService.addProduct(product);
             }
             for (Property property : pros) {
                 pricedPro = productService.findPricedPro(pricedpro_id);
@@ -483,5 +487,12 @@ public class ProductionAction extends DefaultActionSupport {
 
     public void setProIDs(List<Integer> proIDs) {
         this.proIDs = proIDs;
+    }
+    public int getPage_num() {
+        return page_num;
+    }
+
+    public void setPage_num(int page_num) {
+        this.page_num = page_num;
     }
 }
