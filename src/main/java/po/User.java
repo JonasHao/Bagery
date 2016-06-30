@@ -26,6 +26,7 @@ public class User {
     private Collection<UserPricedRecord> historyRecords;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", nullable = false, insertable = false, updatable = false)
     public int getUserId() {
         return userId;

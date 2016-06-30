@@ -19,6 +19,7 @@ public class Priced {
     private Collection<UserPricedRecord> userPricedRecords;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "priced_id", nullable = false, insertable = false, updatable = false)
     public int getPricedId() {
         return pricedId;
@@ -133,7 +134,7 @@ public class Priced {
         this.pricedPros = pricedProsByPricedId;
     }
 
-    @OneToMany(mappedBy = "pricedByPricedId")
+    @OneToMany(mappedBy = "priced")
     public Collection<Product> getProducts() {
         return products;
     }

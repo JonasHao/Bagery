@@ -9,7 +9,7 @@ public interface ProductService {
     /**
      * 保存一个商品对象
      */
-    void addPriced(Priced priced);
+    int addPriced(Priced priced);
     void addProduct(Product product);
     void addPricedPro(PricedPro pricedPro);
 
