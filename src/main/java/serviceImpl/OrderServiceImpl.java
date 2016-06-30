@@ -82,7 +82,7 @@ public class OrderServiceImpl implements OrderService {
      * 获取订单的物流信息
      */
     @Override
-    public String getLogiticsStatus(int orderId){
+    public String getLogisticsStatus(int orderId){
         Order order = dao.get(Order.class, orderId);
         String company = order.getCourierCompany();
         String number = order.getCourierNumber();

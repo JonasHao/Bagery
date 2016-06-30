@@ -83,7 +83,7 @@ public class OrderAction extends DefaultActionSupport {
             order.setUserId(userId);
             order.setAddressId(shipInfId);
             order.setTotal(total);
-            order.setOrderStatus("0");
+            order.setOrderStatus(OrderStatus.UNPAID);
             orderService.addOrder(order, cartItemIdList);
             return SUCCESS;
         }catch (HibernateException e){
@@ -160,7 +160,7 @@ public class OrderAction extends DefaultActionSupport {
     public String getLogisticsStatus() throws Exception{
         try {
             user = userService.getCurrentUser();
-            logistics = orderService.getLogiticsStatus(orderId);
+            logistics = orderService.getLogisticsStatus(orderId);
             ActionContext.getContext().getSession().put("logistics", logistics);
             return SUCCESS;
         }catch (HibernateException e){
