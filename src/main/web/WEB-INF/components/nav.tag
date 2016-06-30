@@ -56,7 +56,7 @@
                                 <a class="dropdown-item" href="#">个人中心</a>
                                 <a class="dropdown-item" href="#">我的订单</a>
                                 <s:a class="dropdown-item" action="queryFavorite" namespace="/favorite">收藏夹</s:a>
-                                <a class="dropdown-item" href="#">退出</a>
+                                <s:a class="dropdown-item"  action="logout" name="/user">退出</s:a>
                             </s:if>
                             <s:else>
                                 <a class="dropdown-item" href="#">登录</a>

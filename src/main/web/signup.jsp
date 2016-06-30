@@ -14,6 +14,7 @@
         <div class="container">
             <div class="widget-wrapper row">
                 <div class="card card-login col-sm-push-2 col-sm-8 col-lg-push-4 col-lg-4 ">
+                    <form class="form-signin" action="user/register"  method="POST">
                     <div class="card-block">
 
                         <div class="md-form">
@@ -33,12 +34,13 @@
                         </div>
 
                         <div class="md-form">
-                            <s:password label="再输一次" name="password" class="form-control"/>
+                            <s:password label="再输一次" name="confirmpassword" class="form-control"/>
                         </div>
                         <s:submit cssClass="grey btn btn-primary" value="注册"/>
                         <a href="login.jsp">登录</a>
                         <a href="#">忘记密码</a>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>
