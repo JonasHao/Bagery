@@ -4,7 +4,6 @@ import com.opensymphony.xwork2.ActionSupport;
 import constant.Config;
 import org.hibernate.HibernateException;
 import po.FavoriteItem;
-import po.Priced;
 import po.User;
 import service.FavoriteService;
 import service.UserService;
@@ -36,10 +35,17 @@ public class FavoriteAction extends ActionSupport {
     public String favor() {
         try {
             user = userService.getCurrentUser();
+            favoriteItemList=user.getFavoriteItems();
+            for(FavoriteItem item:favoriteItemList){
+                if(item.getPricedId()==priceId){
+                    data.put(RESULT, SUCCESS);
+                    return SUCCESS;
+                }
+            }
             favoriteItem = new FavoriteItem();
             favoriteItem.setPricedId(priceId);
             favoriteItem.setUserId(user.getUserId());
-            favoriteService.favar(favoriteItem);
+            favoriteService.favor(favoriteItem);
             data.put(RESULT, SUCCESS);
         }catch( HibernateException  e){
             if(Config.DEBUG) {
@@ -69,11 +75,9 @@ public class FavoriteAction extends ActionSupport {
     public String queryFavorite() {
         try{
             user = userService.getCurrentUser();
-            favoriteItemList = (List<FavoriteItem>) user.getFavoriteItems();
+            favoriteItemList = user.getFavoriteItems();
             if(favoriteItemList.size()>=1)
                 data.put(RESULT, SUCCESS);
-            else
-                return ERROR;
         }catch (HibernateException e){
             if (Config.DEBUG) {
                 data.put(RESULT, SUCCESS);
@@ -81,34 +85,8 @@ public class FavoriteAction extends ActionSupport {
                 data.put(RESULT, ERROR);
             }
         }
-//        FavoriteItem item = new FavoriteItem();
-//        item.setItemId(1);
-//        Priced priced = new Priced();
-//        priced.setTitle("TITLE TEST");
-//        priced.setUnitPrice(999.0);
-//        item.setPriced(priced);
-//        item.setPricedId(1);
-//
-//        FavoriteItem favoriteItem1 = new FavoriteItem();
-//        favoriteItem1.setItemId(1);
-//        Priced P2 = new Priced();
-//        P2.setTitle("TITLE TEST2");
-//        P2.setUnitPrice(999.0);
-//        favoriteItem1.setPricedId(2);
-//        favoriteItem1.setPriced(P2);
-//
-//
-//        favoriteItemList.add(item);
-//        favoriteItemList.add(favoriteItem1);
         return SUCCESS;
     }
-
-//    @Override
-//    public String execute() throws Exception {
-//        user = userService.getCurrentUser();
-//        favoriteItemList = (List<FavoriteItem>) user.getFavoriteItems();
-//        return SUCCESS;
-//    }
 
     public int getPriceId() {
         return priceId;

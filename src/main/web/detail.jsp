@@ -43,20 +43,16 @@
             function addCart() {
                 $.ajax(
                         {
-                            url: "/Cart/addCart",
+                            url: "/cart/addCart",
                             dataType: "json",   //返回格式为json
                             type: 'post',
                             data: {productId: 1},
                             success: function (data) {
+                                console.log(data);
                                 if (data.result == "success") {
-//
-                                        alert("收藏成功！");
-                                    }
-                                    else {
-                                        alert("取消收藏！");
+                                        alert("加入购物车成功！");
                                     }
                                 }
-
                         })
             }
         </script>
@@ -64,11 +60,11 @@
     <jsp:body>
         <!--Main layout-->
         <div class="container">
-            <s:url id="favor" var="favorUrl" action="favor" namespace="/favorite">
-                <s:param name="priceId">
-                    <%--<s:property value="priceId" />--%>1
-                </s:param>
-            </s:url>
+            <%--<s:url id="favor" var="favorUrl" action="favor" namespace="/favorite">--%>
+                <%--<s:param name="priceId">--%>
+                    <%--&lt;%&ndash;<s:property value="priceId" />&ndash;%&gt;1--%>
+                <%--</s:param>--%>
+            <%--</s:url>--%>
 
             <div class="card">
                 <!--First row-->
@@ -112,7 +108,7 @@
                                 <li><i class="fa fa-star"></i></li>
                             </ul>
 
-                            <a href="#" class="btn btn-lg blue-grey"><i class="fa fa-shopping-cart"></i> 加入购物车</a>
+                            <a onclick="addCart()" class="btn btn-lg blue-grey"><i class="fa fa-shopping-cart"></i> 加入购物车</a>
                             <a href="#" class="btn btn-lg blue-grey"><i class="fa fa-check"></i> 立即购买</a>
 
                         </div>

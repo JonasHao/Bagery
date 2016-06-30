@@ -13,7 +13,7 @@ public class FavoriteServiceImpl implements FavoriteService {
     private Dao dao;
 
     @Override
-    public void favar(FavoriteItem favoriteItem) {
+    public void favor(FavoriteItem favoriteItem) {
         dao.save(favoriteItem);
     }
 

@@ -31,15 +31,18 @@
                         <br/><br/>
                         <!--Text-->
                         <%--<i class="fa fa-circle color-icon" aria-hidden="true"></i>--%>
-                        <p class="bag-color">颜色分类：<jsp:invoke fragment="color"/></p>
+                        <p class="bag-color">颜色分类：
+                            <jsp:invoke fragment="color"/>
+                        </p>
                     </div>
                 </div>
 
                 <div class="col-md-3">
                     <div class="unit-price"><i class="fa fa-rmb" aria-hidden="true"></i>
-                        <jsp:invoke fragment="unitPrice"/></div>
+                        <jsp:invoke fragment="unitPrice"/>
+                    </div>
                     <i class="fa fa-rmb" aria-hidden="true"></i>
-                        <jsp:invoke fragment="salePrice"/>
+                    <jsp:invoke fragment="salePrice"/>
                 </div>
 
                 <div class="col-md-2">
@@ -56,13 +59,33 @@
                     </s:param>
                 </s:url>
                 <div class="col-md-2">
-                    <s:a href="%{deleteCartUrl}">
+                    <a onclick="deleteCart()">
                         <i class="fa fa-trash" aria-hidden="true"></i>删除
-                    </s:a>
+                    </a>
                 </div>
-
             </div>
         </div>
-
     </div>
+    <script>
+        var todelete;
+        function deleteCart() {
+            todelete = event.target.parentNode.parentNode.parentNode.parentNode;
+            console.log(todelete);
+            $.ajax(
+                    {
+                        url: "/cart/deleteCart",
+                        dataType: "json",   //返回格式为json
+                        type: 'post',
+                        data: {itemId:<jsp:invoke fragment="itemId"/>},
+                        success: function (data) {
+                            if (data.result == "success") {
+                                todelete.remove();
+                                alert("删除成功！");
+                            } else {
+                                alert("删除失败！");
+                            }
+                        }
+                    })
+        }
+    </script>
 </div>

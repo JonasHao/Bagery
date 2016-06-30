@@ -154,18 +154,22 @@
 
     </package>
 
-    <package name="cart" namespace="/cart" extends="default">
+    <package name="cart" namespace="/cart" extends="default,json-default">
         <global-results>
             <result name="error">/error.jsp</result>
             <result name="login">/login.jsp</result>
         </global-results>
 
         <action name="addCart" class="action.CartAction" method="addCart">
-            <result name="success">/login.jsp</result>
+            <result name="success" type="json">
+                <param name="root">data</param>
+            </result>
         </action>
 
         <action name="deleteCart" class="action.CartAction" method="deleteCart">
-            <result name="success">/login.jsp</result>
+            <result name="success" type="json">
+                <param name="root">data</param>
+            </result>
         </action>
 
         <action name="queryCart" class="action.CartAction" method="queryCart">
