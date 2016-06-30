@@ -15,7 +15,7 @@ public class OrderServiceImpl implements OrderService {
     private Dao dao;
 
     /**
-     * ´´½¨¶©µ¥
+     * åˆ›å»ºè®¢å•
      */
     @Override
     public void addOrder(Order order, List<Integer> cartItemIdList){
@@ -41,7 +41,7 @@ public class OrderServiceImpl implements OrderService {
 
 
     /**
-     * ²éÑ¯¶©µ¥
+     * æŸ¥è¯¢è®¢å•
      */
     @Override
     public Order getByOrderId(int orderId){
@@ -49,7 +49,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * ¸üĞÂ¶©µ¥
+     * æ›´æ–°è®¢å•
      */
     @Override
     public void updateOrder(Order order){
@@ -57,7 +57,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * É¾³ı¶©µ¥
+     * åˆ é™¤è®¢å•
      */
     @Override
     public void deleteOrder(int orderId) {
@@ -65,7 +65,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * ·¢»õ£¬ÌîĞ´ÎïÁ÷µ¥ºÅºÍÎïÁ÷¹«Ë¾
+     * å‘è´§ï¼Œå¡«å†™ç‰©æµå•å·å’Œç‰©æµå…¬å¸
      */
     @Override
     public void sendPackage(int orderId, String logisticsNum, String logisticsCompany){
@@ -78,7 +78,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * »ñÈ¡¶©µ¥µÄÎïÁ÷ĞÅÏ¢
+     * è·å–è®¢å•çš„ç‰©æµä¿¡æ¯
      */
     @Override
     public String getLogisticsStatus(int orderId){
@@ -89,7 +89,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private String queryLogisticsAPI(String company, String number){
-        String logistics = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½";
+        String logistics = "é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·é”Ÿæ–¤æ‹·æ¯é”Ÿæ–¤æ‹·";
         return logistics;
     }
 
