@@ -15,7 +15,7 @@ public class OrderServiceImpl implements OrderService {
     private Dao dao;
 
     /**
-     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * Ôö¼Ó¶©µ¥
      */
     @Override
     public void addOrder(Order order, List<Integer> cartItemIdList){
@@ -41,7 +41,7 @@ public class OrderServiceImpl implements OrderService {
 
 
     /**
-     * ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
+     * »ñÈ¡
      */
     @Override
     public Order getByOrderId(int orderId){
@@ -81,7 +81,7 @@ public class OrderServiceImpl implements OrderService {
      * ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
      */
     @Override
-    public String getLogiticsStatus(int orderId){
+    public String getLogisticsStatus(int orderId){
         Order order = dao.get(Order.class, orderId);
         String company = order.getCourierCompany();
         String number = order.getCourierNumber();

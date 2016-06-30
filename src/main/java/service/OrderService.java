@@ -35,7 +35,7 @@ public interface OrderService {
     /**
      * 获取订单的物流信息
      */
-    String getLogiticsStatus(int orderId);
+    String getLogisticsStatus(int orderId);
 
 
 
