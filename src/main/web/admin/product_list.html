@@ -155,34 +155,31 @@
                                             </thead>
                                             <tbody>                                  
 
+  
                                             <tr>
                                                 <td class="center" style="padding-bottom: 16px;padding-top: 16px;">1</td>
                                                 <td class="center" style="padding-bottom: 16px;padding-top: 16px;"><a href="#">这里点击以后跳到商品详情页</a></td>
                                                 <td class="center" style="padding-bottom: 16px;padding-top: 16px;">Win XP</td>
                                                 <td class="center" style="padding-bottom: 16px;padding-top: 16px;">6</td>
-                                                <td class="center"><button type="button" onclick="window.location.href='modify_product.html';" class="btn btn-info" style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">修改</button><button type="button" class="btn btn-danger" style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">删除</button></td>
+                                                <td class="center">
+                                                    <button type="button" onclick="window.location.href='modify_product.html';" class="btn btn-info" style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">修改</button>
+                                                    <button type="button" class="btn btn-warning" style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">下架</button>
+                                                    <button type="button" class="btn btn-danger" style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">删除</button>
+                                                </td>
                                             </tr>
+
                                             <tr>
                                                 <td class="center" style="padding-bottom: 16px;padding-top: 16px;">1</td>
                                                 <td class="center" style="padding-bottom: 16px;padding-top: 16px;"><a href="#">这里点击以后跳到商品详情页</a></td>
                                                 <td class="center" style="padding-bottom: 16px;padding-top: 16px;">Win XP</td>
                                                 <td class="center" style="padding-bottom: 16px;padding-top: 16px;">6</td>
-                                                <td class="center"><button type="button" onclick="window.location.href='modify_product.html';" class="btn btn-info" style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">修改</button><button type="button" class="btn btn-danger" style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">删除</button></td>
+                                                <td class="center">
+                                                    <button type="button" onclick="window.location.href='modify_product.html';" class="btn btn-info" style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">修改</button>
+                                                    <button type="button" class="btn btn-primary" style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">上架</button>
+                                                    <button type="button" class="btn btn-danger" style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">删除</button>
+                                                </td>
                                             </tr>
-                                            <tr>
-                                                <td class="center" style="padding-bottom: 16px;padding-top: 16px;">1</td>
-                                                <td class="center" style="padding-bottom: 16px;padding-top: 16px;"><a href="#">这里点击以后跳到商品详情页</a></td>
-                                                <td class="center" style="padding-bottom: 16px;padding-top: 16px;">Win XP</td>
-                                                <td class="center" style="padding-bottom: 16px;padding-top: 16px;">6</td>
-                                                <td class="center"><button type="button" onclick="window.location.href='modify_product.html';" class="btn btn-info" style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">修改</button><button type="button" class="btn btn-danger" style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">删除</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="center" style="padding-bottom: 16px;padding-top: 16px;">1</td>
-                                                <td class="center" style="padding-bottom: 16px;padding-top: 16px;"><a href="#">这里点击以后跳到商品详情页</a></td>
-                                                <td class="center" style="padding-bottom: 16px;padding-top: 16px;">Win XP</td>
-                                                <td class="center" style="padding-bottom: 16px;padding-top: 16px;">6</td>
-                                                <td class="center"><button type="button" onclick="window.location.href='modify_product.html';" class="btn btn-info" style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">修改</button><button type="button" class="btn btn-danger" style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">删除</button></td>
-                                            </tr>
+                                           
                                             </tbody>
                                
                                         </table>
@@ -243,7 +240,7 @@
     <script src="js/plugins/dataTables/dataTables.responsive.js"></script>
     <script src="js/plugins/dataTables/dataTables.tableTools.min.js"></script>
     <script>$(document).ready(function() {
-        console.log($('.dataTables-example'));
+
         $('.dataTables-example').dataTable({
             responsive: true,
             "dom": 'T<"clear">lfrtip',
