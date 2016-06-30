@@ -52,8 +52,17 @@ public class FavoriteAction extends ActionSupport {
     }
 
     public String unfavor() {
-        user = userService.getCurrentUser();
-        favoriteService.unfavor(itemId, user.getUserId());
+        try {
+            user = userService.getCurrentUser();
+            favoriteService.unfavor(itemId, user.getUserId());
+            data.put(RESULT, SUCCESS);
+        } catch (HibernateException e) {
+            if (Config.DEBUG) {
+                data.put(RESULT, SUCCESS);
+            } else {
+                data.put(RESULT, ERROR);
+            }
+        }
         return SUCCESS;
     }
 
@@ -64,7 +73,7 @@ public class FavoriteAction extends ActionSupport {
         item.setItemId(1);
         Priced priced = new Priced();
         priced.setTitle("TITLE TEST");
-        priced.setUnitPrice(999);
+        priced.setUnitPrice(999.0);
         item.setPriced(priced);
         item.setPricedId(1);
 
@@ -72,7 +81,7 @@ public class FavoriteAction extends ActionSupport {
         favoriteItem1.setItemId(1);
         Priced P2 = new Priced();
         P2.setTitle("TITLE TEST2");
-        P2.setUnitPrice(999);
+        P2.setUnitPrice(999.0);
         favoriteItem1.setPricedId(2);
         favoriteItem1.setPriced(P2);
 
@@ -85,7 +94,7 @@ public class FavoriteAction extends ActionSupport {
     @Override
     public String execute() throws Exception {
         user = userService.getCurrentUser();
-        favoriteItemList = (List<FavoriteItem>) user.getFavoriteitemsByUserId();
+        favoriteItemList = (List<FavoriteItem>) user.getFavoriteItems();
         return SUCCESS;
     }
 

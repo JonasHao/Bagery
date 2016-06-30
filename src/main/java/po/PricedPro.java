@@ -15,7 +15,8 @@ public class PricedPro {
     private Property property;
 
     @Id
-    @Column(name = "pp_id", nullable = false, insertable = true, updatable = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "pp_id", nullable = false, insertable = false, updatable = false)
     public int getPpId() {
         return ppId;
     }
@@ -67,7 +68,7 @@ public class PricedPro {
     }
 
     @ManyToOne
-    @JoinColumn(name = "priced_id", referencedColumnName = "priced_id", nullable = false)
+    @JoinColumn(name = "priced_id", referencedColumnName = "priced_id", nullable = false, insertable = false, updatable = false)
     public Priced getPriced() {
         return priced;
     }
@@ -77,7 +78,7 @@ public class PricedPro {
     }
 
     @ManyToOne
-    @JoinColumn(name = "pro_id", referencedColumnName = "pro_id", nullable = false)
+    @JoinColumn(name = "pro_id", referencedColumnName = "pro_id", nullable = false, insertable = false, updatable = false)
     public Property getProperty() {
         return property;
     }

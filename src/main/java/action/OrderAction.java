@@ -42,11 +42,11 @@ public class OrderAction extends DefaultActionSupport {
     private String logisticsNum;
     private String logisticsCompany;
 
-    //½áËã
+    //ï¿½ï¿½ï¿½ï¿½
     public String balance() throws Exception{
         try {
             user = userService.getCurrentUser();
-            addressList = user.getShipInformationsByUserId();
+            addressList = user.getAddresses();
             ActionContext.getContext().getSession().put("addressList", addressList);
 
             int itemId;
@@ -60,11 +60,11 @@ public class OrderAction extends DefaultActionSupport {
             }
             ActionContext.getContext().getSession().put("cartItemList", cartItemList);
 
-            //¼ÆËã×Ü¼Û
+            //ï¿½ï¿½ï¿½ï¿½ï¿½Ü¼ï¿½
             double totalPriced = 0.0;
             int cartSize = cartItemList.size();
             for (int i = 0; i < cartSize; i++) {
-                totalPriced += cartItemList.get(i).getTotalPriced();
+                totalPriced += cartItemList.get(i).getSubtotal();
             }
             ActionContext.getContext().getSession().put("totalPriced", totalPriced);
             return SUCCESS;
@@ -74,7 +74,7 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-    //Éú³É¶©µ¥
+    //ï¿½ï¿½ï¿½É¶ï¿½ï¿½ï¿½
     public String addOrder() throws Exception{
         try {
             user = userService.getCurrentUser();
@@ -92,11 +92,11 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-    //²é¿´¶©µ¥
+    //ï¿½é¿´ï¿½ï¿½ï¿½ï¿½
     public String queryOrder() throws Exception{
         try {
             user = userService.getCurrentUser();
-            orderList = user.getOrdersesByUserId();
+            orderList = user.getOrders();
             ActionContext.getContext().getSession().put("orderList", orderList);
             return SUCCESS;
         }catch (HibernateException e){
@@ -105,7 +105,7 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-    //É¾³ý¶©µ¥
+    //É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public String deleteOrder() throws Exception{
         try {
             orderService.deleteOrder(orderId);
@@ -116,7 +116,7 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-    //È¡Ïû¶©µ¥
+    //È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public String cancelOrder() throws Exception{
         try {
             order = orderService.getByOrderId(orderId);
@@ -129,7 +129,7 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-    //Ö§¸¶¶©µ¥
+    //Ö§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public String payment() throws Exception{
         try {
             order = orderService.getByOrderId(orderId);
@@ -142,7 +142,7 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-    //È·ÈÏÊÕ»õ
+    //È·ï¿½ï¿½ï¿½Õ»ï¿½
     public String confirmReceive() throws Exception{
         try {
             user = userService.getCurrentUser();
@@ -156,7 +156,7 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-    //ÓÃ»§²é¿´ÎïÁ÷ÐÅÏ¢
+    //ï¿½Ã»ï¿½ï¿½é¿´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
     public String getLogisticsStatus() throws Exception{
         try {
             user = userService.getCurrentUser();
@@ -169,7 +169,7 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-    //¹ÜÀíÔ±·¢»õ
+    //ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½
     public String sendPackage() throws Exception{
         try {
             orderService.sendPackage(orderId, logisticsNum, logisticsCompany);

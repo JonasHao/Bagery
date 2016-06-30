@@ -12,12 +12,13 @@ public class Product {
     private int pricedId;
     private String color;
     private int stock;
-    private Collection<CartItem> cartitemsByProductId;
-    private Collection<OrderItem> orderitemsByProductId;
-    private Priced pricedByPricedId;
+    private Collection<CartItem> cartItems;
+    private Collection<OrderItem> orderItems;
+    private Priced priced;
 
     @Id
-    @Column(name = "product_id", nullable = false, insertable = true, updatable = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "product_id", nullable = false, insertable = false, updatable = false)
     public int getProductId() {
         return productId;
     }
@@ -81,30 +82,35 @@ public class Product {
     }
 
     @OneToMany(mappedBy = "product")
-    public Collection<CartItem> getCartitemsByProductId() {
-        return cartitemsByProductId;
+    public Collection<CartItem> getCartItems() {
+        return cartItems;
     }
 
-    public void setCartitemsByProductId(Collection<CartItem> cartitemsByProductId) {
-        this.cartitemsByProductId = cartitemsByProductId;
+    public void setCartItems(Collection<CartItem> cartitemsByProductId) {
+        this.cartItems = cartitemsByProductId;
     }
 
     @OneToMany(mappedBy = "product")
-    public Collection<OrderItem> getOrderitemsByProductId() {
-        return orderitemsByProductId;
+    public Collection<OrderItem> getOrderItems() {
+        return orderItems;
     }
 
-    public void setOrderitemsByProductId(Collection<OrderItem> orderitemsByProductId) {
-        this.orderitemsByProductId = orderitemsByProductId;
+    public void setOrderItems(Collection<OrderItem> orderitemsByProductId) {
+        this.orderItems = orderitemsByProductId;
     }
 
     @ManyToOne
-    @JoinColumn(name = "priced_id", referencedColumnName = "priced_id", nullable = false)
-    public Priced getPricedByPricedId() {
-        return pricedByPricedId;
+    @JoinColumn(name = "priced_id", referencedColumnName = "priced_id", nullable = false, insertable = false, updatable = false)
+    public Priced getPriced() {
+        return priced;
     }
 
-    public void setPricedByPricedId(Priced pricedByPricedId) {
-        this.pricedByPricedId = pricedByPricedId;
+    public void setPriced(Priced pricedByPricedId) {
+        this.priced = pricedByPricedId;
+    }
+
+    @Override
+    public String toString() {
+        return "color:" + color + " stock:" + stock + " priceID:"+pricedId ;
     }
 }

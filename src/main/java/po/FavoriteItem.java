@@ -14,7 +14,8 @@ public class FavoriteItem {
     private User user;
 
     @Id
-    @Column(name = "item_id", nullable = false, insertable = true, updatable = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "item_id", nullable = false, insertable = false, updatable = false)
     public int getItemId() {
         return itemId;
     }
@@ -66,7 +67,7 @@ public class FavoriteItem {
     }
 
     @ManyToOne
-    @JoinColumn(name = "priced_id", referencedColumnName = "priced_id", nullable = false)
+    @JoinColumn(name = "priced_id", referencedColumnName = "priced_id", nullable = false, insertable = false, updatable = false)
     public Priced getPriced() {
         return priced;
     }
@@ -76,7 +77,7 @@ public class FavoriteItem {
     }
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false, insertable = false, updatable = false)
     public User getUser() {
         return user;
     }

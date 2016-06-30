@@ -34,12 +34,6 @@
 
     </package>
 
-    <package name="test" namespace="/test" extends="default">
-        <action name="addList" class="action.TestAction">
-            <result>/index.jsp</result>
-        </action>
-    </package>
-
     <package name="order" namespace="/order" extends="default">
         <action name="balance" class="action.OrderAction" method="balance">
             <result name="success">/index.jsp</result>
@@ -111,13 +105,11 @@
 
         <action name="register" class="action.UserAction" method="register">
             <result name="success">/home.jsp</result>
-            <result name="input"></result>
+            <result name="input">/signUp.jsp</result>
         </action>
 
         <action name="login" class="action.UserAction" method="login">
-            <result name="input"></result>
-            <result name="wrong_username"></result>
-            <result name="error"></result>
+            <result name="input">/login.jsp</result>
             <result name="success">/home.jsp</result>
         </action>
 
@@ -147,7 +139,9 @@
         </action>
 
         <action name="unfavor" class="action.FavoriteAction" method="unfavor">
-            <result name="success">/login.jsp</result>
+            <result name="success" type="json">
+                <param name="root">data</param>
+            </result>
         </action>
 
         <action name="queryFavorite" class="action.FavoriteAction" method="queryFavorite">
@@ -186,7 +180,8 @@
         <default-interceptor-ref name="myStack"/>
 
         <action name="viewAddress" class="action.AddressAction" method="viewAddress">
-            <result name="success"></result>
+            <result name="success">/admin/admin_product_detail.jsp</result>
+
         </action>
 
         <action name="addAddress" class="action.AddressAction" method="addAddress">
@@ -210,7 +205,7 @@
 
         <action name="add" class="action.ProductionAction" method="add">
             <result name="success"></result>
-            <result name="input"></result>
+            <result name="input">/admin/admin_product_detail.jsp</result>
         </action>
         <action name="viewProduct" class="action.ProductionAction" method="viewProduct">
             <result name="success"></result>

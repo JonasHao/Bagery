@@ -1,7 +1,6 @@
 package serviceImpl;
 
 import dao.Dao;
-import org.hibernate.HibernateException;
 import po.CartItem;
 import po.OrderItem;
 import po.Order;
@@ -16,7 +15,7 @@ public class OrderServiceImpl implements OrderService {
     private Dao dao;
 
     /**
-     * ´´½¨¶©µ¥
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      */
     @Override
     public void addOrder(Order order, List<Integer> cartItemIdList){
@@ -31,9 +30,9 @@ public class OrderServiceImpl implements OrderService {
             cartItem = dao.get(CartItem.class, cartItemId);
 
             orderItem.setProductId(cartItem.getProductId());
-            orderItem.setProductTitle(cartItem.getProduct().getPricedByPricedId().getTitle());
+            orderItem.setProductTitle(cartItem.getProduct().getPriced().getTitle());
             orderItem.setNum(cartItem.getNum());
-            orderItem.setTotalPriced(cartItem.getTotalPriced());
+            orderItem.setTotalPriced(cartItem.getSubtotal());
             orderItem.setOrderId(order.getOrderId());
             orderItemList.add(orderItem);
         }
@@ -42,7 +41,7 @@ public class OrderServiceImpl implements OrderService {
 
 
     /**
-     * ²éÑ¯¶©µ¥
+     * ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½
      */
     @Override
     public Order getByOrderId(int orderId){
@@ -50,7 +49,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * ¸üÐÂ¶©µ¥
+     * ï¿½ï¿½ï¿½Â¶ï¿½ï¿½ï¿½
      */
     @Override
     public void updateOrder(Order order){
@@ -58,7 +57,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * É¾³ý¶©µ¥
+     * É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      */
     @Override
     public void deleteOrder(int orderId) {
@@ -66,7 +65,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * ·¢»õ£¬ÌîÐ´ÎïÁ÷µ¥ºÅºÍÎïÁ÷¹«Ë¾
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¾
      */
     @Override
     public void sendPackage(int orderId, String logisticsNum, String logisticsCompany){
@@ -79,7 +78,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * »ñÈ¡¶©µ¥µÄÎïÁ÷ÐÅÏ¢
+     * ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
      */
     @Override
     public String getLogisticsStatus(int orderId){
@@ -90,7 +89,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private String queryLogisticsAPI(String company, String number){
-        String logistics = "ÕâÊÇÎïÁ÷ÐÅÏ¢£¡";
+        String logistics = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½";
         return logistics;
     }
 

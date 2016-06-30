@@ -3,25 +3,24 @@ package po;
 import javax.persistence.*;
 import java.util.Collection;
 
-/**
- * Created by 41159 on 2016/6/29.
- */
+
 @Entity
 public class Priced {
     private int pricedId;
     private String title;
     private String img;
     private String description;
-    private int unitPrice;
+    private Double unitPrice;
     private Double salePrice;
-    private Collection<Comment> commentsByPricedId;
-    private Collection<FavoriteItem> favoriteItemsByPricedId;
-    private Collection<PricedPro> pricedProsByPricedId;
-    private Collection<Product> productsByPricedId;
-    private Collection<UserPricedRecord> userPricedRecordsByPricedId;
+    private Collection<Comment> comments;
+    private Collection<FavoriteItem> favoriteItems;
+    private Collection<PricedPro> pricedPros;
+    private Collection<Product> products;
+    private Collection<UserPricedRecord> userPricedRecords;
 
     @Id
-    @Column(name = "priced_id", nullable = false, insertable = true, updatable = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "priced_id", nullable = false, insertable = false, updatable = false)
     public int getPricedId() {
         return pricedId;
     }
@@ -62,11 +61,11 @@ public class Priced {
 
     @Basic
     @Column(name = "unit_price", nullable = false, insertable = true, updatable = true, precision = 0)
-    public int getUnitPrice() {
+    public Double getUnitPrice() {
         return unitPrice;
     }
 
-    public void setUnitPrice(int unitPrice) {
+    public void setUnitPrice(Double unitPrice) {
         this.unitPrice = unitPrice;
     }
 
@@ -103,53 +102,58 @@ public class Priced {
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (img != null ? img.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + unitPrice;
+        result = 31 * result + (unitPrice != null ? unitPrice.hashCode() : 0);
         result = 31 * result + (salePrice != null ? salePrice.hashCode() : 0);
         return result;
     }
 
     @OneToMany(mappedBy = "priced")
-    public Collection<Comment> getCommentsByPricedId() {
-        return commentsByPricedId;
+    public Collection<Comment> getComments() {
+        return comments;
     }
 
-    public void setCommentsByPricedId(Collection<Comment> commentsByPricedId) {
-        this.commentsByPricedId = commentsByPricedId;
-    }
-
-    @OneToMany(mappedBy = "priced")
-    public Collection<FavoriteItem> getFavoriteItemsByPricedId() {
-        return favoriteItemsByPricedId;
-    }
-
-    public void setFavoriteItemsByPricedId(Collection<FavoriteItem> favoriteItemsByPricedId) {
-        this.favoriteItemsByPricedId = favoriteItemsByPricedId;
+    public void setComments(Collection<Comment> commentsByPricedId) {
+        this.comments = commentsByPricedId;
     }
 
     @OneToMany(mappedBy = "priced")
-    public Collection<PricedPro> getPricedProsByPricedId() {
-        return pricedProsByPricedId;
+    public Collection<FavoriteItem> getFavoriteItems() {
+        return favoriteItems;
     }
 
-    public void setPricedProsByPricedId(Collection<PricedPro> pricedProsByPricedId) {
-        this.pricedProsByPricedId = pricedProsByPricedId;
+    public void setFavoriteItems(Collection<FavoriteItem> favoriteItemsByPricedId) {
+        this.favoriteItems = favoriteItemsByPricedId;
     }
 
-    @OneToMany(mappedBy = "pricedByPricedId")
-    public Collection<Product> getProductsByPricedId() {
-        return productsByPricedId;
+    @OneToMany(mappedBy = "priced")
+    public Collection<PricedPro> getPricedPros() {
+        return pricedPros;
     }
 
-    public void setProductsByPricedId(Collection<Product> productsByPricedId) {
-        this.productsByPricedId = productsByPricedId;
+    public void setPricedPros(Collection<PricedPro> pricedProsByPricedId) {
+        this.pricedPros = pricedProsByPricedId;
     }
 
-    @OneToMany(mappedBy = "pricedByPricedId")
-    public Collection<UserPricedRecord> getUserPricedRecordsByPricedId() {
-        return userPricedRecordsByPricedId;
+    @OneToMany(mappedBy = "priced")
+    public Collection<Product> getProducts() {
+        return products;
     }
 
-    public void setUserPricedRecordsByPricedId(Collection<UserPricedRecord> userPricedRecordsByPricedId) {
-        this.userPricedRecordsByPricedId = userPricedRecordsByPricedId;
+    public void setProducts(Collection<Product> productsByPricedId) {
+        this.products = productsByPricedId;
+    }
+
+    @OneToMany(mappedBy = "priced")
+    public Collection<UserPricedRecord> getUserPricedRecords() {
+        return userPricedRecords;
+    }
+
+    public void setUserPricedRecords(Collection<UserPricedRecord> userPricedRecordsByPricedId) {
+        this.userPricedRecords = userPricedRecordsByPricedId;
+    }
+
+    @Override
+    public String toString() {
+        return title + " " + description + " " + unitPrice + " " + salePrice;
     }
 }

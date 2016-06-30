@@ -12,10 +12,11 @@ public class Property {
     private int proId;
     private String category;
     private String description;
-    private Collection<PricedPro> pricedProsByProId;
+    private Collection<PricedPro> pricedPros;
 
     @Id
-    @Column(name = "pro_id", nullable = false, insertable = true, updatable = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "pro_id", nullable = false, insertable = false, updatable = false)
     public int getProId() {
         return proId;
     }
@@ -66,12 +67,12 @@ public class Property {
         return result;
     }
 
-    @OneToMany(mappedBy = "getProperty")
-    public Collection<PricedPro> getPricedProsByProId() {
-        return pricedProsByProId;
+    @OneToMany(mappedBy = "property")
+    public Collection<PricedPro> getPricedPros() {
+        return pricedPros;
     }
 
-    public void setPricedProsByProId(Collection<PricedPro> pricedProsByProId) {
-        this.pricedProsByProId = pricedProsByProId;
+    public void setPricedPros(Collection<PricedPro> pricedProsByProId) {
+        this.pricedPros = pricedProsByProId;
     }
 }
