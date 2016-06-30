@@ -16,9 +16,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getCurrentUser() {
         if(Config.DEBUG){
-            User user = new User();
-            user.setUserId(1);
-            user.setUsername("cc");
+            user = dao.get(User.class,1);
             return user;
         }
         return null;
