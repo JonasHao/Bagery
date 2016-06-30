@@ -16,9 +16,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getCurrentUser() {
         if(Config.DEBUG){
-            User user = new User();
-            user.setUserId(1);
-            user.setUsername("Bagery");
+            user = dao.get(User.class,1);
             return user;
         }
         return null;
@@ -53,17 +51,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean existUsername(String username) {
-        user=(User)dao.query("from User where username=?").setParameter(0,username);
+        user=(User)dao.query("from User where username=?").setParameter(0,username).list().get(0);
         return user.equals(null);
     }
 
     public String getUserGroup(String username){
-        user=(User)dao.query("from User where username=?").setParameter(0,username);
+        user=(User)dao.query("from User where username=?").setParameter(0,username).list().get(0);
         return user.getUserGroup();
     }
     @Override
     public boolean existEmail(String email) {
-        user=(User)dao.query("from User where email=?").setParameter(0,email);
+        user=(User)dao.query("from User where email=?").setParameter(0,email).list().get(0);
         return user.equals(null);
     }
 

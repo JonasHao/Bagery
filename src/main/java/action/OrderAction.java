@@ -42,7 +42,7 @@ public class OrderAction extends DefaultActionSupport {
     private String logisticsNum;
     private String logisticsCompany;
 
-    //ï¿½ï¿½ï¿½ï¿½
+    //½áËã
     public String balance() throws Exception{
         try {
             user = userService.getCurrentUser();
@@ -60,7 +60,7 @@ public class OrderAction extends DefaultActionSupport {
             }
             ActionContext.getContext().getSession().put("cartItemList", cartItemList);
 
-            //ï¿½ï¿½ï¿½ï¿½ï¿½Ü¼ï¿½
+            //¼ÆËã×Ü¼Û
             double totalPriced = 0.0;
             int cartSize = cartItemList.size();
             for (int i = 0; i < cartSize; i++) {
@@ -74,7 +74,7 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-    //ï¿½ï¿½ï¿½É¶ï¿½ï¿½ï¿½
+    //ÐÂÔö¶©µ¥
     public String addOrder() throws Exception{
         try {
             user = userService.getCurrentUser();
@@ -83,7 +83,7 @@ public class OrderAction extends DefaultActionSupport {
             order.setUserId(userId);
             order.setAddressId(shipInfId);
             order.setTotal(total);
-            order.setOrderStatus("0");
+            order.setOrderStatus(OrderStatus.UNPAID);
             orderService.addOrder(order, cartItemIdList);
             return SUCCESS;
         }catch (HibernateException e){
@@ -92,7 +92,7 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-    //ï¿½é¿´ï¿½ï¿½ï¿½ï¿½
+    //²é¿´¶©µ¥
     public String queryOrder() throws Exception{
         try {
             user = userService.getCurrentUser();
@@ -105,7 +105,7 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-    //É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    //É¾³ý¶©µ¥
     public String deleteOrder() throws Exception{
         try {
             orderService.deleteOrder(orderId);
@@ -116,7 +116,7 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-    //È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    //È¡Ïû¶©µ¥
     public String cancelOrder() throws Exception{
         try {
             order = orderService.getByOrderId(orderId);
@@ -129,7 +129,7 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-    //Ö§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    //Ö§¸¶
     public String payment() throws Exception{
         try {
             order = orderService.getByOrderId(orderId);
@@ -142,7 +142,7 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-    //È·ï¿½ï¿½ï¿½Õ»ï¿½
+    //È·ÈÏÊÕ»õ
     public String confirmReceive() throws Exception{
         try {
             user = userService.getCurrentUser();
@@ -156,11 +156,11 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-    //ï¿½Ã»ï¿½ï¿½é¿´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+    //²é¿´ÎïÁ÷ÐÅÏ¢
     public String getLogisticsStatus() throws Exception{
         try {
             user = userService.getCurrentUser();
-            logistics = orderService.getLogiticsStatus(orderId);
+            logistics = orderService.getLogisticsStatus(orderId);
             ActionContext.getContext().getSession().put("logistics", logistics);
             return SUCCESS;
         }catch (HibernateException e){
@@ -169,7 +169,7 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-    //ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½
+    //ÉÌ¼Ò·¢»õ
     public String sendPackage() throws Exception{
         try {
             orderService.sendPackage(orderId, logisticsNum, logisticsCompany);

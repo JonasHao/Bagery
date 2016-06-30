@@ -14,6 +14,7 @@ public class FavoriteItem {
     private User user;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "item_id", nullable = false, insertable = false, updatable = false)
     public int getItemId() {
         return itemId;

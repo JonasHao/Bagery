@@ -20,7 +20,8 @@ public class Comment {
     private Order order;
 
     @Id
-        @Column(name = "comment_id", nullable = false, insertable = false, updatable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "comment_id", nullable = false, insertable = false, updatable = false)
     public int getCommentId() {
         return commentId;
     }

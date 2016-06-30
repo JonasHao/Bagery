@@ -3,19 +3,18 @@
 <%@attribute name="img" fragment="true" %>
 <%@attribute name="title" fragment="true" %>
 <%@attribute name="price" fragment="true" %>
-<%@attribute name="favoriteId" type="java.lang.Integer" %>
 <%@attribute name="pricedId" fragment="true" %>
 <%@attribute name="itemId" fragment="true" %>
 <div class="card card-favorite">
 
     <%--todo 更新商品详情action--%>
-    <s:url var="productUrl" action="viewProduct">
+    <s:url var="productUrl" namespace="/product" action="viewProduct">
         <s:param name="priced_id">
             <jsp:invoke fragment="pricedId"/>
         </s:param>
     </s:url>
 
-    <s:url var="unfavorUrl" action="unfavor">
+    <s:url var="unfavorUrl" namespace="/favorite" action="unfavor">
         <s:param name="itemId">
             <jsp:invoke fragment="itemId"/>
         </s:param>

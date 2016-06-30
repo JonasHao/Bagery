@@ -14,9 +14,10 @@ public class Product {
     private int stock;
     private Collection<CartItem> cartItems;
     private Collection<OrderItem> orderItems;
-    private Priced pricedByPricedId;
+    private Priced priced;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id", nullable = false, insertable = false, updatable = false)
     public int getProductId() {
         return productId;
@@ -27,7 +28,7 @@ public class Product {
     }
 
     @Basic
-    @Column(name = "priced_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "priced_id", nullable = false, insertable = true, updatable = true)
     public int getPricedId() {
         return pricedId;
     }
@@ -99,13 +100,13 @@ public class Product {
     }
 
     @ManyToOne
-    @JoinColumn(name = "priced_id", referencedColumnName = "priced_id", nullable = false)
-    public Priced getPricedByPricedId() {
-        return pricedByPricedId;
+    @JoinColumn(name = "priced_id", referencedColumnName = "priced_id", nullable = false, insertable = false, updatable = false)
+    public Priced getPriced() {
+        return priced;
     }
 
-    public void setPricedByPricedId(Priced pricedByPricedId) {
-        this.pricedByPricedId = pricedByPricedId;
+    public void setPriced(Priced pricedByPricedId) {
+        this.priced = pricedByPricedId;
     }
 
     @Override

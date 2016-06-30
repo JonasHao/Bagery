@@ -15,7 +15,7 @@ public class OrderServiceImpl implements OrderService {
     private Dao dao;
 
     /**
-     * ��������
+     * 创建订单
      */
     @Override
     public void addOrder(Order order, List<Integer> cartItemIdList){
@@ -30,7 +30,7 @@ public class OrderServiceImpl implements OrderService {
             cartItem = dao.get(CartItem.class, cartItemId);
 
             orderItem.setProductId(cartItem.getProductId());
-            orderItem.setProductTitle(cartItem.getProduct().getPricedByPricedId().getTitle());
+            orderItem.setProductTitle(cartItem.getProduct().getPriced().getTitle());
             orderItem.setNum(cartItem.getNum());
             orderItem.setTotalPriced(cartItem.getSubtotal());
             orderItem.setOrderId(order.getOrderId());
@@ -41,7 +41,7 @@ public class OrderServiceImpl implements OrderService {
 
 
     /**
-     * ��ѯ����
+     * 查询订单
      */
     @Override
     public Order getByOrderId(int orderId){
@@ -49,7 +49,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * ���¶���
+     * 更新订单
      */
     @Override
     public void updateOrder(Order order){
@@ -57,7 +57,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * ɾ������
+     * 删除订单
      */
     @Override
     public void deleteOrder(int orderId) {
@@ -65,7 +65,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * ��������д�������ź�������˾
+     * 发货，填写物流单号和物流公司
      */
     @Override
     public void sendPackage(int orderId, String logisticsNum, String logisticsCompany){
@@ -78,10 +78,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * ��ȡ������������Ϣ
+     * 获取订单的物流信息
      */
     @Override
-    public String getLogiticsStatus(int orderId){
+    public String getLogisticsStatus(int orderId){
         Order order = dao.get(Order.class, orderId);
         String company = order.getCourierCompany();
         String number = order.getCourierNumber();
@@ -89,7 +89,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private String queryLogisticsAPI(String company, String number){
-        String logistics = "����������Ϣ��";
+        String logistics = "锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷息锟斤拷";
         return logistics;
     }
 

@@ -40,6 +40,25 @@
                             }
                         })
             }
+            function addCart() {
+                $.ajax(
+                        {
+                            url: "/Cart/addCart",
+                            dataType: "json",   //返回格式为json
+                            type: 'post',
+                            data: {productId: 1},
+                            success: function (data) {
+                                if (data.result == "success") {
+//
+                                        alert("收藏成功！");
+                                    }
+                                    else {
+                                        alert("取消收藏！");
+                                    }
+                                }
+
+                        })
+            }
         </script>
     </jsp:attribute>
     <jsp:body>

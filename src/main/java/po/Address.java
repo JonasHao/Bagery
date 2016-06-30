@@ -19,6 +19,7 @@ public class Address {
     private User user;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ship_inf_id", nullable = false, insertable = false, updatable = false)
     public int getAddressId() {
         return addressId;
