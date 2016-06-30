@@ -16,12 +16,15 @@ public class UserInfoAction extends ActionSupport {
     private String password;
     private String realname;
     private String email;
+    private String img;
+    private int score;
+    private Integer defaultAddressId;
+    private String userGroup;
+    private byte isActivate;
     private String confirmpassword;
-    private String isadmin;
-    private String usergroup;
-
 
     public String viewInfo(){
+        user=userService.getCurrentUser();
         return SUCCESS;
     }
 
@@ -96,19 +99,43 @@ public class UserInfoAction extends ActionSupport {
         this.confirmpassword = confirmpassword;
     }
 
-    public String getIsadmin() {
-        return isadmin;
+    public String getImg() {
+        return img;
     }
 
-    public void setIsadmin(String isadmin) {
-        this.isadmin = isadmin;
+    public void setImg(String img) {
+        this.img = img;
     }
 
-    public String getUsergroup() {
-        return usergroup;
+    public int getScore() {
+        return score;
     }
 
-    public void setUsergroup(String usergroup) {
-        this.usergroup = usergroup;
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public Integer getDefaultAddressId() {
+        return defaultAddressId;
+    }
+
+    public void setDefaultAddressId(Integer defaultAddressId) {
+        this.defaultAddressId = defaultAddressId;
+    }
+
+    public String getUserGroup() {
+        return userGroup;
+    }
+
+    public void setUserGroup(String usergroup) {
+        this.userGroup = usergroup;
+    }
+
+    public byte getIsActivate() {
+        return isActivate;
+    }
+
+    public void setIsActivate(byte isActivate) {
+        this.isActivate = isActivate;
     }
 }

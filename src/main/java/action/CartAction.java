@@ -1,20 +1,23 @@
 package action;
 
 import com.opensymphony.xwork2.ActionSupport;
-import po.CartItem;
-import po.Priced;
-import po.Product;
-import po.User;
+import constant.Config;
+import org.hibernate.HibernateException;
+import po.*;
 import service.CartService;
 import service.UserService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static constant.Key.RESULT;
 
 /**
  * Created by jinzil on 2016/6/27.
  */
-public class CartAction extends ActionSupport{
+public class CartAction extends ActionSupport {
     private int productId;
     private int num;
     private User user;
@@ -22,45 +25,73 @@ public class CartAction extends ActionSupport{
     private int itemId;
     private CartService cartService;
     private UserService userService;
-    private List<CartItem> cartItemList=new ArrayList<CartItem>();
-    public String queryCart(){
-//        user=userService.getCurrentUser();
-//        cartItemList= (List<CartItem>) user.getCartItemsByUserId();
-        cartItem=new CartItem();
-        cartItem.setNum(2);
-        cartItem.setItemId(1);
-        cartItem.setSubtotal(9999.00);
-        Product product=new Product();
-        product.setColor("red");
-        Priced priced=new Priced();
-        priced.setTitle("TITLE TEST");
-        priced.setUnitPrice(10000.0);
-        priced.setSalePrice(9999.0);
-        product.setPriced(priced);
-        cartItem.setProduct(product);
-        cartItemList.add(cartItem);
+    private Map<String, Object> data = new HashMap<>();
+    private List<CartItem> cartItemList = new ArrayList<CartItem>();
+
+    public String queryCart() {
+        user = userService.getCurrentUser();
+        cartItemList =user.getCartItems();
         return SUCCESS;
     }
-    public String addCart(){
-        user=userService.getCurrentUser();
-        cartItem=new CartItem();
-        cartItem.setProductId(productId);
-        cartItem.setUserId(user.getUserId());
-        cartItem.setNum(num);
-        cartService.addCart(cartItem);
+
+    public String addCart() {
+        try {
+            user = userService.getCurrentUser();
+            cartItemList=user.getCartItems();
+            for(CartItem item:cartItemList){
+                if(item.getProductId()==productId){
+                    item.setNum(item.getNum()+1);
+                    cartService.updateCart(item);
+                    data.put(RESULT, SUCCESS);
+                    return SUCCESS;
+                }
+            }
+            cartItem = new CartItem();
+            cartItem.setProductId(productId);
+            cartItem.setUserId(user.getUserId());
+            cartItem.setNum(1);
+            cartService.addCart(cartItem);
+            data.put(RESULT, SUCCESS);
+        } catch (HibernateException e) {
+            if (Config.DEBUG) {
+                data.put(RESULT, SUCCESS);
+            } else {
+                data.put(RESULT, ERROR);
+            }
+        }
         return SUCCESS;
     }
-    public String deleteCart(){
-        user=userService.getCurrentUser();
-        cartService.deleteCart(user.getUserId(),itemId);
+
+    public String deleteCart() {
+        try {
+            user = userService.getCurrentUser();
+            cartService.deleteCart(user.getUserId(), itemId);
+            data.put(RESULT, SUCCESS);
+        } catch (HibernateException e) {
+            if (Config.DEBUG) {
+                data.put(RESULT, SUCCESS);
+            } else {
+                data.put(RESULT, ERROR);
+            }
+        }
         return SUCCESS;
     }
-    public String updateCart(){
-        cartItem=cartService.getCartItem(itemId);
-        cartItem.setNum(num);
-        cartService.updateCart(cartItem);
+
+    public String updateCart() {
+        try {
+            cartItem = cartService.getCartItem(itemId);
+            cartItem.setNum(num);
+            cartService.updateCart(cartItem);
+        } catch (HibernateException e) {
+            if (Config.DEBUG) {
+                data.put(RESULT, SUCCESS);
+            } else {
+                data.put(RESULT, ERROR);
+            }
+        }
         return SUCCESS;
     }
+
     public int getProductId() {
         return productId;
     }
@@ -115,5 +146,13 @@ public class CartAction extends ActionSupport{
 
     public void setCartService(CartService cartService) {
         this.cartService = cartService;
+    }
+
+    public Map<String, Object> getData() {
+        return data;
+    }
+
+    public void setData(Map<String, Object> data) {
+        this.data = data;
     }
 }

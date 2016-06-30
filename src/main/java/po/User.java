@@ -1,7 +1,7 @@
 package po;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by 41159 on 2016/6/29.
@@ -18,12 +18,12 @@ public class User {
     private Integer defaultAddressId;
     private String userGroup;
     private byte isActivate;
-    private Collection<CartItem> cartItems;
-    private Collection<Comment> comments;
-    private Collection<FavoriteItem> favoriteItems;
-    private Collection<Order> orders;
-    private Collection<Address> addresses;
-    private Collection<UserPricedRecord> historyRecords;
+    private List<CartItem> cartItems;
+    private List<Comment> comments;
+    private List<FavoriteItem> favoriteItems;
+    private List<Order> orders;
+    private List<Address> addresses;
+    private List<UserPricedRecord> historyRecords;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -163,56 +163,56 @@ public class User {
     }
 
     @OneToMany(mappedBy = "user")
-    public Collection<CartItem> getCartItems() {
+    public List<CartItem> getCartItems() {
         return cartItems;
     }
 
-    public void setCartItems(Collection<CartItem> cartitemsByUserId) {
+    public void setCartItems(List<CartItem> cartitemsByUserId) {
         this.cartItems = cartitemsByUserId;
     }
 
     @OneToMany(mappedBy = "user")
-    public Collection<Comment> getComments() {
+    public List<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(Collection<Comment> commentsByUserId) {
+    public void setComments(List<Comment> commentsByUserId) {
         this.comments = commentsByUserId;
     }
 
     @OneToMany(mappedBy = "user")
-    public Collection<FavoriteItem> getFavoriteItems() {
+    public List<FavoriteItem> getFavoriteItems() {
         return favoriteItems;
     }
 
-    public void setFavoriteItems(Collection<FavoriteItem> favoriteitemsByUserId) {
+    public void setFavoriteItems(List<FavoriteItem> favoriteitemsByUserId) {
         this.favoriteItems = favoriteitemsByUserId;
     }
 
     @OneToMany(mappedBy = "user")
-    public Collection<Order> getOrders() {
+    public List<Order> getOrders() {
         return orders;
     }
 
-    public void setOrders(Collection<Order> ordersesByUserId) {
+    public void setOrders(List<Order> ordersesByUserId) {
         this.orders = ordersesByUserId;
     }
 
     @OneToMany(mappedBy = "user")
-    public Collection<Address> getAddresses() {
+    public List<Address> getAddresses() {
         return addresses;
     }
 
-    public void setAddresses(Collection<Address> shipInformationsByUserId) {
+    public void setAddresses(List<Address> shipInformationsByUserId) {
         this.addresses = shipInformationsByUserId;
     }
 
     @OneToMany(mappedBy = "user")
-    public Collection<UserPricedRecord> getHistoryRecords() {
+    public List<UserPricedRecord> getHistoryRecords() {
         return historyRecords;
     }
 
-    public void setHistoryRecords(Collection<UserPricedRecord> userPricedRecordsByUserId) {
+    public void setHistoryRecords(List<UserPricedRecord> userPricedRecordsByUserId) {
         this.historyRecords = userPricedRecordsByUserId;
     }
 

@@ -6,6 +6,8 @@ import po.User;
 import service.UserService;
 import dao.Dao;
 
+import java.util.List;
+
 /**
  * Created by zhang on 2016/6/23.
  */
@@ -13,12 +15,11 @@ public class UserServiceImpl implements UserService {
 
     private Dao dao;
     private User user;
+    private List<User> userList;
     @Override
     public User getCurrentUser() {
         if(Config.DEBUG){
-            User user = new User();
-            user.setUserId(1);
-            user.setUsername("Bagery");
+            user = dao.get(User.class,1);
             return user;
         }
         return null;
@@ -48,23 +49,32 @@ public class UserServiceImpl implements UserService {
                     return "success";
             }
         }
-        else return "error";
+        else return "input";
     }
 
     @Override
     public boolean existUsername(String username) {
-        user=(User)dao.query("from User where username=?").setParameter(0,username);
-        return user.equals(null);
+        userList=dao.query("from User where username=?").setParameter(0,username).list();
+        if(userList.size()==1)
+            return true;
+        else
+            return false;
     }
 
     public String getUserGroup(String username){
-        user=(User)dao.query("from User where username=?").setParameter(0,username);
-        return user.getUserGroup();
+        userList=dao.query("from User where username=?").setParameter(0,username).list();
+        if(userList.size()==1)
+            return userList.get(0).getUserGroup();
+        else
+            return null;
     }
     @Override
     public boolean existEmail(String email) {
-        user=(User)dao.query("from User where email=?").setParameter(0,email);
-        return user.equals(null);
+        userList=dao.query("from User where email=?").setParameter(0,email).list();
+        if(userList.size()==1)
+            return true;
+        else
+            return false;
     }
 
     @Override
