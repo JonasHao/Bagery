@@ -30,7 +30,7 @@ public class OrderServiceImpl implements OrderService {
             cartItem = dao.get(CartItem.class, cartItemId);
 
             orderItem.setProductId(cartItem.getProductId());
-            orderItem.setProductTitle(cartItem.getProduct().getPricedByPricedId().getTitle());
+            orderItem.setProductTitle(cartItem.getProduct().getPriced().getTitle());
             orderItem.setNum(cartItem.getNum());
             orderItem.setTotalPriced(cartItem.getSubtotal());
             orderItem.setOrderId(order.getOrderId());

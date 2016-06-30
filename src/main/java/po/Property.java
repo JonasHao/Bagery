@@ -15,6 +15,7 @@ public class Property {
     private Collection<PricedPro> pricedPros;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pro_id", nullable = false, insertable = false, updatable = false)
     public int getProId() {
         return proId;

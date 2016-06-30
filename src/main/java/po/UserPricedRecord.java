@@ -17,6 +17,7 @@ public class UserPricedRecord {
     private User user;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_priced_id", nullable = false, insertable = true, updatable = true)
     public int getUserPricedId() {
         return userPricedId;
