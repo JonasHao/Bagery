@@ -6,7 +6,7 @@
     <jsp:attribute name="title">商品列表</jsp:attribute>
     <jsp:attribute name="breadcrumb">
        <ol class="breadcrumb">
-           <li><a href="index.jsp">首页</a></li>
+           <li><a href="/index.jsp">首页</a></li>
            <li class="active">商品列表</li>
        </ol>
     </jsp:attribute>
