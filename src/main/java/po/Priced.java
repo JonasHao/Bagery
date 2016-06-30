@@ -3,16 +3,14 @@ package po;
 import javax.persistence.*;
 import java.util.Collection;
 
-/**
- * Created by 41159 on 2016/6/29.
- */
+
 @Entity
 public class Priced {
     private int pricedId;
     private String title;
     private String img;
     private String description;
-    private int unitPrice;
+    private Double unitPrice;
     private Double salePrice;
     private Collection<Comment> comments;
     private Collection<FavoriteItem> favoriteItems;
@@ -62,11 +60,11 @@ public class Priced {
 
     @Basic
     @Column(name = "unit_price", nullable = false, insertable = true, updatable = true, precision = 0)
-    public int getUnitPrice() {
+    public Double getUnitPrice() {
         return unitPrice;
     }
 
-    public void setUnitPrice(int unitPrice) {
+    public void setUnitPrice(Double unitPrice) {
         this.unitPrice = unitPrice;
     }
 
@@ -103,7 +101,7 @@ public class Priced {
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (img != null ? img.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + unitPrice;
+        result = 31 * result + (unitPrice != null ? unitPrice.hashCode() : 0);
         result = 31 * result + (salePrice != null ? salePrice.hashCode() : 0);
         return result;
     }

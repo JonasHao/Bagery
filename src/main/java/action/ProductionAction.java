@@ -27,13 +27,14 @@ public class ProductionAction extends DefaultActionSupport {
     private PricedPro pricedPro;
 	private List<Product> products;
 	private List<Priced> priceds;
-
-
-
     private List<Property> pros;
     private List<Property> pros1;
+
+
+
     private List<Property> pros2;
     private List<Property> pros3;
+    private List<Integer> proIDs;
     private List<Integer> proIDs1;
     private List<Integer> proIDs2;
     private List<Integer> proIDs3;
@@ -72,33 +73,33 @@ public class ProductionAction extends DefaultActionSupport {
             return ERROR;
        }
 	}
-    public String add()
-    {
+    public String add() {
         try {
-            priced=new Priced();
+            priced = new Priced();
             priced.setTitle(title);
             priced.setDescription(description);
             priced.setUnitPrice(unit_price);
             priced.setSalePrice(sale_price);
+            System.out.println(priced);
             productService.addPriced(priced);
-            priced_id=priced.getPricedId();
-            for(Product product:products)
-            {
-                product=new Product();
+            priced_id = priced.getPricedId();
+            System.out.printf("count of products:%d\n", products.size());
+            for (Product product : products) {
+                if (product.getColor() == null) {
+                    continue;
+                }
                 product.setPricedId(priced_id);
-                product.setColor(color);
-                product.setStock(stock);
+                System.out.println(product);
                 productService.addProduct(product);
             }
-            for(Property property:pros)
-            {
-                pricedPro=new PricedPro();
+            for (Integer proID : proIDs) {
+                pricedPro = new PricedPro();
                 pricedPro.setPricedId(priced_id);
-                pricedPro.setProId(property.getProId());
+                pricedPro.setProId(proID);
                 productService.addPricedPro(pricedPro);
             }
             return SUCCESS;
-        }catch(HibernateException e){
+        } catch (HibernateException e) {
             e.printStackTrace();
             return ERROR;
         }
@@ -467,5 +468,20 @@ public class ProductionAction extends DefaultActionSupport {
 
     public void setSale_price(double sale_price) {
         this.sale_price = sale_price;
+    }
+    public double getUnit_price() {
+        return unit_price;
+    }
+
+    public double getSale_price() {
+        return sale_price;
+    }
+
+    public List<Integer> getProIDs() {
+        return proIDs;
+    }
+
+    public void setProIDs(List<Integer> proIDs) {
+        this.proIDs = proIDs;
     }
 }
