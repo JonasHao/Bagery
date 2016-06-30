@@ -16,8 +16,8 @@ public class ProductionAction extends DefaultActionSupport {
     private int user_id;
 	private String title;
     private String description;
-	private int unit_price;
-	private int sale_price;
+	private double unit_price;
+	private double sale_price;
 	private String color;
     private int stock;
     private String word;
@@ -27,6 +27,9 @@ public class ProductionAction extends DefaultActionSupport {
     private PricedPro pricedPro;
 	private List<Product> products;
 	private List<Priced> priceds;
+
+
+
     private List<Property> pros;
     private List<Property> pros1;
     private List<Property> pros2;
@@ -282,22 +285,6 @@ public class ProductionAction extends DefaultActionSupport {
         this.description = description;
     }
 
-    public int getUnit_price() {
-        return unit_price;
-    }
-
-    public void setUnit_price(int unit_price) {
-        this.unit_price = unit_price;
-    }
-
-    public int getSale_price() {
-        return sale_price;
-    }
-
-    public void setSale_price(int sale_price) {
-        this.sale_price = sale_price;
-    }
-
     public String getColor() {
         return color;
     }
@@ -473,5 +460,12 @@ public class ProductionAction extends DefaultActionSupport {
 
     public void setProIDs3(List<Integer> proIDs3) {
         this.proIDs3 = proIDs3;
+    }
+    public void setUnit_price(double unit_price) {
+        this.unit_price = unit_price;
+    }
+
+    public void setSale_price(double sale_price) {
+        this.sale_price = sale_price;
     }
 }
