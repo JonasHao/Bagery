@@ -72,7 +72,7 @@
 
                     <div class="col-md-5">
                         <div class="view overlay hm-white-slight product-detail-img">
-                            <img src="../img/bags/bag1.png" class="img-fluid" alt="">
+                            <img src="<s:property value="priced.img"/>" class="img-fluid" alt="">
                             <a href="#">
                                 <div class="mask"></div>
                             </a>
@@ -92,13 +92,10 @@
                     <div class="col-md-7">
                         <div class="product-wrapper">
                             <!--Product data-->
-                            <h2 class="h2-responsive">Product title</h2>
+                            <h2 class="h2-responsive"><s:property value="priced.title"/></h2>
                             <hr>
-                            <h3 class="price"><i class="fa fa-rmb" aria-hidden="true"></i> 9999.00</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius totam, officiis
-                                doloremque
-                                velit nobis dolor nulla unde architecto alias praesentium, soluta error omnis sint,
-                                impedit, delectus ipsam eveniet debitis nemo.</p>
+                            <h3 class="price"><i class="fa fa-rmb" aria-hidden="true"></i><s:property value="priced.unitPrice"/></h3>
+                            <p><s:property value="priced.description"/></p>
 
                             <ul class="rating inline-ul">
                                 <li><i class="fa fa-star amber-text"></i></li>

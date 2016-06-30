@@ -29,8 +29,6 @@ public class ProductionAction extends DefaultActionSupport {
     private List<Priced> priceds;
     private List<Property> pros;
     private List<Property> pros1;
-
-
     private List<Property> pros2;
     private List<Property> pros3;
     private List<Integer> proIDs;
@@ -43,35 +41,37 @@ public class ProductionAction extends DefaultActionSupport {
     private UserService userService;
     private CommentService commentService;
 
-    public String addPriced() throws Exception {
+    /*
+    public String addPriced()throws Exception
+	{
         try {
-            priced = new Priced();
+            priced=new Priced();
             priced.setTitle(title);
             priced.setDescription(description);
             priced.setUnitPrice(unit_price);
             priced.setSalePrice(sale_price);
             productService.addPriced(priced);
             return SUCCESS;
-        } catch (HibernateException e) {
-            e.printStackTrace();
+        }catch(HibernateException e){
+           e.printStackTrace();
             return ERROR;
-        }
-    }
-
-    public String addProduct() {
-        try {
-            product = new Product();
+       }
+	}
+	public String addProduct()
+	{
+ 		try {
+            product=new Product();
             product.setPricedId(priced_id);
             product.setColor(color);
             product.setStock(stock);
             productService.addProduct(product);
             return SUCCESS;
-        } catch (HibernateException e) {
-            e.printStackTrace();
+        }catch(HibernateException e){
+           e.printStackTrace();
             return ERROR;
-        }
-    }
-
+       }
+	}
+	*/
     public String add() {
         try {
             priced = new Priced();
@@ -80,8 +80,8 @@ public class ProductionAction extends DefaultActionSupport {
             priced.setUnitPrice(unit_price);
             priced.setSalePrice(sale_price);
             System.out.println(priced);
-
-            priced_id = productService.addPriced(priced);
+            productService.addPriced(priced);
+            priced_id = priced.getPricedId();
             System.out.printf("count of products:%d\n", products.size());
             for (Product product : products) {
                 if (product.getColor() == null) {
@@ -116,9 +116,11 @@ public class ProductionAction extends DefaultActionSupport {
         }
     }
 
-    public String updatePriced() {
+    /*
+	public String updatePriced()
+	{
         try {
-            priced = productService.findPriced(priced_id);
+            priced=productService.findPriced(priced_id);
             priced.setTitle(title);
             priced.setDescription(description);
             priced.setUnitPrice(unit_price);
@@ -129,11 +131,11 @@ public class ProductionAction extends DefaultActionSupport {
             e.printStackTrace();
             return ERROR;
         }
-    }
-
-    public String updateProduct() {
+	}
+    public String updateProduct()
+    {
         try {
-            product = productService.findProduct(product_id);
+            product=productService.findProduct(product_id);
             product.setColor(color);
             product.setStock(stock);
             productService.updateProduct(product);
@@ -143,7 +145,7 @@ public class ProductionAction extends DefaultActionSupport {
             return ERROR;
         }
     }
-
+    */
     public String update() {
         try {
             priced = productService.findPriced(priced_id);
@@ -152,16 +154,21 @@ public class ProductionAction extends DefaultActionSupport {
             priced.setUnitPrice(unit_price);
             priced.setSalePrice(sale_price);
             productService.updatePriced(priced);
+            productService.deleteProductsByPriced(priced_id);
+            productService.deletePricedProsByPriced(priced_id);
             for (Product product : products) {
-                product = productService.findProduct(product_id);
-                product.setColor(color);
-                product.setStock(stock);
-                productService.updateProduct(product);
+                if (product.getColor() == null) {
+                    continue;
+                }
+                product.setPricedId(priced_id);
+                System.out.println(product);
+                productService.addProduct(product);
             }
-            for (Property property : pros) {
-                pricedPro = productService.findPricedPro(pricedpro_id);
-                pricedPro.setProId(property.getProId());
-                productService.updatePricedPro(pricedPro);
+            for (Integer proID : proIDs) {
+                pricedPro = new PricedPro();
+                pricedPro.setPricedId(priced_id);
+                pricedPro.setProId(proID);
+                productService.addPricedPro(pricedPro);
             }
             return SUCCESS;
         } catch (Exception e) {
@@ -179,7 +186,7 @@ public class ProductionAction extends DefaultActionSupport {
             return ERROR;
         }
     }
-
+    /*
     public String deleteProduct() {
         try {
             productService.deleteProduct(product_id);
@@ -201,7 +208,7 @@ public class ProductionAction extends DefaultActionSupport {
             return ERROR;
         }
     }
-
+    */
     public String viewPricedList() {
         try {
             priceds = productService.findAll();

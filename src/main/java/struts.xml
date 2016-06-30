@@ -131,10 +131,6 @@
 
     <package name="favorite" namespace="/favorite" extends="default,json-default">
         <!--<default-interceptor-ref name="myStack"/>-->
-        <global-results>
-            <result name="error">/error.jsp</result>
-            <result name="login">/login.jsp</result>
-        </global-results>
 
         <action name="favor" class="action.FavoriteAction" method="favor">
             <result name="success" type="json">
@@ -152,6 +148,9 @@
             <result name="success">/favorite.jsp</result>
         </action>
 
+        <action name="viewProduct" class="action.ProductionAction" method="viewProduct">
+            <result name="success">/detail.jsp</result>
+        </action>
     </package>
 
     <package name="cart" namespace="/cart" extends="default,json-default">
@@ -223,7 +222,7 @@
             <result name="success"></result>
         </action>
         <action name="viewPricedList" class="action.ProductionAction" method="viewPricedList">
-            <result name="success"></result>
+            <result name="success">/list.jsp</result>
         </action>
         <action name="viewHistoryRecord" class="action.ProductionAction" method="viewHistoryRecord">
             <result name="success"></result>
