@@ -15,7 +15,7 @@ public class OrderServiceImpl implements OrderService {
     private Dao dao;
 
     /**
-     * Ôö¼Ó¶©µ¥
+     * ´´½¨¶©µ¥
      */
     @Override
     public void addOrder(Order order, List<Integer> cartItemIdList){
@@ -41,7 +41,7 @@ public class OrderServiceImpl implements OrderService {
 
 
     /**
-     * »ñÈ¡
+     * ²éÑ¯¶©µ¥
      */
     @Override
     public Order getByOrderId(int orderId){
@@ -49,7 +49,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * ï¿½ï¿½ï¿½Â¶ï¿½ï¿½ï¿½
+     * ¸üÐÂ¶©µ¥
      */
     @Override
     public void updateOrder(Order order){
@@ -57,7 +57,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * É¾³ý¶©µ¥
      */
     @Override
     public void deleteOrder(int orderId) {
@@ -65,7 +65,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¾
+     * ·¢»õ£¬ÌîÐ´ÎïÁ÷µ¥ºÅºÍÎïÁ÷¹«Ë¾
      */
     @Override
     public void sendPackage(int orderId, String logisticsNum, String logisticsCompany){
@@ -78,7 +78,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+     * »ñÈ¡¶©µ¥µÄÎïÁ÷ÐÅÏ¢
      */
     @Override
     public String getLogisticsStatus(int orderId){

@@ -18,7 +18,7 @@ public interface OrderService {
     Order getByOrderId(int orderId);
 
     /**
-     * 在数据库中更新comment信息
+     * 更新订单
      */
     void updateOrder(Order order);
 
