@@ -154,7 +154,7 @@ public class ProductionAction extends DefaultActionSupport {
             priced.setUnitPrice(unit_price);
             priced.setSalePrice(sale_price);
             productService.updatePriced(priced);
-            productService.deleteProduct(priced_id);
+            productService.deleteProductsByPriced(priced_id);
             productService.deletePricedProsByPriced(priced_id);
             for (Product product : products) {
                 if (product.getColor() == null) {
