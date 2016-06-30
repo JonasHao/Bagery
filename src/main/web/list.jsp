@@ -61,28 +61,9 @@
                 <!--/.Sidebar-->
                 <!--Main column-->
                 <div class="col-md-9">
-                    <ul class="nav nav-tabs tabs-5 pagination" role="tablist">
-                        <li class="nav-item page-item">
-                            <a class="nav-link active page-link" data-toggle="tab" href="#products-page-1"
-                               role="tab">1</a>
-                        </li>
-                        <li class="nav-item page-item">
-                            <a class="nav-link page-link" data-toggle="tab" href="#products-page-2" role="tab">2</a>
-                        </li>
-                        <li class="nav-item page-item">
-                            <a class="nav-link  page-link" data-toggle="tab" href="#products-page-3" role="tab">3</a>
-                        </li>
-                        <li class="nav-item page-item">
-                            <a class="nav-link page-link" data-toggle="tab" href="#products-page-4" role="tab">4</a>
-                        </li>
-                        <li class="nav-item page-item">
-                            <a class="nav-link page-link" data-toggle="tab" href="#products-page-5" role="tab">5</a>
-                        </li>
-                        <li class="nav-item page-item">
-                            <a class="nav-link page-link" data-toggle="tab" href="#products-page-5" role="tab">..</a>
-                        </li>
-                    </ul>
+
                     <div class="tab-content">
+
                         <div class="page tab-pane active" id="products-page-1" role="tabpanel">
                             <div class="row">
                                 <div class="col-md-4">
@@ -90,6 +71,7 @@
                                         <jsp:attribute name="img">img/bags/bag1.png</jsp:attribute>
                                         <jsp:attribute name="title">包包标题</jsp:attribute>
                                         <jsp:attribute name="price">99999.00</jsp:attribute>
+                                        <jsp:attribute name="productID">1</jsp:attribute>
                                     </t:product>
                                 </div>
                             </div>
@@ -139,6 +121,28 @@
                             </div>
                         </div>
                     </div>
+
+                    <ul class="nav nav-tabs tabs-5 pagination" role="tablist">
+                        <li class="nav-item page-item">
+                            <a class="nav-link active page-link" data-toggle="tab" href="#products-page-1"
+                               role="tab">1</a>
+                        </li>
+                        <li class="nav-item page-item">
+                            <a class="nav-link page-link" data-toggle="tab" href="#products-page-2" role="tab">2</a>
+                        </li>
+                        <li class="nav-item page-item">
+                            <a class="nav-link  page-link" data-toggle="tab" href="#products-page-3" role="tab">3</a>
+                        </li>
+                        <li class="nav-item page-item">
+                            <a class="nav-link page-link" data-toggle="tab" href="#products-page-4" role="tab">4</a>
+                        </li>
+                        <li class="nav-item page-item">
+                            <a class="nav-link page-link" data-toggle="tab" href="#products-page-5" role="tab">5</a>
+                        </li>
+                        <li class="nav-item page-item">
+                            <a class="nav-link page-link" data-toggle="tab" href="#products-page-5" role="tab">..</a>
+                        </li>
+                    </ul>
                 </div>
                 <!--/.Main column-->
             </div>

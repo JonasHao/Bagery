@@ -15,18 +15,18 @@ public class User {
     private String email;
     private String img;
     private int score;
-    private Integer defShipInfId;
+    private Integer defaultAddressId;
     private String userGroup;
     private byte isActivate;
     private Collection<CartItem> cartItems;
-    private Collection<Comment> commentsByUserId;
+    private Collection<Comment> comments;
     private Collection<FavoriteItem> favoriteItems;
     private Collection<Order> orders;
-    private Collection<Address> shipInformationsByUserId;
-    private Collection<UserPricedRecord> userPricedRecordsByUserId;
+    private Collection<Address> addresses;
+    private Collection<UserPricedRecord> historyRecords;
 
     @Id
-    @Column(name = "user_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "user_id", nullable = false, insertable = false, updatable = false)
     public int getUserId() {
         return userId;
     }
@@ -97,12 +97,12 @@ public class User {
 
     @Basic
     @Column(name = "def_ship_inf_id", nullable = true, insertable = true, updatable = true)
-    public Integer getDefShipInfId() {
-        return defShipInfId;
+    public Integer getDefaultAddressId() {
+        return defaultAddressId;
     }
 
-    public void setDefShipInfId(Integer defShipInfId) {
-        this.defShipInfId = defShipInfId;
+    public void setDefaultAddressId(Integer defShipInfId) {
+        this.defaultAddressId = defShipInfId;
     }
 
     @Basic
@@ -140,7 +140,7 @@ public class User {
         if (realName != null ? !realName.equals(user.realName) : user.realName != null) return false;
         if (email != null ? !email.equals(user.email) : user.email != null) return false;
         if (img != null ? !img.equals(user.img) : user.img != null) return false;
-        if (defShipInfId != null ? !defShipInfId.equals(user.defShipInfId) : user.defShipInfId != null) return false;
+        if (defaultAddressId != null ? !defaultAddressId.equals(user.defaultAddressId) : user.defaultAddressId != null) return false;
         if (userGroup != null ? !userGroup.equals(user.userGroup) : user.userGroup != null) return false;
 
         return true;
@@ -155,7 +155,7 @@ public class User {
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (img != null ? img.hashCode() : 0);
         result = 31 * result + score;
-        result = 31 * result + (defShipInfId != null ? defShipInfId.hashCode() : 0);
+        result = 31 * result + (defaultAddressId != null ? defaultAddressId.hashCode() : 0);
         result = 31 * result + (userGroup != null ? userGroup.hashCode() : 0);
         result = 31 * result + (int) isActivate;
         return result;
@@ -171,12 +171,12 @@ public class User {
     }
 
     @OneToMany(mappedBy = "user")
-    public Collection<Comment> getCommentsByUserId() {
-        return commentsByUserId;
+    public Collection<Comment> getComments() {
+        return comments;
     }
 
-    public void setCommentsByUserId(Collection<Comment> commentsByUserId) {
-        this.commentsByUserId = commentsByUserId;
+    public void setComments(Collection<Comment> commentsByUserId) {
+        this.comments = commentsByUserId;
     }
 
     @OneToMany(mappedBy = "user")
@@ -198,21 +198,21 @@ public class User {
     }
 
     @OneToMany(mappedBy = "user")
-    public Collection<Address> getShipInformationsByUserId() {
-        return shipInformationsByUserId;
+    public Collection<Address> getAddresses() {
+        return addresses;
     }
 
-    public void setShipInformationsByUserId(Collection<Address> shipInformationsByUserId) {
-        this.shipInformationsByUserId = shipInformationsByUserId;
+    public void setAddresses(Collection<Address> shipInformationsByUserId) {
+        this.addresses = shipInformationsByUserId;
     }
 
-    @OneToMany(mappedBy = "userByUserId")
-    public Collection<UserPricedRecord> getUserPricedRecordsByUserId() {
-        return userPricedRecordsByUserId;
+    @OneToMany(mappedBy = "user")
+    public Collection<UserPricedRecord> getHistoryRecords() {
+        return historyRecords;
     }
 
-    public void setUserPricedRecordsByUserId(Collection<UserPricedRecord> userPricedRecordsByUserId) {
-        this.userPricedRecordsByUserId = userPricedRecordsByUserId;
+    public void setHistoryRecords(Collection<UserPricedRecord> userPricedRecordsByUserId) {
+        this.historyRecords = userPricedRecordsByUserId;
     }
 
     @Override

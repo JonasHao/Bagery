@@ -1,7 +1,6 @@
 package serviceImpl;
 
 import dao.Dao;
-import org.hibernate.HibernateException;
 import po.CartItem;
 import po.OrderItem;
 import po.Order;
@@ -33,7 +32,7 @@ public class OrderServiceImpl implements OrderService {
             orderItem.setProductId(cartItem.getProductId());
             orderItem.setProductTitle(cartItem.getProduct().getPricedByPricedId().getTitle());
             orderItem.setNum(cartItem.getNum());
-            orderItem.setTotalPriced(cartItem.getTotalPriced());
+            orderItem.setTotalPriced(cartItem.getSubtotal());
             orderItem.setOrderId(order.getOrderId());
             orderItemList.add(orderItem);
         }
@@ -50,7 +49,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * ¸üÐÂ¶©µ¥
+     * ï¿½ï¿½ï¿½Â¶ï¿½ï¿½ï¿½
      */
     @Override
     public void updateOrder(Order order){

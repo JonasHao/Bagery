@@ -29,7 +29,7 @@ public class CartAction extends ActionSupport{
         cartItem=new CartItem();
         cartItem.setNum(2);
         cartItem.setItemId(1);
-        cartItem.setTotalPriced(9999.00);
+        cartItem.setSubtotal(9999.00);
         Product product=new Product();
         product.setColor("red");
         Priced priced=new Priced();

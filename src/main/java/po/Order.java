@@ -32,7 +32,7 @@ public class Order {
     }
 
     @Basic
-    @Column(name = "user_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "user_id", nullable = false, insertable = false  , updatable = false)
     public int getUserId() {
         return userId;
     }
@@ -42,7 +42,7 @@ public class Order {
     }
 
     @Basic
-    @Column(name = "ship_inf_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "ship_inf_id", nullable = false, insertable = false, updatable = false)
     public int getAddressId() {
         return addressId;
     }

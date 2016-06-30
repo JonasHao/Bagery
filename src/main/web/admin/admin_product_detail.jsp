@@ -148,100 +148,81 @@
                                     </div>
                                 </div>
                                 <div class="ibox-content">
-                                    <form cssClass="form-horizontal">
-                                        <div class="product-form">
-                                            <label class="col-sm-2 control-label">商品名称</label>
-                                            <s:textfield cssClass="form-control"/>
-                                        </div>
-                                        <div class="product-form">
-                                            <s:textarea label="商品描述" cssClass="form-control" cssStyle="resize: vertical;height:120px;"/>
 
-                                        </div>
-                                        <div class="product-form">
-                                            <s:textfield label="商品原价" cssClass="form-control" />
-
-                                        </div>
-                                        <div class="product-form">
-                                            <s:textfield label="商品优惠价" cssClass="form-control"/>
-                                        </div>
-                                        <div class="hr-line-dashed"></div>
-
-
-                                    </form>
-                                    <form method="get" class="form-horizontal">
+                                    <form action="/product/add.action"  class="form-horizontal">
                                         <div class="form-group">
 
                                             <label class="col-sm-2 control-label">商品名称</label>
-                                            <div class="col-sm-10"><input type="text" class="form-control"></div>
+                                            <div class="col-sm-10"><s:textfield name="title"
+                                                                                cssClass="form-control"/></div>
                                         </div>
 
                                         <div class="form-group"><label class="col-sm-2 control-label">商品描述</label>
-                                            <div class="col-sm-10"><textarea class="form-control" style="resize: vertical;height:120px;"> </textarea><span class="help-block m-b-none">拖动文本框左下角可改变文本框高度</span>
+                                            <div class="col-sm-10">
+                                                <s:textarea name="description" cssClass="form-control"
+                                                            cssStyle="resize: vertical;height:120px;"/>
+                                                <span class="help-block m-b-none">拖动文本框左下角可改变文本框高度</span>
                                             </div>
                                         </div>
 
                                         <div class="form-group"><label class="col-sm-2 control-label">商品原价</label>
-
-                                            <div class="col-sm-10"><input type="text" class="form-control"></div>
+                                            <div class="col-sm-10"><s:textfield name="unit_price"
+                                                                                cssClass="form-control"/></div>
                                         </div>
 
                                         <div class="form-group"><label class="col-sm-2 control-label">商品优惠价</label>
 
-                                            <div class="col-sm-10"><input type="text" class="form-control"></div>
+                                            <div class="col-sm-10"><s:textfield name="sale_price"
+                                                                                cssClass="form-control"/></div>
                                         </div>
 
                                         <div class="hr-line-dashed"></div>
                                         <div class="form-group"><label class="col-sm-2 control-label">商品属性</label>
                                             <div class="col-sm-10">
                                                 <div class="row">
-                                                    <label class="col-sm-4 control-label" style="font-weight:normal;">品牌</label>
+                                                    <label class="col-sm-4 control-label"
+                                                           style="font-weight:normal;">品牌</label>
                                                     <div class="col-sm-4">
-                                                        <select id="property_dcp" class="form-control m-b">
-                                                            <option>LV</option>
-                                                            <option>Michael Kors</option>
-                                                        </select>
+                                                        <%--todo: s:select的list属性设置成action中的List--%>
+                                                        <s:select
+                                                                list="#{'1':'LV', '2':'Michael Kors', '3':'Mar', '4':'Apr'}"
+                                                                name="proIDs[0]" cssClass="form-control m-b"/>
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <label class="col-sm-4 control-label" style="font-weight:normal;">材质</label>
+                                                    <label class="col-sm-4 control-label"
+                                                           style="font-weight:normal;">材质</label>
                                                     <div class="col-sm-4">
-                                                        <select id="property_dcp" class="form-control m-b">
-                                                            <option>帆布</option>
-                                                            <option>皮革</option>
-                                                        </select>
+                                                        <s:select list="#{'1':'帆布', '2':'皮革', '3':'Mar', '4':'Apr'}"
+                                                                  name="proIDs[1]" cssClass="form-control m-b"/>
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <label class="col-sm-4 control-label" style="font-weight:normal;">款式</label>
+                                                    <label class="col-sm-4 control-label"
+                                                           style="font-weight:normal;">款式</label>
                                                     <div class="col-sm-4">
-                                                        <select id="property_dcp" class="form-control m-b">
-                                                            <option>斜挎包</option>
-                                                            <option>手提包</option>
-                                                        </select>
+                                                        <s:select list="#{'1':'斜挎包', '2':'手提包', '3':'Mar', '4':'Apr'}"
+                                                                  name="proIDs[2]" cssClass="form-control m-b"/>
                                                     </div>
                                                 </div>
                                             </div>
 
 
-
-
-
                                         </div>
                                         <div class="hr-line-dashed"></div>
-                                        <div class="form-group" ><label class="col-sm-2 control-label">商品颜色</label>
+                                        <div class="form-group"><label class="col-sm-2 control-label">商品颜色</label>
 
                                             <div class="col-sm-10" id="color_stock">
                                                 <div class="row">
                                                     <div class="col-sm-6">
-                                                        <input type="text" placeholder="请输入颜色" class="form-control m-b">
+                                                        <s:textfield name="products[0].color" placeholder="请输入颜色"
+                                                                     cssClass="form-control m-b"/>
                                                     </div>
                                                     <div class="col-sm-4">
-                                                        <input type="text" placeholder="请输入库存" class="form-control m-b">
+                                                        <s:textfield name="products[0]" placeholder="请输入库存"
+                                                                     cssClass="form-control m-b"/>
                                                     </div>
                                                 </div>
-
-
-
 
 
                                             </div>
@@ -254,7 +235,7 @@
                                         <div class="hr-line-dashed"></div>
                                         <div class="form-group">
                                             <div class="col-sm-4 col-sm-offset-2">
-                                                <button class="btn btn-primary" type="submit">提交</button>
+                                                <s:submit cssClass="btn btn-primary" value="提交"/>
                                             </div>
                                         </div>
                                     </form>
@@ -314,19 +295,20 @@
         });
     });
 
-    function addColor(){
+    function addColor() {
         // document.getElementById('color_stock').appendChild("<strong>test</strong>");
         var div = document.createElement("div");
-        div.innerHTML = "<div class=\"row\"><div class=\"col-sm-6\"><input type=\"text\" placeholder=\"请输入颜色\" class=\"form-control m-b\"></div><div class=\"col-sm-4\"><input type=\"text\" placeholder=\"请输入库存\" class=\"form-control m-b\"></div><button class=\"col-sm-2 btn btn-warning btn-circle\" type=\"button\" onclick=\"deleteColor()\"><i class=\"fa fa-times\"></i></button></div>";
+        div.className = "row";
+        div.innerHTML = "<div class=\"col-sm-6\"><input type=\"text\" placeholder=\"请输入颜色\" class=\"form-control m-b\"></div><div class=\"col-sm-4\"><input type=\"text\" placeholder=\"请输入库存\" class=\"form-control m-b\"></div><button class=\"col-sm-2 btn btn-warning btn-circle\" type=\"button\" onclick=\"deleteColor()\"><i class=\"fa fa-times\"></i></button>";
 
         document.getElementById('color_stock').appendChild(div);
     }
-    function deleteColor(){
+    function deleteColor() {
         var clicked = event.target;
         var todelete;
-        if (clicked.nodeName=="I"){
+        if (clicked.nodeName == "I") {
             todelete = clicked.parentNode.parentNode;
-        }else{
+        } else {
             todelete = clicked.parentNode;
         }
         todelete.parentNode.removeChild(todelete);

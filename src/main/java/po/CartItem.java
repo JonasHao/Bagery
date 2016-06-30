@@ -11,13 +11,13 @@ public class CartItem {
     private int itemId;
     private int productId;
     private int num;
-    private Double totalPriced;
+    private Double subtotal;
     private int userId;
     private Product product;
     private User user;
 
     @Id
-    @Column(name = "item_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "item_id", nullable = false, insertable = false, updatable = false)
     public int getItemId() {
         return itemId;
     }
@@ -27,7 +27,7 @@ public class CartItem {
     }
 
     @Basic
-    @Column(name = "product_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "product_id", nullable = false, insertable = false, updatable = false)
     public int getProductId() {
         return productId;
     }
@@ -48,16 +48,16 @@ public class CartItem {
 
     @Basic
     @Column(name = "total_priced", nullable = true, insertable = true, updatable = true, precision = 0)
-    public Double getTotalPriced() {
-        return totalPriced;
+    public Double getSubtotal() {
+        return subtotal;
     }
 
-    public void setTotalPriced(Double totalPriced) {
-        this.totalPriced = totalPriced;
+    public void setSubtotal(Double totalPriced) {
+        this.subtotal = totalPriced;
     }
 
     @Basic
-    @Column(name = "user_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "user_id", nullable = false, insertable = false, updatable = false)
     public int getUserId() {
         return userId;
     }
@@ -77,7 +77,7 @@ public class CartItem {
         if (productId != cartItem.productId) return false;
         if (num != cartItem.num) return false;
         if (userId != cartItem.userId) return false;
-        if (totalPriced != null ? !totalPriced.equals(cartItem.totalPriced) : cartItem.totalPriced != null)
+        if (subtotal != null ? !subtotal.equals(cartItem.subtotal) : cartItem.subtotal != null)
             return false;
 
         return true;
@@ -88,7 +88,7 @@ public class CartItem {
         int result = itemId;
         result = 31 * result + productId;
         result = 31 * result + num;
-        result = 31 * result + (totalPriced != null ? totalPriced.hashCode() : 0);
+        result = 31 * result + (subtotal != null ? subtotal.hashCode() : 0);
         result = 31 * result + userId;
         return result;
     }

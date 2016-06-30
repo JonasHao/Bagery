@@ -13,8 +13,8 @@ public class UserPricedRecord {
     private int userId;
     private int pricedId;
     private Timestamp recordDate;
-    private Priced pricedByPricedId;
-    private User userByUserId;
+    private Priced priced;
+    private User user;
 
     @Id
     @Column(name = "user_priced_id", nullable = false, insertable = true, updatable = true)
@@ -81,22 +81,22 @@ public class UserPricedRecord {
     }
 
     @ManyToOne
-    @JoinColumn(name = "priced_id", referencedColumnName = "priced_id", nullable = false)
-    public Priced getPricedByPricedId() {
-        return pricedByPricedId;
+    @JoinColumn(name = "priced_id", referencedColumnName = "priced_id", nullable = false, insertable = false, updatable = false)
+    public Priced getPriced() {
+        return priced;
     }
 
-    public void setPricedByPricedId(Priced pricedByPricedId) {
-        this.pricedByPricedId = pricedByPricedId;
+    public void setPriced(Priced pricedByPricedId) {
+        this.priced = pricedByPricedId;
     }
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
-    public User getUserByUserId() {
-        return userByUserId;
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false, insertable = false, updatable = false)
+    public User getUser() {
+        return user;
     }
 
-    public void setUserByUserId(User userByUserId) {
-        this.userByUserId = userByUserId;
+    public void setUser(User userByUserId) {
+        this.user = userByUserId;
     }
 }

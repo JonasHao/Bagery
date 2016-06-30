@@ -46,7 +46,7 @@ public class OrderAction extends DefaultActionSupport {
     public String balance() throws Exception{
         try {
             user = userService.getCurrentUser();
-            addressList = user.getShipInformationsByUserId();
+            addressList = user.getAddresses();
             ActionContext.getContext().getSession().put("addressList", addressList);
 
             int itemId;
@@ -64,7 +64,7 @@ public class OrderAction extends DefaultActionSupport {
             double totalPriced = 0.0;
             int cartSize = cartItemList.size();
             for (int i = 0; i < cartSize; i++) {
-                totalPriced += cartItemList.get(i).getTotalPriced();
+                totalPriced += cartItemList.get(i).getSubtotal();
             }
             ActionContext.getContext().getSession().put("totalPriced", totalPriced);
             return SUCCESS;

@@ -17,7 +17,7 @@ public class Product {
     private Priced pricedByPricedId;
 
     @Id
-    @Column(name = "product_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "product_id", nullable = false, insertable = false, updatable = false)
     public int getProductId() {
         return productId;
     }
@@ -27,7 +27,7 @@ public class Product {
     }
 
     @Basic
-    @Column(name = "priced_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "priced_id", nullable = false, insertable = false, updatable = false)
     public int getPricedId() {
         return pricedId;
     }
@@ -106,5 +106,10 @@ public class Product {
 
     public void setPricedByPricedId(Priced pricedByPricedId) {
         this.pricedByPricedId = pricedByPricedId;
+    }
+
+    @Override
+    public String toString() {
+        return "color:" + color + " stock:" + stock + " priceID:"+pricedId ;
     }
 }

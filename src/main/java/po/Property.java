@@ -15,7 +15,7 @@ public class Property {
     private Collection<PricedPro> pricedPros;
 
     @Id
-    @Column(name = "pro_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "pro_id", nullable = false, insertable = false, updatable = false)
     public int getProId() {
         return proId;
     }

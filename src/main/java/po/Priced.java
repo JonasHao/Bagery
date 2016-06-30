@@ -21,7 +21,7 @@ public class Priced {
     private Collection<UserPricedRecord> userPricedRecords;
 
     @Id
-    @Column(name = "priced_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "priced_id", nullable = false, insertable = false, updatable = false)
     public int getPricedId() {
         return pricedId;
     }
@@ -144,12 +144,17 @@ public class Priced {
         this.products = productsByPricedId;
     }
 
-    @OneToMany(mappedBy = "pricedByPricedId")
+    @OneToMany(mappedBy = "priced")
     public Collection<UserPricedRecord> getUserPricedRecords() {
         return userPricedRecords;
     }
 
     public void setUserPricedRecords(Collection<UserPricedRecord> userPricedRecordsByPricedId) {
         this.userPricedRecords = userPricedRecordsByPricedId;
+    }
+
+    @Override
+    public String toString() {
+        return title + " " + description + " " + unitPrice + " " + salePrice;
     }
 }

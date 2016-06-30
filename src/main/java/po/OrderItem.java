@@ -17,7 +17,7 @@ public class OrderItem {
     private Product product;
 
     @Id
-    @Column(name = "item_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "item_id", nullable = false, insertable = false, updatable = false)
     public int getItemId() {
         return itemId;
     }
@@ -27,7 +27,7 @@ public class OrderItem {
     }
 
     @Basic
-    @Column(name = "product_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "product_id", nullable = false, insertable = false, updatable = false)
     public int getProductId() {
         return productId;
     }
@@ -67,7 +67,7 @@ public class OrderItem {
     }
 
     @Basic
-    @Column(name = "order_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "order_id", nullable = false, insertable = false, updatable = false)
     public int getOrderId() {
         return orderId;
     }
