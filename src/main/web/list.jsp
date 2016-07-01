@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 
 <t:base>
 
@@ -24,7 +25,7 @@
                             <a href="#" class="list-group-item filter-list-group-item ">Man</a>
                         </div>
                     </div>
--->
+
                     <div class="widget-wrapper">
                         <h6>品牌:</h6>
                         <div class="list-group">
@@ -61,7 +62,7 @@
                         <div class="page tab-pane active" id="products-page-1" role="tabpanel">
                             <div class="row">
                                 <s:iterator value="priceds">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <t:product>
                                         <jsp:attribute name="img"><s:property value="img"/></jsp:attribute>
                                         <jsp:attribute name="title"><s:property value="title"/></jsp:attribute>
@@ -76,7 +77,7 @@
 
                         <div class="page tab-pane" id="products-page-2" role="tabpanel">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <t:product>
                                         <jsp:attribute name="img">img/bags/bag1.png</jsp:attribute>
                                         <jsp:attribute name="title">包包标题2</jsp:attribute>
@@ -87,7 +88,7 @@
                         </div>
                         <div class="page tab-pane" id="products-page-3" role="tabpanel">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <t:product>
                                         <jsp:attribute name="img">img/bags/bag1.png</jsp:attribute>
                                         <jsp:attribute name="title">包包标题3</jsp:attribute>
@@ -98,7 +99,7 @@
                         </div>
                         <div class="page tab-pane" id="products-page-4" role="tabpanel">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <t:product>
                                         <jsp:attribute name="img">img/bags/bag1.png</jsp:attribute>
                                         <jsp:attribute name="title">包包标题4</jsp:attribute>
@@ -109,7 +110,7 @@
                         </div>
                         <div class="page tab-pane" id="products-page-5" role="tabpanel">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <t:product>
                                         <jsp:attribute name="img">img/bags/bag1.png</jsp:attribute>
                                         <jsp:attribute name="title">包包标题5</jsp:attribute>

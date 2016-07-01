@@ -30,7 +30,6 @@
                 <jsp:invoke fragment="price"/>
             </div>
             <div class="col-md-4">
-
                 <a href="#" class="btn btn-sm grey"><i class="fa fa-shopping-cart"></i></a>
             </div>
         </div>
