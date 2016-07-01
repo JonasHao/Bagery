@@ -26,11 +26,13 @@ public class AddressAction extends ActionSupport {
     private String addressCity;
     private String addressDistrict;
     private String addressDetail;
+    private Integer defaultAddressId;
 
     public String viewAddress() {
         user = userService.getCurrentUser();
         //todo: update address
         addressList = user.getAddresses();
+        defaultAddressId=user.getDefaultAddressId();
         return SUCCESS;
     }
 
@@ -48,6 +50,11 @@ public class AddressAction extends ActionSupport {
         address.setAddressDetail(addressDetail);
 
         addressService.add(address);
+
+        if(user.getAddresses().size()==1){
+            user.setDefaultAddressId(user.getAddresses().get(0).getAddressId());
+            userService.update(user);
+        }
         return SUCCESS;
     }
 
@@ -184,5 +191,13 @@ public class AddressAction extends ActionSupport {
 
     public void setAddressList(List<Address> addressList) {
         this.addressList = addressList;
+    }
+
+    public Integer getDefaultAddressId() {
+        return defaultAddressId;
+    }
+
+    public void setDefaultAddressId(Integer defaultAddressId) {
+        this.defaultAddressId = defaultAddressId;
     }
 }

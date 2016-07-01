@@ -2,6 +2,7 @@ package serviceImpl;
 
 import com.opensymphony.xwork2.ActionContext;
 import constant.Config;
+import constant.Key;
 import po.User;
 import service.UserService;
 import dao.Dao;
@@ -20,11 +21,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getCurrentUser() {
         if(Config.DEBUG){
-            user=(User)ActionContext.getContext().getSession().get("User");
-            userId=user.getUserId();
-            user = dao.get(User.class,userId);
+            user = dao.get(User.class,1);
             return user;
         }
+        user=(User)ActionContext.getContext().getSession().get(Key.USER);
+        userId=user.getUserId();
         return null;
     }
 

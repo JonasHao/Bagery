@@ -185,7 +185,6 @@
         <default-interceptor-ref name="myStack"/>
 
         <action name="viewAddress" class="action.AddressAction" method="viewAddress">
-            <!--<result name="success">/admin/admin_product_detail.jsp</result>-->
             <result name="success">/address.jsp</result>
         </action>
 

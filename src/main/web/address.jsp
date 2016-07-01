@@ -50,11 +50,12 @@
                 <t:addressItem>
                     <jsp:attribute name="receiver"><s:property value="receiver"/></jsp:attribute>
                     <jsp:attribute name="phone"><s:property value="mobile"/></jsp:attribute>
-                    <jsp:attribute name="address"><s:property value="addressId"/><s:property value="addressProvince"/>省<s:property
+                    <jsp:attribute name="address"><s:property value="addressProvince"/>省<s:property
                             value="addressCity"/>市<s:property value="addressDistrict"/>区<s:property
                             value="addressDetail"/></jsp:attribute>
                     <jsp:attribute name="addressId"><s:property value="addressId"/></jsp:attribute>
                     <jsp:attribute name="isDefault">true</jsp:attribute>
+                    <jsp:attribute name="status"><s:property value="addressId"/></jsp:attribute>
                 </t:addressItem>
             </s:iterator>
 
@@ -103,6 +104,10 @@
             </form>
 
         </div>
+
+
+
+
         <!--/.Main layout-->
     </jsp:body>
 
