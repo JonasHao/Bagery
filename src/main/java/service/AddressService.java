@@ -18,6 +18,6 @@ public interface AddressService {
      */
     Address get(int addressId);
 
-    void delete(Address address);
+    void deleteAddress(int addressId);
 
 }

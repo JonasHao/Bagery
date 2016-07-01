@@ -37,10 +37,8 @@ public class AddressAction extends ActionSupport {
     public String addAddress() {
         user = userService.getCurrentUser();
         //todo: ����ValidatorУ��
-//        user= (User)ActionContext.getContext().getSession().get("User");
-
         address = new Address();
-        address.setUserId(1);
+        address.setUserId(user.getUserId());
         //todo ��ʡ����
         address.setReceiver(receiver);
         address.setMobile(mobile);
@@ -54,7 +52,7 @@ public class AddressAction extends ActionSupport {
     }
 
     public String deleteAddress() {
-        addressService.delete(addressService.get(addressId));
+        addressService.deleteAddress(addressId);
         return SUCCESS;
     }
 
