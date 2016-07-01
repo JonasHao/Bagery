@@ -27,7 +27,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User get(int userId) {
-        return null;
+        user=(User)dao.query("from User where userId=?").setParameter(0,userId).list().get(0);
+        return user;
     }
 
     @Override

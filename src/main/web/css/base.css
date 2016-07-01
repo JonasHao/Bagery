@@ -136,3 +136,6 @@ a {
     font-size: large;
 }
 
+.disabled-block {
+    margin-left: 4rem;
+}

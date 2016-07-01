@@ -110,15 +110,15 @@
 
         <action name="login" class="action.UserAction" method="login">
             <result name="input">/login.jsp</result>
-            <result name="success">/home.jsp</result>
+            <result name="success">/index.jsp</result>
         </action>
 
         <action name="logout" class="action.UserAction" method="logout">
             <result name="success">/index.jsp</result>
         </action>
 
-        <action name="viewInfo" class="action.UserInfoAction" method="viewInfo">
-            <result name="success"></result>
+        <action name="home" class="action.UserInfoAction" method="home">
+            <result name="success">/home.jsp</result>
         </action>
 
         <action name="update" class="action.UserInfoAction" method="update">
@@ -150,6 +150,7 @@
 
         <action name="viewProduct" class="action.ProductionAction" method="viewProduct">
             <result name="success">/detail.jsp</result>
+            <result name="input">/productDisable.jsp</result>
         </action>
     </package>
 
@@ -184,22 +185,22 @@
         <default-interceptor-ref name="myStack"/>
 
         <action name="viewAddress" class="action.AddressAction" method="viewAddress">
-            <result name="success">/admin/admin_product_detail.jsp</result>
-
+            <!--<result name="success">/admin/admin_product_detail.jsp</result>-->
+            <result name="success">/address.jsp</result>
         </action>
 
         <action name="addAddress" class="action.AddressAction" method="addAddress">
-            <result name="success">/address.jsp</result>
+            <result name="success" type="redirectAction">viewAddress</result>
             <result name="input">/address.jsp</result>
         </action>
 
         <action name="deleteAddress" class="action.AddressAction" method="deleteAddress">
-            <result name="success"></result>
+            <result name="success" type="redirectAction">viewAddress</result>
         </action>
 
         <action name="updateAddress" class="action.AddressAction" method="updateAddress">
-            <result name="input"></result>
-            <result name="success"></result>
+            <result name="input">/address.jsp</result>
+            <result name="success" type="redirectAction">viewAddress</result>
         </action>
     </package>
 

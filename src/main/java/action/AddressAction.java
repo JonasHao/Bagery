@@ -1,12 +1,12 @@
 package action;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import po.Address;
 import po.User;
 import service.AddressService;
 import service.UserService;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -17,7 +17,18 @@ public class AddressAction extends ActionSupport {
     private UserService userService;
     private AddressService addressService;
     private Address address;
-    private Collection<Address> addresses;
+    private List<Address> addressList;
+
+    private int addressId;
+
+    public int getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
+    }
+
     private User user;
 
     private int shipInfId;
@@ -32,15 +43,17 @@ public class AddressAction extends ActionSupport {
     public String viewAddress(){
         user=userService.getCurrentUser();
         //todo: update address
+        addressList=user.getAddresses();
         return SUCCESS;
     }
 
     public String addAddress(){
         user=userService.getCurrentUser();
         //todo: ����ValidatorУ��
+//        user= (User)ActionContext.getContext().getSession().get("User");
 
         address=new Address();
-        address.setUserId(user.getUserId());
+        address.setUserId(1);
         //todo ��ʡ����
         address.setReceiver(receiver);
         address.setMobile(mobile);
@@ -54,7 +67,7 @@ public class AddressAction extends ActionSupport {
     }
 
     public String deleteAddress(){
-        addressService.delete(addressService.get(shipInfId));
+        addressService.delete(addressService.get(addressId));
         return SUCCESS;
     }
 
@@ -121,12 +134,12 @@ public class AddressAction extends ActionSupport {
         this.user = user;
     }
 
-    public Collection<Address> getAddresses() {
-        return addresses;
+    public List<Address> getAddresses() {
+        return addressList;
     }
 
-    public void setAddresses(Collection<Address> addresses) {
-        this.addresses = addresses;
+    public void setAddresses(List<Address> addressList) {
+        this.addressList = addressList;
     }
 
     public Address getAddress() {
@@ -175,5 +188,13 @@ public class AddressAction extends ActionSupport {
 
     public void setAddressDetail(String addressDetail) {
         this.addressDetail = addressDetail;
+    }
+
+    public List<Address> getAddressList() {
+        return addressList;
+    }
+
+    public void setAddressList(List<Address> addressList) {
+        this.addressList = addressList;
     }
 }
