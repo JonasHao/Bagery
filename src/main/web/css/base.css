@@ -76,6 +76,12 @@ a {
 .orders-block {
     padding-left: 4rem;
 }
+.order-item {
+    margin-bottom: .5rem;
+}
+.order-item-block{
+    padding-top: .5rem;
+}
 
 .card-home {
     margin-bottom: 3rem;
