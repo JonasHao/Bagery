@@ -209,11 +209,11 @@
         <action name="viewProduct" class="action.ProductionAction" method="viewProduct">
             <result name="success">/detail.jsp</result>
         </action>
-        <action name="viewPricedList" class="action.ProductionAction" method="viewPricedList">
+        <action name="productList" class="action.ProductionAction" method="viewPricedList">
             <result name="success">/list.jsp</result>
         </action>
-        <action name="viewHistoryRecord" class="action.ProductionAction" method="viewHistoryRecord">
-            <result name="success"></result>
+        <action name="historyRecord" class="action.ProductionAction" method="viewHistoryRecord">
+            <result name="success">/history.jsp</result>
         </action>
         <action name="findPricedsByWord" class="action.ProductionAction" method="findPricedsByWord">
             <result name="success"></result>
