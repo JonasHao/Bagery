@@ -150,6 +150,7 @@
 
         <action name="viewProduct" class="action.ProductionAction" method="viewProduct">
             <result name="success">/detail.jsp</result>
+            <result name="input">/productDisable.jsp</result>
         </action>
     </package>
 
