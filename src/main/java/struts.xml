@@ -189,8 +189,8 @@
         </action>
 
         <action name="addAddress" class="action.AddressAction" method="addAddress">
-            <result name="success"></result>
-            <result name="input"></result>
+            <result name="success">/address.jsp</result>
+            <result name="input">/address.jsp</result>
         </action>
 
         <action name="deleteAddress" class="action.AddressAction" method="deleteAddress">

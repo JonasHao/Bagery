@@ -8,9 +8,6 @@ import service.AddressService;
  * Created by zhang on 2016/6/27.
  */
 public class AddressServiceImpl implements AddressService {
-
-
-
     private Dao dao;
     @Override
     public void add(Address address) {
@@ -24,7 +21,7 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public Address get(int shipInfId) {
-        return (Address)dao.query("from ShipInformation where shipInfId=?").setParameter(0,shipInfId);
+        return (Address)dao.query("from ShipInformation where shipInfId=?").setParameter(0,shipInfId).list().get(0);
     }
 
     @Override
