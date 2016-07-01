@@ -20,13 +20,6 @@ public class AddressAction extends ActionSupport {
     private Address address;
     private List<Address> addressList;
 
-    public List<Address> getAddressList() {
-        return addressList;
-    }
-
-    public void setAddressList(List<Address> addressList) {
-        this.addressList = addressList;
-    }
 
     private User user;
 
@@ -43,7 +36,6 @@ public class AddressAction extends ActionSupport {
         user=userService.getCurrentUser();
         //todo: update address
         addressList=user.getAddresses();
-
         return SUCCESS;
     }
 
@@ -53,7 +45,7 @@ public class AddressAction extends ActionSupport {
 //        user= (User)ActionContext.getContext().getSession().get("User");
 
         address=new Address();
-        address.setUserId(user.getUserId());
+        address.setUserId(1);
         //todo ��ʡ����
         address.setReceiver(receiver);
         address.setMobile(mobile);
@@ -188,5 +180,13 @@ public class AddressAction extends ActionSupport {
 
     public void setAddressDetail(String addressDetail) {
         this.addressDetail = addressDetail;
+    }
+
+    public List<Address> getAddressList() {
+        return addressList;
+    }
+
+    public void setAddressList(List<Address> addressList) {
+        this.addressList = addressList;
     }
 }

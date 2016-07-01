@@ -84,7 +84,7 @@
                             <h5 class="h5-responsive font-weight-bold">地址簿</h5>
                             <ul>
                                 <li><s:a action="viewAddress" namespace="/address">管理地址簿</s:a></li>
-                                <li><a href="address.jsp">添加地址</a></li>
+                                <li><a href="#">添加地址</a></li>
                             </ul>
                         </div>
                     </div>
