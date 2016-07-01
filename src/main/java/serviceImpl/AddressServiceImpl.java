@@ -9,6 +9,7 @@ import service.AddressService;
  */
 public class AddressServiceImpl implements AddressService {
     private Dao dao;
+    private Address address;
     @Override
     public void add(Address address) {
         dao.save(address);
@@ -20,12 +21,13 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public Address get(int shipInfId) {
-        return (Address)dao.query("from ShipInformation where shipInfId=?").setParameter(0,shipInfId).list().get(0);
+    public Address get(int addressId) {
+        return dao.get(Address.class, addressId);
     }
 
     @Override
-    public void delete(Address address) {
+    public void deleteAddress(int addressId) {
+        address=dao.get(Address.class,addressId);
         dao.delete(address);
     }
 

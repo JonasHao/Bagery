@@ -10,7 +10,6 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
 <t:base>
-
     <jsp:attribute name="title">订单列表</jsp:attribute>
     <jsp:attribute name="breadcrumb">
        <ol class="breadcrumb">
@@ -18,18 +17,32 @@
            <li class="active">订单列表</li>
        </ol>
     </jsp:attribute>
+    <jsp:attribute name="scripts">
+        <script type="text/javascript">
+            // Javascript to enable link to tab
+            var url = document.location.toString();
+            if (url.match('#')) {
+                $('.nav-tabs a[href="#' + url.split('#')[1] + '"]').tab('show');
+            }
+
+            // Change hash for page-reload
+            $('.nav-tabs a').on('shown.bs.tab', function (e) {
+                window.location.hash = e.target.hash;
+            })
+        </script>
+     </jsp:attribute>
     <jsp:body>
         <!--Main layout-->
         <div class="container">
             <ul class="nav nav-tabs tabs-5" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#panel1" role="tab">所有订单</a>
+                    <a class="nav-link active" data-toggle="tab" href="#all" role="tab">所有订单</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#panel2" role="tab">待付款</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " data-toggle="tab" href="#panel3" role="tab">待发货</a>
+                    <a class="nav-link " data-toggle="tab" href="#unshiped" role="tab">待发货</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#panel4" role="tab">待收货</a>
@@ -43,7 +56,7 @@
             <div class="tab-content">
 
                 <!--Panel 1-->
-                <div class="tab-pane active" id="panel1" role="tabpanel">
+                <div class="tab-pane active" id="all" role="tabpanel">
                     <br>
 
                     <div class="card">
@@ -69,24 +82,15 @@
                             </div>
                         </div>
                         <div class="card-block">
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <s:iterator begin="1" end="3">
-                                        <t:orderItem>
-                                            <jsp:attribute name="img">"../../img/bags/bag1.png"</jsp:attribute>
-                                            <jsp:attribute name="title">商品标题</jsp:attribute>
-                                            <jsp:attribute name="price">99999.99</jsp:attribute>
-                                            <jsp:attribute name="number">1</jsp:attribute>
-                                            <jsp:attribute name="color">红色</jsp:attribute>
-                                        </t:orderItem>
-                                    </s:iterator>
-                                </div>
-                                <div class="col-md-2">
-                                    <div>订单详情</div>
-                                    <div>物流状态</div>
-                                    <div>评价状态</div>
-                                </div>
-                            </div>
+                            <s:iterator begin="1" end="3">
+                                <t:orderItem>
+                                    <jsp:attribute name="img">"../../img/bags/bag1.png"</jsp:attribute>
+                                    <jsp:attribute name="title">商品标题</jsp:attribute>
+                                    <jsp:attribute name="price">99999.99</jsp:attribute>
+                                    <jsp:attribute name="number">1</jsp:attribute>
+                                    <jsp:attribute name="color">红色</jsp:attribute>
+                                </t:orderItem>
+                            </s:iterator>
 
                         </div>
                     </div>
@@ -99,11 +103,12 @@
                     <br>
 
                     <p>Content for Panel 2</p>
+
                 </div>
                 <!--/.Panel 2-->
 
                 <!--Panel 3-->
-                <div class="tab-pane" id="panel3" role="tabpanel">
+                <div class="tab-pane" id="unshiped" role="tabpanel">
                     <br>
 
                     <p>Content for Panel 3</p>
@@ -125,4 +130,5 @@
         </div>
         <!--/.Main layout-->
     </jsp:body>
+
 </t:base>

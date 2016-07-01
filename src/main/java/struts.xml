@@ -185,7 +185,7 @@
         <default-interceptor-ref name="myStack"/>
 
         <action name="viewAddress" class="action.AddressAction" method="viewAddress">
-            <!--<result name="success">/admin/add_product.jsp</result>-->
+            <!--<result name="success">/admin/admin_product_detail.jsp</result>-->
             <result name="success">/address.jsp</result>
         </action>
 
@@ -229,20 +229,17 @@
 
         <action name="addPriced" class="action.ProductionAction" method="add">
             <result name="success"></result>
-            <result name="input">/admin/add_product.jsp</result>
+            <result name="input">/admin/admin_product_detail.jsp</result>
         </action>
-        <action name="viewProduct" class="action.ProductionAction" method="viewProductAdmin">
-            <result name="success">/admin/update_product.jsp</result>
+        <action name="viewProduct" class="action.ProductionAction" method="viewProduct">
+            <result name="success">/admin/admin_product_detail.jsp</result>
         </action>
         <action name="update" class="action.ProductionAction" method="update">
             <result name="success"></result>
             <result name="input"></result>
         </action>
-        <action name="soldOutPriced" class="action.ProductionAction" method="soldOutPriced">
-            <result name="success" type="redirectAction">pricedList</result>
-        </action>
         <action name="deletePriced" class="action.ProductionAction" method="deletePriced">
-            <result name="success" type="redirectAction">pricedList</result>
+            <result name="success"></result>
         </action>
         <action name="pricedList" class="action.ProductionAction" method="viewPricedList">
             <result name="success">/admin/product_list.jsp</result>
