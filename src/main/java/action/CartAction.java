@@ -5,6 +5,7 @@ import constant.Config;
 import org.hibernate.HibernateException;
 import po.*;
 import service.CartService;
+import service.ProductService;
 import service.UserService;
 
 import java.util.ArrayList;
@@ -20,27 +21,30 @@ import static constant.Key.RESULT;
 public class CartAction extends ActionSupport {
     private int productId;
     private int num;
+    private double totalPriced;
     private User user;
     private CartItem cartItem;
     private int itemId;
     private CartService cartService;
     private UserService userService;
+    private ProductService productService;
     private Map<String, Object> data = new HashMap<>();
     private List<CartItem> cartItemList = new ArrayList<CartItem>();
 
     public String queryCart() {
         user = userService.getCurrentUser();
-        cartItemList =user.getCartItems();
+        cartItemList = user.getCartItems();
         return SUCCESS;
     }
 
     public String addCart() {
         try {
             user = userService.getCurrentUser();
-            cartItemList=user.getCartItems();
-            for(CartItem item:cartItemList){
-                if(item.getProductId()==productId){
-                    item.setNum(item.getNum()+1);
+            cartItemList = user.getCartItems();
+            for (CartItem item : cartItemList) {
+                if (item.getProductId() == productId) {
+                    item.setNum(item.getNum() + 1);
+                    item.setSubtotal(item.getSubtotal() + item.getProduct().getPriced().getSalePrice());
                     cartService.updateCart(item);
                     data.put(RESULT, SUCCESS);
                     return SUCCESS;
@@ -50,6 +54,8 @@ public class CartAction extends ActionSupport {
             cartItem.setProductId(productId);
             cartItem.setUserId(user.getUserId());
             cartItem.setNum(1);
+            Product product=productService.findProduct(productId);
+            cartItem.setSubtotal(product.getPriced().getSalePrice());
             cartService.addCart(cartItem);
             data.put(RESULT, SUCCESS);
         } catch (HibernateException e) {
@@ -80,8 +86,16 @@ public class CartAction extends ActionSupport {
     public String updateCart() {
         try {
             cartItem = cartService.getCartItem(itemId);
-            cartItem.setNum(num);
-            cartService.updateCart(cartItem);
+            if (num > 0 && num <= cartItem.getProduct().getStock()) {
+                cartItem.setNum(num);
+                double salePrice=cartItem.getProduct().getPriced().getSalePrice();
+                cartItem.setSubtotal(salePrice*num);
+                cartService.updateCart(cartItem);
+                data.put(RESULT, SUCCESS);
+            } else {
+                data.put(RESULT, INPUT);
+            }
+
         } catch (HibernateException e) {
             if (Config.DEBUG) {
                 data.put(RESULT, SUCCESS);
@@ -154,5 +168,17 @@ public class CartAction extends ActionSupport {
 
     public void setData(Map<String, Object> data) {
         this.data = data;
+    }
+
+    public double getTotalPriced() {
+        return totalPriced;
+    }
+
+    public void setTotalPriced(double totalPriced) {
+        this.totalPriced = totalPriced;
+    }
+
+    public void setProductService(ProductService productService) {
+        this.productService = productService;
     }
 }
