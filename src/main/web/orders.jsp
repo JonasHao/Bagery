@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 
 <t:base>
 
@@ -67,38 +68,26 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-2">
-                                <!--Card image-->
-                                <div class="view overlay hm-white-slight">
-                                    <img src="img/bags/bag1.png" class="img-fluid" alt="">
-                                    <a href="#">
-                                        <div class="mask"></div>
-                                    </a>
+                        <div class="card-block">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <s:iterator begin="1" end="3">
+                                        <t:orderItem>
+                                            <jsp:attribute name="img">"../../img/bags/bag1.png"</jsp:attribute>
+                                            <jsp:attribute name="title">商品标题</jsp:attribute>
+                                            <jsp:attribute name="price">99999.99</jsp:attribute>
+                                            <jsp:attribute name="number">1</jsp:attribute>
+                                            <jsp:attribute name="color">红色</jsp:attribute>
+                                        </t:orderItem>
+                                    </s:iterator>
                                 </div>
-                                <!--/.Card image-->
+                                <div class="col-md-2">
+                                    <div>订单详情</div>
+                                    <div>物流状态</div>
+                                    <div>评价状态</div>
+                                </div>
                             </div>
-                            <div class="col-md-10 cart-item-block">
-                                <div class="row">
-                                    <div class="col-md-9">
-                                        <div>
-                                            <!--Title-->
-                                            <h5 class="card-title product-title">
-                                                商品标题
-                                            </h5>
-                                            <br/>
-                                            <p><i class="fa fa-rmb" aria-hidden="true"></i>99999.99（1件）</p>
-                                            <p class="bag-color">颜色分类:红色</p>
-                                        </div>
-                                    </div>
 
-                                    <div class="col-md-2">
-                                        <p>订单详情</p>
-                                        <p>物流状态</p>
-                                        <p>评价状态</p>
-                                    </div>
-                                </div>
-                            </div>
 
                         </div>
                     </div>
