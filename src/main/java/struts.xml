@@ -187,21 +187,20 @@
         <action name="viewAddress" class="action.AddressAction" method="viewAddress">
             <!--<result name="success">/admin/admin_product_detail.jsp</result>-->
             <result name="success">/address.jsp</result>
-
         </action>
 
         <action name="addAddress" class="action.AddressAction" method="addAddress">
-            <result name="success">/address.jsp</result>
+            <result name="success" type="redirectAction">viewAddress</result>
             <result name="input">/address.jsp</result>
         </action>
 
         <action name="deleteAddress" class="action.AddressAction" method="deleteAddress">
-            <result name="success">/address.jsp</result>
+            <result name="success" type="redirectAction">viewAddress</result>
         </action>
 
         <action name="updateAddress" class="action.AddressAction" method="updateAddress">
-            <result name="input"></result>
-            <result name="success"></result>
+            <result name="input">/address.jsp</result>
+            <result name="success" type="redirectAction">viewAddress</result>
         </action>
     </package>
 
