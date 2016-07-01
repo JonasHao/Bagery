@@ -1,5 +1,6 @@
 package action;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import po.Address;
 import po.User;
@@ -17,7 +18,16 @@ public class AddressAction extends ActionSupport {
     private UserService userService;
     private AddressService addressService;
     private Address address;
-    private Collection<Address> addresses;
+    private List<Address> addressList;
+
+    public List<Address> getAddressList() {
+        return addressList;
+    }
+
+    public void setAddressList(List<Address> addressList) {
+        this.addressList = addressList;
+    }
+
     private User user;
 
     private int shipInfId;
@@ -32,12 +42,15 @@ public class AddressAction extends ActionSupport {
     public String viewAddress(){
         user=userService.getCurrentUser();
         //todo: update address
+        addressList=user.getAddresses();
+
         return SUCCESS;
     }
 
     public String addAddress(){
         user=userService.getCurrentUser();
         //todo: ����ValidatorУ��
+//        user= (User)ActionContext.getContext().getSession().get("User");
 
         address=new Address();
         address.setUserId(user.getUserId());
@@ -121,12 +134,12 @@ public class AddressAction extends ActionSupport {
         this.user = user;
     }
 
-    public Collection<Address> getAddresses() {
-        return addresses;
+    public List<Address> getAddresses() {
+        return addressList;
     }
 
-    public void setAddresses(Collection<Address> addresses) {
-        this.addresses = addresses;
+    public void setAddresses(List<Address> addressList) {
+        this.addressList = addressList;
     }
 
     public Address getAddress() {

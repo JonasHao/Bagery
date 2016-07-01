@@ -23,8 +23,8 @@ public class UserInfoAction extends ActionSupport {
     private byte isActivate;
     private String confirmpassword;
 
-    public String viewInfo(){
-        user=userService.getCurrentUser();
+    public String home(){
+//        user=userService.getCurrentUser();
         return SUCCESS;
     }
 
