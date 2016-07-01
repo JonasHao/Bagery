@@ -43,7 +43,7 @@
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="add_product.html">发布商品</a></li>
+                            <a href="/admin/admin_product_detail.jsp">发布商品</a></li>
                         <li class="active">
                             <a href="product_list.html">商品列表</a></li>
                     </ul>
@@ -161,20 +161,20 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <s:iterator begin="1" end="5">
+                                        <s:iterator value="priceds">
                                             <tr>
-                                                    <%--url definitions--%>
-                                                <s:url var="productDetailUrl" action="viewProductAdmin"
+                                                    <%--url definitions   --%>
+                                                <s:url var="productDetailUrl" action="viewProduct"
                                                        namespace="/admin">
-                                                    <s:param name="pricedId"><s:property value="pricedId"/> </s:param>
+                                                    <s:param name="priced_id"><s:property value="pricedId"/> </s:param>
                                                 </s:url>
 
                                                     <%--id--%>
                                                 <td class="center" style="padding-bottom: 16px;padding-top: 16px;">1
                                                 </td>
                                                     <%--商品名称--%>
-                                                <td class="center" style="padding-bottom: 16px;padding-top: 16px;"><s:a
-                                                        href="${productDetailUrl}">这里点击以后跳到商品详情页</s:a></td>
+                                                <td class="center" style="padding-bottom: 16px;padding-top: 16px;">
+                                                    <a href="${productDetailUrl}">这里点击以后跳到商品详情页</a></td>
                                                     <%--原价--%>
                                                 <td class="center" style="padding-bottom: 16px;padding-top: 16px;">50
                                                 </td>
