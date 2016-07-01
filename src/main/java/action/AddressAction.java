@@ -1,6 +1,5 @@
 package action;
 
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import po.Address;
 import po.User;
@@ -18,20 +17,8 @@ public class AddressAction extends ActionSupport {
     private AddressService addressService;
     private Address address;
     private List<Address> addressList;
-
-    private int addressId;
-
-    public int getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(int addressId) {
-        this.addressId = addressId;
-    }
-
     private User user;
-
-    private int shipInfId;
+    private int addressId;
     private int userId;
     private String receiver;
     private String mobile;
@@ -40,19 +27,19 @@ public class AddressAction extends ActionSupport {
     private String addressDistrict;
     private String addressDetail;
 
-    public String viewAddress(){
-        user=userService.getCurrentUser();
+    public String viewAddress() {
+        user = userService.getCurrentUser();
         //todo: update address
-        addressList=user.getAddresses();
+        addressList = user.getAddresses();
         return SUCCESS;
     }
 
-    public String addAddress(){
-        user=userService.getCurrentUser();
+    public String addAddress() {
+        user = userService.getCurrentUser();
         //todo: ����ValidatorУ��
 //        user= (User)ActionContext.getContext().getSession().get("User");
 
-        address=new Address();
+        address = new Address();
         address.setUserId(1);
         //todo ��ʡ����
         address.setReceiver(receiver);
@@ -66,14 +53,17 @@ public class AddressAction extends ActionSupport {
         return SUCCESS;
     }
 
-    public String deleteAddress(){
+    public String deleteAddress() {
         addressService.delete(addressService.get(addressId));
         return SUCCESS;
     }
 
-    public String updateAddress(){
-        //todo: ����ValidatorУ��
-        address=addressService.get(shipInfId);
+    public String updateAddress() {
+        address = addressService.get(addressId);
+
+        if (address == null) {
+            return ERROR;
+        }
 
         address.setMobile(mobile);
         address.setReceiver(receiver);
@@ -118,12 +108,12 @@ public class AddressAction extends ActionSupport {
         this.userId = userId;
     }
 
-    public int getShipInfId() {
-        return shipInfId;
+    public int getAddressId() {
+        return addressId;
     }
 
-    public void setShipInfId(int shipInfId) {
-        this.shipInfId = shipInfId;
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
     }
 
     public User getUser() {

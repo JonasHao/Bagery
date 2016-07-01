@@ -20,8 +20,8 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public Address get(int shipInfId) {
-        return (Address)dao.query("from ShipInformation where shipInfId=?").setParameter(0,shipInfId).list().get(0);
+    public Address get(int addressId) {
+        return dao.get(Address.class, addressId);
     }
 
     @Override
