@@ -76,15 +76,15 @@
                             <br/>
                             <h5 class="h5-responsive font-weight-bold">查询积分</h5>
                             <ul>
-                                <li><s:property value="#session.user.username"/></li>
+                                <li><s:property value="#session.User.addresses.score"/></li>
                             </ul>
                         </div>
 
                         <div class="col-sm-6">
                             <h5 class="h5-responsive font-weight-bold">地址簿</h5>
                             <ul>
-                                <li><a href="#">管理地址簿</a></li>
-                                <li><a href="#">添加地址</a></li>
+                                <li><s:a action="viewAddress" namespace="/address">管理地址簿</s:a></li>
+                                <li><a href="address.jsp">添加地址</a></li>
                             </ul>
                         </div>
                     </div>
