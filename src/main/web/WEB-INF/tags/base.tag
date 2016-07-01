@@ -29,7 +29,6 @@
 
     <link href="../../css/style.css" rel="stylesheet">
 
-
     <jsp:invoke fragment="head"/>
 
 </head>

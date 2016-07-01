@@ -14,7 +14,7 @@
     <jsp:attribute name="breadcrumb">
        <ol class="breadcrumb">
            <li><a href="index.jsp">首页</a></li>
-           <li><a href="order.jsp">订单列表</a></li>
+           <li><a href="orders.jsp">订单列表</a></li>
            <li class="active">订单详情</li>
        </ol>
     </jsp:attribute>

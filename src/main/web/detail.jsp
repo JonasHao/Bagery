@@ -97,13 +97,13 @@
                             <h3 class="price"><i class="fa fa-rmb" aria-hidden="true"></i><s:property value="priced.unitPrice"/></h3>
                             <p><s:property value="priced.description"/></p>
 
-                            <ul class="rating inline-ul">
-                                <li><i class="fa fa-star amber-text"></i></li>
-                                <li><i class="fa fa-star amber-text"></i></li>
-                                <li><i class="fa fa-star amber-text"></i></li>
-                                <li><i class="fa fa-star amber-text"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                            </ul>
+                            <div class="row reviews">
+                                <label class="col-sm-2 control-label">颜色</label>
+                                <div class="col-sm-4">
+                                    <s:select list="#{'1':'蓝色', '2':'白色', '3':'灰色', '4':'黄色'}"
+                                              name="color" cssClass="form-control m-b"/>
+                                </div>
+                            </div>
 
                             <a onclick="addCart()" class="btn btn-lg blue-grey"><i class="fa fa-shopping-cart"></i> 加入购物车</a>
                             <a href="#" class="btn btn-lg blue-grey"><i class="fa fa-check"></i> 立即购买</a>

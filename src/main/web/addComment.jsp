@@ -3,7 +3,7 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
 <t:base>
-    <jsp:attribute name="title">登录</jsp:attribute>
+    <jsp:attribute name="title">添加评论</jsp:attribute>
 
     <jsp:attribute name="head">
             <link href="../../css/login.css" rel="stylesheet">

@@ -15,8 +15,6 @@
 <%@attribute name="shipStatus" fragment="true" %>
 <%@attribute name="commentStatus" fragment="true" %>
 
-<%@attribute name="productList"  type="" %>
-
 
 <div class="card">
     <div class="card-header">

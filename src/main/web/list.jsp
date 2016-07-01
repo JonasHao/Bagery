@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<%@ taglib prefix="s" uri="/struts-tags" %>
 <t:base>
 
     <jsp:attribute name="title">商品列表</jsp:attribute>
@@ -16,8 +15,8 @@
         <div class="container">
             <div class="row">
                 <!--Sidebar-->
-                <div class="col-md-3">
-<!--
+                <div class="col-lg-2 col-md-3">
+
                     <div class="widget-wrapper">
                         <h6>性别:</h6>
                         <div class="list-group">
@@ -55,7 +54,7 @@
                 </div>
                 <!--/.Sidebar-->
                 <!--Main column-->
-                <div class="col-md-9">
+                <div class="col-lg-10 col-md-9">
 
                     <div class="tab-content">
 
