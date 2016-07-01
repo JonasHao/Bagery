@@ -57,6 +57,7 @@
                     data-target="#address-form">添加新地址
             </button>
 
+            <form class="form-signin" action="address/addAddress"  method="POST">
             <div id="address-form" class="collapse">
 
                 <div class="row">
@@ -92,11 +93,10 @@
                         </div>
                     </div>
                 </div>
-
-
                 <s:submit cssClass="grey btn btn-primary" value="保存"/>
 
             </div>
+            </form>
 
         </div>
         <!--/.Main layout-->

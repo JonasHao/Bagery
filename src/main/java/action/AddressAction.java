@@ -21,6 +21,57 @@ public class AddressAction extends ActionSupport {
     private User user;
 
     private int shipInfId;
+    private int userId;
+    private String receiver;
+    private String mobile;
+    private String addressProvince;
+    private String addressCity;
+    private String addressDistrict;
+    private String addressDetail;
+
+    public String viewAddress(){
+        user=userService.getCurrentUser();
+        //todo: update address
+        return SUCCESS;
+    }
+
+    public String addAddress(){
+        user=userService.getCurrentUser();
+        //todo: ï¿½ï¿½ï¿½ï¿½ValidatorÐ£ï¿½ï¿½
+
+        address=new Address();
+        address.setUserId(user.getUserId());
+        //todo ï¿½ï¿½Ê¡ï¿½ï¿½ï¿½ï¿½
+        address.setReceiver(receiver);
+        address.setMobile(mobile);
+        address.setAddressProvince(addressProvince);
+        address.setAddressCity(addressCity);
+        address.setAddressDistrict(addressDistrict);
+        address.setAddressDetail(addressDetail);
+
+        addressService.add(address);
+        return SUCCESS;
+    }
+
+    public String deleteAddress(){
+        addressService.delete(addressService.get(shipInfId));
+        return SUCCESS;
+    }
+
+    public String updateAddress(){
+        //todo: ï¿½ï¿½ï¿½ï¿½ValidatorÐ£ï¿½ï¿½
+        address=addressService.get(shipInfId);
+
+        address.setMobile(mobile);
+        address.setReceiver(receiver);
+        address.setAddressProvince(addressProvince);
+        address.setAddressCity(addressCity);
+        address.setAddressDistrict(addressDistrict);
+        address.setAddressDetail(addressDetail);
+
+        addressService.update(address);
+        return SUCCESS;
+    }
 
     public UserService getUserService() {
         return userService;
@@ -44,14 +95,6 @@ public class AddressAction extends ActionSupport {
 
     public void setReceiver(String receiver) {
         this.receiver = receiver;
-    }
-
-    public String getDizhi() {
-        return dizhi;
-    }
-
-    public void setDizhi(String dizhi) {
-        this.dizhi = dizhi;
     }
 
     public int getUserId() {
@@ -102,48 +145,35 @@ public class AddressAction extends ActionSupport {
         this.addressService = addressService;
     }
 
-    private int userId;
-    private String dizhi;
-    private String receiver;
-    private String mobile;
-
-    public String viewAddress(){
-        user=userService.getCurrentUser();
-        //todo: update address
-        return SUCCESS;
+    public String getAddressDistrict() {
+        return addressDistrict;
     }
 
-    public String addAddress(){
-        user=userService.getCurrentUser();
-        //todo: ½»¸øValidatorÐ£Ñé
-        if(dizhi.equals(null)||receiver.equals(null)||mobile.equals(null))
-            return INPUT;
-
-        address=new Address();
-        address.setUserId(user.getUserId());
-        //todo ·ÖÊ¡ÊÐÇø
-        address.setReceiver(receiver);
-        address.setMobile(mobile);
-        addressService.add(address);
-        return SUCCESS;
+    public void setAddressDistrict(String addressDistrict) {
+        this.addressDistrict = addressDistrict;
     }
 
-    public String deleteAddress(){
-        addressService.delete(addressService.get(shipInfId));
-        return SUCCESS;
+    public String getAddressProvince() {
+        return addressProvince;
     }
 
-    public String updateAddress(){
-        //todo: ½»¸øValidatorÐ£Ñé
-        if(dizhi.equals(null)||mobile.equals(null)||receiver.equals(null))
-            return INPUT;
+    public void setAddressProvince(String addressProvince) {
+        this.addressProvince = addressProvince;
+    }
 
-        address=addressService.get(shipInfId);
-//        address.setAddress(dizhi);
-        address.setMobile(mobile);
-        address.setReceiver(receiver);
+    public String getAddressCity() {
+        return addressCity;
+    }
 
-        addressService.update(address);
-        return SUCCESS;
+    public void setAddressCity(String addressCity) {
+        this.addressCity = addressCity;
+    }
+
+    public String getAddressDetail() {
+        return addressDetail;
+    }
+
+    public void setAddressDetail(String addressDetail) {
+        this.addressDetail = addressDetail;
     }
 }
