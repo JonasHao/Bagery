@@ -59,9 +59,42 @@
                     </s:param>
                 </s:url>
                 <div class="col-md-2">
-                    <a onclick="deleteCart()">
+                    <a data-toggle="modal" data-target="#myModal">
                         <i class="fa fa-trash" aria-hidden="true"></i>删除
                     </a>
+                    <%--onclick="deleteCart()"--%>
+                    <!-- Button trigger modal -->
+                    <%--<button type="button" class="btn btn-primary btn-lg" >--%>
+                    <%--Launch demo modal--%>
+                    <%--</button>--%>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog" role="document" style="width: 400px;">
+                            <!--Content-->
+                            <div class="modal-content">
+                                <!--Header-->
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h5 class="modal-title" id="myModalLabel">删除包包</h5>
+                                </div>
+                                <!--Body-->
+                                <div class="modal-body">
+                                    <p>确认要删除该宝贝吗？</p>
+                                </div>
+                                <!--Footer-->
+                                <div class="modal-footer" style="border-top: 0px">
+                                    <button type="button" onclick="deleteCart()" class="btn blue btn-primary">确认</button>
+                                    <button type="button" class="btn grey" data-dismiss="modal">取消</button>
+                                </div>
+                            </div>
+                            <!--/.Content-->
+                        </div>
+                    </div>
+                    <!-- /.Live preview-->
                 </div>
             </div>
         </div>
@@ -86,6 +119,9 @@
                             }
                         }
                     })
+        }
+        function changeNumber() {
+
         }
     </script>
 </div>
