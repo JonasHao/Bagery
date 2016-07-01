@@ -45,17 +45,12 @@
         <div class="container">
 
             <h1 class="address-title">地址簿</h1>
-                <%--<jsp:attribute name="receiver"><s:property value="receiver"/></jsp:attribute>--%>
-                <%--<jsp:attribute name="phone"><s:property value="mobile"/></jsp:attribute>--%>
-                <%--<jsp:attribute name="address"><s:property value="addressProvince"/><s:property value="addressCity"/><s:property value="addressDistrict"/><s:property value="addressDetail"/></jsp:attribute>--%>
-                <%--<jsp:attribute name="addressId"><s:property value="r"/></jsp:attribute>--%>
-                <%--<jsp:attribute name="isDefault">true</jsp:attribute>--%>
             <s:iterator value="addressList" >
             <t:addressItem>
                 <jsp:attribute name="receiver"><s:property value="receiver"/></jsp:attribute>
                 <jsp:attribute name="phone"><s:property value="mobile"/></jsp:attribute>
                 <jsp:attribute name="address"><s:property value="addressProvince"/>省<s:property value="addressCity"/>市<s:property value="addressDistrict"/>区<s:property value="addressDetail"/></jsp:attribute>
-                <jsp:attribute name="addressId"><s:property value="r"/></jsp:attribute>
+                <jsp:attribute name="addressId"><s:property value="addressId"/></jsp:attribute>
                 <jsp:attribute name="isDefault">true</jsp:attribute>
             </t:addressItem>
             </s:iterator>

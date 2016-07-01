@@ -20,6 +20,15 @@ public class AddressAction extends ActionSupport {
     private Address address;
     private List<Address> addressList;
 
+    private int addressId;
+
+    public int getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
+    }
 
     private User user;
 
@@ -59,7 +68,7 @@ public class AddressAction extends ActionSupport {
     }
 
     public String deleteAddress(){
-        addressService.delete(addressService.get(shipInfId));
+        addressService.delete(addressService.get(addressId));
         return SUCCESS;
     }
 

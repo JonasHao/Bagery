@@ -23,7 +23,7 @@
         <div class="col-md-2 col-sm-2">
             <a>编辑</a>
             <br>
-            <a>删除</a>
+            <s:a action="deleteAddress" namespace="/address" >删除</s:a>
             <br>
             <% if (isDefault) { %>
             默认地址
