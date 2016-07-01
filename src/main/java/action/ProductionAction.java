@@ -197,19 +197,19 @@ public class ProductionAction extends DefaultActionSupport {
             return ERROR;
         }
     }
-
-    public String soldOutProduct() {
+    */
+    public String soldOutPriced() {
         try {
-            product = productService.findProduct(product_id);
-            product.setStock(0);
-            productService.updateProduct(product);
+            priced = productService.findPriced(priced_id);
+            priced.setIsExisted(0);
+            productService.updatePriced(priced);
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
             return ERROR;
         }
     }
-    */
+
 
     public String viewPricedList() {
         try {
@@ -226,8 +226,8 @@ public class ProductionAction extends DefaultActionSupport {
 
     public String viewHistoryRecord() {
         try {
-            user = userService.getCurrentUser();
-            records = productService.findHistoryRecord(user.getUserId());
+            //user = userService.getCurrentUser();
+            records = productService.findHistoryRecord(1);
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();

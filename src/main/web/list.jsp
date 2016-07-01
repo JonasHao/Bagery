@@ -19,14 +19,6 @@
                 <div class="col-lg-2 col-md-3">
 
                     <div class="widget-wrapper">
-                        <h6>性别:</h6>
-                        <div class="list-group">
-                            <a href="#" class="list-group-item filter-list-group-item  active">Woman</a>
-                            <a href="#" class="list-group-item filter-list-group-item ">Man</a>
-                        </div>
-                    </div>
-
-                    <div class="widget-wrapper">
                         <h6>品牌:</h6>
                         <div class="list-group">
                             <s:iterator value="pros1">

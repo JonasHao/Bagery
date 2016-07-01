@@ -186,10 +186,11 @@ CREATE TABLE `priced` (
   `title` varchar(50) NOT NULL,
   `img` text,
   `description` text,
+  `is_existed` tinyint(4) NOT NULL DEFAULT '1',
   `unit_price` decimal(10,0) NOT NULL,
   `sale_price` decimal(10,0) DEFAULT NULL,
   PRIMARY KEY (`priced_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -198,7 +199,7 @@ CREATE TABLE `priced` (
 
 LOCK TABLES `priced` WRITE;
 /*!40000 ALTER TABLE `priced` DISABLE KEYS */;
-INSERT INTO `priced` VALUES (1,'帆布包',NULL,'这是一个帆布包的详细信息',10,NULL);
+INSERT INTO `priced` VALUES (1,'帆布包',NULL,'这是一个帆布包的详细信息',1,10,8),(2,'果冻包',NULL,'这是一个果冻包的详细信息',1,10,NULL);
 /*!40000 ALTER TABLE `priced` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -247,7 +248,7 @@ CREATE TABLE `product` (
   UNIQUE KEY `color` (`color`),
   KEY `priced_id` (`priced_id`),
   CONSTRAINT `product_ibfk_1` FOREIGN KEY (`priced_id`) REFERENCES `priced` (`priced_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -256,7 +257,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (1,1,'红',100),(2,1,'蓝',50);
+INSERT INTO `product` VALUES (1,1,'红',100),(2,1,'蓝',50),(3,2,'绿',40);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -273,7 +274,7 @@ CREATE TABLE `propertity` (
   `description` varchar(30) NOT NULL,
   PRIMARY KEY (`pro_id`),
   UNIQUE KEY `description` (`description`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -390,4 +391,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-28 18:30:39
+-- Dump completed on 2016-07-01 16:24:03

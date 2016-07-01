@@ -10,6 +10,7 @@ public class Priced {
     private String title;
     private String img;
     private String description;
+    private int isExisted;
     private Double unitPrice;
     private Double salePrice;
     private Collection<Comment> comments;
@@ -58,6 +59,17 @@ public class Priced {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Basic
+    @Column(name = "is_existed", nullable = false, insertable = true, updatable = true)
+    public int getIsExisted() {
+        return isExisted;
+    }
+
+    public void setIsExisted(int isExisted) {
+        this.isExisted = isExisted;
+    }
+
 
     @Basic
     @Column(name = "unit_price", nullable = false, insertable = true, updatable = true, precision = 0)
