@@ -88,7 +88,6 @@
                                 </div>
                             </div>
 
-
                         </div>
                     </div>
 
@@ -100,7 +99,6 @@
                     <br>
 
                     <p>Content for Panel 2</p>
-
                 </div>
                 <!--/.Panel 2-->
 

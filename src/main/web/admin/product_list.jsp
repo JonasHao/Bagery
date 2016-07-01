@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
 
@@ -21,7 +20,6 @@
     <link href="css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
     <link href="css/plugins/dataTables/dataTables.responsive.css" rel="stylesheet">
     <link href="css/plugins/dataTables/dataTables.tableTools.min.css" rel="stylesheet">
-
 </head>
 
 <body>
@@ -100,6 +98,7 @@
             </nav>
         </div>
 
+        <%--页面标题和面包导航--%>
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-10">
                 <h2>商品列表</h2>
@@ -118,6 +117,8 @@
             <div class="col-lg-2">
             </div>
         </div>
+        <%--/页面标题和面包导航--%>
+
 
         <div class="row">
             <div class="col-lg-12">
@@ -147,6 +148,8 @@
                                 </div>
                                 <div class="ibox-content">
 
+
+                                    <%--正文列表--%>
                                     <table class="table table-striped table-bordered table-hover dataTables-example">
                                         <thead>
                                         <tr>
@@ -158,36 +161,51 @@
                                         </tr>
                                         </thead>
                                         <tbody>
+                                        <s:iterator begin="1" end="5">
+                                            <tr>
+                                                    <%--url definitions--%>
+                                                <s:url var="productDetailUrl" action="viewProductAdmin"
+                                                       namespace="/admin">
+                                                    <s:param name="pricedId"><s:property value="pricedId"/> </s:param>
+                                                </s:url>
 
+                                                    <%--id--%>
+                                                <td class="center" style="padding-bottom: 16px;padding-top: 16px;">1
+                                                </td>
+                                                    <%--商品名称--%>
+                                                <td class="center" style="padding-bottom: 16px;padding-top: 16px;"><s:a
+                                                        href="${productDetailUrl}">这里点击以后跳到商品详情页</s:a></td>
+                                                    <%--原价--%>
+                                                <td class="center" style="padding-bottom: 16px;padding-top: 16px;">50
+                                                </td>
+                                                    <%--优惠价--%>
+                                                <td class="center" style="padding-bottom: 16px;padding-top: 16px;">6
+                                                </td>
+                                                    <%--操作--%>
+                                                <td class="center">
+                                                    <button type="button"
+                                                            onclick="window.location.href='modify_product.html';"
+                                                            class="btn btn-info"
+                                                            style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">
+                                                        修改
+                                                    </button>
+                                                    <button type="button" class="btn btn-warning"
+                                                            style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">
+                                                        下架
+                                                    </button>
+                                                    <button type="button" class="btn btn-danger"
+                                                            style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">
+                                                        删除
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </s:iterator>
 
-                                        <tr>
-                                            <td class="center" style="padding-bottom: 16px;padding-top: 16px;">1</td>
-                                            <td class="center" style="padding-bottom: 16px;padding-top: 16px;"><a href="#">这里点击以后跳到商品详情页</a></td>
-                                            <td class="center" style="padding-bottom: 16px;padding-top: 16px;">Win XP</td>
-                                            <td class="center" style="padding-bottom: 16px;padding-top: 16px;">6</td>
-                                            <td class="center">
-                                                <button type="button" onclick="window.location.href='modify_product.html';" class="btn btn-info" style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">修改</button>
-                                                <button type="button" class="btn btn-warning" style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">下架</button>
-                                                <button type="button" class="btn btn-danger" style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">删除</button>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="center" style="padding-bottom: 16px;padding-top: 16px;">1</td>
-                                            <td class="center" style="padding-bottom: 16px;padding-top: 16px;"><a href="#">这里点击以后跳到商品详情页</a></td>
-                                            <td class="center" style="padding-bottom: 16px;padding-top: 16px;">Win XP</td>
-                                            <td class="center" style="padding-bottom: 16px;padding-top: 16px;">6</td>
-                                            <td class="center">
-                                                <button type="button" onclick="window.location.href='modify_product.html';" class="btn btn-info" style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">修改</button>
-                                                <button type="button" class="btn btn-primary" style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">上架</button>
-                                                <button type="button" class="btn btn-danger" style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">删除</button>
-                                            </td>
-                                        </tr>
 
                                         </tbody>
 
                                     </table>
-
+                                    <%--/正文列表--%>
                                 </div>
                             </div>
                         </div>
@@ -243,7 +261,7 @@
 <script src="js/plugins/dataTables/dataTables.bootstrap.js"></script>
 <script src="js/plugins/dataTables/dataTables.responsive.js"></script>
 <script src="js/plugins/dataTables/dataTables.tableTools.min.js"></script>
-<script>$(document).ready(function() {
+<script>$(document).ready(function () {
 
     $('.dataTables-example').dataTable({
         responsive: true,
@@ -256,9 +274,7 @@
     $('.DTTT_container').remove();
 
 
-
 })</script>
-
 
 
 <style>
