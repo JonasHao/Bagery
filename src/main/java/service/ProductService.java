@@ -30,7 +30,7 @@ public interface ProductService {
      * 获得全部商品列表
      */
     List<Priced>findAll();
-
+    List<Priced> findAllAdmin();
     /**
      * 通过productID删除商品对象
      */
@@ -45,7 +45,7 @@ public interface ProductService {
      * 通过商品查找商品颜色
      */
     List<Product> findProductsByPriced(int pricedID);
-
+    List<Product> findProductsByPricedAdmin(int pricedID);
     /**
      * 通过类别信息获取商品列表
      */

@@ -100,7 +100,7 @@
                             <div class="row reviews">
                                 <label class="col-sm-2 control-label">颜色</label>
                                 <div class="col-sm-4">
-                                    <s:select list="#{'1':'蓝色', '2':'白色', '3':'灰色', '4':'黄色'}"
+                                    <s:select list="products"  listValue="color"
                                               name="color" cssClass="form-control m-b"/>
                                 </div>
                             </div>

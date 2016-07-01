@@ -16,8 +16,8 @@ public interface AddressService {
     /**
      * 根据收货地址的主键获取一条收货地址记录
      */
-    Address get(int shipInfId);
+    Address get(int addressId);
 
-    void delete(Address address);
+    void deleteAddress(int addressId);
 
 }

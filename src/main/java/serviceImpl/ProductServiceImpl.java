@@ -63,6 +63,9 @@ public class ProductServiceImpl implements ProductService {
      * 获得全部商品列表
      */
     public List<Priced> findAll() {
+        return dao.query("from Priced where isExisted=1").list();
+    }
+    public List<Priced> findAllAdmin() {
         return dao.query("from Priced").list();
     }
 
@@ -90,10 +93,14 @@ public class ProductServiceImpl implements ProductService {
     /**
      * 通过商品查找商品颜色
      */
+    //考虑库存
     public List<Product> findProductsByPriced(int pricedID) {
+        return dao.query("from Product where pricedId=? and stock >0").setParameter(0, pricedID).list();
+    }
+    //不考虑库存
+    public List<Product> findProductsByPricedAdmin(int pricedID) {
         return dao.query("from Product where pricedId=?").setParameter(0, pricedID).list();
     }
-
     /**
      * 工具-属性数组转SQL字符串
      */

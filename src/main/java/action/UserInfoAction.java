@@ -23,6 +23,11 @@ public class UserInfoAction extends ActionSupport {
     private byte isActivate;
     private String confirmpassword;
 
+    private String confirmPassword;//密码找回时，输入密码验证身份
+    private String newPassword;//新密码
+    private String confirmNewPassword;//重新输入新密码
+
+
     public String home(){
 //        user=userService.getCurrentUser();
         return SUCCESS;
@@ -32,7 +37,21 @@ public class UserInfoAction extends ActionSupport {
         user=userService.getCurrentUser();
         user.setRealName(realname);
         userService.update(user);
-        return null;
+        return SUCCESS;
+    }
+
+    public String resetPassword(){
+        user=userService.getCurrentUser();
+        if(!confirmPassword.equals(user.getPassword())){
+            return INPUT;
+        }
+        if(!newPassword.equals(confirmNewPassword)){
+            return INPUT;
+        }
+
+        user.setPassword(newPassword);
+        userService.update(user);
+        return SUCCESS;
     }
 
     public UserService getUserService() {
@@ -137,5 +156,29 @@ public class UserInfoAction extends ActionSupport {
 
     public void setIsActivate(byte isActivate) {
         this.isActivate = isActivate;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+
+    public String getConfirmNewPassword() {
+        return confirmNewPassword;
+    }
+
+    public void setConfirmNewPassword(String confirmNewPassword) {
+        this.confirmNewPassword = confirmNewPassword;
     }
 }
