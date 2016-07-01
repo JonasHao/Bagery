@@ -43,9 +43,10 @@
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="/admin/admin_product_detail.jsp">发布商品</a></li>
+                            <a href="/admin/add_product.jsp">发布商品</a></li>
                         <li class="active">
-                            <a href="product_list.html">商品列表</a></li>
+                            <s:url action="pricedList" namespace="/admin" var="listLink" />
+                            <a href="${listLink}">商品列表</a></li>
                     </ul>
                 </li>
                 <li>
@@ -164,39 +165,56 @@
                                         <s:iterator value="priceds">
                                             <tr>
                                                     <%--url definitions   --%>
-                                                <s:url var="productDetailUrl" action="viewProduct"
+                                                <s:url var="productDetail" action="viewProduct"
                                                        namespace="/admin">
                                                     <s:param name="priced_id"><s:property value="pricedId"/> </s:param>
                                                 </s:url>
 
                                                     <%--id--%>
-                                                <td class="center" style="padding-bottom: 16px;padding-top: 16px;">1
+                                                <td class="center" style="padding-bottom: 16px;padding-top: 16px;">
+                                                    <s:property value="pricedId"/>
                                                 </td>
                                                     <%--商品名称--%>
                                                 <td class="center" style="padding-bottom: 16px;padding-top: 16px;">
-                                                    <a href="${productDetailUrl}">这里点击以后跳到商品详情页</a></td>
+                                                    <a href="${productDetail}"><s:property value="title"/></a></td>
                                                     <%--原价--%>
-                                                <td class="center" style="padding-bottom: 16px;padding-top: 16px;">50
+                                                <td class="center" style="padding-bottom: 16px;padding-top: 16px;">
+                                                    <s:property value="unitPrice"/>
                                                 </td>
                                                     <%--优惠价--%>
-                                                <td class="center" style="padding-bottom: 16px;padding-top: 16px;">6
+                                                <td class="center" style="padding-bottom: 16px;padding-top: 16px;">
+                                                    <s:property value="salePrice"/>
                                                 </td>
-                                                    <%--操作--%>
+                                                    <%--更新--%>
                                                 <td class="center">
-                                                    <button type="button"
-                                                            onclick="window.location.href='modify_product.html';"
-                                                            class="btn btn-info"
+                                                    <a href="${productDetail}">
+                                                        <button type="button"
+                                                                class="btn btn-info"
                                                             style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">
-                                                        修改
-                                                    </button>
+                                                            更新
+                                                        </button>
+                                                    </a>
+                                                    <%-- 下架 --%>
+                                                    <s:url var="soldOutPriced" action="soldOutPriced"
+                                                           namespace="/admin">
+                                                        <s:param name="priced_id"><s:property value="pricedId"/> </s:param>
+                                                    </s:url>
+                                                    <a href="${soldOutPriced}">
                                                     <button type="button" class="btn btn-warning"
                                                             style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">
                                                         下架
                                                     </button>
+                                                    </a>
+                                                    <s:url var="deletePriced" action="deletePriced"
+                                                           namespace="/admin">
+                                                        <s:param name="priced_id"><s:property value="pricedId"/> </s:param>
+                                                    </s:url>
+                                                        <a href="${deletePriced}">
                                                     <button type="button" class="btn btn-danger"
                                                             style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">
                                                         删除
                                                     </button>
+                                                        </a>
                                                 </td>
                                             </tr>
                                         </s:iterator>

@@ -1,6 +1,6 @@
 package action;
 
-import java.util.List;
+import java.util.*;
 
 import com.opensymphony.xwork2.ActionContext;
 import org.apache.struts2.dispatcher.DefaultActionSupport;
@@ -41,7 +41,7 @@ public class ProductionAction extends DefaultActionSupport {
     private ProductService productService;
     private UserService userService;
     private CommentService commentService;
-
+    private Map<Integer,String> productMap;
     /*
     public String addPriced()throws Exception
 	{
@@ -116,7 +116,17 @@ public class ProductionAction extends DefaultActionSupport {
             return ERROR;
         }
     }
-
+    public String viewProductAdmin() {
+        try {
+            priced = productService.findPriced(priced_id);
+            products = productService.findProductsByPricedAdmin(priced_id);
+            comments = commentService.getByPricedId(priced_id);
+            return SUCCESS;
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            return ERROR;
+        }
+    }
     /*
 	public String updatePriced()
 	{
@@ -223,11 +233,25 @@ public class ProductionAction extends DefaultActionSupport {
             return ERROR;
         }
     }
+    public String viewPricedListAdmin() {
+        try {
+            priceds = productService.findAllAdmin();
+            /*
+            pros1 = productService.findProsByCategory("品牌");
+            pros2 = productService.findProsByCategory("材质");
+            pros3 = productService.findProsByCategory("款式");
+            */
+            return SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ERROR;
+        }
+    }
 
     public String viewHistoryRecord() {
         try {
-            //user = userService.getCurrentUser();
-            records = productService.findHistoryRecord(1);
+            user = userService.getCurrentUser();
+            records = productService.findHistoryRecord(user.getUserId());
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -509,5 +533,13 @@ public class ProductionAction extends DefaultActionSupport {
 
     public void setPage_num(int page_num) {
         this.page_num = page_num;
+    }
+
+    public Map<Integer, String> getProductMap() {
+        return productMap;
+    }
+
+    public void setProductMap(Map<Integer, String> productMap) {
+        this.productMap = productMap;
     }
 }

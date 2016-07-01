@@ -46,10 +46,11 @@
                         <span class="fa arrow"></span>
                     </a>
                     <ul class="nav nav-second-level">
-                        <li class="active">
-                            <a href="add_product.html">发布商品</a></li>
                         <li>
-                            <a href="product_list.html">商品列表</a></li>
+                            <a href="/admin/add_product.jsp">发布商品</a></li>
+                        <li class="active">
+                            <s:url action="pricedList" namespace="/admin" var="Link" />
+                            <a href="${Link}">商品列表</a></li>
                     </ul>
                 </li>
                 <li>
@@ -104,7 +105,7 @@
 
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-10">
-                <h2>发布商品</h2>
+                <h2>更新商品信息</h2>
                 <ol class="breadcrumb">
                     <li>
                         <a href="index.html">首页</a>
@@ -113,7 +114,7 @@
                         <a>商品管理</a>
                     </li>
                     <li class="active">
-                        <strong>发布商品</strong>
+                        <strong>更新商品信息</strong>
                     </li>
                 </ol>
             </div>
@@ -154,13 +155,18 @@
 
                                             <label class="col-sm-2 control-label">商品名称</label>
                                             <div class="col-sm-10"><s:textfield name="title"
-                                                                                cssClass="form-control"/></div>
+                                                                                cssClass="form-control">
+                                                <s:property value="title"/>
+                                            </s:textfield></div>
                                         </div>
 
                                         <div class="form-group"><label class="col-sm-2 control-label">商品描述</label>
                                             <div class="col-sm-10">
-                                                <s:textarea name="description" cssClass="form-control"
-                                                            cssStyle="resize: vertical;height:120px;"/>
+                                                <s:textarea name="description"
+                                                            cssClass="form-control"
+                                                            cssStyle="resize: vertical;height:120px;">
+                                                    <s:property value="description"/>
+                                                </s:textarea>
                                                 <span class="help-block m-b-none">拖动文本框左下角可改变文本框高度</span>
                                             </div>
                                         </div>
