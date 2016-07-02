@@ -5,7 +5,7 @@
 <%@attribute name="phone" fragment="true" %>
 <%@attribute name="addressId" fragment="true" %>
 <%@attribute name="status" type="java.lang.Integer" %>
-<%@attribute name="isDefault" type="java.lang.Boolean" %>
+<%@attribute name="defaultAddressId" type="java.lang.Integer" %>
 <div class="card">
     <div class="row card-block">
         <div class="col-md-10 address-info">
@@ -31,10 +31,15 @@
             </s:url>
             <a href="${deleteAdd}">删除</a>
             <br>
-            <% if (isDefault) { %>
+            <% if (status==defaultAddressId) { %>
             默认地址
             <% } else {%>
-            <a>设为默认</a>
+            <s:url var="setDefault" action="setDefaultAddress" namespace="/address">
+                <s:param name="defaultAddressId">
+                    <jsp:invoke fragment="addressId"/>
+                </s:param>
+            </s:url>
+            <a href="${setDefault}">设为默认</a>
             <br>
             <% }%>
         </div>

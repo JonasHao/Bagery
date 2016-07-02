@@ -33,9 +33,10 @@
             });
 
             $(function () {
-                var hash = document.location.hash;
-                if (hash) {
-                    $(hash).click();
+                var add = <s:property value="add"/>;
+                if ( add> 0) {
+                    $("#add").click();
+                    window.location = "#add";
                 }
             });
         </script>
@@ -54,12 +55,12 @@
                             value="addressCity"/>市<s:property value="addressDistrict"/>区<s:property
                             value="addressDetail"/></jsp:attribute>
                     <jsp:attribute name="addressId"><s:property value="addressId"/></jsp:attribute>
-                    <jsp:attribute name="isDefault">true</jsp:attribute>
+                    <jsp:attribute name="defaultAddressId"><s:property value="defaultAddressId"/></jsp:attribute>
                     <jsp:attribute name="status"><s:property value="addressId"/></jsp:attribute>
                 </t:addressItem>
             </s:iterator>
 
-            <button id="add-address" class="btn btn-primary btn-lg" data-toggle="collapse"
+            <button id="add" class="btn btn-primary btn-lg" data-toggle="collapse"
                     data-target="#address-form">添加新地址
             </button>
 

@@ -54,6 +54,21 @@ public class UserInfoAction extends ActionSupport {
         return SUCCESS;
     }
 
+    public String setConfirmCode(){
+
+        return SUCCESS;
+    }
+
+    public String confirmEmail(){
+
+        return SUCCESS;
+    }
+
+    public String findPassword(){
+
+        return SUCCESS;
+    }
+
     public UserService getUserService() {
         return userService;
     }

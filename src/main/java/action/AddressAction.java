@@ -27,21 +27,20 @@ public class AddressAction extends ActionSupport {
     private String addressDistrict;
     private String addressDetail;
     private Integer defaultAddressId;
+    private int add;
 
     public String viewAddress() {
         user = userService.getCurrentUser();
-        //todo: update address
         addressList = user.getAddresses();
         defaultAddressId=user.getDefaultAddressId();
         return SUCCESS;
+
     }
 
     public String addAddress() {
         user = userService.getCurrentUser();
-        //todo: ����ValidatorУ��
         address = new Address();
         address.setUserId(user.getUserId());
-        //todo ��ʡ����
         address.setReceiver(receiver);
         address.setMobile(mobile);
         address.setAddressProvince(addressProvince);
@@ -49,8 +48,10 @@ public class AddressAction extends ActionSupport {
         address.setAddressDistrict(addressDistrict);
         address.setAddressDetail(addressDetail);
 
-        addressService.add(address);
 
+        addressService.add(address);
+//        userService.update(user);
+        user = userService.getCurrentUser();
         if(user.getAddresses().size()==1){
             user.setDefaultAddressId(user.getAddresses().get(0).getAddressId());
             userService.update(user);
@@ -78,6 +79,13 @@ public class AddressAction extends ActionSupport {
         address.setAddressDetail(addressDetail);
 
         addressService.update(address);
+        return SUCCESS;
+    }
+
+    public String setDefaultAddress(){
+        user=userService.getCurrentUser();
+        user.setDefaultAddressId(defaultAddressId);
+        userService.update(user);
         return SUCCESS;
     }
 
@@ -199,5 +207,13 @@ public class AddressAction extends ActionSupport {
 
     public void setDefaultAddressId(Integer defaultAddressId) {
         this.defaultAddressId = defaultAddressId;
+    }
+
+    public int getAdd() {
+        return add;
+    }
+
+    public void setAdd(int add) {
+        this.add = add;
     }
 }

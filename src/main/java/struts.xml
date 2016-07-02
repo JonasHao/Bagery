@@ -105,7 +105,7 @@
 
         <action name="register" class="action.UserAction" method="register">
             <result name="success">/home.jsp</result>
-            <result name="input">/signup.jsp</result>
+            <result name="input">/sigUp.jsp</result>
         </action>
 
         <action name="login" class="action.UserAction" method="login">
@@ -125,6 +125,11 @@
             <!--<interceptor-ref name="loginChecker"/>-->
             <result name="success"></result>
             <result name="error"></result>
+            <result name="input"></result>
+        </action>
+
+        <action name="resetPassword" class="action.UserInfoAction" method="resetPassword">
+            <result name="success"></result>
             <result name="input"></result>
         </action>
     </package>
@@ -202,6 +207,10 @@
 
         <action name="updateAddress" class="action.AddressAction" method="updateAddress">
             <result name="input">/address.jsp</result>
+            <result name="success" type="redirectAction">viewAddress</result>
+        </action>
+
+        <action name="setDefaultAddress" class="action.AddressAction" method="setDefaultAddress">
             <result name="success" type="redirectAction">viewAddress</result>
         </action>
     </package>
