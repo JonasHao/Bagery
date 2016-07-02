@@ -57,7 +57,7 @@ public interface ProductService {
 
     List<Property> findProsByCategory(String category);
 
-    List<PricedPro> findPricedProByPriced(int pricedID);
+    List<Integer> findProIDsByPriced(int pricedID);
     void deleteProductsByPriced(int pricedID);
     void deletePricedProsByPriced(int pricedID);
 }

@@ -218,7 +218,7 @@ CREATE TABLE `priced_pro` (
   KEY `priced_id` (`priced_id`),
   KEY `pro_id` (`pro_id`),
   CONSTRAINT `priced_pro_ibfk_1` FOREIGN KEY (`priced_id`) REFERENCES `priced` (`priced_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `priced_pro_ibfk_2` FOREIGN KEY (`pro_id`) REFERENCES `propertity` (`pro_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `priced_pro_ibfk_2` FOREIGN KEY (`pro_id`) REFERENCES `property` (`pro_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -261,13 +261,13 @@ INSERT INTO `product` VALUES (1,1,'红',100),(2,1,'蓝',50),(3,2,'绿',40);
 UNLOCK TABLES;
 
 --
--- Table structure for table `propertity`
+-- Table structure for table `property`
 --
 
-DROP TABLE IF EXISTS `propertity`;
+DROP TABLE IF EXISTS `property`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `propertity` (
+CREATE TABLE `property` (
   `pro_id` int(11) NOT NULL AUTO_INCREMENT,
   `category` enum('品牌','材质','款式') NOT NULL,
   `description` varchar(30) NOT NULL,
@@ -277,13 +277,13 @@ CREATE TABLE `propertity` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `propertity`
+-- Dumping data for table `property`
 --
 
-LOCK TABLES `propertity` WRITE;
-/*!40000 ALTER TABLE `propertity` DISABLE KEYS */;
-INSERT INTO `propertity` VALUES (1,'品牌','A品牌'),(2,'品牌','B品牌'),(3,'材质','A材质');
-/*!40000 ALTER TABLE `propertity` ENABLE KEYS */;
+LOCK TABLES `property` WRITE;
+/*!40000 ALTER TABLE `property` DISABLE KEYS */;
+INSERT INTO `property` VALUES (1,'品牌','A品牌'),(2,'品牌','B品牌'),(3,'材质','A材质');
+/*!40000 ALTER TABLE `property` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

@@ -162,14 +162,14 @@
                                         <div class="form-group">
 
                                             <label class="col-sm-2 control-label">商品图片</label>
-                                            <div class="col-sm-10"><s:textfield name="img"
+                                            <div class="col-sm-10"><s:textfield name="priced.img"
                                                                                 cssClass="form-control">
                                             </s:textfield></div>
                                         </div>
 
                                         <div class="form-group"><label class="col-sm-2 control-label">商品描述</label>
                                             <div class="col-sm-10">
-                                                <s:textarea name="description"
+                                                <s:textarea name="priced.description"
                                                             cssClass="form-control"
                                                             cssStyle="resize: vertical;height:120px;">
                                                     <s:property value="description"/>
@@ -179,13 +179,13 @@
                                         </div>
 
                                         <div class="form-group"><label class="col-sm-2 control-label">商品原价</label>
-                                            <div class="col-sm-10"><s:textfield name="unit_price"
+                                            <div class="col-sm-10"><s:textfield name="priced.unit_price"
                                                                                 cssClass="form-control"/></div>
                                         </div>
 
                                         <div class="form-group"><label class="col-sm-2 control-label">商品优惠价</label>
 
-                                            <div class="col-sm-10"><s:textfield name="sale_price"
+                                            <div class="col-sm-10"><s:textfield name="priced.sale_price"
                                                                                 cssClass="form-control"/></div>
                                         </div>
 

@@ -91,6 +91,7 @@ public class ProductionAction extends DefaultActionSupport {
         try {
             priced = productService.findPriced(priced_id);
             products = productService.findProductsByPricedAdmin(priced_id);
+            proIDs=productService.findProIDsByPriced(priced_id);
             //comments = commentService.getByPricedId(priced_id);
             return SUCCESS;
         } catch (HibernateException e) {
