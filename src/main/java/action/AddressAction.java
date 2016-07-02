@@ -66,7 +66,6 @@ public class AddressAction extends ActionSupport {
 
     public String updateAddress() {
         address = addressService.get(addressId);
-
         if (address == null) {
             return ERROR;
         }

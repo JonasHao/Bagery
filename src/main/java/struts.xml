@@ -105,7 +105,7 @@
 
         <action name="register" class="action.UserAction" method="register">
             <result name="success">/home.jsp</result>
-            <result name="input">/sigUp.jsp</result>
+            <result name="input">/signUp.jsp</result>
         </action>
 
         <action name="login" class="action.UserAction" method="login">
