@@ -210,7 +210,7 @@
                                                     <label class="col-sm-4 control-label"
                                                            style="font-weight:normal;">材质</label>
                                                     <div class="col-sm-4">
-                                                        <s:select list="#{'1':'A材质'}"
+                                                        <s:select list="#{'3':'A材质'}"
                                                                   name="proIDs[1]" cssClass="form-control m-b"/>
                                                     </div>
                                                 </div>
@@ -218,7 +218,7 @@
                                                     <label class="col-sm-4 control-label"
                                                            style="font-weight:normal;">款式</label>
                                                     <div class="col-sm-4">
-                                                        <s:select list="#{'1':'A款式', '2':'B款式', '3':'C款式'}"
+                                                        <s:select list="#{'4':'A款式', '5':'B款式', '6':'C款式'}"
                                                                   name="proIDs[2]" cssClass="form-control m-b"/>
                                                     </div>
                                                 </div>
