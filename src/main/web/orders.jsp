@@ -18,24 +18,26 @@
            <li class="active">订单列表</li>
        </ol>
     </jsp:attribute>
+
+
     <jsp:body>
         <!--Main layout-->
         <div class="container">
             <ul class="nav nav-tabs tabs-5" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#panel1" role="tab">所有订单</a>
+                    <a class="nav-link active" data-toggle="tab" href="#all" role="tab">所有订单</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#panel2" role="tab">待付款</a>
+                    <a class="nav-link" data-toggle="tab" href="#unpaid" role="tab">待付款</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " data-toggle="tab" href="#panel3" role="tab">待发货</a>
+                    <a class="nav-link " data-toggle="tab" href="#unshiped" role="tab">待发货</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#panel4" role="tab">待收货</a>
+                    <a class="nav-link" data-toggle="tab" href="#shiped" role="tab">待收货</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " data-toggle="tab" href="#panel5" role="tab">待评价</a>
+                    <a class="nav-link " data-toggle="tab" href="#uncomment" role="tab">待评价</a>
                 </li>
 
             </ul>
@@ -43,7 +45,7 @@
             <div class="tab-content">
 
                 <!--Panel 1-->
-                <div class="tab-pane active" id="panel1" role="tabpanel">
+                <div class="tab-pane active" id="all" role="tabpanel">
                     <br>
 
                     <div class="card">
@@ -95,7 +97,7 @@
                 <!--/.Panel 1-->
 
                 <!--Panel 2-->
-                <div class="tab-pane" id="panel2" role="tabpanel">
+                <div class="tab-pane" id="unpaid" role="tabpanel">
                     <br>
 
                     <p>Content for Panel 2</p>
@@ -103,7 +105,7 @@
                 <!--/.Panel 2-->
 
                 <!--Panel 3-->
-                <div class="tab-pane" id="panel3" role="tabpanel">
+                <div class="tab-pane" id="unshiped" role="tabpanel">
                     <br>
 
                     <p>Content for Panel 3</p>
@@ -112,13 +114,22 @@
                 <!--/.Panel 3-->
 
                 <!--Panel 4-->
-                <div class="tab-pane" id="panel4" role="tabpanel">
+                <div class="tab-pane" id="shiped" role="tabpanel">
                     <br>
 
                     <p>Content for Panel 4</p>
 
                 </div>
                 <!--/.Panel 4-->
+
+                <!--Panel 5-->
+                <div class="tab-pane" id="uncomment" role="tabpanel">
+                    <br>
+
+                    <p>Content for Panel 5</p>
+
+                </div>
+                <!--/.Panel 5-->
 
             </div>
 

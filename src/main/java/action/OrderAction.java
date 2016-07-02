@@ -41,6 +41,7 @@ public class OrderAction extends DefaultActionSupport {
     private String logistics;
     private String logisticsNum;
     private String logisticsCompany;
+    private String status;
 
     //Ω·À„
     public String balance() throws Exception{
@@ -173,6 +174,7 @@ public class OrderAction extends DefaultActionSupport {
     public String sendPackage() throws Exception{
         try {
             orderService.sendPackage(orderId, logisticsNum, logisticsCompany);
+
             return SUCCESS;
         }catch (HibernateException e){
             e.printStackTrace();
@@ -323,5 +325,13 @@ public class OrderAction extends DefaultActionSupport {
 
     public void setLogisticsCompany(String logisticsCompany) {
         this.logisticsCompany = logisticsCompany;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

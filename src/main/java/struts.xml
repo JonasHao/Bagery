@@ -44,7 +44,7 @@
         </action>
 
         <action name="queryOrder" class="action.OrderAction" method="queryOrder">
-            <result name="success">/index.jsp</result>
+            <result name="success">/orders.jsp#${status}</result>
         </action>
 
         <action name="deleteOrder" class="action.OrderAction" method="deleteOrder">
