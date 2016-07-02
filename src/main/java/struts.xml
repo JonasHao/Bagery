@@ -226,10 +226,10 @@
         <action name="historyRecord" class="action.ProductionAction" method="viewHistoryRecord">
             <result name="success">/history.jsp</result>
         </action>
-        <action name="findPricedsByWord" class="action.ProductionAction" method="findPricedsByWord">
+        <action name="productListByWord" class="action.ProductionAction" method="findPricedsByWord">
             <result name="success"></result>
         </action>
-        <action name="findPricedsByPro" class="action.ProductionAction" method="findPricedsByPro">
+        <action name="productListByPro" class="action.ProductionAction" method="findPricedsByPro">
             <result name="success"></result>
         </action>
     </package>
@@ -238,14 +238,14 @@
         <default-interceptor-ref name="myStack"/>
 
         <action name="addPriced" class="action.ProductionAction" method="add">
-            <result name="success"></result>
+            <result name="success" type="redirectAction">pricedList</result>
             <result name="input">/admin/add_product.jsp</result>
         </action>
         <action name="viewProduct" class="action.ProductionAction" method="viewProductAdmin">
             <result name="success">/admin/update_product.jsp</result>
         </action>
-        <action name="update" class="action.ProductionAction" method="update">
-            <result name="success"></result>
+        <action name="updatePriced" class="action.ProductionAction" method="update">
+            <result name="success" type="redirectAction">pricedList</result>
             <result name="input"></result>
         </action>
         <action name="soldOutPriced" class="action.ProductionAction" method="soldOutPriced">
@@ -254,7 +254,7 @@
         <action name="deletePriced" class="action.ProductionAction" method="deletePriced">
             <result name="success" type="redirectAction">pricedList</result>
         </action>
-        <action name="pricedList" class="action.ProductionAction" method="viewPricedList">
+        <action name="pricedList" class="action.ProductionAction" method="viewPricedListAdmin">
             <result name="success">/admin/product_list.jsp</result>
         </action>
 

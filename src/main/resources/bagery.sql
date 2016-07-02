@@ -245,7 +245,6 @@ CREATE TABLE `product` (
   `color` varchar(30) NOT NULL,
   `stock` int(11) NOT NULL,
   PRIMARY KEY (`product_id`),
-  UNIQUE KEY `color` (`color`),
   KEY `priced_id` (`priced_id`),
   CONSTRAINT `product_ibfk_1` FOREIGN KEY (`priced_id`) REFERENCES `priced` (`priced_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
@@ -336,7 +335,7 @@ CREATE TABLE `user` (
   `score` int(11) NOT NULL DEFAULT '0',
   `def_ship_inf_id` int(11) DEFAULT NULL,
   `user_group` enum('product_admin','order_admin','r','cu','ag','au','d') NOT NULL DEFAULT 'r',
-  `is_activate` tinyint(1) NOT NULL,
+  `is_activate` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;

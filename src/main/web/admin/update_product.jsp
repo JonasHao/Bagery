@@ -48,7 +48,7 @@
                     <ul class="nav nav-second-level">
                         <li>
                             <a href="/admin/add_product.jsp">发布商品</a></li>
-                        <li class="active">
+                        <li>
                             <s:url action="pricedList" namespace="/admin" var="Link" />
                             <a href="${Link}">商品列表</a></li>
                     </ul>
@@ -150,13 +150,20 @@
                                 </div>
                                 <div class="ibox-content">
 
-                                    <form action="/product/add.action"  class="form-horizontal">
+                                    <form action="updatePriced" namespace="/admin"  class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">商品名称</label>
+                                            <div class="col-sm-10"><s:textfield name="priced.title"
+                                                                                cssClass="form-control">
+
+                                            </s:textfield></div>
+                                        </div>
+
                                         <div class="form-group">
 
-                                            <label class="col-sm-2 control-label">商品名称</label>
-                                            <div class="col-sm-10"><s:textfield name="title"
+                                            <label class="col-sm-2 control-label">商品图片</label>
+                                            <div class="col-sm-10"><s:textfield name="img"
                                                                                 cssClass="form-control">
-                                                <s:property value="title"/>
                                             </s:textfield></div>
                                         </div>
 
@@ -167,7 +174,7 @@
                                                             cssStyle="resize: vertical;height:120px;">
                                                     <s:property value="description"/>
                                                 </s:textarea>
-                                                <span class="help-block m-b-none">拖动文本框左下角可改变文本框高度</span>
+                                                <span class="help-block m-b-none">*拖动文本框右下角可改变文本框高度</span>
                                             </div>
                                         </div>
 
@@ -191,7 +198,7 @@
                                                     <div class="col-sm-4">
                                                         <%--todo: s:select的list属性设置成action中的List--%>
                                                         <s:select
-                                                                list="#{'1':'LV', '2':'Michael Kors', '3':'Mar', '4':'Apr'}"
+                                                                list="#{'1':'A品牌', '2':'B品牌'}"
                                                                 name="proIDs[0]" cssClass="form-control m-b"/>
                                                     </div>
                                                 </div>
@@ -199,7 +206,7 @@
                                                     <label class="col-sm-4 control-label"
                                                            style="font-weight:normal;">材质</label>
                                                     <div class="col-sm-4">
-                                                        <s:select list="#{'1':'帆布', '2':'皮革', '3':'Mar', '4':'Apr'}"
+                                                        <s:select list="#{'1':'A材质'}"
                                                                   name="proIDs[1]" cssClass="form-control m-b"/>
                                                     </div>
                                                 </div>
@@ -207,7 +214,7 @@
                                                     <label class="col-sm-4 control-label"
                                                            style="font-weight:normal;">款式</label>
                                                     <div class="col-sm-4">
-                                                        <s:select list="#{'1':'斜挎包', '2':'手提包', '3':'Mar', '4':'Apr'}"
+                                                        <s:select list="#{'1':'A款式', '2':'B款式', '3':'C款式'}"
                                                                   name="proIDs[2]" cssClass="form-control m-b"/>
                                                     </div>
                                                 </div>
@@ -225,7 +232,7 @@
                                                                      cssClass="form-control m-b"/>
                                                     </div>
                                                     <div class="col-sm-4">
-                                                        <s:textfield name="products[0]" placeholder="请输入库存"
+                                                        <s:textfield name="products[0].stock" placeholder="请输入库存"
                                                                      cssClass="form-control m-b"/>
                                                     </div>
                                                 </div>

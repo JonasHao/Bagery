@@ -104,7 +104,7 @@ public class Priced {
         if (img != null ? !img.equals(priced.img) : priced.img != null) return false;
         if (description != null ? !description.equals(priced.description) : priced.description != null) return false;
         if (salePrice != null ? !salePrice.equals(priced.salePrice) : priced.salePrice != null) return false;
-
+        if (isExisted != priced.isExisted) return false;
         return true;
     }
 
@@ -116,6 +116,7 @@ public class Priced {
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (unitPrice != null ? unitPrice.hashCode() : 0);
         result = 31 * result + (salePrice != null ? salePrice.hashCode() : 0);
+        result = 31 * result + (int) isExisted;
         return result;
     }
 
