@@ -102,13 +102,8 @@ public class ProductionAction extends DefaultActionSupport {
 
     public String update() {
         try {
-            priced = productService.findPriced(priced_id);
-            priced.setTitle(title);
-            priced.setImg(img);
-            priced.setDescription(description);
-            priced.setUnitPrice(unit_price);
-            priced.setSalePrice(sale_price);
             productService.updatePriced(priced);
+            priced_id=priced.getPricedId();
             productService.deleteProductsByPriced(priced_id);
             productService.deletePricedProsByPriced(priced_id);
             for (Product product : products) {
@@ -116,7 +111,6 @@ public class ProductionAction extends DefaultActionSupport {
                     continue;
                 }
                 product.setPricedId(priced_id);
-                System.out.println(product);
                 productService.addProduct(product);
             }
             for (Integer proID : proIDs) {

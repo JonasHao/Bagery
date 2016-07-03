@@ -190,7 +190,7 @@ CREATE TABLE `priced` (
   `unit_price` decimal(10,0) NOT NULL,
   `sale_price` decimal(10,0) DEFAULT NULL,
   PRIMARY KEY (`priced_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -199,7 +199,7 @@ CREATE TABLE `priced` (
 
 LOCK TABLES `priced` WRITE;
 /*!40000 ALTER TABLE `priced` DISABLE KEYS */;
-INSERT INTO `priced` VALUES (1,'帆布包',NULL,'这是一个帆布包的详细信息',1,10,8),(2,'果冻包',NULL,'这是一个果冻包的详细信息',1,10,NULL);
+INSERT INTO `priced` VALUES (1,'帆布包','/img/bags/bag1.png','这是一个帆布包的详细信息',1,10,8),(2,'果冻包','/img/bags/bag1.png','这是一个果冻包的详细信息',1,10,NULL),(3,'双肩包',NULL,'这是一个双肩包的详细描述',0,10,10);
 /*!40000 ALTER TABLE `priced` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -219,7 +219,7 @@ CREATE TABLE `priced_pro` (
   KEY `pro_id` (`pro_id`),
   CONSTRAINT `priced_pro_ibfk_1` FOREIGN KEY (`priced_id`) REFERENCES `priced` (`priced_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `priced_pro_ibfk_2` FOREIGN KEY (`pro_id`) REFERENCES `property` (`pro_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -228,7 +228,7 @@ CREATE TABLE `priced_pro` (
 
 LOCK TABLES `priced_pro` WRITE;
 /*!40000 ALTER TABLE `priced_pro` DISABLE KEYS */;
-INSERT INTO `priced_pro` VALUES (1,1,1);
+INSERT INTO `priced_pro` VALUES (1,1,1),(2,1,3),(3,1,5),(4,2,2),(5,2,3),(6,2,6),(7,3,2),(8,3,3),(9,3,5);
 /*!40000 ALTER TABLE `priced_pro` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -273,7 +273,7 @@ CREATE TABLE `property` (
   `description` varchar(30) NOT NULL,
   PRIMARY KEY (`pro_id`),
   UNIQUE KEY `description` (`description`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -282,7 +282,7 @@ CREATE TABLE `property` (
 
 LOCK TABLES `property` WRITE;
 /*!40000 ALTER TABLE `property` DISABLE KEYS */;
-INSERT INTO `property` VALUES (1,'品牌','A品牌'),(2,'品牌','B品牌'),(3,'材质','A材质');
+INSERT INTO `property` VALUES (1,'品牌','A品牌'),(2,'品牌','B品牌'),(3,'材质','A材质'),(4,'款式','A款式'),(5,'款式','B款式'),(6,'款式','C款式');
 /*!40000 ALTER TABLE `property` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -390,4 +390,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-07-01 16:24:03
+-- Dump completed on 2016-07-02 22:24:21

@@ -152,11 +152,17 @@
 
                                     <form action="updatePriced" namespace="/admin"  class="form-horizontal">
                                         <div class="form-group">
+
+                                         <input hidden="true" type="text" name="priced.pricedId" value="<s:property value="priced_id"/>" >
+
+                                        </div>
+
+                                        <div class="form-group">
                                             <label class="col-sm-2 control-label">商品名称</label>
                                             <div class="col-sm-10"><s:textfield name="priced.title"
                                                                                 cssClass="form-control">
-
-                                            </s:textfield></div>
+                                            </s:textfield>
+                                            </div>
                                         </div>
 
                                         <div class="form-group">
@@ -179,13 +185,13 @@
                                         </div>
 
                                         <div class="form-group"><label class="col-sm-2 control-label">商品原价</label>
-                                            <div class="col-sm-10"><s:textfield name="priced.unit_price"
+                                            <div class="col-sm-10"><s:textfield name="priced.unitPrice"
                                                                                 cssClass="form-control"/></div>
                                         </div>
 
                                         <div class="form-group"><label class="col-sm-2 control-label">商品优惠价</label>
 
-                                            <div class="col-sm-10"><s:textfield name="priced.sale_price"
+                                            <div class="col-sm-10"><s:textfield name="priced.salePrice"
                                                                                 cssClass="form-control"/></div>
                                         </div>
 
@@ -199,14 +205,15 @@
                                                         <%--todo: s:select的list属性设置成action中的List--%>
                                                         <s:select
                                                                 list="#{'1':'A品牌', '2':'B品牌'}"
-                                                                name="proIDs[0]" cssClass="form-control m-b"/>
+                                                                name="proIDs[0]" cssClass="form-control m-b">
+                                                        </s:select>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <label class="col-sm-4 control-label"
                                                            style="font-weight:normal;">材质</label>
                                                     <div class="col-sm-4">
-                                                        <s:select list="#{'1':'A材质'}"
+                                                        <s:select list="#{'3':'A材质'}"
                                                                   name="proIDs[1]" cssClass="form-control m-b"/>
                                                     </div>
                                                 </div>
@@ -214,7 +221,7 @@
                                                     <label class="col-sm-4 control-label"
                                                            style="font-weight:normal;">款式</label>
                                                     <div class="col-sm-4">
-                                                        <s:select list="#{'1':'A款式', '2':'B款式', '3':'C款式'}"
+                                                        <s:select list="#{'4':'A款式', '5':'B款式', '6':'C款式'}"
                                                                   name="proIDs[2]" cssClass="form-control m-b"/>
                                                     </div>
                                                 </div>
