@@ -22,6 +22,10 @@ public class CartServiceImpl implements CartService {
     @Override
     public void deleteCart(int userId, int itemId) {
         CartItem cartItem=getCartItem(itemId);
+        if(cartItem==null){
+            //// TODO: 2016/7/1  
+            return;
+        }
         if(cartItem.getUserId()==userId)
             dao.delete(cartItem);
     }

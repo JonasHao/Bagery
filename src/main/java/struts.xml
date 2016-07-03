@@ -105,26 +105,31 @@
 
         <action name="register" class="action.UserAction" method="register">
             <result name="success">/home.jsp</result>
-            <result name="input">/signup.jsp</result>
+            <result name="input">/signUp.jsp</result>
         </action>
 
         <action name="login" class="action.UserAction" method="login">
             <result name="input">/login.jsp</result>
-            <result name="success">/home.jsp</result>
+            <result name="success">/index.jsp</result>
         </action>
 
         <action name="logout" class="action.UserAction" method="logout">
             <result name="success">/index.jsp</result>
         </action>
 
-        <action name="viewInfo" class="action.UserInfoAction" method="viewInfo">
-            <result name="success"></result>
+        <action name="home" class="action.UserInfoAction" method="home">
+            <result name="success">/home.jsp</result>
         </action>
 
         <action name="update" class="action.UserInfoAction" method="update">
             <!--<interceptor-ref name="loginChecker"/>-->
             <result name="success"></result>
             <result name="error"></result>
+            <result name="input"></result>
+        </action>
+
+        <action name="resetPassword" class="action.UserInfoAction" method="resetPassword">
+            <result name="success"></result>
             <result name="input"></result>
         </action>
     </package>
@@ -150,6 +155,7 @@
 
         <action name="viewProduct" class="action.ProductionAction" method="viewProduct">
             <result name="success">/detail.jsp</result>
+            <result name="input">/productDisable.jsp</result>
         </action>
     </package>
 
@@ -176,7 +182,9 @@
         </action>
 
         <action name="updateCart" class="action.CartAction" method="updateCart">
-            <result name="success">/login.jsp</result>
+            <result name="success" type="json">
+                <param name="root">data</param>
+            </result>
         </action>
     </package>
 
@@ -184,41 +192,44 @@
         <default-interceptor-ref name="myStack"/>
 
         <action name="viewAddress" class="action.AddressAction" method="viewAddress">
-            <result name="success">/admin/admin_product_detail.jsp</result>
-
+            <!--<result name="success">/admin/admin_product_detail.jsp</result>-->
+            <result name="success">/address.jsp</result>
         </action>
 
         <action name="addAddress" class="action.AddressAction" method="addAddress">
-            <result name="success">/address.jsp</result>
+            <result name="success" type="redirectAction">viewAddress</result>
             <result name="input">/address.jsp</result>
         </action>
 
         <action name="deleteAddress" class="action.AddressAction" method="deleteAddress">
-            <result name="success"></result>
+            <result name="success" type="redirectAction">viewAddress</result>
         </action>
 
         <action name="updateAddress" class="action.AddressAction" method="updateAddress">
-            <result name="input"></result>
-            <result name="success"></result>
+            <result name="input">/address.jsp</result>
+            <result name="success" type="redirectAction">viewAddress</result>
+        </action>
+
+        <action name="setDefaultAddress" class="action.AddressAction" method="setDefaultAddress">
+            <result name="success" type="redirectAction">viewAddress</result>
         </action>
     </package>
-
 
     <package name="product" namespace="/product" extends="default">
         <default-interceptor-ref name="myStack"/>
         <action name="viewProduct" class="action.ProductionAction" method="viewProduct">
             <result name="success">/detail.jsp</result>
         </action>
-        <action name="viewPricedList" class="action.ProductionAction" method="viewPricedList">
+        <action name="productList" class="action.ProductionAction" method="viewPricedList">
             <result name="success">/list.jsp</result>
         </action>
-        <action name="viewHistoryRecord" class="action.ProductionAction" method="viewHistoryRecord">
+        <action name="historyRecord" class="action.ProductionAction" method="viewHistoryRecord">
+            <result name="success">/history.jsp</result>
+        </action>
+        <action name="productListByWord" class="action.ProductionAction" method="findPricedsByWord">
             <result name="success"></result>
         </action>
-        <action name="findPricedsByWord" class="action.ProductionAction" method="findPricedsByWord">
-            <result name="success"></result>
-        </action>
-        <action name="findPricedsByPro" class="action.ProductionAction" method="findPricedsByPro">
+        <action name="productListByPro" class="action.ProductionAction" method="findPricedsByPro">
             <result name="success"></result>
         </action>
     </package>
@@ -227,20 +238,23 @@
         <default-interceptor-ref name="myStack"/>
 
         <action name="addPriced" class="action.ProductionAction" method="add">
-            <result name="success"></result>
-            <result name="input">/admin/admin_product_detail.jsp</result>
+            <result name="success" type="redirectAction">pricedList</result>
+            <result name="input">/admin/add_product.jsp</result>
         </action>
-        <action name="viewProduct" class="action.ProductionAction" method="viewProduct">
-            <result name="success">/admin/admin_product_detail.jsp</result>
+        <action name="viewProduct" class="action.ProductionAction" method="viewProductAdmin">
+            <result name="success">/admin/update_product.jsp</result>
         </action>
-        <action name="update" class="action.ProductionAction" method="update">
-            <result name="success"></result>
+        <action name="updatePriced" class="action.ProductionAction" method="update">
+            <result name="success" type="redirectAction">pricedList</result>
             <result name="input"></result>
         </action>
-        <action name="deletePriced" class="action.ProductionAction" method="deletePriced">
-            <result name="success"></result>
+        <action name="soldOutPriced" class="action.ProductionAction" method="soldOutPriced">
+            <result name="success" type="redirectAction">pricedList</result>
         </action>
-        <action name="pricedList" class="action.ProductionAction" method="viewPricedList">
+        <action name="deletePriced" class="action.ProductionAction" method="deletePriced">
+            <result name="success" type="redirectAction">pricedList</result>
+        </action>
+        <action name="pricedList" class="action.ProductionAction" method="viewPricedListAdmin">
             <result name="success">/admin/product_list.jsp</result>
         </action>
 

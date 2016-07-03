@@ -4,7 +4,7 @@ import dao.Dao;
 import po.*;
 import service.ProductService;
 
-import java.util.List;
+import java.util.*;
 
 @SuppressWarnings("unchecked")
 public class ProductServiceImpl implements ProductService {
@@ -63,6 +63,9 @@ public class ProductServiceImpl implements ProductService {
      * 获得全部商品列表
      */
     public List<Priced> findAll() {
+        return dao.query("from Priced where isExisted=1").list();
+    }
+    public List<Priced> findAllAdmin() {
         return dao.query("from Priced").list();
     }
 
@@ -90,10 +93,14 @@ public class ProductServiceImpl implements ProductService {
     /**
      * 通过商品查找商品颜色
      */
+    //考虑库存
     public List<Product> findProductsByPriced(int pricedID) {
+        return dao.query("from Product where pricedId=? and stock >0").setParameter(0, pricedID).list();
+    }
+    //不考虑库存
+    public List<Product> findProductsByPricedAdmin(int pricedID) {
         return dao.query("from Product where pricedId=?").setParameter(0, pricedID).list();
     }
-
     /**
      * 工具-属性数组转SQL字符串
      */
@@ -133,11 +140,23 @@ public class ProductServiceImpl implements ProductService {
     }
 
 
-
     public List<PricedPro> findPricedProByPriced(int pricedID)
     {
-        return dao.query("from PricedPro where pricedId=?").setParameter(0, pricedID).list();
+        return dao.query("select from PricedPro where pricedId=?").setParameter(0, pricedID).list();
     }
+
+    public List<Integer> findProIDsByPriced(int pricedID)
+    {
+        List<Integer> proIDs=new ArrayList<Integer>();
+        proIDs.add((Integer) (dao.query("select pp.proId from PricedPro pp,Property p where pricedId=? and " +
+                "category='品牌' and pp.proId=p.proId ").setParameter(0, pricedID).list().get(0)));
+        proIDs.add((Integer) (dao.query("select PricedPro.proId from PricedPro,Property where pricedId=? and " +
+                "category='材质' and PricedPro.proId=Property.proId ").setParameter(0, pricedID).list().get(0)));
+        proIDs.add((Integer) (dao.query("select PricedPro.proId from PricedPro,Property where pricedId=? and " +
+                "category='款式' and PricedPro.proId=Property.proId ").setParameter(0, pricedID).list().get(0)));
+        return proIDs;
+    }
+
     public void deleteProductsByPriced(int pricedID)
     {
         List<Product> products=findProductsByPriced(pricedID);

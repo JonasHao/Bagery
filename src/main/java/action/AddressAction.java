@@ -6,7 +6,6 @@ import po.User;
 import service.AddressService;
 import service.UserService;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -17,10 +16,9 @@ public class AddressAction extends ActionSupport {
     private UserService userService;
     private AddressService addressService;
     private Address address;
-    private Collection<Address> addresses;
+    private List<Address> addressList;
     private User user;
-
-    private int shipInfId;
+    private int addressId;
     private int userId;
     private String receiver;
     private String mobile;
@@ -28,20 +26,21 @@ public class AddressAction extends ActionSupport {
     private String addressCity;
     private String addressDistrict;
     private String addressDetail;
+    private Integer defaultAddressId;
+    private int add;
 
-    public String viewAddress(){
-        user=userService.getCurrentUser();
-        //todo: update address
+    public String viewAddress() {
+        user = userService.getCurrentUser();
+        addressList = user.getAddresses();
+        defaultAddressId=user.getDefaultAddressId();
         return SUCCESS;
+
     }
 
-    public String addAddress(){
-        user=userService.getCurrentUser();
-        //todo: ����ValidatorУ��
-
-        address=new Address();
+    public String addAddress() {
+        user = userService.getCurrentUser();
+        address = new Address();
         address.setUserId(user.getUserId());
-        //todo ��ʡ����
         address.setReceiver(receiver);
         address.setMobile(mobile);
         address.setAddressProvince(addressProvince);
@@ -49,18 +48,27 @@ public class AddressAction extends ActionSupport {
         address.setAddressDistrict(addressDistrict);
         address.setAddressDetail(addressDetail);
 
+
         addressService.add(address);
+//        userService.update(user);
+        user = userService.getCurrentUser();
+        if(user.getAddresses().size()==1){
+            user.setDefaultAddressId(user.getAddresses().get(0).getAddressId());
+            userService.update(user);
+        }
         return SUCCESS;
     }
 
-    public String deleteAddress(){
-        addressService.delete(addressService.get(shipInfId));
+    public String deleteAddress() {
+        addressService.deleteAddress(addressId);
         return SUCCESS;
     }
 
-    public String updateAddress(){
-        //todo: ����ValidatorУ��
-        address=addressService.get(shipInfId);
+    public String updateAddress() {
+        address = addressService.get(addressId);
+        if (address == null) {
+            return ERROR;
+        }
 
         address.setMobile(mobile);
         address.setReceiver(receiver);
@@ -70,6 +78,13 @@ public class AddressAction extends ActionSupport {
         address.setAddressDetail(addressDetail);
 
         addressService.update(address);
+        return SUCCESS;
+    }
+
+    public String setDefaultAddress(){
+        user=userService.getCurrentUser();
+        user.setDefaultAddressId(defaultAddressId);
+        userService.update(user);
         return SUCCESS;
     }
 
@@ -105,12 +120,12 @@ public class AddressAction extends ActionSupport {
         this.userId = userId;
     }
 
-    public int getShipInfId() {
-        return shipInfId;
+    public int getAddressId() {
+        return addressId;
     }
 
-    public void setShipInfId(int shipInfId) {
-        this.shipInfId = shipInfId;
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
     }
 
     public User getUser() {
@@ -121,12 +136,12 @@ public class AddressAction extends ActionSupport {
         this.user = user;
     }
 
-    public Collection<Address> getAddresses() {
-        return addresses;
+    public List<Address> getAddresses() {
+        return addressList;
     }
 
-    public void setAddresses(Collection<Address> addresses) {
-        this.addresses = addresses;
+    public void setAddresses(List<Address> addressList) {
+        this.addressList = addressList;
     }
 
     public Address getAddress() {
@@ -175,5 +190,29 @@ public class AddressAction extends ActionSupport {
 
     public void setAddressDetail(String addressDetail) {
         this.addressDetail = addressDetail;
+    }
+
+    public List<Address> getAddressList() {
+        return addressList;
+    }
+
+    public void setAddressList(List<Address> addressList) {
+        this.addressList = addressList;
+    }
+
+    public Integer getDefaultAddressId() {
+        return defaultAddressId;
+    }
+
+    public void setDefaultAddressId(Integer defaultAddressId) {
+        this.defaultAddressId = defaultAddressId;
+    }
+
+    public int getAdd() {
+        return add;
+    }
+
+    public void setAdd(int add) {
+        this.add = add;
     }
 }

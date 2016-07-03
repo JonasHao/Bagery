@@ -186,10 +186,11 @@ CREATE TABLE `priced` (
   `title` varchar(50) NOT NULL,
   `img` text,
   `description` text,
+  `is_existed` tinyint(4) NOT NULL DEFAULT '1',
   `unit_price` decimal(10,0) NOT NULL,
   `sale_price` decimal(10,0) DEFAULT NULL,
   PRIMARY KEY (`priced_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -198,7 +199,7 @@ CREATE TABLE `priced` (
 
 LOCK TABLES `priced` WRITE;
 /*!40000 ALTER TABLE `priced` DISABLE KEYS */;
-INSERT INTO `priced` VALUES (1,'帆布包',NULL,'这是一个帆布包的详细信息',10,NULL);
+INSERT INTO `priced` VALUES (1,'帆布包',NULL,'这是一个帆布包的详细信息',1,10,8),(2,'果冻包',NULL,'这是一个果冻包的详细信息',1,10,NULL);
 /*!40000 ALTER TABLE `priced` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -217,7 +218,7 @@ CREATE TABLE `priced_pro` (
   KEY `priced_id` (`priced_id`),
   KEY `pro_id` (`pro_id`),
   CONSTRAINT `priced_pro_ibfk_1` FOREIGN KEY (`priced_id`) REFERENCES `priced` (`priced_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `priced_pro_ibfk_2` FOREIGN KEY (`pro_id`) REFERENCES `propertity` (`pro_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `priced_pro_ibfk_2` FOREIGN KEY (`pro_id`) REFERENCES `property` (`pro_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -244,10 +245,9 @@ CREATE TABLE `product` (
   `color` varchar(30) NOT NULL,
   `stock` int(11) NOT NULL,
   PRIMARY KEY (`product_id`),
-  UNIQUE KEY `color` (`color`),
   KEY `priced_id` (`priced_id`),
   CONSTRAINT `product_ibfk_1` FOREIGN KEY (`priced_id`) REFERENCES `priced` (`priced_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -256,34 +256,34 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (1,1,'红',100),(2,1,'蓝',50);
+INSERT INTO `product` VALUES (1,1,'红',100),(2,1,'蓝',50),(3,2,'绿',40);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `propertity`
+-- Table structure for table `property`
 --
 
-DROP TABLE IF EXISTS `propertity`;
+DROP TABLE IF EXISTS `property`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `propertity` (
+CREATE TABLE `property` (
   `pro_id` int(11) NOT NULL AUTO_INCREMENT,
   `category` enum('品牌','材质','款式') NOT NULL,
   `description` varchar(30) NOT NULL,
   PRIMARY KEY (`pro_id`),
   UNIQUE KEY `description` (`description`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `propertity`
+-- Dumping data for table `property`
 --
 
-LOCK TABLES `propertity` WRITE;
-/*!40000 ALTER TABLE `propertity` DISABLE KEYS */;
-INSERT INTO `propertity` VALUES (1,'品牌','A品牌'),(2,'品牌','B品牌'),(3,'材质','A材质');
-/*!40000 ALTER TABLE `propertity` ENABLE KEYS */;
+LOCK TABLES `property` WRITE;
+/*!40000 ALTER TABLE `property` DISABLE KEYS */;
+INSERT INTO `property` VALUES (1,'品牌','A品牌'),(2,'品牌','B品牌'),(3,'材质','A材质');
+/*!40000 ALTER TABLE `property` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -335,7 +335,7 @@ CREATE TABLE `user` (
   `score` int(11) NOT NULL DEFAULT '0',
   `def_ship_inf_id` int(11) DEFAULT NULL,
   `user_group` enum('product_admin','order_admin','r','cu','ag','au','d') NOT NULL DEFAULT 'r',
-  `is_activate` tinyint(1) NOT NULL,
+  `is_activate` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
@@ -390,4 +390,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-28 18:30:39
+-- Dump completed on 2016-07-01 16:24:03

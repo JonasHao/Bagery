@@ -71,7 +71,7 @@
                             }
                         })
             } else {
-                window.open("/product/viewProduct?priceId="+pricedId);
+                window.open("/product/viewProduct.action?priced_id="+pricedId);
             }
         }
     </script>

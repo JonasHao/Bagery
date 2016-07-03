@@ -1,6 +1,6 @@
 package action;
 
-import java.util.List;
+import java.util.*;
 
 import com.opensymphony.xwork2.ActionContext;
 import org.apache.struts2.dispatcher.DefaultActionSupport;
@@ -24,6 +24,7 @@ public class ProductionAction extends DefaultActionSupport {
     private String word;
     private Priced priced;
     private Product product;
+    private String img;
     private User user;
     private PricedPro pricedPro;
     private List<Product> products;
@@ -41,56 +42,26 @@ public class ProductionAction extends DefaultActionSupport {
     private ProductService productService;
     private UserService userService;
     private CommentService commentService;
+    private Map<Integer,String> productMap;
 
-    /*
-    public String addPriced()throws Exception
-	{
+    public String add() {
         try {
             priced=new Priced();
             priced.setTitle(title);
             priced.setDescription(description);
+            priced.setImg(img);
             priced.setUnitPrice(unit_price);
             priced.setSalePrice(sale_price);
-            productService.addPriced(priced);
-            return SUCCESS;
-        }catch(HibernateException e){
-           e.printStackTrace();
-            return ERROR;
-       }
-	}
-	public String addProduct()
-	{
- 		try {
-            product=new Product();
-            product.setPricedId(priced_id);
-            product.setColor(color);
-            product.setStock(stock);
-            productService.addProduct(product);
-            return SUCCESS;
-        }catch(HibernateException e){
-           e.printStackTrace();
-            return ERROR;
-       }
-	}
-	*/
-    public String add() {
-        try {
-            priced = new Priced();
-            priced.setTitle(title);
-            priced.setDescription(description);
-            priced.setUnitPrice(unit_price);
-            priced.setSalePrice(sale_price);
-            System.out.println(priced);
+            priced.setIsExisted(1);
             productService.addPriced(priced);
             priced_id = priced.getPricedId();
-            System.out.printf("count of products:%d\n", products.size());
             for (Product product : products) {
                 if (product.getColor() == null) {
                     continue;
                 }
                 product.setPricedId(priced_id);
-                System.out.println(product);
                 productService.addProduct(product);
+                System.out.println(product);
             }
             for (Integer proID : proIDs) {
                 pricedPro = new PricedPro();
@@ -116,41 +87,24 @@ public class ProductionAction extends DefaultActionSupport {
             return ERROR;
         }
     }
-
-    /*
-	public String updatePriced()
-	{
+    public String viewProductAdmin() {
         try {
-            priced=productService.findPriced(priced_id);
-            priced.setTitle(title);
-            priced.setDescription(description);
-            priced.setUnitPrice(unit_price);
-            priced.setSalePrice(sale_price);
-            productService.updatePriced(priced);
+            priced = productService.findPriced(priced_id);
+            products = productService.findProductsByPricedAdmin(priced_id);
+            proIDs=productService.findProIDsByPriced(priced_id);
+            //comments = commentService.getByPricedId(priced_id);
             return SUCCESS;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ERROR;
-        }
-	}
-    public String updateProduct()
-    {
-        try {
-            product=productService.findProduct(product_id);
-            product.setColor(color);
-            product.setStock(stock);
-            productService.updateProduct(product);
-            return SUCCESS;
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             e.printStackTrace();
             return ERROR;
         }
     }
-    */
+
     public String update() {
         try {
             priced = productService.findPriced(priced_id);
             priced.setTitle(title);
+            priced.setImg(img);
             priced.setDescription(description);
             priced.setUnitPrice(unit_price);
             priced.setSalePrice(sale_price);
@@ -197,19 +151,19 @@ public class ProductionAction extends DefaultActionSupport {
             return ERROR;
         }
     }
-
-    public String soldOutProduct() {
+    */
+    public String soldOutPriced() {
         try {
-            product = productService.findProduct(product_id);
-            product.setStock(0);
-            productService.updateProduct(product);
+            priced = productService.findPriced(priced_id);
+            priced.setIsExisted(0);
+            productService.updatePriced(priced);
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
             return ERROR;
         }
     }
-    */
+
 
     public String viewPricedList() {
         try {
@@ -217,6 +171,20 @@ public class ProductionAction extends DefaultActionSupport {
             pros1 = productService.findProsByCategory("品牌");
             pros2 = productService.findProsByCategory("材质");
             pros3 = productService.findProsByCategory("款式");
+            return SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ERROR;
+        }
+    }
+    public String viewPricedListAdmin() {
+        try {
+            priceds = productService.findAllAdmin();
+            /*
+            pros1 = productService.findProsByCategory("品牌");
+            pros2 = productService.findProsByCategory("材质");
+            pros3 = productService.findProsByCategory("款式");
+            */
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -509,5 +477,21 @@ public class ProductionAction extends DefaultActionSupport {
 
     public void setPage_num(int page_num) {
         this.page_num = page_num;
+    }
+
+    public Map<Integer, String> getProductMap() {
+        return productMap;
+    }
+
+    public void setProductMap(Map<Integer, String> productMap) {
+        this.productMap = productMap;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }

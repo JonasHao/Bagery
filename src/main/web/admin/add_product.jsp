@@ -47,9 +47,10 @@
                     </a>
                     <ul class="nav nav-second-level">
                         <li class="active">
-                            <a href="add_product.html">发布商品</a></li>
+                            <a href="/admin/add_product.jsp">发布商品</a></li>
                         <li>
-                            <a href="product_list.html">商品列表</a></li>
+                            <s:url action="pricedList" namespace="/admin" var="Link" />
+                            <a href="${Link}">商品列表</a></li>
                     </ul>
                 </li>
                 <li>
@@ -149,19 +150,35 @@
                                 </div>
                                 <div class="ibox-content">
 
-                                    <form action="/product/add.action"  class="form-horizontal">
+
+                                    <s:fielderror/>
+
+
+                                    <form action="addPriced" namespace="/admin"  class="form-horizontal">
                                         <div class="form-group">
 
                                             <label class="col-sm-2 control-label">商品名称</label>
                                             <div class="col-sm-10"><s:textfield name="title"
-                                                                                cssClass="form-control"/></div>
+                                                                                cssClass="form-control">
+                                            </s:textfield></div>
                                         </div>
+
+                                        <div class="form-group">
+
+                                            <label class="col-sm-2 control-label">商品图片</label>
+                                            <div class="col-sm-10"><s:textfield name="img"
+                                                                                cssClass="form-control">
+                                            </s:textfield></div>
+                                        </div>
+
 
                                         <div class="form-group"><label class="col-sm-2 control-label">商品描述</label>
                                             <div class="col-sm-10">
-                                                <s:textarea name="description" cssClass="form-control"
-                                                            cssStyle="resize: vertical;height:120px;"/>
-                                                <span class="help-block m-b-none">拖动文本框左下角可改变文本框高度</span>
+                                                <s:textarea name="description"
+                                                         cssClass="form-control"
+                                                            cssStyle="resize: vertical;height:120px;">
+                                                </s:textarea>
+                                                <span class="help-block m-b-none">*拖动文本框右下角可改变文本框高度</span>
                                             </div>
                                         </div>
 
@@ -185,7 +202,7 @@
                                                     <div class="col-sm-4">
                                                         <%--todo: s:select的list属性设置成action中的List--%>
                                                         <s:select
-                                                                list="#{'1':'LV', '2':'Michael Kors', '3':'Mar', '4':'Apr'}"
+                                                                list="#{'1':'A品牌', '2':'B品牌'}"
                                                                 name="proIDs[0]" cssClass="form-control m-b"/>
                                                     </div>
                                                 </div>
@@ -193,7 +210,7 @@
                                                     <label class="col-sm-4 control-label"
                                                            style="font-weight:normal;">材质</label>
                                                     <div class="col-sm-4">
-                                                        <s:select list="#{'1':'帆布', '2':'皮革', '3':'Mar', '4':'Apr'}"
+                                                        <s:select list="#{'1':'A材质'}"
                                                                   name="proIDs[1]" cssClass="form-control m-b"/>
                                                     </div>
                                                 </div>
@@ -201,7 +218,7 @@
                                                     <label class="col-sm-4 control-label"
                                                            style="font-weight:normal;">款式</label>
                                                     <div class="col-sm-4">
-                                                        <s:select list="#{'1':'斜挎包', '2':'手提包', '3':'Mar', '4':'Apr'}"
+                                                        <s:select list="#{'1':'A款式', '2':'B款式', '3':'C款式'}"
                                                                   name="proIDs[2]" cssClass="form-control m-b"/>
                                                     </div>
                                                 </div>
@@ -219,11 +236,10 @@
                                                                      cssClass="form-control m-b"/>
                                                     </div>
                                                     <div class="col-sm-4">
-                                                        <s:textfield name="products[0]" placeholder="请输入库存"
+                                                        <s:textfield name="products[0].stock" placeholder="请输入库存"
                                                                      cssClass="form-control m-b"/>
                                                     </div>
                                                 </div>
-
 
                                             </div>
 
@@ -291,7 +307,7 @@
     $(document).ready(function () {
         $('.i-checks').iCheck({
             checkboxClass: 'icheckbox_square-green',
-            radioClass: 'iradio_square-green',
+            radioClass: 'iradio_square-green'
         });
     });
 
@@ -299,7 +315,11 @@
         // document.getElementById('color_stock').appendChild("<strong>test</strong>");
         var div = document.createElement("div");
         div.className = "row";
-        div.innerHTML = "<div class=\"col-sm-6\"><input type=\"text\" placeholder=\"请输入颜色\" class=\"form-control m-b\"></div><div class=\"col-sm-4\"><input type=\"text\" placeholder=\"请输入库存\" class=\"form-control m-b\"></div><button class=\"col-sm-2 btn btn-warning btn-circle\" type=\"button\" onclick=\"deleteColor()\"><i class=\"fa fa-times\"></i></button>";
+
+        div.innerHTML = "<div class=\"col-sm-6\"><input type=\"text\" placeholder=\"请输入颜色\" class=\"form-control m-b\"></div>" +
+                "<div class=\"col-sm-4\"><input type=\"text\" placeholder=\"请输入库存\" class=\"form-control m-b\"></div>" +
+                "<button class=\"col-sm-2 btn btn-warning btn-circle\" type=\"button\" onclick=\"deleteColor()\">" +
+                "<i class=\"fa fa-times\"></i></button>";
 
         document.getElementById('color_stock').appendChild(div);
     }

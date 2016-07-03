@@ -10,7 +10,6 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
 <t:base>
-
     <jsp:attribute name="title">订单列表</jsp:attribute>
     <jsp:attribute name="breadcrumb">
        <ol class="breadcrumb">
@@ -18,8 +17,25 @@
            <li class="active">订单列表</li>
        </ol>
     </jsp:attribute>
+<<<<<<< HEAD
 
 
+=======
+    <jsp:attribute name="scripts">
+        <script type="text/javascript">
+            // Javascript to enable link to tab
+            var url = document.location.toString();
+            if (url.match('#')) {
+                $('.nav-tabs a[href="#' + url.split('#')[1] + '"]').tab('show');
+            }
+
+            // Change hash for page-reload
+            $('.nav-tabs a').on('shown.bs.tab', function (e) {
+                window.location.hash = e.target.hash;
+            })
+        </script>
+     </jsp:attribute>
+>>>>>>> origin/master
     <jsp:body>
         <!--Main layout-->
         <div class="container">
@@ -71,24 +87,15 @@
                             </div>
                         </div>
                         <div class="card-block">
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <s:iterator begin="1" end="3">
-                                        <t:orderItem>
-                                            <jsp:attribute name="img">"../../img/bags/bag1.png"</jsp:attribute>
-                                            <jsp:attribute name="title">商品标题</jsp:attribute>
-                                            <jsp:attribute name="price">99999.99</jsp:attribute>
-                                            <jsp:attribute name="number">1</jsp:attribute>
-                                            <jsp:attribute name="color">红色</jsp:attribute>
-                                        </t:orderItem>
-                                    </s:iterator>
-                                </div>
-                                <div class="col-md-2">
-                                    <div>订单详情</div>
-                                    <div>物流状态</div>
-                                    <div>评价状态</div>
-                                </div>
-                            </div>
+                            <s:iterator begin="1" end="3">
+                                <t:orderItem>
+                                    <jsp:attribute name="img">"../../img/bags/bag1.png"</jsp:attribute>
+                                    <jsp:attribute name="title">商品标题</jsp:attribute>
+                                    <jsp:attribute name="price">99999.99</jsp:attribute>
+                                    <jsp:attribute name="number">1</jsp:attribute>
+                                    <jsp:attribute name="color">红色</jsp:attribute>
+                                </t:orderItem>
+                            </s:iterator>
 
                         </div>
                     </div>
@@ -101,6 +108,7 @@
                     <br>
 
                     <p>Content for Panel 2</p>
+
                 </div>
                 <!--/.Panel 2-->
 
@@ -136,4 +144,5 @@
         </div>
         <!--/.Main layout-->
     </jsp:body>
+
 </t:base>

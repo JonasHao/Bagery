@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+
+
+<body>
+    <div>
+        <button type="button" onclick="minus()">-</button><input type="text" value="5" style="width:50px;"><button type="button" onclick="add()">+</button>
+    </div>
+
+    <script>
+        function add(){
+            console.log(event.target.previousSibling.value++);
+        }
+        function minus(){
+            console.log(event.target.nextSibling.value--);
+        }
+
+    </script>
+</body>
+</html>

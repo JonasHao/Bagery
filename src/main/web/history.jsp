@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 
 <t:base>
 
@@ -28,41 +29,16 @@
                     <h2 class="h2-responsive">今天</h2>
                 </div>
                 <div class="row">
+                    <s:iterator value="records">
                     <div class="col-md-3 col-lg-2 ">
                         <t:favoriteItem>
-                            <jsp:attribute name="img">img/bags/bag1.png</jsp:attribute>
-                            <jsp:attribute name="title">包包标题</jsp:attribute>
-                            <jsp:attribute name="price">99999.00</jsp:attribute>
+                            <jsp:attribute name="img"><s:property value="priced.img"/></jsp:attribute>
+                            <jsp:attribute name="title"><s:property value="priced.title"/></jsp:attribute>
+                            <jsp:attribute name="price"><s:property value="priced.unitPrice"/></jsp:attribute>
+                            <jsp:attribute name="pricedId"><s:property value="priced.pricedId"/></jsp:attribute>
                         </t:favoriteItem>
                     </div>
-                    <div class="col-md-3 col-lg-2 ">
-                        <t:favoriteItem>
-                            <jsp:attribute name="img">img/bags/bag1.png</jsp:attribute>
-                            <jsp:attribute name="title">包包标题</jsp:attribute>
-                            <jsp:attribute name="price">99999.00</jsp:attribute>
-                        </t:favoriteItem>
-                    </div>
-                    <div class="col-md-3 col-lg-2 ">
-                        <t:favoriteItem>
-                            <jsp:attribute name="img">img/bags/bag1.png</jsp:attribute>
-                            <jsp:attribute name="title">包包标题</jsp:attribute>
-                            <jsp:attribute name="price">99999.00</jsp:attribute>
-                        </t:favoriteItem>
-                    </div>
-                    <div class="col-md-3 col-lg-2 ">
-                        <t:favoriteItem>
-                            <jsp:attribute name="img">img/bags/bag1.png</jsp:attribute>
-                            <jsp:attribute name="title">包包标题</jsp:attribute>
-                            <jsp:attribute name="price">99999.00</jsp:attribute>
-                        </t:favoriteItem>
-                    </div>
-                    <div class="col-md-3 col-lg-2 ">
-                        <t:favoriteItem>
-                            <jsp:attribute name="img">img/bags/bag1.png</jsp:attribute>
-                            <jsp:attribute name="title">包包标题</jsp:attribute>
-                            <jsp:attribute name="price">99999.00</jsp:attribute>
-                        </t:favoriteItem>
-                    </div>
+                    </s:iterator>
                 </div>
             </div>
 

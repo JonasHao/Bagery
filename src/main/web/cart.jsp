@@ -18,6 +18,9 @@
            <li class="active">购物车列表</li>
        </ol>
     </jsp:attribute>
+    <jsp:attribute name="head">
+
+    </jsp:attribute>
     <jsp:body>
         <!--Main layout-->
         <div class="container">
@@ -51,16 +54,17 @@
             </div>
             <br/>
             <s:iterator value="cartItemList">
-            <t:cartItem>
-                <jsp:attribute name="title"><s:property value="product.priced.title"/></jsp:attribute>
-                <jsp:attribute name="number"><s:property value="num"/></jsp:attribute>
-                <jsp:attribute name="color"><s:property value="product.color"/></jsp:attribute>
-                <jsp:attribute name="img">../img/bags/bag1.png</jsp:attribute>
-                <jsp:attribute name="totalPrice"><s:property value="totalPriced"/></jsp:attribute>
-                <jsp:attribute name="unitPrice"><s:property value="product.priced.unitPrice"/></jsp:attribute>
-                <jsp:attribute name="salePrice"><s:property value="product.priced.salePrice"/></jsp:attribute>
-                <jsp:attribute name="itemId"><s:property value="itemId"/></jsp:attribute>
-            </t:cartItem>
+                <t:cartItem>
+                    <jsp:attribute name="title"><s:property value="product.priced.title"/></jsp:attribute>
+                    <jsp:attribute name="number"><s:property value="num"/></jsp:attribute>
+                    <jsp:attribute name="color"><s:property value="product.color"/></jsp:attribute>
+                    <jsp:attribute name="img">../img/bags/bag1.png</jsp:attribute>
+                    <jsp:attribute name="totalPrice"><s:property value="subtotal"/></jsp:attribute>
+                    <jsp:attribute name="unitPrice"><s:property value="product.priced.unitPrice"/></jsp:attribute>
+                    <jsp:attribute name="salePrice"><s:property value="product.priced.salePrice"/></jsp:attribute>
+                    <jsp:attribute name="itemId"><s:property value="itemId"/></jsp:attribute>
+                    <jsp:attribute name="stock"><s:property value="product.stock"/></jsp:attribute>
+                </t:cartItem>
             </s:iterator>
         </div>
         <!--/.Main layout-->

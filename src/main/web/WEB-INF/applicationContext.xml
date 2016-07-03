@@ -30,6 +30,7 @@
     <bean class="action.CartAction" id="cartAction">
         <property name="cartService" ref="cartService"/>
         <property name="userService" ref="userService"/>
+        <property name="productService" ref="productService"/>
     </bean>
     <bean class="action.FavoriteAction" id="favoriteAction">
         <property name="userService" ref="userService"/>
