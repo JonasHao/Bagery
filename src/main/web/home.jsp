@@ -23,56 +23,56 @@
                 <div class="card-block order-block">
                     <div class="row">
                         <div class="col-sm-2">
-                            <s:url action="queryOrder.action" namespace="order" var="unpaid">
+                            <s:url action="queryOrder" namespace="/order" var="unpaid">
                                 <s:param name="status">unpaid</s:param>
                             </s:url>
-                            <s:a href="${unpaid}">
+                            <a href="${unpaid}">
                                 <i class="fa fa-credit-card fa-3x" aria-hidden="true"></i>
                                 <br/>
                                 <span>待付款</span>
-                            </s:a>
+                            </a>
                         </div>
 
                         <div class="col-sm-2">
-                            <s:url action="queryOrder.action" namespace="order" var="unshiped">
+                            <s:url action="queryOrder" namespace="/order" var="unshiped">
                                 <s:param name="status">unshiped</s:param>
                             </s:url>
-                            <s:a href="${unshiped}">
+                            <a href="${unshiped}">
                                 <i class="fa fa-truck fa-3x" aria-hidden="true"></i>
                                 <br/>
                                 <span>待发货</span>
-                            </s:a>
+                            </a>
                         </div>
 
                         <div class="col-sm-2">
-                            <s:url action="queryOrder.action" namespace="order" var="shiped">
+                            <s:url action="queryOrder" namespace="/order" var="shiped">
                                 <s:param name="status">shiped</s:param>
                             </s:url>
-                            <s:a href="${unpaid}">
+                            <a href="${unpaid}">
                                 <i class="fa fa-truck fa-3x" aria-hidden="true"></i>
                                 <br/>
                                 <span>待收货</span>
-                            </s:a>
+                            </a>
                         </div>
 
                         <div class="col-sm-2">
-                            <s:url action="queryOrder.action" namespace="order" var="uncomment">
+                            <s:url action="queryOrder" namespace="/order" var="uncomment">
                                 <s:param name="status">uncomment</s:param>
                             </s:url>
-                            <s:a href="${uncomment}">
+                            <a href="${uncomment}">
                                 <i class="fa fa-edit fa-3x" aria-hidden="true"></i>
                                 <br/>
                                 <span>待评价</span>
-                            </s:a>
+                            </a>
                         </div>
 
                         <div class="col-sm-2">
-                            <s:url action="queryOrder.action" namespace="order" var="all">  </s:url>
-                            <s:a href="${unpaid}">
+                            <s:url action="queryOrder" namespace="/order" var="all">  </s:url>
+                            <a href="${unpaid}">
                                 <i class="fa fa-th-list  fa-3x" aria-hidden="true"></i>
                                 <br/>
                                 <span>全部订单</span>
-                            </s:a>
+                            </a>
                         </div>
 
                         <div class="col-sm-4">

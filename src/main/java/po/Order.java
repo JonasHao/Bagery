@@ -20,6 +20,7 @@ public class Order {
     private Collection<Comment> comments;
     private Collection<OrderItem> orderItems;
     private User user;
+    private Address address;
 
     @Id
     @Column(name = "order_id", nullable = false, insertable = true, updatable = true)
@@ -161,5 +162,15 @@ public class Order {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ship_inf_id", referencedColumnName = "ship_inf_id", nullable = false)
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }
