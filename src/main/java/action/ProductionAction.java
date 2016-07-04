@@ -29,14 +29,17 @@ public class ProductionAction extends DefaultActionSupport {
     private PricedPro pricedPro;
     private List<Product> products;
     private List<Priced> priceds;
+
     private List<Property> pros;
     private List<Property> pros1;
     private List<Property> pros2;
     private List<Property> pros3;
+
     private List<Integer> proIDs;
     private List<Integer> proIDs1;
     private List<Integer> proIDs2;
     private List<Integer> proIDs3;
+
     private List<UserPricedRecord> records;
     private List<Comment> comments;
     private ProductService productService;

@@ -124,31 +124,44 @@
                 </div>
                 <!--/.First row-->
             </div>
-                    <s:if test="comments.size>0">
+
+
             <!--Second row-->
             <div class="row">
                 <!--Heading-->
                 <div class="reviews">
                     <h2 class="h2-responsive">评论</h2>
                 </div>
-                <s:iterator value="comments">
-                <t:comment>
-                    <jsp:attribute name="img">
-                        <s:property value="user.img"/>
-                    </jsp:attribute>
 
-                    <jsp:attribute name="star"><s:property value="star"/></jsp:attribute>
+                <s:if test="comments.size>0">
+                    <s:iterator value="comments">
+                        <t:comment>
+                            <jsp:attribute name="img">
+                                <s:property value="user.img"/>
+                            </jsp:attribute>
 
-                    <jsp:attribute name="text">
-                        <s:property value="content1"/>
-                    </jsp:attribute>
-                </t:comment>
-                </s:iterator>
+                            <jsp:attribute name="star"><s:property value="star"/></jsp:attribute>
+
+                            <jsp:attribute name="text">
+                                <s:property value="content1"/>
+                            </jsp:attribute>
+
+                             <jsp:attribute name="append">
+                                <s:property value="content2"/>
+                             </jsp:attribute>
+
+                             <jsp:attribute name="reply">
+                                <s:property value="adminContent"/>
+                             </jsp:attribute>
+
+                        </t:comment>
+                    </s:iterator>
+                </s:if>
+                <s:else>
+                <p>暂无评论
+                    </s:else>
+
             </div>
-                    </s:if>
-                    <s:else>
-                    <p>暂无评论
-                        </s:else>
 
             <!--/.Second row-->
         </div>

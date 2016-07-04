@@ -12,6 +12,7 @@ public class Property {
     private int proId;
     private String category;
     private String description;
+    private int selected;
     private Collection<PricedPro> pricedPros;
 
     @Id
@@ -43,6 +44,16 @@ public class Property {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+
+    @Transient
+    public int getSelected() {
+        return selected;
+    }
+
+    public void setSelected(int selected) {
+        this.selected = selected;
     }
 
     @Override

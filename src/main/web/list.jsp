@@ -23,7 +23,12 @@
                         <h6>品牌:</h6>
                         <div class="list-group">
                             <s:iterator value="pros1">
-                                <a href="#" class="list-group-item filter-list-group-item "><s:property
+                                <s:url var="property_select1" action="productListByPro" namespace="/product">
+                                    <s:param name="proIDs1"><s:property value="proId"/></s:param>
+                                </s:url>
+
+                                <a href="${property_select1}"
+                                   class="list-group-item filter-list-group-item <s:if test="#selected == 1">active</s:if>"><s:property
                                         value="description"/></a>
                             </s:iterator>
                         </div>
@@ -33,8 +38,9 @@
                         <h6>材质:</h6>
                         <div class="list-group">
                             <s:iterator value="pros2">
-                                <a href="#" class="list-group-item filter-list-group-item "><s:property
-                                        value="description"/></a>
+                                <a href="#"
+                                   class="list-group-item filter-list-group-item <s:if test="#selected == 1">active</s:if>">
+                                    <s:property value="description"/></a>
                             </s:iterator>
                         </div>
                     </div>
@@ -50,6 +56,7 @@
                     </div>
                 </div>
                 <!--/.Sidebar-->
+
                 <!--Main column-->
                 <div class="col-lg-10 col-md-9">
                     <div class="tab-content">
@@ -81,7 +88,7 @@
                                                         value="%{priceds[#i].title}"/></jsp:attribute>
                                                 <jsp:attribute name="price"><s:property
                                                         value="%{priceds[#i].unitPrice}"/></jsp:attribute>
-                                                <jsp:attribute name="pricedID"><s:property
+                                                <jsp:attribute name="pricedId"><s:property
                                                         value="%{priceds[#i].pricedId}"/></jsp:attribute>
                                             </t:product>
                                         </div>
