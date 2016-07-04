@@ -57,9 +57,11 @@ public class UserInfoAction extends ActionSupport {
     public String resetPassword(){
         user=userService.getCurrentUser();
         if(!confirmPassword.equals(user.getPassword())){
+            addFieldError("confirmPassword","旧密码不正确");
             return INPUT;
         }
         if(!newPassword.equals(confirmNewPassword)){
+            addFieldError("newPassword","验证密码不正确");
             return INPUT;
         }
 
@@ -79,26 +81,35 @@ public class UserInfoAction extends ActionSupport {
     public String sendConfirmCode(){
         user=userService.getUserByEmial(email);
 
-        if(user.equals(null))
+        if(user==null) {
+            addFieldError("email","no existing email");
             return INPUT;
 
-        if(user.getIsActivate()==0)
+        }
+        if(user.getIsActivate()==0) {
+            addFieldError("email","not confirmed email");
             return INPUT;
+        }
 
         code=(int)(Math.random()*9000)+1000;
         ActionContext.getContext().getSession().put("Code",code);
-        ActionContext.getContext().getSession().put("User",code);
+        ActionContext.getContext().getSession().put("User",user);
 
         //发送邮件
         return SUCCESS;
     }
 
     public String confirmEmail(){
-        if(Integer.parseInt(confirmCode)!=(int)ActionContext.getContext().getSession().get("Code"))
+        if(Integer.parseInt(confirmCode)!=(int)ActionContext.getContext().getSession().get("Code")) {
+            addFieldError("confirmCode","验证码错误");
             return INPUT;
+        }
 
-        if(!newPassword.equals(confirmNewPassword))
+        if(!newPassword.equals(confirmNewPassword)){
+            addFieldError("confirmNewPassword","验证密码错误");
             return INPUT;
+        }
+
 
         user=userService.getCurrentUser();
 
@@ -121,8 +132,10 @@ public class UserInfoAction extends ActionSupport {
     }
 
     public String confirmCode(){
-        if(Integer.parseInt(confirmCode)!=(int)ActionContext.getContext().getSession().get("Code"))
+        if(Integer.parseInt(confirmCode)!=(int)ActionContext.getContext().getSession().get("Code")) {
+            addFieldError("confirmCode","验证码不正确");
             return INPUT;
+        }
         user=userService.getCurrentUser();
         user.setIsActivate((byte)1);
         userService.update(user);
