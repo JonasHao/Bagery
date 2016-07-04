@@ -55,6 +55,8 @@
                         </div>
                     </div>
                 </div>
+
+               <s:a namespace="/product"  action="productListByPro" >测试专用</s:a>
                 <!--/.Sidebar-->
 
                 <!--Main column-->
