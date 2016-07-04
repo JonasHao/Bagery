@@ -103,12 +103,7 @@
                     <s:submit cssClass="grey btn btn-primary" value="保存"/>
                 </div>
             </form>
-
         </div>
-
-
-
-
         <!--/.Main layout-->
     </jsp:body>
 

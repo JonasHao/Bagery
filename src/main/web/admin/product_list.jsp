@@ -167,7 +167,7 @@
                                                     <%--url definitions   --%>
                                                 <s:url var="productDetail" action="viewProduct"
                                                        namespace="/admin">
-                                                    <s:param name="priced_id"><s:property value="pricedId"/> </s:param>
+                                                    <s:param name="pricedId"><s:property value="pricedId"/> </s:param>
                                                 </s:url>
 
                                                     <%--id--%>
@@ -197,7 +197,7 @@
                                                     <%-- 下架 --%>
                                                     <s:url var="soldOutPriced" action="soldOutPriced"
                                                            namespace="/admin">
-                                                        <s:param name="priced_id"><s:property value="pricedId"/> </s:param>
+                                                        <s:param name="pricedId"><s:property value="pricedId"/> </s:param>
                                                     </s:url>
                                                     <a href="${soldOutPriced}">
                                                     <button type="button" class="btn btn-warning"
@@ -207,7 +207,7 @@
                                                     </a>
                                                     <s:url var="deletePriced" action="deletePriced"
                                                            namespace="/admin">
-                                                        <s:param name="priced_id"><s:property value="pricedId"/> </s:param>
+                                                        <s:param name="pricedId"><s:property value="pricedId"/> </s:param>
                                                     </s:url>
                                                         <a href="${deletePriced}">
                                                     <button type="button" class="btn btn-danger"

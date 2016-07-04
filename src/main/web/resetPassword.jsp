@@ -3,7 +3,7 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
 <t:base>
-    <jsp:attribute name="title">个人信息</jsp:attribute>
+    <jsp:attribute name="title">更改密码</jsp:attribute>
 
     <jsp:attribute name="head">
             <link href="../../css/login.css" rel="stylesheet">
@@ -14,19 +14,19 @@
         <div class="container">
             <div class="widget-wrapper row">
                 <div class="card card-login col-sm-push-2 col-sm-8 col-lg-push-4 col-lg-4 ">
-                    <form class="form-user" action="update" namespace="/user"  method="POST">
+                    <form class="form-user" action="resetPassword" namespace="/user"  method="POST">
                     <div class="card-block">
 
                         <div class="md-form">
-                            <s:textfield label="用户名" id="form1"  name="username"  class="form-control" disabled="true"/>
+                            <s:textfield label="旧密码" id="form1"  name="confirmPassword"  class="form-control" disabled="false"/>
                         </div>
 
                         <div class="md-form">
-                            <s:textfield label="邮箱" name="email"  class="form-control" disabled="true"/>
+                            <s:textfield label="新密码" name="newPassword"  class="form-control" disabled="false"/>
                         </div>
 
                         <div class="md-form">
-                            <s:textfield label="姓名" name="realname" class="form-control" disabled="false"/>
+                            <s:textfield label="确认密码" name="confirmNewPassword" class="form-control" disabled="false"/>
                         </div>
 
                         <s:submit cssClass="grey btn btn-primary" value="确认"/>
