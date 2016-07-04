@@ -124,32 +124,33 @@
                 </div>
                 <!--/.First row-->
             </div>
-
+                    <s:if test="comments.size>0">
             <!--Second row-->
             <div class="row">
-
                 <!--Heading-->
                 <div class="reviews">
                     <h2 class="h2-responsive">评论</h2>
                 </div>
-
+                <s:iterator value="comments">
                 <t:comment>
                     <jsp:attribute name="img">
-                        http://mdbootstrap.com/wp-content/uploads/2015/10/team-avatar-1.jpg
+                        <s:property value="user.img"/>
                     </jsp:attribute>
 
-                    <jsp:attribute name="star">4</jsp:attribute>
+                    <jsp:attribute name="star"><s:property value="star"/></jsp:attribute>
 
                     <jsp:attribute name="text">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius totam, officiis doloremque
-                        velit nobis dolor nulla unde architecto alias praesentium, soluta error omnis sint,
-                        impedit, delectus ipsam eveniet debitis nemo.
+                        <s:property value="content1"/>
                     </jsp:attribute>
                 </t:comment>
+                </s:iterator>
             </div>
+                    </s:if>
+                    <s:else>
+                    <p>暂无评论
+                        </s:else>
+
             <!--/.Second row-->
-
-
         </div>
         <!--/.Main layout-->
 

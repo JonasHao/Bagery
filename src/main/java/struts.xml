@@ -246,7 +246,13 @@
         </action>
         <action name="updatePriced" class="action.ProductionAction" method="update">
             <result name="success" type="redirectAction">pricedList</result>
-            <result name="input"></result>
+            <result name="input">/admin/update_product.jsp</result>
+            <!--
+            <result name="input" type="redirectAction">
+                <param name="actionName">viewProduct</param>
+                <param name="namespace">/admin</param>
+                <param name="priced_id">${priced.pricedId}</param>
+            </result> -->
         </action>
         <action name="soldOutPriced" class="action.ProductionAction" method="soldOutPriced">
             <result name="success" type="redirectAction">pricedList</result>
