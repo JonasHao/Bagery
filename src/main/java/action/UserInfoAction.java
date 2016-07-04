@@ -27,7 +27,7 @@ public class UserInfoAction extends ActionSupport {
     private String confirmpassword;
 
     private int code;
-    private int confirmCode;
+    private String confirmCode;
 
     private String confirmPassword;//密码找回时，输入密码验证身份
     private String newPassword;//新密码
@@ -94,7 +94,7 @@ public class UserInfoAction extends ActionSupport {
     }
 
     public String confirmEmail(){
-        if(confirmCode!=(int)ActionContext.getContext().getSession().get("Code"))
+        if(Integer.parseInt(confirmCode)!=(int)ActionContext.getContext().getSession().get("Code"))
             return INPUT;
 
         if(!newPassword.equals(confirmNewPassword))
@@ -121,7 +121,7 @@ public class UserInfoAction extends ActionSupport {
     }
 
     public String confirmCode(){
-        if(confirmCode!=(int)ActionContext.getContext().getSession().get("Code"))
+        if(Integer.parseInt(confirmCode)!=(int)ActionContext.getContext().getSession().get("Code"))
             return INPUT;
         user=userService.getCurrentUser();
         user.setIsActivate((byte)1);
@@ -259,11 +259,11 @@ public class UserInfoAction extends ActionSupport {
         this.confirmNewPassword = confirmNewPassword;
     }
 
-    public int getConfirmCode() {
+    public String getConfirmCode() {
         return confirmCode;
     }
 
-    public void setConfirmCode(int confirmCode) {
+    public void setConfirmCode(String confirmCode) {
         this.confirmCode = confirmCode;
     }
 
