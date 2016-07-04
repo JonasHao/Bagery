@@ -43,5 +43,7 @@ public interface UserService {
      */
     int checkUserGroup(int userId);
 
+    User getUserByEmial(String email);
+
 
 }

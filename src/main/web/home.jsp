@@ -97,7 +97,7 @@
                             <br/>
                             <h5 class="h5-responsive font-weight-bold">查询积分</h5>
                             <ul>
-                                <li><s:property value="#session.User.addresses.score"/></li>
+                                <li><s:property value="#session.User.score"/></li>
                             </ul>
                         </div>
 
