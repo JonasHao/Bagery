@@ -121,16 +121,38 @@
             <result name="success">/home.jsp</result>
         </action>
 
+        <action name="viewInfo" class="action.UserInfoAction" method="viewInfo">
+            <result name="success">/profile.jsp</result>
+        </action>
+
         <action name="update" class="action.UserInfoAction" method="update">
             <!--<interceptor-ref name="loginChecker"/>-->
-            <result name="success"></result>
+            <result name="success">/home.jsp</result>
             <result name="error"></result>
             <result name="input"></result>
         </action>
 
+        <action name="openReset" class="action.UserInfoAction" method="openReset">
+            <result name="success">/resetPassword.jsp</result>
+        </action>
+
         <action name="resetPassword" class="action.UserInfoAction" method="resetPassword">
-            <result name="success"></result>
+            <result name="success">/home.jsp</result>
             <result name="input"></result>
+        </action>
+
+        <action name="openFind" class="action.UserInfoAction" method="openFind">
+            <result name="success">/FindPassword.jsp</result>
+        </action>
+
+        <action name="sendConfirmCode" class="action.UserInfoAction" method="sendConfirmCode">
+            <result name="success">/FindPassword.jsp</result>
+            <result name="input">/FindPassword.jsp</result>
+        </action>
+
+        <action name="confirmEmail" class="action.UserInfoAction" method="confirmEmail">
+            <result name="success">/home.jsp</result>
+            <result name="input">/FindPassword.jsp</result>
         </action>
     </package>
 

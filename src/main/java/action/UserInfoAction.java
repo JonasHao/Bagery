@@ -1,8 +1,11 @@
 package action;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import po.User;
 import service.UserService;
+
+import java.util.Random;
 
 /**
  * Created by zhang on 2016/6/23.
@@ -23,6 +26,9 @@ public class UserInfoAction extends ActionSupport {
     private byte isActivate;
     private String confirmpassword;
 
+    private int code;
+    private int confirmCode;
+
     private String confirmPassword;//密码找回时，输入密码验证身份
     private String newPassword;//新密码
     private String confirmNewPassword;//重新输入新密码
@@ -30,6 +36,14 @@ public class UserInfoAction extends ActionSupport {
 
     public String home(){
 //        user=userService.getCurrentUser();
+        return SUCCESS;
+    }
+
+    public String viewInfo(){
+        user=userService.getCurrentUser();
+        username=user.getUsername();
+        email=user.getEmail();
+        realname=user.getRealName();
         return SUCCESS;
     }
 
@@ -54,18 +68,47 @@ public class UserInfoAction extends ActionSupport {
         return SUCCESS;
     }
 
-    public String setConfirmCode(){
+    public String openReset(){
+        return SUCCESS;
+    }
 
+    public String openFind(){
+        return SUCCESS;
+    }
+
+    public String sendConfirmCode(){
+        user=userService.getUserByEmial(email);
+
+        if(user.equals(null))
+            return INPUT;
+
+        if(user.getIsActivate()==0)
+            return INPUT;
+
+        code=(int)(Math.random()*9000)+1000;
+        ActionContext.getContext().getSession().put("Code",code);
+        ActionContext.getContext().getSession().put("User",code);
+
+        //发送邮件
         return SUCCESS;
     }
 
     public String confirmEmail(){
+        if(confirmCode!=(int)ActionContext.getContext().getSession().get("Code"))
+            return INPUT;
 
-        return SUCCESS;
-    }
+        if(!newPassword.equals(confirmNewPassword))
+            return INPUT;
 
-    public String findPassword(){
+        user=userService.getCurrentUser();
 
+        user.setPassword(newPassword);
+
+        userService.update(user);
+
+        ActionContext.getContext().getSession().remove("Code");
+        ActionContext.getContext().getSession().remove("User");
+        ActionContext.getContext().getSession().put("User",user);
         return SUCCESS;
     }
 
@@ -195,5 +238,21 @@ public class UserInfoAction extends ActionSupport {
 
     public void setConfirmNewPassword(String confirmNewPassword) {
         this.confirmNewPassword = confirmNewPassword;
+    }
+
+    public int getConfirmCode() {
+        return confirmCode;
+    }
+
+    public void setConfirmCode(int confirmCode) {
+        this.confirmCode = confirmCode;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
     }
 }
