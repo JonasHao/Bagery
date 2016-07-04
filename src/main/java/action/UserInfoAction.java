@@ -138,6 +138,7 @@ public class UserInfoAction extends ActionSupport {
         }
         user=userService.getCurrentUser();
         user.setIsActivate((byte)1);
+
         userService.update(user);
         user=userService.getCurrentUser();
         ActionContext.getContext().getSession().remove("Code");
