@@ -57,7 +57,7 @@
                                         <jsp:attribute name="img"><s:property value="img"/></jsp:attribute>
                                         <jsp:attribute name="title"><s:property value="title"/></jsp:attribute>
                                         <jsp:attribute name="price"><s:property value="unitPrice"/></jsp:attribute>
-                                        <jsp:attribute name="pricedID"><s:property value="pricedId"/></jsp:attribute>
+                                        <jsp:attribute name="pricedId"><s:property value="pricedId"/></jsp:attribute>
                                     </t:product>
                                 </div>
                                 </s:iterator>
