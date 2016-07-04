@@ -1,0 +1,17 @@
+<!DOCTYPE validators PUBLIC "-//Apache Struts//XWork Validator 1.0.3//EN"
+        "http://struts.apache.org/dtds/xwork-validator-1.0.3.dtd">
+
+
+<validators>
+
+    <field name="unit_price">
+        <field-validator type="required" short-circuit="true">
+            <message>单价不能为空</message>
+        </field-validator>
+        <field-validator type="double" short-circuit="true">
+            <param name="minInclusive">0.00</param>
+            <param name="maxInclusive">100000000.00</param>
+            <message>单价要求在${minInclusive}和${maxInclusive}之间</message>
+        </field-validator>
+    </field>
+</validators>

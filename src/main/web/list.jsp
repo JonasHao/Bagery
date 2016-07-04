@@ -48,9 +48,7 @@
                 <!--/.Sidebar-->
                 <!--Main column-->
                 <div class="col-lg-10 col-md-9">
-
                     <div class="tab-content">
-
                         <div class="page tab-pane active" id="products-page-1" role="tabpanel">
                             <div class="row">
                                 <s:iterator value="priceds">
@@ -65,7 +63,6 @@
                                 </s:iterator>
                             </div>
                         </div>
-
 
                         <div class="page tab-pane" id="products-page-2" role="tabpanel">
                             <div class="row">

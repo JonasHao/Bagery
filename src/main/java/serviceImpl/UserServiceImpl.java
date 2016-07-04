@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getCurrentUser() {
         if(Config.DEBUG){
-            user = dao.get(User.class,2);
+            user = dao.get(User.class,1);
             return user;
         }
         user=(User)ActionContext.getContext().getSession().get(Key.USER);
