@@ -11,7 +11,6 @@ import java.util.List;
 /**
  * Created by zhang on 2016/6/27.
  */
-//todo: Update Address with Province, City, District and Detail
 public class AddressAction extends ActionSupport {
     private UserService userService;
     private AddressService addressService;
