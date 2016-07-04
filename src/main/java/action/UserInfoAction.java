@@ -112,6 +112,25 @@ public class UserInfoAction extends ActionSupport {
         return SUCCESS;
     }
 
+    public String openConfirm(){
+        user=userService.getCurrentUser();
+        code=(int)(Math.random()*9000)+1000;
+        ActionContext.getContext().getSession().put("Code",code);
+        //发送邮件
+        return SUCCESS;
+    }
+
+    public String confirmCode(){
+        if(confirmCode!=(int)ActionContext.getContext().getSession().get("Code"))
+            return INPUT;
+        user=userService.getCurrentUser();
+        user.setIsActivate((byte)1);
+        userService.update(user);
+        user=userService.getCurrentUser();
+        ActionContext.getContext().getSession().remove("Code");
+        return SUCCESS;
+    }
+
     public UserService getUserService() {
         return userService;
     }

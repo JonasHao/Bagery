@@ -154,6 +154,15 @@
             <result name="success">/home.jsp</result>
             <result name="input">/FindPassword.jsp</result>
         </action>
+
+        <action name="openConfirm" class="action.UserInfoAction" method="openConfirm">
+            <result name="success">/ConfirmEmail.jsp</result>
+        </action>
+
+        <action name="confirmCode" class="action.UserInfoAction" method="confirmCode">
+            <result name="success">/home.jsp</result>
+            <result name="input">/home.jsp</result>
+        </action>
     </package>
 
     <package name="favorite" namespace="/favorite" extends="default,json-default">
