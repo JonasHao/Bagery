@@ -58,7 +58,6 @@ public class ProductServiceImpl implements ProductService {
     public PricedPro findPricedPro(int pricedProID) {
         return dao.get(PricedPro.class, pricedProID);
     }
-
     /**
      * 获得全部商品列表
      */
@@ -68,7 +67,6 @@ public class ProductServiceImpl implements ProductService {
     public List<Priced> findAllAdmin() {
         return dao.query("from Priced").list();
     }
-
     /**
      * 通过productID删除商品对象
      */
@@ -76,20 +74,10 @@ public class ProductServiceImpl implements ProductService {
         Priced priced = dao.get(Priced.class, pricedId);
         dao.delete(priced);
     }
-
     public void deleteProduct(int productId) {
         Product product = dao.get(Product.class, productId);
         dao.delete(product);
     }
-
-    /**
-     * 根据关键词获取商品列表
-     */
-    public List<Priced> findPricedsByWord(String keyword) {
-        return dao.query("from Priced where Priced.title like '%?%'").setParameter(0, keyword).list();
-
-    }
-
     /**
      * 通过商品查找商品颜色
      */
@@ -102,8 +90,13 @@ public class ProductServiceImpl implements ProductService {
         return dao.query("from Product where pricedId=?").setParameter(0, pricedID).list();
     }
     /**
-     * 工具-属性数组转SQL字符串
+     * 根据关键词获取商品列表
      */
+    public List<Priced> findPricedsByWord(String keyword) {
+        String hql= String.format("from Priced where isExisted=1 and title like '%%%s%%'",keyword);
+        return dao.query(hql).list();
+    }
+    //属性数组转SQL字符串
     public String convertToStr(List<Integer> list) {
         StringBuilder sb = new StringBuilder("(");
         for (Integer i : list)
@@ -112,18 +105,45 @@ public class ProductServiceImpl implements ProductService {
         sb.append(")");
         return sb.toString();
     }
-
     /**
      * 通过类别信息获取商品列表
      */
     public List<Priced> findPricedsByProperty(List<Integer> pro1, List<Integer> pro2, List<Integer> pro3) {
-        String l1 = convertToStr(pro1);
-        String l2 = convertToStr(pro2);
-        String l3 = convertToStr(pro3);
-        return dao.query("select Priced from PricedPro join Priced where proId in ? and proId in ? and proId in ?").setParameter(0, l1).
-                setParameter(1, l2).setParameter(2, l3).list();
-    }
+        int t1=(int)(dao.query("from Property where category='品牌'").list().size());
+        int t2=(int)(dao.query("from Property where category='材质'").list().size())+t1;
+        for(int i=0;i<pro2.size();i++)
+            pro2.set(i,pro2.get(i)+t1);
+        for(int i=0;i<pro3.size();i++)
+            pro3.set(i,pro3.get(i)+t2);
 
+        Set<Integer> s=new HashSet<>();
+        if(pro1.size()>0) {
+            String hql= String.format("select pricedId from PricedPro where proId in %s",convertToStr(pro1));
+            List<Integer> l=dao.query(hql).list();
+            for (Integer i:l)
+                s.add(i);
+        }
+        /*
+        if(pro1.size()>0) {
+            List<String> l=dao.query("select pricedId from PricedPro where proId in ?").setParameter(0, convertToStr(pro1)).list();
+            for (String i:l)
+                s.add(i);
+        }
+        if(pro2.size()>0) {
+            List<String> l=dao.query("select pricedId from PricedPro where proId in ?").setParameter(0, convertToStr(pro2)).list();
+            for (String i:l)
+                s.add(i);
+        }
+        if(pro3.size()>0) {
+            List<String> l=dao.query("select pricedId from PricedPro where proId in ?").setParameter(0, convertToStr(pro3)).list();
+            for (String i:l)
+                s.add(i);
+        }
+        */
+        for (Integer i:s)
+            System.out.println(i);
+        return null;
+    }
     /**
      * 通过用户ID找历史记录
      */
@@ -161,5 +181,13 @@ public class ProductServiceImpl implements ProductService {
         List<PricedPro> pps=findPricedProByPriced(pricedID);
         for(PricedPro pp :pps)
             dao.delete(pp);
+    }
+    //添加浏览记录
+    public void addRecord(int userID,int pricedID)
+    {
+        UserPricedRecord record=new UserPricedRecord();
+        record.setUserId(userID);
+        record.setPricedId(pricedID);
+        dao.save(record);
     }
 }

@@ -258,10 +258,10 @@
             <result name="success">/history.jsp</result>
         </action>
         <action name="productListByWord" class="action.ProductionAction" method="findPricedsByWord">
-            <result name="success"></result>
+            <result name="success">/list.jsp</result>
         </action>
         <action name="productListByPro" class="action.ProductionAction" method="findPricedsByPro">
-            <result name="success"></result>
+            <result name="success">/list.jsp</result>
         </action>
     </package>
 

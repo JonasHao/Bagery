@@ -45,6 +45,8 @@
                         </div>
                     </div>
                 </div>
+
+               <s:a namespace="/product"  action="productListByPro" >测试专用</s:a>
                 <!--/.Sidebar-->
                 <!--Main column-->
                 <div class="col-lg-10 col-md-9">

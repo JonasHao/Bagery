@@ -60,4 +60,5 @@ public interface ProductService {
     List<Integer> findProIDsByPriced(int pricedID);
     void deleteProductsByPriced(int pricedID);
     void deletePricedProsByPriced(int pricedID);
+    void addRecord(int userID,int pricedID);
 }

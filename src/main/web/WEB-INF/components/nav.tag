@@ -30,8 +30,8 @@
 
                     </ul>
                     <!--Search form-->
-                    <s:form class="form-inline">
-                        <input class="form-control" type="text" placeholder="Search">
+                    <s:form class="form-inline" action="productListByWord" namespace="/product">
+                        <input class="form-control" type="text" placeholder="Search" name="word">
                     </s:form>
 
                 </div>

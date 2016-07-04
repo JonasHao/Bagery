@@ -9,6 +9,9 @@ import service.ProductService;
 import po.*;
 import service.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import java.util.ArrayList;
+
 public class ProductionAction extends DefaultActionSupport {
     private int product_id;
     private int pricedId;
@@ -80,6 +83,9 @@ public class ProductionAction extends DefaultActionSupport {
             priced = productService.findPriced(pricedId);
             products = productService.findProductsByPriced(pricedId);
             comments = commentService.getByPricedId(pricedId);
+
+            user = userService.getCurrentUser();
+            productService.addRecord(user.getUserId(),pricedId);
             return SUCCESS;
         } catch (HibernateException e) {
             e.printStackTrace();
@@ -132,17 +138,18 @@ public class ProductionAction extends DefaultActionSupport {
             return ERROR;
         }
     }
-    /*
-    public String deleteProduct() {
+    public String putOnPriced()
+    {
         try {
-            productService.deleteProduct(product_id);
+            priced = productService.findPriced(pricedId);
+            priced.setIsExisted(1);
+            productService.updatePriced(priced);
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
             return ERROR;
         }
     }
-    */
     public String soldOutPriced() {
         try {
             priced = productService.findPriced(pricedId);
@@ -169,11 +176,6 @@ public class ProductionAction extends DefaultActionSupport {
     public String viewPricedListAdmin() {
         try {
             priceds = productService.findAllAdmin();
-            /*
-            pros1 = productService.findProsByCategory("品牌");
-            pros2 = productService.findProsByCategory("材质");
-            pros3 = productService.findProsByCategory("款式");
-            */
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -193,6 +195,9 @@ public class ProductionAction extends DefaultActionSupport {
     public String findPricedsByWord() {
         try {
             priceds = productService.findPricedsByWord(word);
+            pros1 = productService.findProsByCategory("品牌");
+            pros2 = productService.findProsByCategory("材质");
+            pros3 = productService.findProsByCategory("款式");
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -201,7 +206,15 @@ public class ProductionAction extends DefaultActionSupport {
     }
     public String findPricedsByPro() {
         try {
-            priceds = productService.findPricedsByProperty(proIDs1, proIDs2, proIDs3);
+            List<Integer> l1 = new ArrayList<Integer>();
+            l1.add(1);
+            List<Integer> l2 = new ArrayList<Integer>();
+            l2.add(2);
+            priceds = productService.findPricedsByProperty(l1, l1, l2);
+            //priceds = productService.findPricedsByProperty(proIDs1, proIDs2, proIDs3);
+            pros1 = productService.findProsByCategory("品牌");
+            pros2 = productService.findProsByCategory("材质");
+            pros3 = productService.findProsByCategory("款式");
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
