@@ -3,6 +3,7 @@ package action;
 import java.util.*;
 
 import com.opensymphony.xwork2.ActionContext;
+import constant.Key;
 import org.apache.struts2.dispatcher.DefaultActionSupport;
 import org.hibernate.HibernateException;
 import service.ProductService;
@@ -17,6 +18,7 @@ public class ProductionAction extends DefaultActionSupport {
     private int pricedId;
     private int pricedpro_id;
     private int user_id;
+    private int pro_id;
     private String title;
     private String description;
     private double unit_price;
@@ -34,14 +36,9 @@ public class ProductionAction extends DefaultActionSupport {
     private List<Priced> priceds;
 
     private List<Property> pros;
-    private List<Property> pros1;
-    private List<Property> pros2;
-    private List<Property> pros3;
-
+    private List<List<Property>> pross;
     private List<Integer> proIDs;
-    private List<Integer> proIDs1;
-    private List<Integer> proIDs2;
-    private List<Integer> proIDs3;
+    private List<List<Integer>> proIDss;
 
     private List<UserPricedRecord> records;
     private List<Comment> comments;
@@ -49,6 +46,8 @@ public class ProductionAction extends DefaultActionSupport {
     private UserService userService;
     private CommentService commentService;
     private Map<Integer,String> productMap;
+
+    private List<Map<Integer,String>> proNames;
 
     public String add() {
         try {
@@ -75,6 +74,7 @@ public class ProductionAction extends DefaultActionSupport {
                 pricedPro.setProId(proID);
                 productService.addPricedPro(pricedPro);
             }
+
             return SUCCESS;
         } catch (HibernateException e) {
             e.printStackTrace();
@@ -94,13 +94,19 @@ public class ProductionAction extends DefaultActionSupport {
             e.printStackTrace();
             return ERROR;
         }
+        catch (NullPointerException e){
+            e.printStackTrace();
+            return ERROR;
+        }
     }
     public String viewProductAdmin() {
         try {
-            priced = productService.findPriced(pricedId);
-            products = productService.findProductsByPricedAdmin(pricedId);
-            proIDs=productService.findProIDsByPriced(pricedId);
-            //comments = commentService.getByPricedId(priced_id);
+            proNames=productService.getProNames();
+            if(pricedId!=0) {
+                priced = productService.findPriced(pricedId);
+                products = productService.findProductsByPricedAdmin(pricedId);
+                proIDs = productService.findProIDsByPriced(pricedId);
+            }
             return SUCCESS;
         } catch (HibernateException e) {
             e.printStackTrace();
@@ -167,9 +173,7 @@ public class ProductionAction extends DefaultActionSupport {
     public String viewPricedList() {
         try {
             priceds = productService.findAll();
-            pros1 = productService.findProsByCategory("品牌");
-            pros2 = productService.findProsByCategory("材质");
-            pros3 = productService.findProsByCategory("款式");
+            pross=productService.getPross();
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -198,30 +202,48 @@ public class ProductionAction extends DefaultActionSupport {
     public String findPricedsByWord() {
         try {
             priceds = productService.findPricedsByWord(word);
-            pros1 = productService.findProsByCategory("品牌");
-            pros2 = productService.findProsByCategory("材质");
-            pros3 = productService.findProsByCategory("款式");
+            pross=productService.getPross();
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
             return ERROR;
         }
     }
+    private void handlePro(List<List<Integer>> proIDss,int category,int pro_id)
+    {
+        if(proIDss.get(category).indexOf(pro_id)<0)
+            proIDss.get(category).add(pro_id);
+        else
+            proIDss.get(category).remove(proIDss.get(category).indexOf(pro_id));
+    }
     public String findPricedsByPro() {
         try {
-            /*
-            List<Integer> l1 = new ArrayList<Integer>();
-            l1.add(1);
-            List<Integer> l2 = new ArrayList<Integer>();
-            l2.add(1);
-            List<Integer> l3 = new ArrayList<Integer>();
-            l3.add(2);
-            priceds = productService.findPricedsByProperty(l1, l2, l3);
-            */
-            priceds = productService.findPricedsByProperty(proIDs1, proIDs2, proIDs3);
-            pros1 = productService.findProsByCategory("品牌");
-            pros2 = productService.findProsByCategory("材质");
-            pros3 = productService.findProsByCategory("款式");
+            if(ActionContext.getContext().getSession().get(Key.PROID)==null) {
+                proIDss = new ArrayList<>(3);
+                for(int i=0;i<3;i++)
+                    proIDss.add(new ArrayList<>());
+            }
+            else {
+                proIDss = (List<List<Integer>>) ActionContext.getContext().getSession().get(Key.PROID);
+            }
+
+            String category=productService.getProByProID(pro_id);
+            if(category!=null) {
+                switch (category) {
+                    case "品牌":
+                        handlePro(proIDss,0,pro_id);
+                        break;
+                    case "材质":
+                        handlePro(proIDss,1,pro_id);
+                        break;
+                    case "款式":
+                        handlePro(proIDss,2,pro_id);
+                        break;
+                }
+                ActionContext.getContext().getSession().put(Key.PROID,proIDss);
+            }
+            priceds = productService.findPricedsByProperty(proIDss.get(0), proIDss.get(1),proIDss.get(2));
+            pross=productService.getPross();
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -397,30 +419,6 @@ public class ProductionAction extends DefaultActionSupport {
         this.pricedPro = pricedPro;
     }
 
-    public List<Property> getPros1() {
-        return pros1;
-    }
-
-    public void setPros1(List<Property> pros1) {
-        this.pros1 = pros1;
-    }
-
-    public List<Property> getPros2() {
-        return pros2;
-    }
-
-    public void setPros2(List<Property> pros2) {
-        this.pros2 = pros2;
-    }
-
-    public List<Property> getPros3() {
-        return pros3;
-    }
-
-    public void setPros3(List<Property> pros3) {
-        this.pros3 = pros3;
-    }
-
     public List<Property> getPros() {
         return pros;
     }
@@ -429,28 +427,12 @@ public class ProductionAction extends DefaultActionSupport {
         this.pros = pros;
     }
 
-    public List<Integer> getProIDs1() {
-        return proIDs1;
+    public List<List<Property>> getPross() {
+        return pross;
     }
 
-    public void setProIDs1(List<Integer> proIDs1) {
-        this.proIDs1 = proIDs1;
-    }
-
-    public List<Integer> getProIDs2() {
-        return proIDs2;
-    }
-
-    public void setProIDs2(List<Integer> proIDs2) {
-        this.proIDs2 = proIDs2;
-    }
-
-    public List<Integer> getProIDs3() {
-        return proIDs3;
-    }
-
-    public void setProIDs3(List<Integer> proIDs3) {
-        this.proIDs3 = proIDs3;
+    public void setPross(List<List<Property>> pross) {
+        this.pross = pross;
     }
 
     public void setUnit_price(double unit_price) {
@@ -499,5 +481,29 @@ public class ProductionAction extends DefaultActionSupport {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public int getPro_id() {
+        return pro_id;
+    }
+
+    public void setPro_id(int pro_id) {
+        this.pro_id = pro_id;
+    }
+
+    public List<Map<Integer,String>> getProNames() {
+        return proNames;
+    }
+
+    public void setProNames(List<Map<Integer,String>> proNames) {
+        this.proNames = proNames;
+    }
+
+    public List<List<Integer>> getProIDss() {
+        return proIDss;
+    }
+
+    public void setProIDss(List<List<Integer>> proIDss) {
+        this.proIDss = proIDss;
     }
 }

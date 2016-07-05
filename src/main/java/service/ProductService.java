@@ -4,6 +4,7 @@ package service;
 import po.*;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ProductService {
     /**
@@ -61,4 +62,9 @@ public interface ProductService {
     void deleteProductsByPriced(int pricedID);
     void deletePricedProsByPriced(int pricedID);
     void addRecord(int userID,int pricedID);
+
+    List<Map<Integer,String>> getProNames();
+    Property getPro(int proID);
+    String getProByProID(int proID);
+    List<List<Property>> getPross();
 }

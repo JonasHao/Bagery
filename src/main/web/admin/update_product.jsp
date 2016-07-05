@@ -47,7 +47,8 @@
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="/admin/add_product.jsp">发布商品</a></li>
+                            <s:url action="viewProduct" namespace="/admin" var="addLink" />
+                            <a href="${addLink}">发布商品</a></li>
                         <li>
                             <s:url action="pricedList" namespace="/admin" var="Link" />
                             <a href="${Link}">商品列表</a></li>
@@ -204,7 +205,7 @@
                                                     <div class="col-sm-4">
                                                         <%--todo: s:select的list属性设置成action中的List--%>
                                                         <s:select
-                                                                list="#{'1':'A品牌', '2':'B品牌'}"
+                                                                list="proNames[0]"
                                                                 name="proIDs[0]" cssClass="form-control m-b">
                                                         </s:select>
                                                     </div>
@@ -213,7 +214,7 @@
                                                     <label class="col-sm-4 control-label"
                                                            style="font-weight:normal;">材质</label>
                                                     <div class="col-sm-4">
-                                                        <s:select list="#{'3':'A材质'}"
+                                                        <s:select list="proNames[1]"
                                                                   name="proIDs[1]" cssClass="form-control m-b"/>
                                                     </div>
                                                 </div>
@@ -221,7 +222,7 @@
                                                     <label class="col-sm-4 control-label"
                                                            style="font-weight:normal;">款式</label>
                                                     <div class="col-sm-4">
-                                                        <s:select list="#{'4':'A款式', '5':'B款式', '6':'C款式'}"
+                                                        <s:select list="proNames[2]"
                                                                   name="proIDs[2]" cssClass="form-control m-b"/>
                                                     </div>
                                                 </div>
