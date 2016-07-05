@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE validators PUBLIC
+        "-//OpenSymphony Group//XWork Validator 1.0.2//EN"
+        "http://www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+
+<validators>
+    <field name="receiver">
+        <field-validator type="required" short-circuit="true">
+            <message>收件人不可为空！</message>
+        </field-validator>
+    </field>
+
+    <field name="mobile">
+        <field-validator type="required" short-circuit="true">
+            <message>手机号不可为空！</message>
+        </field-validator>
+    </field>
+
+    <field name="addressProvince">
+        <field-validator type="required" short-circuit="true">
+            <message>省不可为空！</message>
+        </field-validator>
+    </field>
+
+    <field name="addressCity">
+        <field-validator type="required" short-circuit="true">
+            <message>市不可为空！</message>
+        </field-validator>
+    </field>
+
+    <field name="addressDetail">
+        <field-validator type="required" short-circuit="true">
+            <message>区不可为空！</message>
+        </field-validator>
+    </field>
+</validators>
