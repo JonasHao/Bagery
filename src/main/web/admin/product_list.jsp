@@ -167,7 +167,7 @@
                                                     <%--url definitions   --%>
                                                 <s:url var="productDetail" action="viewProduct"
                                                        namespace="/admin">
-                                                    <s:param name="priced_id"><s:property value="pricedId"/> </s:param>
+                                                    <s:param name="pricedId"><s:property value="pricedId"/> </s:param>
                                                 </s:url>
 
                                                     <%--id--%>

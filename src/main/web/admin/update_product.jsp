@@ -153,7 +153,7 @@
                                     <form action="updatePriced" namespace="/admin"  class="form-horizontal">
                                         <div class="form-group">
 
-                                         <input hidden="true" type="text" name="priced.pricedId" value="<s:property value="priced_id"/>" >
+                                         <input hidden="true" type="text" name="priced.pricedId" value="<s:property value="pricedId"/>" >
 
                                         </div>
 

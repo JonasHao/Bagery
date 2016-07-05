@@ -125,31 +125,45 @@
                 <!--/.First row-->
             </div>
 
+
             <!--Second row-->
             <div class="row">
-
                 <!--Heading-->
                 <div class="reviews">
                     <h2 class="h2-responsive">评论</h2>
                 </div>
 
-                <t:comment>
-                    <jsp:attribute name="img">
-                        http://mdbootstrap.com/wp-content/uploads/2015/10/team-avatar-1.jpg
-                    </jsp:attribute>
+                <s:if test="comments.size>0">
+                    <s:iterator value="comments">
+                        <t:comment>
+                            <jsp:attribute name="img">
+                                <s:property value="user.img"/>
+                            </jsp:attribute>
 
-                    <jsp:attribute name="star">4</jsp:attribute>
+                            <jsp:attribute name="star"><s:property value="star"/></jsp:attribute>
 
-                    <jsp:attribute name="text">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius totam, officiis doloremque
-                        velit nobis dolor nulla unde architecto alias praesentium, soluta error omnis sint,
-                        impedit, delectus ipsam eveniet debitis nemo.
-                    </jsp:attribute>
-                </t:comment>
+                            <jsp:attribute name="text">
+                                <s:property value="content1"/>
+                            </jsp:attribute>
+
+                             <jsp:attribute name="append">
+                                <s:property value="content2"/>
+                             </jsp:attribute>
+
+                             <jsp:attribute name="reply">
+                                <s:property value="adminContent"/>
+                             </jsp:attribute>
+
+                        </t:comment>
+                    </s:iterator>
+                </s:if>
+                <s:else>
+                <p>暂无评论
+                    </s:else>
+
             </div>
+
             <!--/.Second row-->
-
-
         </div>
         <!--/.Main layout-->
 

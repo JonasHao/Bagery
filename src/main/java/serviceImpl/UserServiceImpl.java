@@ -82,6 +82,15 @@ public class UserServiceImpl implements UserService {
             return false;
     }
 
+    public User getUserByEmial(String email){
+        userList=dao.query("from User where email=?").setParameter(0,email).list();
+        if(userList.size()!=0){
+            return userList.get(0);
+        }
+        else
+            return null;
+    }
+
     @Override
     public void register(User user) {
         dao.save(user);
