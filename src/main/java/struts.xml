@@ -272,18 +272,15 @@
             <result name="success" type="redirectAction">pricedList</result>
             <result name="input">/admin/add_product.jsp</result>
         </action>
+        <action name="pricedList" class="action.ProductionAction" method="viewPricedListAdmin">
+            <result name="success">/admin/product_list.jsp</result>
+        </action>
         <action name="viewProduct" class="action.ProductionAction" method="viewProductAdmin">
             <result name="success">/admin/update_product.jsp</result>
         </action>
         <action name="updatePriced" class="action.ProductionAction" method="update">
             <result name="success" type="redirectAction">pricedList</result>
             <result name="input">/admin/update_product.jsp</result>
-            <!--
-            <result name="input" type="redirectAction">
-                <param name="actionName">viewProduct</param>
-                <param name="namespace">/admin</param>
-                <param name="priced_id">${priced.pricedId}</param>
-            </result> -->
         </action>
         <action name="soldOutPriced" class="action.ProductionAction" method="soldOutPriced">
             <result name="success" type="redirectAction">pricedList</result>
@@ -291,9 +288,5 @@
         <action name="deletePriced" class="action.ProductionAction" method="deletePriced">
             <result name="success" type="redirectAction">pricedList</result>
         </action>
-        <action name="pricedList" class="action.ProductionAction" method="viewPricedListAdmin">
-            <result name="success">/admin/product_list.jsp</result>
-        </action>
-
     </package>
 </struts>

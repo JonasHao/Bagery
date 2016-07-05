@@ -209,12 +209,16 @@ public class ProductionAction extends DefaultActionSupport {
     }
     public String findPricedsByPro() {
         try {
+            /*
             List<Integer> l1 = new ArrayList<Integer>();
             l1.add(1);
             List<Integer> l2 = new ArrayList<Integer>();
-            l2.add(2);
-            priceds = productService.findPricedsByProperty(l1, l1, l2);
-            //priceds = productService.findPricedsByProperty(proIDs1, proIDs2, proIDs3);
+            l2.add(1);
+            List<Integer> l3 = new ArrayList<Integer>();
+            l3.add(2);
+            priceds = productService.findPricedsByProperty(l1, l2, l3);
+            */
+            priceds = productService.findPricedsByProperty(proIDs1, proIDs2, proIDs3);
             pros1 = productService.findProsByCategory("品牌");
             pros2 = productService.findProsByCategory("材质");
             pros3 = productService.findProsByCategory("款式");

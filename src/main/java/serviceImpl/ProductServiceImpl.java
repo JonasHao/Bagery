@@ -109,40 +109,36 @@ public class ProductServiceImpl implements ProductService {
      * 通过类别信息获取商品列表
      */
     public List<Priced> findPricedsByProperty(List<Integer> pro1, List<Integer> pro2, List<Integer> pro3) {
-        int t1=(int)(dao.query("from Property where category='品牌'").list().size());
-        int t2=(int)(dao.query("from Property where category='材质'").list().size())+t1;
+        int t1= dao.query("from Property where category='品牌'").list().size();
+        int t2=dao.query("from Property where category='材质'").list().size()+t1;
         for(int i=0;i<pro2.size();i++)
             pro2.set(i,pro2.get(i)+t1);
         for(int i=0;i<pro3.size();i++)
             pro3.set(i,pro3.get(i)+t2);
 
-        Set<Integer> s=new HashSet<>();
+        List<Integer> l1=new ArrayList<>();
         if(pro1.size()>0) {
             String hql= String.format("select pricedId from PricedPro where proId in %s",convertToStr(pro1));
-            List<Integer> l=dao.query(hql).list();
-            for (Integer i:l)
-                s.add(i);
+            l1=dao.query(hql).list();
         }
-        /*
-        if(pro1.size()>0) {
-            List<String> l=dao.query("select pricedId from PricedPro where proId in ?").setParameter(0, convertToStr(pro1)).list();
-            for (String i:l)
-                s.add(i);
-        }
+        List<Integer> l2=new ArrayList<>();
         if(pro2.size()>0) {
-            List<String> l=dao.query("select pricedId from PricedPro where proId in ?").setParameter(0, convertToStr(pro2)).list();
-            for (String i:l)
-                s.add(i);
+            String hql= String.format("select pricedId from PricedPro where proId in %s",convertToStr(pro2));
+            l2=dao.query(hql).list();
         }
+        List<Integer> l3=new ArrayList<>();
         if(pro3.size()>0) {
-            List<String> l=dao.query("select pricedId from PricedPro where proId in ?").setParameter(0, convertToStr(pro3)).list();
-            for (String i:l)
-                s.add(i);
+            String hql= String.format("select pricedId from PricedPro where proId in %s",convertToStr(pro3));
+            l3=dao.query(hql).list();
         }
-        */
-        for (Integer i:s)
-            System.out.println(i);
-        return null;
+
+        l1.retainAll(l2);
+        l1.retainAll(l3);
+
+        List<Priced> priceds=new ArrayList<>(l1.size());
+        for (Integer i:l1)
+            priceds.add(findPriced(i));
+        return priceds;
     }
     /**
      * 通过用户ID找历史记录
