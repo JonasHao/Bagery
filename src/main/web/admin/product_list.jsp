@@ -46,7 +46,7 @@
                             <s:url action="viewProduct" namespace="/admin" var="addLink" />
                             <a href="${addLink}">发布商品</a></li>
                         <li class="active">
-                            <s:url action="pricedList" namespace="/admin" var="listLink" />
+                            <s:url action="pricedList" namespace="/admin" var="listLink"/>
                             <a href="${listLink}">商品列表</a></li>
                     </ul>
                 </li>
@@ -191,31 +191,55 @@
                                                     <a href="${productDetail}">
                                                         <button type="button"
                                                                 class="btn btn-info"
-                                                            style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">
+                                                                style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">
                                                             更新
                                                         </button>
                                                     </a>
-                                                    <%-- 下架 --%>
-                                                    <s:url var="soldOutPriced" action="soldOutPriced"
-                                                           namespace="/admin">
-                                                        <s:param name="pricedId"><s:property value="pricedId"/> </s:param>
-                                                    </s:url>
-                                                    <a href="${soldOutPriced}">
-                                                    <button type="button" class="btn btn-warning"
-                                                            style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">
-                                                        下架
-                                                    </button>
-                                                    </a>
+
+                                                    <s:if test="isExisted==1">
+                                                        <%-- 下架 --%>
+                                                        <s:url var="soldOutPriced" action="soldOutPriced"
+                                                               namespace="/admin">
+                                                            <s:param name="priced_id"><s:property value="pricedId"/>
+                                                            </s:param>
+                                                        </s:url>
+                                                        <a href="${soldOutPriced}">
+                                                            <button type="button" class="btn btn-warning"
+                                                                    style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">
+                                                                下架
+                                                            </button>
+                                                        </a>
+                                                        <%-- /下架 --%>
+                                                    </s:if>
+
+                                                    <s:else>
+                                                        <%-- 上架 --%>
+                                                        <s:url var="soldOutPriced" action="soldOutPriced"
+                                                               namespace="/admin">
+                                                            <s:param name="priced_id"><s:property value="pricedId"/>
+                                                            </s:param>
+                                                        </s:url>
+                                                        <a href="${soldOutPriced}">
+                                                            <button type="button" class="btn btn-primary"
+                                                                    style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">
+                                                                上架
+                                                            </button>
+                                                        </a>
+
+                                                        <%-- /上架 --%>
+                                                    </s:else>
+
                                                     <s:url var="deletePriced" action="deletePriced"
                                                            namespace="/admin">
-                                                        <s:param name="pricedId"><s:property value="pricedId"/> </s:param>
+                                                        <s:param name="priced_id"><s:property value="pricedId"/>
+                                                        </s:param>
                                                     </s:url>
-                                                        <a href="${deletePriced}">
-                                                    <button type="button" class="btn btn-danger"
-                                                            style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">
-                                                        删除
-                                                    </button>
-                                                        </a>
+                                                    <a href="${deletePriced}">
+                                                        <button type="button" class="btn btn-danger"
+                                                                style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">
+                                                            删除
+                                                        </button>
+                                                    </a>
                                                 </td>
                                             </tr>
                                         </s:iterator>
