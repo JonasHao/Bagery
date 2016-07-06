@@ -89,7 +89,6 @@
         </div>
         <!-- /.Live preview-->
 
-
         <!--Main layout-->
         <div class="container">
 

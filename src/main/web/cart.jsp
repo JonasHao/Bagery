@@ -79,7 +79,7 @@
 
 
                 <div class="pull-right">
-                    <s:submit class="btn btn-primary">结算</s:submit>
+                    <s:submit cssClass="btn btn-primary btn-input blue-grey" value="结算"/>
                 </div>
             </form>
         </div>
