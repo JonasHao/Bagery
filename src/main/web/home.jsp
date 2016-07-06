@@ -118,8 +118,8 @@
                         <div class="col-sm-6">
                             <h5 class="h5-responsive font-weight-bold">账户设置</h5>
                             <ul>
-                                <li><a href="#">更改密码</a></li>
-                                <li><a href="#">修改个人资料</a></li>
+                                <li><s:a action="openReset" namespace="/user">更改密码</s:a></li>
+                                <li><s:a action="viewInfo" namespace="/user">修改个人资料</s:a></li>
                             </ul>
 
                         </div>

@@ -50,6 +50,7 @@ public class UserInfoAction extends ActionSupport {
         username=user.getUsername();
         email=user.getEmail();
         realname=user.getRealName();
+        isActivate=user.getIsActivate();
         return SUCCESS;
     }
 

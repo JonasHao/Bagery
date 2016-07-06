@@ -30,7 +30,7 @@
                         </div>
 
                         <s:submit cssClass="grey btn btn-primary" value="确认"/>
-                        <a href="home.jsp">取消</a>
+                        <s:a action="home" namespace="/user">取消</s:a>
                     </div>
                     </form>
                 </div>
