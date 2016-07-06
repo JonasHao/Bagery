@@ -1,10 +1,11 @@
-<!DOCTYPE validators PUBLIC "-//Apache Struts//XWork Validator 1.0.3//EN"
-        "http://struts.apache.org/dtds/xwork-validator-1.0.3.dtd">
+<!DOCTYPE validators PUBLIC
+        "-//Apache Struts//XWork Validator 1.0.2//EN"
+        "http://struts.apache.org/dtds/xwork-validator-1.0.2.dtd">
 
 
 <validators>
-    <field name="title">
-        <field-validator type="required" short-circuit="true">
+    <field name="priced.title">
+        <field-validator type="requiredstring" short-circuit="true">
             <message>标题不能为空</message>
         </field-validator>
         <field-validator type="stringlength" short-circuit="true">
@@ -14,7 +15,7 @@
         </field-validator>
     </field>
 
-    <field name="unit_price">
+    <field name="priced.unitPrice">
         <field-validator type="required" short-circuit="true">
             <message>单价不能为空</message>
         </field-validator>
@@ -25,7 +26,7 @@
         </field-validator>
     </field>
 
-    <field name="sale_price">
+    <field name="priced.salePrice">
         <field-validator type="double">
             <param name="minInclusive">0.00</param>
             <param name="maxInclusive">100000000.00</param>
@@ -43,9 +44,8 @@
 
     <field name="stock">
         <field-validator type="int">
-            <param name="min">1</param>
-            <message>数量要求为正整数</message>
+            <param name="min">0</param>
+            <message>库存要求为非负整数</message>
         </field-validator>
     </field>
-
 </validators>

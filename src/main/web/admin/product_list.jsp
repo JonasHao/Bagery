@@ -44,7 +44,7 @@
                     <ul class="nav nav-second-level">
                         <li>
                             <s:url action="viewProduct" namespace="/admin" var="addLink" />
-                            <a href="${addLink}">发布商品</a></li>
+                            <a href="add_product.jsp">发布商品</a></li>
                         <li class="active">
                             <s:url action="pricedList" namespace="/admin" var="listLink"/>
                             <a href="${listLink}">商品列表</a></li>

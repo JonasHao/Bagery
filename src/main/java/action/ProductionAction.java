@@ -48,15 +48,15 @@ public class ProductionAction extends DefaultActionSupport {
     private ProductService productService;
     private UserService userService;
     private CommentService commentService;
-    private Map<Integer,String> productMap;
+    private Map<Integer, String> productMap;
 
-//    private List<Map<Integer,String>> proNames;
+
     private List<List<Property>> proNames;
 
 
     public String add() {
         try {
-            priced=new Priced();
+            priced = new Priced();
             priced.setTitle(title);
             priced.setDescription(description);
             priced.setImg(img);
@@ -66,12 +66,11 @@ public class ProductionAction extends DefaultActionSupport {
             productService.addPriced(priced);
             pricedId = priced.getPricedId();
             for (Product product : products) {
-                if (product.getColor() == null) {
+                if (product.getColor().length() < 1) {
                     continue;
                 }
                 product.setPricedId(pricedId);
                 productService.addProduct(product);
-                System.out.println(product);
             }
             for (Integer proID : proIDs) {
                 pricedPro = new PricedPro();
@@ -86,6 +85,7 @@ public class ProductionAction extends DefaultActionSupport {
             return ERROR;
         }
     }
+
     public String viewProduct() {
         try {
             priced = productService.findPriced(pricedId);
@@ -93,42 +93,49 @@ public class ProductionAction extends DefaultActionSupport {
             comments = commentService.getByPricedId(pricedId);
 
             user = userService.getCurrentUser();
-            productService.addRecord(user.getUserId(),pricedId);
+            productService.addRecord(user.getUserId(), pricedId);
             return SUCCESS;
         } catch (HibernateException e) {
             e.printStackTrace();
             return ERROR;
-        }
-        catch (NullPointerException e){
+        } catch (NullPointerException e) {
             e.printStackTrace();
             return ERROR;
         }
     }
+
     public String viewProductAdmin() {
         try {
-            proNames=productService.getPross();
-            pros1=proNames.get(0);
-            pros2=proNames.get(1);
-            pros3=proNames.get(2);
-            if(pricedId!=0) {
+            proNames = productService.getPross();
+            pros1 = proNames.get(0);
+            pros2 = proNames.get(1);
+            pros3 = proNames.get(2);
+            if (pricedId != 0) {
                 priced = productService.findPriced(pricedId);
                 products = productService.findProductsByPricedAdmin(pricedId);
                 proIDs = productService.findProIDsByPriced(pricedId);
+                return SUCCESS;
             }
-            return SUCCESS;
+            return ERROR;
         } catch (HibernateException e) {
             e.printStackTrace();
             return ERROR;
         }
     }
+
     public String update() {
         try {
-            productService.updatePriced(priced);
-            pricedId=priced.getPricedId();
+            Priced p=productService.findPriced(pricedId);
+            p.setTitle(priced.getTitle());
+            p.setDescription(priced.getDescription());
+            p.setImg(priced.getImg());
+            p.setUnitPrice(priced.getUnitPrice());
+            p.setSalePrice(priced.getSalePrice());
+            productService.updatePriced(p);
             productService.deleteProductsByPriced(pricedId);
             productService.deletePricedProsByPriced(pricedId);
             for (Product product : products) {
-                if (product.getColor() == null) {
+                if (product.getColor().length() < 1) {
                     continue;
                 }
                 product.setPricedId(pricedId);
@@ -146,48 +153,62 @@ public class ProductionAction extends DefaultActionSupport {
             return ERROR;
         }
     }
+
     public String deletePriced() {
         try {
-            productService.deletePriced(pricedId);
-            return SUCCESS;
+            if (productService.findPriced(pricedId) != null) {
+                productService.deletePriced(pricedId);
+                return SUCCESS;
+            }
+            return INPUT;
         } catch (Exception e) {
             e.printStackTrace();
             return ERROR;
         }
     }
-    public String putOnPriced()
-    {
+
+    public String putOnPriced() {
         try {
-            priced = productService.findPriced(pricedId);
-            priced.setIsExisted(1);
-            productService.updatePriced(priced);
-            return SUCCESS;
+            if (productService.findPriced(pricedId) != null) {
+                priced = productService.findPriced(pricedId);
+                priced.setIsExisted(1);
+                productService.updatePriced(priced);
+                return SUCCESS;
+            }
+            return INPUT;
         } catch (Exception e) {
             e.printStackTrace();
             return ERROR;
         }
     }
+
     public String soldOutPriced() {
         try {
-            priced = productService.findPriced(pricedId);
-            priced.setIsExisted(0);
-            productService.updatePriced(priced);
-            return SUCCESS;
+            if (productService.findPriced(pricedId) != null) {
+                priced = productService.findPriced(pricedId);
+                priced.setIsExisted(0);
+                productService.updatePriced(priced);
+                return SUCCESS;
+            }
+
+            return INPUT;
         } catch (Exception e) {
             e.printStackTrace();
             return ERROR;
         }
     }
+
     public String viewPricedList() {
         try {
             priceds = productService.findAll();
-            pross=productService.getPross();
+            pross = productService.getPross();
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
             return ERROR;
         }
     }
+
     public String viewPricedListAdmin() {
         try {
             priceds = productService.findAllAdmin();
@@ -197,6 +218,7 @@ public class ProductionAction extends DefaultActionSupport {
             return ERROR;
         }
     }
+
     public String viewHistoryRecord() {
         try {
             user = userService.getCurrentUser();
@@ -207,51 +229,52 @@ public class ProductionAction extends DefaultActionSupport {
             return ERROR;
         }
     }
+
     public String findPricedsByWord() {
         try {
             priceds = productService.findPricedsByWord(word);
-            pross=productService.getPross();
+            pross = productService.getPross();
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
             return ERROR;
         }
     }
-    private void handlePro(List<List<Integer>> proIDss,int category,int pro_id)
-    {
-        if(proIDss.get(category).indexOf(pro_id)<0)
+
+    private void handlePro(List<List<Integer>> proIDss, int category, int pro_id) {
+        if (proIDss.get(category).indexOf(pro_id) < 0)
             proIDss.get(category).add(pro_id);
         else
             proIDss.get(category).remove(proIDss.get(category).indexOf(pro_id));
     }
+
     public String findPricedsByPro() {
         try {
-            if(ActionContext.getContext().getSession().get(Key.PROID)==null) {
+            if (ActionContext.getContext().getSession().get(Key.PROID) == null) {
                 proIDss = new ArrayList<>(3);
-                for(int i=0;i<3;i++)
+                for (int i = 0; i < 3; i++)
                     proIDss.add(new ArrayList<>());
-            }
-            else {
+            } else {
                 proIDss = (List<List<Integer>>) ActionContext.getContext().getSession().get(Key.PROID);
             }
 
-            String category=productService.getProByProID(pro_id);
-            if(category!=null) {
+            String category = productService.getProByProID(pro_id);
+            if (category != null) {
                 switch (category) {
                     case "品牌":
-                        handlePro(proIDss,0,pro_id);
+                        handlePro(proIDss, 0, pro_id);
                         break;
                     case "材质":
-                        handlePro(proIDss,1,pro_id);
+                        handlePro(proIDss, 1, pro_id);
                         break;
                     case "款式":
-                        handlePro(proIDss,2,pro_id);
+                        handlePro(proIDss, 2, pro_id);
                         break;
                 }
-                ActionContext.getContext().getSession().put(Key.PROID,proIDss);
+                ActionContext.getContext().getSession().put(Key.PROID, proIDss);
             }
-            priceds = productService.findPricedsByProperty(proIDss.get(0), proIDss.get(1),proIDss.get(2));
-            pross=productService.getPross();
+            priceds = productService.findPricedsByProperty(proIDss.get(0), proIDss.get(1), proIDss.get(2));
+            pross = productService.getPross();
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();

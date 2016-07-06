@@ -285,12 +285,15 @@
                 <param name="actionName">pricedList</param>
                 <param name="message">下架商品成功</param>
             </result>
+            <result name="input" type="redirectAction">pricedList</result>
         </action>
         <action name="putOnPriced" class="action.ProductionAction" method="putOnPriced">
             <result name="success" type="redirectAction">pricedList</result>
+            <result name="input" type="redirectAction">pricedList</result>
         </action>
         <action name="deletePriced" class="action.ProductionAction" method="deletePriced">
             <result name="success" type="redirectAction">pricedList</result>
+            <result name="input" type="redirectAction">pricedList</result>
         </action>
     </package>
 </struts>
