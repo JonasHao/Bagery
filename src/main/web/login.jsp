@@ -15,7 +15,7 @@
         <div class="container">
 
             <div class="card card-login col-sm-push-2 col-sm-8 col-lg-push-4 col-lg-4 ">
-                <form class="form-signin" action="user/login"  method="POST">
+                <form class="form-signin" action="/user/login" method="POST">
                 <div class="card-block">
                         <%--<h2><strong>登录</strong></h2>--%>
                     <div class="md-form">

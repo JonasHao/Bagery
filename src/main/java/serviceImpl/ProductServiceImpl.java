@@ -220,6 +220,7 @@ public class ProductServiceImpl implements ProductService {
         record.setPricedId(pricedID);
         dao.save(record);
     }
+    /*
     //返回属性列表名称
     public List<Map<Integer, String>> getProNames() {
         int count=1;
@@ -250,11 +251,48 @@ public class ProductServiceImpl implements ProductService {
         al.add(m3);
         return al;
     }
-    //
-    public Property getPro(int proID)
-    {
-        return (Property) dao.query("from Property where proId=?").setParameter(0,proID).list().get(0);
+
+    public List<List<Map<String, String>>> getProNames() {
+        int count=1;
+        int t1 = dao.query("from Property where category='品牌'").list().size();
+        int t2 = dao.query("from Property where category='材质'").list().size()+t1;
+        int t3 = dao.query("from Property where category='款式'").list().size()+t2;
+
+        List<List<Map<String, String>>> al=new ArrayList<List<Map<String, String>>>(3);
+
+        List<Map<String, String>> l1=new ArrayList<Map<String, String>>();
+        List<Map<String, String>> l2=new ArrayList<Map<String, String>>();
+        List<Map<String, String>> l3=new ArrayList<Map<String, String>>();
+
+        while(count<=t1) {
+            String s= (String) dao.query("select description from Property where proId=?").setParameter(0,count).list().get(0);
+            Map<String,String> m1=new HashMap<>();
+            m1.put("key",String.valueOf(count++));
+            m1.put("value", s);
+            l1.add(m1);
+        }
+        while(count<=t2) {
+            String s= (String) dao.query("select description from Property where proId=?").setParameter(0,count).list().get(0);
+            Map<String,String> m1=new HashMap<>();
+            m1.put("key",String.valueOf(count++));
+            m1.put("value", s);
+            l2.add(m1);
+        }
+        while(count<=t3) {
+            String s= (String) dao.query("select description from Property where proId=?").setParameter(0,count).list().get(0);
+            Map<String,String> m1=new HashMap<>();
+            m1.put("key",String.valueOf(count++));
+            m1.put("value", s);
+            l3.add(m1);
+        }
+
+        al.add(l1);
+        al.add(l2);
+        al.add(l3);
+        return al;
     }
+        */
+
     //
     public String getProByProID(int proID)
     {

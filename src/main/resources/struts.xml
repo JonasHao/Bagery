@@ -281,7 +281,10 @@
             <result name="input">/admin/update_product.jsp</result>
         </action>
         <action name="soldOutPriced" class="action.ProductionAction" method="soldOutPriced">
-            <result name="success" type="redirectAction">pricedList</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">pricedList</param>
+                <param name="message">下架商品成功</param>
+            </result>
         </action>
         <action name="putOnPriced" class="action.ProductionAction" method="putOnPriced">
             <result name="success" type="redirectAction">pricedList</result>
