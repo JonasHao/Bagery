@@ -19,7 +19,39 @@
         <div class="container">
 
             <div class="card card-home">
-                <h4 class="card-header">查看订单</h4>
+
+                <div class="card-block order-block">
+                    <div class="media">
+                        <a class="media-left home-avatar" href="/user/viewInfo.action">
+                            <img class="img-circle" width="128" height="128" src="../../admin/img/a1.jpg"/>
+                        </a>
+
+                        <div class="media-body home-profile-body">
+                            <h4 class="media-heading heading-username">John Doe</h4>
+                            <p>积分：<s:property value="score"/> &nbsp;&nbsp;
+                                等级： 铜牌会员
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="card card-home">
+                <div class="card-header">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4 no-edge">
+                                <h4>查看订单</h4></div>
+                            <div class="pull-right">
+                                <s:form class="form-inline">
+                                    <input class="form-control no-edge" type="text" placeholder="搜索订单">
+                                </s:form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="card-block order-block">
                     <div class="row">
                         <div class="col-sm-2">
@@ -67,7 +99,7 @@
                         </div>
 
                         <div class="col-sm-2">
-                            <s:url action="queryOrder" namespace="/order" var="all">  </s:url>
+                            <s:url action="queryOrder" namespace="/order" var="all"> </s:url>
                             <a href="${unpaid}">
                                 <i class="fa fa-th-list  fa-3x" aria-hidden="true"></i>
                                 <br/>
@@ -75,11 +107,6 @@
                             </a>
                         </div>
 
-                        <div class="col-sm-4">
-                            <s:form class="form-inline">
-                                <input class="form-control" type="text" placeholder="搜索订单">
-                            </s:form>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -91,14 +118,10 @@
                         <div class="col-sm-6">
                             <h5 class="h5-responsive font-weight-bold">账户设置</h5>
                             <ul>
-                                <li><a href="#">更改密码</a></li>
-                                <li><a href="#">修改个人资料</a></li>
+                                <li><s:a action="openReset" namespace="/user">更改密码</s:a></li>
+                                <li><s:a action="viewInfo" namespace="/user">修改个人资料</s:a></li>
                             </ul>
-                            <br/>
-                            <h5 class="h5-responsive font-weight-bold">查询积分</h5>
-                            <ul>
-                                <li><s:property value="#session.User.score"/></li>
-                            </ul>
+
                         </div>
 
                         <div class="col-sm-6">
@@ -108,7 +131,7 @@
                                 <s:url var="addAdd" action="viewAddress" namespace="/address">
                                     <s:param name="add">1</s:param>
                                 </s:url>
-                                <li><a href="${addAdd}" >添加地址</a></li>
+                                <li><a href="${addAdd}">添加地址</a></li>
                             </ul>
                         </div>
                     </div>

@@ -13,26 +13,49 @@
         <!--Main layout-->
         <div class="container">
             <div class="widget-wrapper row">
-                <div class="card card-login col-sm-push-2 col-sm-8 col-lg-push-4 col-lg-4 ">
-                    <form class="form-user" action="update" namespace="/user"  method="POST">
-                    <div class="card-block">
+                <div class="card card-profile col-sm-push-2 col-sm-8 col-lg-push-4 col-lg-4 ">
 
-                        <div class="md-form">
-                            <s:textfield label="用户名" id="form1"  name="username"  class="form-control" disabled="true"/>
+                    <div class="card-header">
+                        <div class="center-block home-avatar">
+                            <div class="media home-avatar">
+                                <img class="img-circle" width="128" height="128" src="../../admin/img/a1.jpg"/>
+                            </div>
                         </div>
 
-                        <div class="md-form">
-                            <s:textfield label="邮箱" name="email"  class="form-control" disabled="true"/>
-                        </div>
 
-                        <div class="md-form">
-                            <s:textfield label="姓名" name="realname" class="form-control" disabled="false"/>
+                        <div class="home-profile-body">
+                            <h4 class="heading-username"><s:property value="username"/></h4>
+                            <p><s:property value="email"/></p>
                         </div>
-
-                        <s:submit cssClass="grey btn btn-primary" value="确认"/>
-                        <a href="home.jsp">取消</a>
                     </div>
-                    </form>
+
+                    <div class="card-block">
+                        <form class="form-user" action="update" namespace="/user" method="POST">
+                            <div class="card-block">
+
+                                <div class="md-form">
+                                    <s:textfield label="更改邮箱" name="email" class="form-control" disabled="true"/>
+                                </div>
+
+                                <%--<div class="md-form">--%>
+                                <%--<% if (1==0) { %>--%>
+                                <%--邮箱已验证--%>
+                                <%--<% } else {%>--%>
+                                <%--<s:a action="openConfirm">请验证邮箱</s:a>--%>
+                                <%--<% }%>--%>
+                                <%--</div>--%>
+
+                                <div class="md-form">
+                                    <s:textfield label="姓名" name="realname" class="form-control" disabled="false"/>
+                                </div>
+
+                                <s:submit cssClass="grey btn btn-primary" value="确认"/>
+                                <s:a action="home" namespace="/user">取消</s:a>
+                            </div>
+                        </form>
+                    </div>
+
+
                 </div>
             </div>
         </div>

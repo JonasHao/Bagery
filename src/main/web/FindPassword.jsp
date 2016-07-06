@@ -42,7 +42,7 @@
                         </form>
 
                         <s:submit cssClass="grey btn btn-primary" value="确认"/>
-                        <a href="home.jsp">取消</a>
+                        <a href="/login.jsp" >取消</a>
                     </div>
                 </div>
             </div>

@@ -34,7 +34,7 @@
 
             $(function () {
                 var add = <s:property value="add"/>;
-                if ( add> 0) {
+                if (add > 0) {
                     $("#add").click();
                     window.location = "#add";
                 }
@@ -51,9 +51,10 @@
                 <t:addressItem>
                     <jsp:attribute name="receiver"><s:property value="receiver"/></jsp:attribute>
                     <jsp:attribute name="phone"><s:property value="mobile"/></jsp:attribute>
-                    <jsp:attribute name="address"><s:property value="addressProvince"/>省<s:property
-                            value="addressCity"/>市<s:property value="addressDistrict"/>区<s:property
-                            value="addressDetail"/></jsp:attribute>
+                    <jsp:attribute name="province"><s:property value="addressProvince"/></jsp:attribute>
+                    <jsp:attribute name="city"><s:property value="addressCity"/></jsp:attribute>
+                    <jsp:attribute name="district"> <s:property value="addressDistrict"/></jsp:attribute>
+                    <jsp:attribute name="detail">  <s:property value="addressDetail"/></jsp:attribute>
                     <jsp:attribute name="addressId"><s:property value="addressId"/></jsp:attribute>
                     <jsp:attribute name="defaultAddressId"><s:property value="defaultAddressId"/></jsp:attribute>
                     <jsp:attribute name="status"><s:property value="addressId"/></jsp:attribute>
