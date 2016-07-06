@@ -37,12 +37,20 @@
                                     <s:textfield label="更改邮箱" name="email" class="form-control" disabled="true"/>
                                 </div>
 
+                                <%--<div class="md-form">--%>
+                                <%--<% if (1==0) { %>--%>
+                                <%--邮箱已验证--%>
+                                <%--<% } else {%>--%>
+                                <%--<s:a action="openConfirm">请验证邮箱</s:a>--%>
+                                <%--<% }%>--%>
+                                <%--</div>--%>
+
                                 <div class="md-form">
                                     <s:textfield label="姓名" name="realname" class="form-control" disabled="false"/>
                                 </div>
 
                                 <s:submit cssClass="grey btn btn-primary" value="确认"/>
-                                <a href="home.jsp">取消</a>
+                                <s:a action="home" namespace="/user">取消</s:a>
                             </div>
                         </form>
                     </div>

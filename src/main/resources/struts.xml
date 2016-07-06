@@ -131,9 +131,7 @@
 
         <action name="update" class="action.UserInfoAction" method="update">
             <!--<interceptor-ref name="loginChecker"/>-->
-            <result name="success">/home.jsp</result>
-            <result name="error"></result>
-            <result name="input"></result>
+            <result name="success" type="redirectAction">home</result>
         </action>
 
         <action name="openReset" class="action.UserInfoAction" method="openReset">
@@ -141,8 +139,8 @@
         </action>
 
         <action name="resetPassword" class="action.UserInfoAction" method="resetPassword">
-            <result name="success">/home.jsp</result>
-            <result name="input"></result>
+            <result name="success" type="redirectAction">home</result>
+            <result name="input">/resetPassword.jsp</result>
         </action>
 
         <action name="openFind" class="action.UserInfoAction" method="openFind">
@@ -155,7 +153,7 @@
         </action>
 
         <action name="confirmEmail" class="action.UserInfoAction" method="confirmEmail">
-            <result name="success">/home.jsp</result>
+            <result name="success" type="redirectAction">home</result>
             <result name="input">/FindPassword.jsp</result>
         </action>
 
