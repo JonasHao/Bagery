@@ -165,6 +165,10 @@
             <result name="success">/home.jsp</result>
             <result name="input">/home.jsp</result>
         </action>
+
+        <action name="history" class="action.UserInfoAction" method="history">
+            <result name="success">/history.jsp</result>
+        </action>
     </package>
 
     <package name="favorite" namespace="/favorite" extends="default,json-default">

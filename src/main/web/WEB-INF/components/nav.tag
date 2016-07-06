@@ -57,7 +57,7 @@
                             %>
                             <s:if test="#session.user!=null">
                                 <s:a class="dropdown-item" action="home" namespace="/user">个人中心</s:a>
-                                <a class="dropdown-item" href="#">我的订单</a>
+                                <s:a class="dropdown-item" action="queryOrder" namespace="/order">我的订单</s:a>
                                 <s:a class="dropdown-item" action="queryFavorite" namespace="/favorite">收藏夹</s:a>
                                 <s:a class="dropdown-item"  action="logout" namespace="/user">退出</s:a>
                             </s:if>

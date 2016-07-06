@@ -43,7 +43,7 @@
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <s:url action="viewProduct" namespace="/admin" var="addLink" />
+                            <s:url action="viewProduct" namespace="/admin" var="addLink"/>
                             <a href="add_product.jsp">发布商品</a></li>
                         <li class="active">
                             <s:url action="pricedList" namespace="/admin" var="listLink"/>
@@ -234,7 +234,7 @@
                                                         <s:param name="pricedId"><s:property value="pricedId"/>
                                                         </s:param>
                                                     </s:url>
-                                                    <a href="${deletePriced}">
+                                                    <a  onclick="notify('删除成功')">
                                                         <button type="button" class="btn btn-danger"
                                                                 style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">
                                                             删除
@@ -268,10 +268,10 @@
         </div>
     </div>
 </div>
-</div>
+
 <!-- Mainly scripts -->
 <script src="js/jquery-2.1.1.js"></script>
-<script src="../js/bootstrap.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="js/plugins/jeditable/jquery.jeditable.js"></script>
@@ -304,35 +304,54 @@
 <script src="js/plugins/dataTables/dataTables.bootstrap.js"></script>
 <script src="js/plugins/dataTables/dataTables.responsive.js"></script>
 <script src="js/plugins/dataTables/dataTables.tableTools.min.js"></script>
+<script src="../js/notify.js"></script>
 
-<script>$(document).ready(function () {
+<script type="text/javascript">
+    $(document).ready(function () {
 
-    $('.dataTables-example').dataTable({
-        responsive: true,
-        "dom": 'T<"clear">lfrtip',
-        "tableTools": {
-            "sSwfPath": "js/plugins/dataTables/swf/copy_csv_xls_pdf.swf"
-        }
+        $('.dataTables-example').dataTable({
+            responsive: true,
+            "dom": 'T<"clear">lfrtip',
+            "tableTools": {
+                "sSwfPath": "js/plugins/dataTables/swf/copy_csv_xls_pdf.swf"
+            }
+        });
+
+        $('.DTTT_container').remove();
+
+
+        setTimeout(function () {
+                    toastr.options = {
+                        closeButton: true,
+                        progressBar: true,
+                        showMethod: 'slideDown',
+                        timeOut: 4000
+                    };
+                    toastr.success('后台管理系统', '欢迎来到Bagery');
+
+                },
+                1300);
+
+        toastr.warning('My name is Inigo Montoya. You killed my father, prepare to die!');
     });
 
-    $('.DTTT_container').remove();
+    function notify(str){
+        setTimeout(function () {
+                    toastr.options = {
+                        closeButton: true,
+                        progressBar: true,
+                        showMethod: 'slideDown',
+                        timeOut: 4000
+                    };
+                    toastr.success(str);
 
-    toastr.warning('My name is Inigo Montoya. You killed my father, prepare to die!')
-    /*
-     setTimeout(function() {
-     toastr.options = {
-     closeButton: true,
-     progressBar: true,
-     showMethod: 'slideDown',
-     timeOut: 4000
-     };
-     toastr.success('后台管理系统', '欢迎来到Bagery');
-     },
-     1300);
-     */
-});</script>
+                },
+                1300);
+    }
 
-<style>
+</script>
+
+<style scoped>
     body.DTTT_Print {
         background: #fff;
     }

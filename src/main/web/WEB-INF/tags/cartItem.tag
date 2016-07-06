@@ -26,10 +26,9 @@
                 <div class="col-md-3">
                     <div>
                         <!--Title-->
-                        <h5 class="card-title product-title">
+                        <h5 class="card-title cart-item-title">
                             <jsp:invoke fragment="title"/>
                         </h5>
-                        <br/><br/>
                         <!--Text-->
                         <%--<i class="fa fa-circle color-icon" aria-hidden="true"></i>--%>
                         <p class="bag-color">颜色分类：

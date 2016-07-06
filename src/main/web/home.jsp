@@ -153,7 +153,7 @@
                         <div class="col-sm-6">
                             <h5 class="h5-responsive font-weight-bold">个性化推荐</h5>
                             <ul>
-                                <li><a href="history.jsp">浏览记录</a></li>
+                                <li><a href="/user/history.action">浏览记录</a></li>
                                 <li><a href="#">猜你喜欢</a></li>
                             </ul>
                         </div>

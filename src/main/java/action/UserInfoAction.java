@@ -4,8 +4,10 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import org.hibernate.HibernateException;
 import po.User;
+import po.UserPricedRecord;
 import service.UserService;
 
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -34,6 +36,9 @@ public class UserInfoAction extends ActionSupport {
     private String newPassword;//新密码
     private String confirmNewPassword;//重新输入新密码
 
+    private List<UserPricedRecord> historyList;
+
+
     public String home(){
         try {
             user = userService.getCurrentUser();
@@ -41,6 +46,16 @@ public class UserInfoAction extends ActionSupport {
             return SUCCESS;
         }catch (HibernateException e){
             e.printStackTrace();
+            return ERROR;
+        }
+    }
+
+    public String history() throws Exception {
+        try{
+            user = userService.getCurrentUser();
+            historyList = user.getHistoryRecords();
+            return SUCCESS;
+        }catch (Exception e){
             return ERROR;
         }
     }
@@ -296,4 +311,11 @@ public class UserInfoAction extends ActionSupport {
         this.code = code;
     }
 
+    public List<UserPricedRecord> getHistoryList() {
+        return historyList;
+    }
+
+    public void setHistoryList(List<UserPricedRecord> historyList) {
+        this.historyList = historyList;
+    }
 }
