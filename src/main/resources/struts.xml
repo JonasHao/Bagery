@@ -285,6 +285,9 @@
         <action name="soldOutPriced" class="action.ProductionAction" method="soldOutPriced">
             <result name="success" type="redirectAction">pricedList</result>
         </action>
+        <action name="putOnPriced" class="action.ProductionAction" method="putOnPriced">
+            <result name="success" type="redirectAction">pricedList</result>
+        </action>
         <action name="deletePriced" class="action.ProductionAction" method="deletePriced">
             <result name="success" type="redirectAction">pricedList</result>
         </action>

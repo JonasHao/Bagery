@@ -205,7 +205,7 @@
                                                     <div class="col-sm-4">
                                                         <%--todo: s:select的list属性设置成action中的List--%>
                                                         <s:select
-                                                                list="proNames[0]"
+                                                                list="proNames[0]" listKey="key" listValue="value"
                                                                 name="proIDs[0]" cssClass="form-control m-b">
                                                         </s:select>
                                                     </div>
@@ -214,7 +214,7 @@
                                                     <label class="col-sm-4 control-label"
                                                            style="font-weight:normal;">材质</label>
                                                     <div class="col-sm-4">
-                                                        <s:select list="proNames[1]"
+                                                        <s:select list="proNames[1]" listKey="key" listValue="value"
                                                                   name="proIDs[1]" cssClass="form-control m-b"/>
                                                     </div>
                                                 </div>
@@ -222,7 +222,7 @@
                                                     <label class="col-sm-4 control-label"
                                                            style="font-weight:normal;">款式</label>
                                                     <div class="col-sm-4">
-                                                        <s:select list="proNames[2]"
+                                                        <s:select list="proNames[2]" listKey="key" listValue="value"
                                                                   name="proIDs[2]" cssClass="form-control m-b"/>
                                                     </div>
                                                 </div>

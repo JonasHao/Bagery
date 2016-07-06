@@ -49,6 +49,7 @@ public class ProductionAction extends DefaultActionSupport {
 
     private List<Map<Integer,String>> proNames;
 
+
     public String add() {
         try {
             priced=new Priced();
@@ -102,6 +103,8 @@ public class ProductionAction extends DefaultActionSupport {
     public String viewProductAdmin() {
         try {
             proNames=productService.getProNames();
+            //productMap
+
             if(pricedId!=0) {
                 priced = productService.findPriced(pricedId);
                 products = productService.findProductsByPricedAdmin(pricedId);
