@@ -18,14 +18,17 @@
                     <!--Links-->
 
                     <ul class="nav navbar-nav">
+                        <s:url var="womanUrl" namespace="/product" action="productListByPro">
+                        </s:url>
+
                         <li class="nav-item">
-                            <a class="nav-link" href="../../list.jsp">女人</a>
+                            <a class="nav-link" href="${womanUrl}">女人</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../../list.jsp">男人</a>
+                            <a class="nav-link" href="${womanUrl}">男人</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../../list.jsp">运动</a>
+                            <a class="nav-link" href="${womanUrl}">运动</a>
                         </li>
 
                     </ul>

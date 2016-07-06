@@ -53,7 +53,8 @@
                 </div>
             </div>
             <br/>
-            <s:iterator value="cartItemList">
+
+            <s:iterator value="cartItemList" status="row">
                 <t:cartItem>
                     <jsp:attribute name="title"><s:property value="product.priced.title"/></jsp:attribute>
                     <jsp:attribute name="number"><s:property value="num"/></jsp:attribute>
@@ -65,8 +66,25 @@
                     <jsp:attribute name="itemId"><s:property value="itemId"/></jsp:attribute>
                     <jsp:attribute name="stock"><s:property value="product.stock"/></jsp:attribute>
                 </t:cartItem>
+
+                <s:hidden name="itemIdList[%{#row.index}]" value="cartItemList[%{#row.index}].itemId"/>
+
             </s:iterator>
+
+            <form action="/order/balance.action">
+
+                <s:iterator value="cartItemList" status="row">
+                    <s:hidden name="itemIdList[%{#row.index}]" value= "%{itemId}" />
+                </s:iterator>
+
+
+                <div class="pull-right">
+                    <s:submit class="btn btn-primary">结算</s:submit>
+                </div>
+            </form>
         </div>
+
+
         <!--/.Main layout-->
     </jsp:body>
 </t:base>

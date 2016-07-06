@@ -1,7 +1,10 @@
 <%@tag description="Product template" pageEncoding="UTF-8" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@attribute name="receiver" fragment="true" %>
-<%@attribute name="address" fragment="true" %>
+<%@attribute name="province" fragment="true" %>
+<%@attribute name="city" fragment="true" %>
+<%@attribute name="district" fragment="true" %>
+<%@attribute name="detail" fragment="true" %>
 <%@attribute name="phone" fragment="true" %>
 <%@attribute name="addressId" fragment="true" %>
 <%@attribute name="status" type="java.lang.Integer" %>
@@ -14,7 +17,8 @@
                     <jsp:invoke fragment="receiver"/>
                 </div>
                 <div class="col-md-10 address-line">
-                    <jsp:invoke fragment="address"/>
+                    <jsp:invoke fragment="province"/>省<jsp:invoke fragment="city"/>市
+                    <jsp:invoke fragment="district"/>区<jsp:invoke fragment="detail"/>
                 </div>
                 <div class="col-md-10 address-line">
                     <jsp:invoke fragment="phone"/>

@@ -25,6 +25,10 @@ public class User {
     private List<Address> addresses;
     private List<UserPricedRecord> historyRecords;
 
+    public User() {
+        img = "../../img/avatar/halloween-black-cat.png";
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", nullable = false, insertable = false, updatable = false)

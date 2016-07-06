@@ -26,13 +26,18 @@ public class OrderAction extends DefaultActionSupport {
     private OrderService orderService;
     private AddressService addressService;
     private CartService cartService;
+
     private Order order;
     private User user;
-    private List<Integer> itemIdList;
-    private List<CartItem> cartItemList;
-    private Collection<Address> addressList;
-    private Collection<Order> orderList;
-    private List<Integer> cartItemIdList;
+    private Address defaultAddress;
+
+    private double totalPrice;
+
+    private List<Integer> itemIdList = new ArrayList<>();
+    private List<CartItem> cartItemList = new ArrayList<>();
+    private Collection<Address> addressList = new ArrayList<>();
+    private Collection<Order> orderList = new ArrayList<>();
+    private List<Integer> cartItemIdList = new ArrayList<>();
 
     private int userId;
     private int shipInfId;
@@ -44,39 +49,36 @@ public class OrderAction extends DefaultActionSupport {
     private String status;
 
     //结算
-    public String balance() throws Exception{
+    public String balance() throws Exception {
         try {
             user = userService.getCurrentUser();
             addressList = user.getAddresses();
-            ActionContext.getContext().getSession().put("addressList", addressList);
+            defaultAddress = addressService.get(user.getDefaultAddressId());
 
             int itemId;
-            CartItem cartItem;
-            int size = itemIdList.size();
-            cartItemList = new ArrayList<>();
-            for (int i = 0; i < size; i++) {
-                itemId = itemIdList.get(i);
-                cartItem = cartService.getCartItem(itemId);
+            if (itemIdList == null || itemIdList.size() == 0) {
+                return INPUT;
+            }
+
+            for (Integer anItemIdList : itemIdList) {
+                itemId = anItemIdList;
+                CartItem cartItem = cartService.getCartItem(itemId);
                 cartItemList.add(cartItem);
             }
-            ActionContext.getContext().getSession().put("cartItemList", cartItemList);
 
             //计算总价
-            double totalPriced = 0.0;
-            int cartSize = cartItemList.size();
-            for (int i = 0; i < cartSize; i++) {
-                totalPriced += cartItemList.get(i).getSubtotal();
+            for (CartItem item : cartItemList) {
+                totalPrice += item.getSubtotal();
             }
-            ActionContext.getContext().getSession().put("totalPriced", totalPriced);
             return SUCCESS;
-        }catch (HibernateException e){
+        } catch (HibernateException e) {
             e.printStackTrace();
         }
         return ERROR;
     }
 
     //新增订单
-    public String addOrder() throws Exception{
+    public String addOrder() throws Exception {
         try {
             user = userService.getCurrentUser();
             userId = user.getUserId();
@@ -87,96 +89,96 @@ public class OrderAction extends DefaultActionSupport {
             order.setOrderStatus(OrderStatus.UNPAID);
             orderService.addOrder(order, cartItemIdList);
             return SUCCESS;
-        }catch (HibernateException e){
+        } catch (HibernateException e) {
             e.printStackTrace();
         }
         return ERROR;
     }
 
     //查看订单
-    public String queryOrder() throws Exception{
+    public String queryOrder() throws Exception {
         try {
             user = userService.getCurrentUser();
             orderList = user.getOrders();
             ActionContext.getContext().getSession().put("orderList", orderList);
             return SUCCESS;
-        }catch (HibernateException e){
+        } catch (HibernateException e) {
             e.printStackTrace();
         }
         return ERROR;
     }
 
     //删除订单
-    public String deleteOrder() throws Exception{
+    public String deleteOrder() throws Exception {
         try {
             orderService.deleteOrder(orderId);
             return SUCCESS;
-        }catch (HibernateException e){
+        } catch (HibernateException e) {
             e.printStackTrace();
         }
         return ERROR;
     }
 
     //取消订单
-    public String cancelOrder() throws Exception{
+    public String cancelOrder() throws Exception {
         try {
             order = orderService.getByOrderId(orderId);
             order.setOrderStatus(OrderStatus.CANCELED);
             orderService.updateOrder(order);
             return SUCCESS;
-        }catch (HibernateException e){
+        } catch (HibernateException e) {
             e.printStackTrace();
         }
         return ERROR;
     }
 
     //支付
-    public String payment() throws Exception{
+    public String payment() throws Exception {
         try {
             order = orderService.getByOrderId(orderId);
             order.setOrderStatus(OrderStatus.UNSHIPED);
             orderService.updateOrder(order);
             return SUCCESS;
-        }catch (HibernateException e){
+        } catch (HibernateException e) {
             e.printStackTrace();
         }
         return ERROR;
     }
 
     //确认收货
-    public String confirmReceive() throws Exception{
+    public String confirmReceive() throws Exception {
         try {
             user = userService.getCurrentUser();
             order = orderService.getByOrderId(orderId);
             order.setOrderStatus(OrderStatus.COMPLETED);
             orderService.updateOrder(order);
             return SUCCESS;
-        }catch (HibernateException e){
+        } catch (HibernateException e) {
             e.printStackTrace();
         }
         return ERROR;
     }
 
     //查看物流信息
-    public String getLogisticsStatus() throws Exception{
+    public String getLogisticsStatus() throws Exception {
         try {
             user = userService.getCurrentUser();
             logistics = orderService.getLogisticsStatus(orderId);
             ActionContext.getContext().getSession().put("logistics", logistics);
             return SUCCESS;
-        }catch (HibernateException e){
+        } catch (HibernateException e) {
             e.printStackTrace();
         }
         return ERROR;
     }
 
     //商家发货
-    public String sendPackage() throws Exception{
+    public String sendPackage() throws Exception {
         try {
             orderService.sendPackage(orderId, logisticsNum, logisticsCompany);
 
             return SUCCESS;
-        }catch (HibernateException e){
+        } catch (HibernateException e) {
             e.printStackTrace();
         }
         return ERROR;
@@ -333,5 +335,21 @@ public class OrderAction extends DefaultActionSupport {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Address getDefaultAddress() {
+        return defaultAddress;
+    }
+
+    public void setDefaultAddress(Address defaultAddress) {
+        this.defaultAddress = defaultAddress;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

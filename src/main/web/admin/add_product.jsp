@@ -325,7 +325,7 @@
                      <%--cssClass="form-control m-b"/>--%>
         <%--</div>--%>
         div.innerHTML = "<div class=\"col-sm-6\"><input type=\"text\" placeholder=\"请输入颜色\" class=\"form-control m-b\"></div>" +
-                "<div class=\"col-sm-4\"><s:textfield name="products["+ type=\"text\" placeholder=\"请输入库存\" class=\"form-control m-b\"></div>" +
+                "<div class=\"col-sm-4\"><input type=\"text\" placeholder=\"请输入库存\" class=\"form-control m-b\"></div>" +
                 "<button class=\"col-sm-2 btn btn-warning btn-circle\" type=\"button\" onclick=\"deleteColor()\">" +
                 "<i class=\"fa fa-times\"></i></button>";
 

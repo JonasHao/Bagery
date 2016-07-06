@@ -41,9 +41,11 @@ public class CartAction extends ActionSupport {
         try {
             user = userService.getCurrentUser();
             cartItemList = user.getCartItems();
+            // first to check if the product already in the cart
             for (CartItem item : cartItemList) {
                 if (item.getProductId() == productId) {
                     item.setNum(item.getNum() + 1);
+
                     item.setSubtotal(item.getSubtotal() + item.getProduct().getPriced().getSalePrice());
                     cartService.updateCart(item);
                     data.put(RESULT, SUCCESS);

@@ -2,6 +2,7 @@ package action;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import org.hibernate.HibernateException;
 import po.User;
 import service.UserService;
 
@@ -33,10 +34,15 @@ public class UserInfoAction extends ActionSupport {
     private String newPassword;//新密码
     private String confirmNewPassword;//重新输入新密码
 
-
     public String home(){
-//        user=userService.getCurrentUser();
-        return SUCCESS;
+        try {
+            user = userService.getCurrentUser();
+            score = user.getScore();
+            return SUCCESS;
+        }catch (HibernateException e){
+            e.printStackTrace();
+            return ERROR;
+        }
     }
 
     public String viewInfo(){

@@ -21,8 +21,7 @@ main {
 }
 
 .comment-body {
-    padding-left: 2rem;
-    padding-bottom: 2rem;
+
 }
 
 .breadcrumb {
@@ -160,4 +159,26 @@ a {
 .comment-reply {
 
     color: #cd6108;
+}
+
+.heading-username {
+    padding-top: 2rem;
+}
+
+.home-avatar {
+    width: 140px;
+    height: 140px;;
+}
+
+.no-edge {
+    padding: 0;
+    margin: 0;
+}
+
+.home-profile-body {
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;;
+    padding-bottom: 2rem;
+    text-align: center;
 }

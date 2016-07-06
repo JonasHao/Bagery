@@ -37,6 +37,10 @@
     <package name="order" namespace="/order" extends="default">
         <action name="balance" class="action.OrderAction" method="balance">
             <result name="success">/index.jsp</result>
+            <result name="input" type="redirectAction">
+                <param name="namespace">/cart</param>
+                <param name="actionName">queryCart</param>
+            </result>
         </action>
 
         <action name="addOrder" class="action.OrderAction" method="addOrder">
