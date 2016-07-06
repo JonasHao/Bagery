@@ -182,3 +182,16 @@ a {
     padding-bottom: 2rem;
     text-align: center;
 }
+
+.btn-submit-order {
+    width: 100%;
+    margin-left: 0;
+}
+
+.order-submit-block {
+    margin-top: 3rem;
+}
+
+.btn-input {
+    font-style: normal;
+}

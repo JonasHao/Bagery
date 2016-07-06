@@ -18,7 +18,7 @@
                     <!--Links-->
 
                     <ul class="nav navbar-nav">
-                        <s:url var="womanUrl" namespace="/product" action="productListByPro">
+                        <s:url var="womanUrl" namespace="/product" action="productList">
                         </s:url>
 
                         <li class="nav-item">

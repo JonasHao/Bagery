@@ -50,6 +50,9 @@ public class CartItem {
     @Basic
     @Column(name = "total_priced", nullable = true, insertable = true, updatable = true, precision = 0)
     public Double getSubtotal() {
+        if(subtotal==null){
+            subtotal = num* product.getPriced().getSalePrice();
+        }
         return subtotal;
     }
 

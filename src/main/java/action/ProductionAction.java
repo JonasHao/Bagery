@@ -35,7 +35,10 @@ public class ProductionAction extends DefaultActionSupport {
     private List<Product> products;
     private List<Priced> priceds;
 
-    private List<Property> pros;
+    private List<Property> pros1;
+    private List<Property> pros2;
+    private List<Property> pros3;
+
     private List<List<Property>> pross;
     private List<Integer> proIDs;
     private List<List<Integer>> proIDss;
@@ -47,7 +50,8 @@ public class ProductionAction extends DefaultActionSupport {
     private CommentService commentService;
     private Map<Integer,String> productMap;
 
-    private List<Map<Integer,String>> proNames;
+//    private List<Map<Integer,String>> proNames;
+    private List<List<Property>> proNames;
 
 
     public String add() {
@@ -102,9 +106,10 @@ public class ProductionAction extends DefaultActionSupport {
     }
     public String viewProductAdmin() {
         try {
-            proNames=productService.getProNames();
-            //productMap
-
+            proNames=productService.getPross();
+            pros1=proNames.get(0);
+            pros2=proNames.get(1);
+            pros3=proNames.get(2);
             if(pricedId!=0) {
                 priced = productService.findPriced(pricedId);
                 products = productService.findProductsByPricedAdmin(pricedId);
@@ -422,14 +427,6 @@ public class ProductionAction extends DefaultActionSupport {
         this.pricedPro = pricedPro;
     }
 
-    public List<Property> getPros() {
-        return pros;
-    }
-
-    public void setPros(List<Property> pros) {
-        this.pros = pros;
-    }
-
     public List<List<Property>> getPross() {
         return pross;
     }
@@ -494,13 +491,14 @@ public class ProductionAction extends DefaultActionSupport {
         this.pro_id = pro_id;
     }
 
-    public List<Map<Integer,String>> getProNames() {
-        return proNames;
-    }
+//    public List<Map<Integer,String>> getProNames() {
+//        return proNames;
+//    }
+//
+//    public void setProNames(List<Map<Integer,String>> proNames) {
+//        this.proNames = proNames;
+//    }
 
-    public void setProNames(List<Map<Integer,String>> proNames) {
-        this.proNames = proNames;
-    }
 
     public List<List<Integer>> getProIDss() {
         return proIDss;
@@ -508,5 +506,38 @@ public class ProductionAction extends DefaultActionSupport {
 
     public void setProIDss(List<List<Integer>> proIDss) {
         this.proIDss = proIDss;
+    }
+
+
+    public List<List<Property>> getProNames() {
+        return proNames;
+    }
+
+    public void setProNames(List<List<Property>> proNames) {
+        this.proNames = proNames;
+    }
+
+    public List<Property> getPros1() {
+        return pros1;
+    }
+
+    public void setPros1(List<Property> pros1) {
+        this.pros1 = pros1;
+    }
+
+    public List<Property> getPros2() {
+        return pros2;
+    }
+
+    public void setPros2(List<Property> pros2) {
+        this.pros2 = pros2;
+    }
+
+    public List<Property> getPros3() {
+        return pros3;
+    }
+
+    public void setPros3(List<Property> pros3) {
+        this.pros3 = pros3;
     }
 }
