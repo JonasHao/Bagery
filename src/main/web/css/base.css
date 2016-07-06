@@ -44,6 +44,7 @@ a {
 
 .product-title {
     margin-bottom: 0.25rem;
+    text-align: center;
 }
 
 .product-text {
@@ -194,4 +195,8 @@ a {
 
 .btn-input {
     font-style: normal;
+}
+
+.hm-black-strong .full-bg-img, .hm-black-strong .mask{
+    background-color: rgba(255, 255, 255, 1);
 }

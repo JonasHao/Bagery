@@ -17,23 +17,25 @@
     </div>
     <!--/.Card image-->
 
-    <!--Card content-->
-    <div class="card-block product-text">
-        <div class="row ">
-            <div class="col-md-8 price">
-                <!--Title-->
-                <h4 class="card-title product-title">
-                    <jsp:invoke fragment="title"/>
-                </h4>
-                <!--Text-->
+
+    <div class="view overlay hm-black-strong">
+        <div class="price">
+            <!--Title-->
+            <h4 class="card-title product-title">
+                <jsp:invoke fragment="title"/>
+            </h4>
+            <!--Text-->
+            <div class="product-title">
                 <i class="fa fa-rmb" aria-hidden="true"></i>
                 <jsp:invoke fragment="price"/>
             </div>
-            <div class="col-md-4">
-                <a href="#" class="btn btn-sm grey"><i class="fa fa-shopping-cart"></i></a>
-            </div>
+
+        </div>
+        <div class="mask flex-center">
+            <a href="#"><i class="fa fa-shopping-cart fa-2x"></i></a>
         </div>
     </div>
+
     <!--/.Card content-->
 
 </div>
