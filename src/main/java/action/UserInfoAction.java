@@ -295,4 +295,5 @@ public class UserInfoAction extends ActionSupport {
     public void setCode(int code) {
         this.code = code;
     }
+
 }

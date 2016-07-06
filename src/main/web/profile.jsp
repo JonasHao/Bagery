@@ -34,16 +34,12 @@
                             <div class="card-block">
 
                                 <div class="md-form">
-                                    <s:textfield label="更改邮箱" name="email" class="form-control" disabled="true"/>
+                                    <s:textfield label="邮箱" name="email" class="form-control" disabled="true"/>
                                 </div>
 
-                                <%--<div class="md-form">--%>
-                                <%--<% if (1==0) { %>--%>
-                                <%--邮箱已验证--%>
-                                <%--<% } else {%>--%>
-                                <%--<s:a action="openConfirm">请验证邮箱</s:a>--%>
-                                <%--<% }%>--%>
-                                <%--</div>--%>
+
+                                <s:if test="#session.User.isActivate == 1">邮箱已验证</s:if>
+                                <s:else><s:a action="openConfirm">请验证邮箱</s:a></s:else>
 
                                 <div class="md-form">
                                     <s:textfield label="姓名" name="realname" class="form-control" disabled="false"/>
