@@ -63,8 +63,9 @@ public interface ProductService {
     void deletePricedProsByPriced(int pricedID);
     void addRecord(int userID,int pricedID);
 
-    List<Map<Integer,String>> getProNames();
-    Property getPro(int proID);
+    //List<Map<Integer,String>> getProNames();
+    //List<List<Map<String,String>>> getProNames();
+
     String getProByProID(int proID);
     List<List<Property>> getPross();
 }

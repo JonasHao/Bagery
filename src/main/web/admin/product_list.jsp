@@ -304,6 +304,7 @@
 <script src="js/plugins/dataTables/dataTables.bootstrap.js"></script>
 <script src="js/plugins/dataTables/dataTables.responsive.js"></script>
 <script src="js/plugins/dataTables/dataTables.tableTools.min.js"></script>
+
 <script>$(document).ready(function () {
 
     $('.dataTables-example').dataTable({
@@ -316,9 +317,20 @@
 
     $('.DTTT_container').remove();
 
-
-})</script>
-
+    toastr.warning('My name is Inigo Montoya. You killed my father, prepare to die!')
+    /*
+     setTimeout(function() {
+     toastr.options = {
+     closeButton: true,
+     progressBar: true,
+     showMethod: 'slideDown',
+     timeOut: 4000
+     };
+     toastr.success('后台管理系统', '欢迎来到Bagery');
+     },
+     1300);
+     */
+});</script>
 
 <style>
     body.DTTT_Print {
