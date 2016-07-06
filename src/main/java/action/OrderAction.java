@@ -48,7 +48,7 @@ public class OrderAction extends DefaultActionSupport {
     private String logisticsCompany;
     private String status;
 
-    //结算
+    //????
     public String balance() throws Exception {
         try {
             user = userService.getCurrentUser();
@@ -66,10 +66,10 @@ public class OrderAction extends DefaultActionSupport {
                 cartItemList.add(cartItem);
             }
 
-            //计算总价
             for (CartItem item : cartItemList) {
                 totalPrice += item.getSubtotal();
             }
+
             return SUCCESS;
         } catch (HibernateException e) {
             e.printStackTrace();
@@ -77,7 +77,7 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-    //新增订单
+    //????????
     public String addOrder() throws Exception {
         try {
             user = userService.getCurrentUser();
@@ -95,7 +95,7 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-    //查看订单
+    //??????
     public String queryOrder() throws Exception {
         try {
             user = userService.getCurrentUser();
@@ -108,7 +108,7 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-    //删除订单
+    //???????
     public String deleteOrder() throws Exception {
         try {
             orderService.deleteOrder(orderId);
@@ -119,7 +119,7 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-    //取消订单
+    //???????
     public String cancelOrder() throws Exception {
         try {
             order = orderService.getByOrderId(orderId);
@@ -132,7 +132,7 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-    //支付
+    //???
     public String payment() throws Exception {
         try {
             order = orderService.getByOrderId(orderId);
@@ -145,7 +145,7 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-    //确认收货
+    //??????
     public String confirmReceive() throws Exception {
         try {
             user = userService.getCurrentUser();
@@ -159,7 +159,7 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-    //查看物流信息
+    //?????????
     public String getLogisticsStatus() throws Exception {
         try {
             user = userService.getCurrentUser();
@@ -172,7 +172,7 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-    //商家发货
+    //??????
     public String sendPackage() throws Exception {
         try {
             orderService.sendPackage(orderId, logisticsNum, logisticsCompany);

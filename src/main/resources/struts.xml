@@ -36,7 +36,7 @@
 
     <package name="order" namespace="/order" extends="default">
         <action name="balance" class="action.OrderAction" method="balance">
-            <result name="success">/index.jsp</result>
+            <result name="success">/balance.jsp</result>
             <result name="input" type="redirectAction">
                 <param name="namespace">/cart</param>
                 <param name="actionName">queryCart</param>
@@ -195,10 +195,6 @@
     </package>
 
     <package name="cart" namespace="/cart" extends="default,json-default">
-        <global-results>
-            <result name="error">/error.jsp</result>
-            <result name="login">/login.jsp</result>
-        </global-results>
 
         <action name="addCart" class="action.CartAction" method="addCart">
             <result name="success" type="json">
