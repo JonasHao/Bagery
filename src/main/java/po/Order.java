@@ -1,5 +1,7 @@
 package po;
 
+import constant.OrderStatus;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -23,6 +25,7 @@ public class Order {
     private Address address;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id", nullable = false, insertable = true, updatable = true)
     public int getOrderId() {
         return orderId;
@@ -33,7 +36,7 @@ public class Order {
     }
 
     @Basic
-    @Column(name = "user_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "user_id", nullable = false, insertable = true, updatable = true)
     public int getUserId() {
         return userId;
     }
@@ -43,7 +46,7 @@ public class Order {
     }
 
     @Basic
-    @Column(name = "ship_inf_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "ship_inf_id", nullable = false, insertable = true, updatable = true)
     public int getAddressId() {
         return addressId;
     }
@@ -55,6 +58,10 @@ public class Order {
     @Basic
     @Column(name = "total", nullable = true, insertable = true, updatable = true, precision = 0)
     public Double getTotal() {
+        total = 0.0;
+        for (OrderItem item : orderItems) {
+            total += item.getTotalPriced();
+        }
         return total;
     }
 
@@ -155,7 +162,7 @@ public class Order {
     }
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false, insertable = false, updatable = false)
     public User getUser() {
         return user;
     }
@@ -165,7 +172,7 @@ public class Order {
     }
 
     @ManyToOne
-    @JoinColumn(name = "ship_inf_id", referencedColumnName = "ship_inf_id", nullable = false)
+    @JoinColumn(name = "ship_inf_id", referencedColumnName = "ship_inf_id", nullable = false, insertable = false, updatable = false)
     public Address getAddress() {
         return address;
     }
@@ -175,7 +182,21 @@ public class Order {
     }
 
     @Transient
-    public boolean isComented() {
-        return comments != null && comments.size() > 0;
+    public boolean isNotCommented() {
+        return orderStatus.equals(OrderStatus.COMPLETED) && !(comments != null && comments.size() > 0);
     }
+
+    @Transient
+    public String getOrderStatusString(){
+        switch (orderStatus){
+            case OrderStatus.UNPAID : return "待付款";
+            case OrderStatus.UNSHIPPED: return "待发货";
+            case OrderStatus.SHIPPED: return "已发货";
+            case OrderStatus.COMPLETED : return "已收货";
+            case OrderStatus.CANCELED : return "已取消";
+            case OrderStatus.UNCOMMENT : return "待评价";
+        }
+        return "未知状态";
+    }
+
 }

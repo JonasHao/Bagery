@@ -58,7 +58,7 @@
         </action>
 
         <action name="cancelOrder" class="action.OrderAction" method="cancelOrder">
-            <result name="success">/index.jsp</result>
+            <result name="success" type="redirect">queryOrder.action</result>
         </action>
 
         <action name="payment" class="action.OrderAction" method="payment">

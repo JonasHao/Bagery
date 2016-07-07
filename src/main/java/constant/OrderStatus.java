@@ -4,10 +4,10 @@ package constant;
  * Created by 41159 on 2016/6/29.
  */
 public class OrderStatus {
-    public static final String UNPAID = "unpaid"; //´ı¸¶¿î
-    public static final String UNSHIPED = "unshiped"; //´ı·¢»õ
-    public static final String SHIPED = "shiped";  //ÒÑ·¢»õ/´ıÊÕ»õ
-    public static final String COMPLETED = "completed"; //ÒÑÊÕ»õ
-    public static final String CANCELED = "canceled"; //ÒÑÈ¡Ïû
-    public static final String UNCOMMENT = "uncomment"; //´ıÆÀ¼Û
+    public static final String UNPAID = "unpaid"; //å¾…ä»˜æ¬¾
+    public static final String UNSHIPPED = "unshipped"; //å¾…å‘è´§
+    public static final String SHIPPED = "shipped";  //å·²å‘è´§/å¾…æ”¶è´§
+    public static final String COMPLETED = "completed"; //å·²æ”¶è´§
+    public static final String CANCELED = "canceled"; //å·²å–æ¶ˆ
+    public static final String UNCOMMENT = "uncomment"; //å¾…è¯„ä»·
 }

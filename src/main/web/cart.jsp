@@ -67,14 +67,12 @@
                     <jsp:attribute name="stock"><s:property value="product.stock"/></jsp:attribute>
                 </t:cartItem>
 
-                <s:hidden name="itemIdList[%{#row.index}]" value="cartItemList[%{#row.index}].itemId"/>
-
             </s:iterator>
 
             <form action="/order/balance.action">
 
                 <s:iterator value="cartItemList" status="row">
-                    <s:hidden name="itemIdList[%{#row.index}]" value= "%{itemId}" />
+                    <s:hidden name="cartItemIdList[%{#row.index}]" value= "%{itemId}" />
                 </s:iterator>
 
 

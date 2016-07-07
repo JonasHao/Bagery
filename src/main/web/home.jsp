@@ -70,7 +70,7 @@
 
                         <div class="col-sm-2">
                             <s:url action="queryOrder" namespace="/order" var="unshipped">
-                                <s:param name="status">unshiped</s:param>
+                                <s:param name="status">unshipped</s:param>
                             </s:url>
                             <a href="${unshipped}">
                                 <i class="fa fa-truck fa-3x" aria-hidden="true"></i>

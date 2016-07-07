@@ -37,10 +37,26 @@
                 window.location.hash = e.target.hash;
             });
 
-            var test = function (id) {
-                console.log("hello" + id);
+            function deleteOrder(id) {
+                var to_delete = $(".order-" + id);
+                console.log(to_delete);
+                $.ajax(
+                        {
+                            url: "/order/deleteOrder",
+                            dataType: "json",   //返回格式为json
+                            type: 'post',
+                            data: {orderId: id},
+                            success: function (data) {
+                                if (data.result == "success") {
+                                    to_delete.remove();
+                                    notify("成功删除订单");
+                                } else {
+                                    warning("删除失败！");
+                                }
+                            }
+                        }
+                )
             }
-
         </script>
      </jsp:attribute>
 
@@ -52,13 +68,13 @@
                     <a class="nav-link active" data-toggle="tab" href="#all" role="tab">所有订单</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#unpaid" role="tab">待付款</a>
+                    <a class="nav-link " data-toggle="tab" href="#unpaid" role="tab">待付款</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link " data-toggle="tab" href="#unshipped" role="tab">待发货</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#shipped" role="tab">待收货</a>
+                    <a class="nav-link " data-toggle="tab" href="#shipped" role="tab">待收货</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link " data-toggle="tab" href="#uncomment" role="tab">待评价</a>
@@ -73,7 +89,7 @@
                     <br>
                     <s:iterator value="orderList">
 
-                        <div class="card">
+                        <div class="card order-<s:property value="orderId"/>">
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-md-3">
@@ -82,20 +98,28 @@
                                         <p>订单号：<s:property value="orderId"/></p>
                                     </div>
                                     <div class="col-md-2 ">
-                                        <p>总价:<s:property value="total"/></p>
+                                        <p>总价：<s:property value="total"/></p>
 
-                                        <p>运费:不要钱</p>
+                                        <p>运费：不要钱</p>
                                     </div>
 
                                     <div class="col-md-2 ">
                                         <p>收货人：<s:property value="address.receiver"/></p>
 
-                                        <p>待收货</p>
+                                        <p>订单状态：<s:property value="orderStatusString"/></p>
                                     </div>
 
                                     <div class="col-md-1 col-md-push-4">
-                                        <i class="fa fa-trash fa-lg" onclick="deleteOrder(orderId)"
-                                           aria-hidden="true"></i>
+                                        <a onclick="bootbox.confirm({
+                                                title:'删除订单',
+                                                message:'确定删除么？',
+                                                callback: function(result){
+                                                if(result){
+                                                deleteOrder(<s:property value="orderId"/>);
+                                                } }
+                                                })">
+                                            <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -123,50 +147,65 @@
                     <s:iterator value="orderList">
 
                         <s:if test='orderStatus == "unpaid" '>
-                            <div class="card">
+                            <div class="card order-<s:property value="orderId"/>">
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-md-3">
                                             <p>2016-6-24</p>
 
-                                            <p>订单号：<s:property value="orderId"/> </p>
+                                            <p>订单号：<s:property value="orderId"/></p>
                                         </div>
                                         <div class="col-md-2 ">
-                                            <p>总价:<s:property value="total"/></p>
+                                            <p>总价：<s:property value="total"/></p>
 
-                                            <p>运费:不要钱</p>
+                                            <p>运费：不要钱</p>
                                         </div>
 
                                         <div class="col-md-2 ">
                                             <p>收货人：<s:property value="address.receiver"/></p>
 
-                                            <p>待收货<s:property value="orderStatus"/></p>
+                                            <p>订单状态：<s:property value="orderStatusString"/></p>
                                         </div>
 
                                         <div class="col-md-1 col-md-push-4">
-                                            <i onclick="bootbox.confirm({
-                                                    message:'hello',
-                                                    callback: function(result){   if(result){
-                                                    test(<s:property value="orderId"/>);
-                                                    } },
-                                                    local:'zh_CN'
-                                                    })"
-                                               class="fa fa-trash fa-lg"
-                                               aria-hidden="true"></i>
+                                            <a onclick="bootbox.confirm({
+                                                    title:'删除订单',
+                                                    message:'确定删除么？',
+                                                    callback: function(result){
+                                                    if(result){
+                                                    deleteOrder(<s:property value="orderId"/>);
+                                                    } }
+                                                    })">
+                                                <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+                                            </a>
                                         </div>
+
                                     </div>
                                 </div>
                                 <div class="card-block">
-                                    <s:iterator value="orderItems">
-                                        <t:orderItem>
-                                            <jsp:attribute name="img">"../../img/bags/bag1.png"</jsp:attribute>
-                                            <jsp:attribute name="title"><s:property value="productTitle"/></jsp:attribute>
-                                            <jsp:attribute name="price"><s:property value="totalPriced"/></jsp:attribute>
-                                            <jsp:attribute name="number"><s:property value="num"/></jsp:attribute>
-                                            <jsp:attribute name="color"><s:property value="product.color"/></jsp:attribute>
-                                        </t:orderItem>
-                                    </s:iterator>
+                                    <div class="row">
 
+                                        <div class="col-md-8">
+                                            <s:iterator value="orderItems">
+                                                <t:orderItem>
+                                                    <jsp:attribute name="img">"../../img/bags/bag1.png"</jsp:attribute>
+                                                    <jsp:attribute name="title"><s:property value="productTitle"/></jsp:attribute>
+                                                    <jsp:attribute name="price"><s:property value="totalPriced"/></jsp:attribute>
+                                                    <jsp:attribute name="number"><s:property value="num"/></jsp:attribute>
+                                                    <jsp:attribute name="color"><s:property value="product.color"/></jsp:attribute>
+                                                </t:orderItem>
+                                            </s:iterator>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <s:url action="cancelOrder" namespace="/order" var="cancelOrder">
+                                                <s:param name="orderId"><s:property value="orderId"/></s:param>
+                                            </s:url>
+                                            <a href="${cancelOrder}">
+                                                <span>取消订单</span>
+                                            </a>
+                                        </div>
+
+                                    </div>
                                 </div>
                             </div>
                         </s:if>
@@ -189,19 +228,28 @@
                                             <p>订单号：<s:property value="orderId"/></p>
                                         </div>
                                         <div class="col-md-2 ">
-                                            <p>总价:<s:property value="total"/></p>
+                                            <p>总价：<s:property value="total"/></p>
 
-                                            <p>运费:不要钱</p>
+                                            <p>运费：不要钱</p>
                                         </div>
 
                                         <div class="col-md-2 ">
                                             <p>收货人：<s:property value="address.receiver"/></p>
 
-                                            <p>待收货</p>
+                                            <p>订单状态：<s:property value="orderStatusString"/></p>
                                         </div>
 
                                         <div class="col-md-1 col-md-push-4">
-                                            <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+                                            <a onclick="bootbox.confirm({
+                                                    title:'删除订单',
+                                                    message:'确定删除么？',
+                                                    callback: function(result){
+                                                    if(result){
+                                                    deleteOrder(<s:property value="orderId"/>);
+                                                    } }
+                                                    })">
+                                                <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -239,19 +287,28 @@
                                             <p>订单号：<s:property value="orderId"/></p>
                                         </div>
                                         <div class="col-md-2 ">
-                                            <p>总价:<s:property value="total"/></p>
+                                            <p>总价：<s:property value="total"/></p>
 
-                                            <p>运费:不要钱</p>
+                                            <p>运费：不要钱</p>
                                         </div>
 
                                         <div class="col-md-2 ">
                                             <p>收货人：<s:property value="address.receiver"/></p>
 
-                                            <p>待收货</p>
+                                            <p>订单状态：<s:property value="orderStatusString"/></p>
                                         </div>
 
                                         <div class="col-md-1 col-md-push-4">
-                                            <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+                                            <a onclick="bootbox.confirm({
+                                                    title:'删除订单',
+                                                    message:'确定删除么？',
+                                                    callback: function(result){
+                                                    if(result){
+                                                    deleteOrder(<s:property value="orderId"/>);
+                                                    } }
+                                                    })">
+                                                <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -277,9 +334,9 @@
                 <!--Panel 5-->
                 <div class="tab-pane" id="uncomment" role="tabpanel">
                     <br>
-                    <s:iterator value="uncomment">
+                    <s:iterator value="orderList">
 
-                        <s:if test='orderStatus == "unpaid" '>
+                        <s:if test='notCommented'>
                             <div class="card">
                                 <div class="card-header">
                                     <div class="row">
@@ -289,19 +346,28 @@
                                             <p>订单号：<s:property value="orderId"/></p>
                                         </div>
                                         <div class="col-md-2 ">
-                                            <p>总价:<s:property value="total"/></p>
+                                            <p>总价：<s:property value="total"/></p>
 
-                                            <p>运费:不要钱</p>
+                                            <p>运费：不要钱</p>
                                         </div>
 
                                         <div class="col-md-2 ">
                                             <p>收货人：<s:property value="address.receiver"/></p>
 
-                                            <p>待收货</p>
+                                            <p>订单状态：<s:property value="orderStatusString"/></p>
                                         </div>
 
                                         <div class="col-md-1 col-md-push-4">
-                                            <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+                                            <a onclick="bootbox.confirm({
+                                                    title:'删除订单',
+                                                    message:'确定删除么？',
+                                                    callback: function(result){
+                                                    if(result){
+                                                    deleteOrder(<s:property value="orderId"/>);
+                                                    } }
+                                                    })">
+                                                <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>

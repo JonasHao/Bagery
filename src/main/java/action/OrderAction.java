@@ -4,10 +4,7 @@ import com.opensymphony.xwork2.ActionContext;
 import constant.Config;
 import org.apache.struts2.dispatcher.DefaultActionSupport;
 import org.hibernate.HibernateException;
-import po.Address;
-import po.CartItem;
-import po.Order;
-import po.User;
+import po.*;
 import service.AddressService;
 import service.CartService;
 import service.OrderService;
@@ -38,6 +35,7 @@ public class OrderAction extends DefaultActionSupport {
     private Collection<Address> addressList = new ArrayList<>();
     private Collection<Order> orderList = new ArrayList<>();
     private List<Integer> cartItemIdList = new ArrayList<>();
+    private List<OrderItem> orderItemList = new ArrayList<>();
 
     private int userId;
     private int shipInfId;
@@ -47,6 +45,7 @@ public class OrderAction extends DefaultActionSupport {
     private String logisticsNum;
     private String logisticsCompany;
     private String status;
+    private String instruction;
 
     private Map<String,Object> data=new HashMap<>();
 
@@ -57,13 +56,11 @@ public class OrderAction extends DefaultActionSupport {
             addressList = user.getAddresses();
             defaultAddress = addressService.get(user.getDefaultAddressId());
 
-            int itemId;
-            if (itemIdList == null || itemIdList.size() == 0) {
+            if (cartItemIdList == null || cartItemIdList.size() == 0) {
                 return INPUT;
             }
 
-            for (Integer anItemIdList : itemIdList) {
-                itemId = anItemIdList;
+            for (Integer itemId : cartItemIdList) {
                 CartItem cartItem = cartService.getCartItem(itemId);
                 cartItemList.add(cartItem);
             }
@@ -81,20 +78,27 @@ public class OrderAction extends DefaultActionSupport {
 
     //��������
     public String addOrder() throws Exception{
+        if (cartItemIdList == null || cartItemIdList.size() == 0) {
+            return INPUT;
+        }
         try {
             user = userService.getCurrentUser();
             userId = user.getUserId();
             order = new Order();
             order.setUserId(userId);
-            order.setAddressId(shipInfId);
-            order.setTotal(total);
-            order.setOrderStatus(OrderStatus.UNPAID);
+            order.setAddressId(user.getDefaultAddressId());
+            order.setInstruction(instruction);
+//            order.setTotal(total);
+//            order.setOrderStatus(OrderStatus.UNPAID);
+
             orderService.addOrder(order, cartItemIdList);
+
             return SUCCESS;
         }catch (HibernateException e){
             e.printStackTrace();
+            return ERROR;
         }
-        return ERROR;
+
     }
 
     //�鿴����
@@ -141,7 +145,7 @@ public class OrderAction extends DefaultActionSupport {
     public String payment() throws Exception{
         try {
             order = orderService.getByOrderId(orderId);
-            order.setOrderStatus(OrderStatus.UNSHIPED);
+            order.setOrderStatus(OrderStatus.UNSHIPPED);
             orderService.updateOrder(order);
             return SUCCESS;
         }catch (HibernateException e){
@@ -366,4 +370,19 @@ public class OrderAction extends DefaultActionSupport {
         this.data = data;
     }
 
+    public List<OrderItem> getOrderItemList() {
+        return orderItemList;
+    }
+
+    public void setOrderItemList(List<OrderItem> orderItemList) {
+        this.orderItemList = orderItemList;
+    }
+
+    public String getInstruction() {
+        return instruction;
+    }
+
+    public void setInstruction(String instruction) {
+        this.instruction = instruction;
+    }
 }

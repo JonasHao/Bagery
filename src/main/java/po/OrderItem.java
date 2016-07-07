@@ -16,8 +16,6 @@ public class OrderItem {
     private Order order;
     private Product product;
 
-    //自己加的
-//    private Priced prised;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -63,6 +61,7 @@ public class OrderItem {
     @Basic
     @Column(name = "total_priced", nullable = false, insertable = true, updatable = true, precision = 0)
     public double getTotalPriced() {
+        totalPriced=num*product.getPriced().getSalePrice();
         return totalPriced;
     }
 
@@ -132,13 +131,4 @@ public class OrderItem {
         this.product = product;
     }
 
-//    @ManyToOne
-//    @JoinColumn(name = "ship_inf_id", referencedColumnName = "ship_inf_id", nullable = false)
-//    public Address getAddress() {
-//        return address;
-//    }
-//
-//    public void setAddress(Address address) {
-//        this.address = address;
-//    }
 }

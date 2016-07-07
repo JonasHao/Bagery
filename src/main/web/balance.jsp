@@ -96,6 +96,7 @@
                 <div class="col-md-9">
                     <h4>收件人</h4>
                     <br>
+
                     <div class="card">
                         <div class="row card-block">
                             <div class="col-md-10 address-info">
@@ -128,97 +129,82 @@
                     <br/>
                     <h4>商品列表</h4>
                     <br>
+
                     <div class="card">
                         <div class="card-block">
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <!--Card image-->
-                                    <div class="view overlay hm-white-slight">
-                                        <img src="../../img/bags/bag1.png" class="img-fluid" alt="">
-                                        <a href="#">
-                                            <div class="mask"></div>
-                                        </a>
-                                    </div>
-                                    <!--/.Card image-->
-                                </div>
-                                <div class="col-md-10 order-item-block">
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <div>
-                                                <!--Title-->
-                                                <h5 class="card-title product-title">
-                                                    商品标题
-                                                </h5>
-                                                <div><i class="fa fa-rmb" aria-hidden="true"></i>99999.99</div>
-                                                <div>数量：1</div>
-                                                <p class="bag-color">颜色分类:红色</p>
-                                            </div>
+                            <s:iterator value="cartItemList">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <!--Card image-->
+                                        <div class="view overlay hm-white-slight">
+                                            <img src="../../img/bags/bag1.png" class="img-fluid" alt="">
+                                            <a href="#">
+                                                <div class="mask"></div>
+                                            </a>
                                         </div>
+                                        <!--/.Card image-->
+                                    </div>
+                                    <div class="col-md-10 order-item-block">
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <div>
+                                                    <!--Title-->
+                                                    <h5 class="card-title product-title">
+                                                        <p><s:property value="product.priced.title"/></p>
+                                                    </h5>
 
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <!--Card image-->
-                                    <div class="view overlay hm-white-slight">
-                                        <img src="../../img/bags/bag1.png" class="img-fluid" alt="">
-                                        <a href="#">
-                                            <div class="mask"></div>
-                                        </a>
-                                    </div>
-                                    <!--/.Card image-->
-                                </div>
-                                <div class="col-md-10 order-item-block">
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <div>
-                                                <!--Title-->
-                                                <h5 class="card-title product-title">
-                                                    商品标题
-                                                </h5>
-                                                <div><i class="fa fa-rmb" aria-hidden="true"></i>99999.99</div>
-                                                <div>数量：1</div>
-                                                <p class="bag-color">颜色分类:红色</p>
+                                                    <div><i class="fa fa-rmb" aria-hidden="true"></i><s:property
+                                                            value="subtotal"/></div>
+                                                    <div>数量：<s:property value="num"/></div>
+                                                    <p class="bag-color">颜色分类:<s:property value="product.color"/></p>
+                                                </div>
                                             </div>
-                                        </div>
 
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </s:iterator>
                         </div>
                     </div>
 
                 </div>
 
-                <div class="col-md-3 order-submit-block">
-                    <div class="card">
-                        <div class="card-block">
-                            <h4><a class="btn btn-primary btn-lg btn-submit-order">提交订单</a></h4>
-                            <br>
-                            <div class="font-weight-bold">订单汇总</div>
-                            运费:5元<br/>
-                            商品小计:9994元
-                            <br/> <br/>
-                            <div class="font-weight-bold">总价:9999元</div>
-                        </div>
-                    </div>
-
-                    <div class="widget-wrapper">
-                        <h4>附言</h4>
-                        <br>
+                <form action="/order/addOrder.action">
+                    <s:iterator value="cartItemList" status="row">
+                        <s:hidden name="cartItemIdList[%{#row.index}]" value= "%{itemId}" />
+                    </s:iterator>
+                    <div class="col-md-3 order-submit-block">
                         <div class="card">
                             <div class="card-block">
-                                <div class="md-form">
-                                    <i class="fa fa-user prefix"></i>
-                                    <input type="text" id="form1" class="form-control">
-                                    <label for="form1">Your name</label>
+                                <h4><s:submit cssClass="btn btn-primary btn-lg grey btn-submit-order btn-input" value="提交订单"/></h4>
+                                <br>
+
+                                <div class="font-weight-bold">订单汇总</div>
+                                运费：包邮<br/>
+                                商品小计：<s:property value="totalPrice"/>
+                                <br/> <br/>
+
+                                <div class="font-weight-bold">总价:<s:property value="totalPrice"/></div>
+                            </div>
+                        </div>
+
+                        <div class="widget-wrapper">
+                            <h4>附言</h4>
+                            <br>
+
+                            <div class="card">
+                                <div class="card-block">
+                                    <div class="md-form">
+                                        <i class="fa fa-user prefix"></i>
+                                        <s:textfield id="form1" name="instruction" class="form-control"/>
+                                        <label for="form1">Your name</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                </div>
+                    </div>
+                </form>
             </div>
 
 

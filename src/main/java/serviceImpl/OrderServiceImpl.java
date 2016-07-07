@@ -19,20 +19,20 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public void addOrder(Order order, List<Integer> cartItemIdList){
-        dao.save(order);
+        int id = (int)dao.save(order);
         List<OrderItem> orderItemList = new ArrayList<>();
-        int size = cartItemIdList.size();
-        int cartItemId;
+//        int size = cartItemIdList.size();
+//        int cartItemId;
         CartItem cartItem;
         OrderItem orderItem = new OrderItem();
-        for(int i=0; i<size; i++){
-            cartItemId = cartItemIdList.get(i);
+        for (int cartItemId : cartItemIdList) {
+//            cartItemId = aCartItemIdList;
             cartItem = dao.get(CartItem.class, cartItemId);
 
             orderItem.setProductId(cartItem.getProductId());
             orderItem.setProductTitle(cartItem.getProduct().getPriced().getTitle());
             orderItem.setNum(cartItem.getNum());
-            orderItem.setTotalPriced(cartItem.getSubtotal());
+//            orderItem.setTotalPriced(cartItem.getSubtotal());
             orderItem.setOrderId(order.getOrderId());
             orderItemList.add(orderItem);
         }
