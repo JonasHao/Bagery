@@ -30,7 +30,6 @@ public class UserAction extends ActionSupport {
 
     @Action("login")
     public String login() {
-        //todo: use validator to validate columns
         if (!userService.existUsername(username)) {
             addFieldError("username","用户名不存在");
             return INPUT;
