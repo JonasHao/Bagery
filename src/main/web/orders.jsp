@@ -19,8 +19,6 @@
     </jsp:attribute>
 
 
-
-
     <jsp:attribute name="scripts">
         <script type="text/javascript">
             // Javascript to enable link to tab
@@ -37,8 +35,13 @@
                 window.location.hash = e.target.hash;
             });
 
+            var test = function (id) {
+                console.log("hello" + id);
+            }
 
         </script>
+
+
      </jsp:attribute>
 
     <jsp:body>
@@ -77,7 +80,7 @@
                                         <div class="col-md-3">
                                             <p>2016-6-24</p>
 
-                                            <p>订单号：<s:property value="orderId"/> </p>
+                                            <p>订单号：<s:property value="orderId"/></p>
                                         </div>
                                         <div class="col-md-2 ">
                                             <p>总价:<s:property value="total"/></p>
@@ -92,7 +95,15 @@
                                         </div>
 
                                         <div class="col-md-1 col-md-push-4">
-                                            <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+                                            <i onclick="bootbox.confirm({
+                                                    message:'hello',
+                                                    callback: function(result){   if(result){
+                                                    test(<s:property value="orderId"/>);
+                                                    } },
+                                                    local:'zh_CN'
+                                                    })"
+                                               class="fa fa-trash fa-lg"
+                                               aria-hidden="true"></i>
                                         </div>
                                     </div>
                                 </div>
