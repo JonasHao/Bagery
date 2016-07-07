@@ -3,13 +3,14 @@ package action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.dispatcher.DefaultActionSupport;
 import po.User;
 import service.UserService;
 
 /**
  * Created by zhang on 2016/6/23.
  */
-public class UserAction extends ActionSupport {
+public class UserAction extends DefaultActionSupport {
     private UserService userService;
     private User user;
 
@@ -22,41 +23,37 @@ public class UserAction extends ActionSupport {
     private String usergroup;
     private String msg;
 
-    @Action("logout")
     public String logout() {
         ActionContext.getContext().getSession().clear();
         return SUCCESS;
     }
 
-    @Action("login")
     public String login() {
         if (!userService.existUsername(username)) {
-            addFieldError("username","用户名不存在");
+            addFieldError("username", "用户名不存在");
             return INPUT;
         }
 
-        msg=userService.login(username,password);
+        msg = userService.login(username, password);
 
-        if(msg.equals("input")) {
+        if (msg.equals("input")) {
             addFieldError("password", "密码错误");
             return INPUT;
-        }
-        else
+        } else
             return SUCCESS;
     }
 
-    @Action("register")
     public String register() {
         if (userService.existUsername(username)) {
-            addFieldError("username","Exist UserName,Please Input Again");
+            addFieldError("username", "Exist UserName,Please Input Again");
             return INPUT;
         }
         if (userService.existEmail(email)) {
-            addFieldError("email","Exist Email,Please Input Again");
+            addFieldError("email", "Exist Email,Please Input Again");
             return INPUT;
         }
         if (!password.equals(confirmpassword)) {
-            addFieldError("confirmpassword","Wrong Password,Please Confirm it");
+            addFieldError("confirmpassword", "Wrong Password,Please Confirm it");
             return INPUT;
         }
 
@@ -70,6 +67,47 @@ public class UserAction extends ActionSupport {
         userService.register(user);
         ActionContext.getContext().getSession().put("User", user);
         return SUCCESS;
+    }
+
+    @Override
+    public void validate() {
+        if (username == null || username.length() < 5 || username.length() > 12) {
+            addFieldError("username", "用户名长度应为5-12位");
+            return;
+        }
+
+        if (!username.matches("^[A-Za-z0-9]{5,12}$")) {
+            addFieldError("username", "用户名只能包含字母和数字");
+            return;
+        }
+
+        if (password == null || password.length() < 5 || username.length() > 20) {
+            addFieldError("password", "密码长度应为5-20位");
+            return;
+        }
+
+        if (!password.matches("^(\\w){5,20}$")) {
+            addFieldError("password", "密码只能包含字母数字或下划线");
+            return;
+        }
+
+        super.validate();
+    }
+
+    public void validateRegister() {
+        // optional real name
+        if (realname != null && realname.length() > 0) {
+            if (realname.length() > 15) {
+                addFieldError("realname", "姓名输入太长了");
+                return;
+            }
+        }
+
+        if (!email.matches("^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$")) {
+            addFieldError("email", "邮箱格式不正确");
+        }
+
+
     }
 
     public void setUsergroup(String usergroup) {

@@ -94,7 +94,7 @@
                             to_delete.remove();
                             notify("成功移除购物车");
                         } else {
-                            alert("删除失败！");
+                            warning("删除失败！");
                         }
                     }
                 })

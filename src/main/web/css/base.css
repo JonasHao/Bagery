@@ -25,7 +25,7 @@ main {
 }
 
 .breadcrumb {
-    padding-left: 10%;
+    padding-left: 15%;
 }
 
 a {
@@ -44,6 +44,7 @@ a {
 
 .product-title {
     margin-bottom: 0.25rem;
+    text-align: center;
 }
 
 .product-text {
@@ -157,7 +158,6 @@ a {
 }
 
 .comment-reply {
-
     color: #cd6108;
 }
 
@@ -198,4 +198,21 @@ a {
 
 .email-active-label {
     background: transparent;
+}
+
+.hm-black-strong .full-bg-img, .hm-black-strong .mask {
+    background-color: rgba(255, 255, 255, 1)
+}
+
+.errorMessage {
+    margin-top: 0;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #ff0954;
+}
+
+
+
+.error-msg-form {
+    margin-bottom: 0;
 }

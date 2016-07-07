@@ -6,7 +6,6 @@
 <%@attribute name="pricedId" fragment="true" %>
 <%@attribute name="itemId" fragment="true" %>
 <div class="card card-favorite">
-
     <!--Card image-->
     <div class="view overlay hm-white-slight ">
         <img src="<jsp:invoke fragment="img"/>" class="img-fluid" alt="">
@@ -16,9 +15,6 @@
                     <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
                 </a>
             </div>
-
-
-
         </div>
         <!--/.Card image-->
         <!--Card content-->

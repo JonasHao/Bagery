@@ -36,12 +36,12 @@
                     </div>
 
                     <div class="card-block">
-                        <form class="form-user" action="update" namespace="/user" method="POST">
+                        <form class="form-user" action="/user/update.action">
                             <div class="card-block">
 
                                 <s:set name="active" value="isActivate"/>
                                 <div class="md-form input-group" >
-                                    <s:textfield label="邮箱" name="email" class="form-control" disabled="true"/>
+                                    <s:textfield label="邮箱" name="email" cssClass="form-control" disabled="true"/>
                                     <span class="input-group-addon email-active-label">
                                         <s:if test="#active == 1">已验证<i class="fa fa-bullseye" aria-hidden="true"></i></s:if>
                                         <s:else><s:a action="openConfirm">验证</s:a></s:else>
@@ -49,7 +49,7 @@
                                 </div>
 
                                 <div class="md-form">
-                                    <s:textfield label="姓名" name="realname" class="form-control" disabled="false"/>
+                                    <s:textfield label="姓名" name="realname" cssClass="form-control"/>
                                 </div>
 
                                 <s:submit cssClass="grey btn btn-primary" value="确认"/>
