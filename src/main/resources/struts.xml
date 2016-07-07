@@ -11,27 +11,33 @@
             <interceptor name="ProADLoginChecker" class="interceptor.CheckProAdLoginInterceptor"/>
             <interceptor name="OrdADLoginChecker" class="interceptor.CheckOrdAdLoginInterceptor"/>
 
-            <interceptor-stack name="myStack">
+            <interceptor-stack name="userStack">
                 <interceptor-ref name="loginChecker"/>
                 <interceptor-ref name="defaultStack"/>
             </interceptor-stack>
 
-            <interceptor-stack name="proStack">
+            <interceptor-stack name="productStack">
                 <interceptor-ref name="ProADLoginChecker"/>
                 <interceptor-ref name="defaultStack"/>
             </interceptor-stack>
 
-            <interceptor-stack name="ordStack">
+            <interceptor-stack name="orderStack">
                 <interceptor-ref name="OrdADLoginChecker"/>
                 <interceptor-ref name="defaultStack"/>
             </interceptor-stack>
+
         </interceptors>
+
+        <default-interceptor-ref name="defaultStack"/>
 
         <global-results>
             <result name="login">/login.jsp</result>
             <result name="error">/error.jsp</result>
         </global-results>
 
+
+        <action name="test" class="action.TestAction">
+        </action>
     </package>
 
     <package name="order" namespace="/order" extends="default,json-default">
@@ -48,7 +54,7 @@
         </action>
 
         <action name="queryOrder" class="action.OrderAction" method="queryOrder">
-            <result name="success" >/orders.jsp</result>
+            <result name="success">/orders.jsp</result>
         </action>
 
         <action name="deleteOrder" class="action.OrderAction" method="deleteOrder">
@@ -80,8 +86,8 @@
 
 
     <package name="comment" namespace="/comment" extends="default">
+        <default-interceptor-ref name="userStack"/>
 
-        <!--<default-interceptor-ref name="myStack"/>-->
 
         <action name="viewComment" class="action.CommentAction" method="viewComment">
             <result name="success">/index.jsp</result>
@@ -105,9 +111,9 @@
     </package>
 
 
-
     <package name="user" namespace="/user" extends="default">
-        <!--<default-interceptor-ref name="myStack"/>-->
+        <default-interceptor-ref name="userStack"/>
+
 
         <action name="register" class="action.UserAction" method="register">
             <result name="success">/home.jsp</result>
@@ -132,9 +138,8 @@
         </action>
 
         <action name="update" class="action.UserInfoAction" method="update">
-            <!--<interceptor-ref name="loginChecker"/>-->
-            <result name="success" type="redirectAction">home</result>
-            <result name="input" type="redirectAction">viewInfo</result>
+            <result name="success" type="redirectAction">viewInfo</result>
+            <result name="input">/profile.jsp</result>
         </action>
 
         <action name="openReset" class="action.UserInfoAction" method="openReset">
@@ -156,7 +161,7 @@
         </action>
 
         <action name="confirmEmail" class="action.UserInfoAction" method="confirmEmail">
-            <result name="success" type="redirectAction">home</result>
+            <result name="success">/index.jsp</result>
             <result name="input">/FindPassword.jsp</result>
         </action>
 
@@ -165,7 +170,7 @@
         </action>
 
         <action name="confirmCode" class="action.UserInfoAction" method="confirmCode">
-            <result name="success">/home.jsp</result>
+            <result name="success" type="redirectAction">viewInfo</result>
             <result name="input">/home.jsp</result>
         </action>
 
@@ -225,7 +230,7 @@
     </package>
 
     <package name="address" namespace="/address" extends="default">
-        <default-interceptor-ref name="myStack"/>
+        <default-interceptor-ref name="userStack"/>
 
         <action name="viewAddress" class="action.AddressAction" method="viewAddress">
             <!--<result name="success">/admin/admin_product_detail.jsp</result>-->
@@ -252,7 +257,6 @@
     </package>
 
     <package name="product" namespace="/product" extends="default">
-        <default-interceptor-ref name="myStack"/>
         <action name="viewProduct" class="action.ProductionAction" method="viewProduct">
             <result name="success">/detail.jsp</result>
         </action>
@@ -271,10 +275,13 @@
     </package>
 
     <package name="admin" namespace="/admin" extends="default">
-        <default-interceptor-ref name="myStack"/>
-
+        <default-interceptor-ref name="productStack"/>
         <action name="addPriced" class="action.ProductionAction" method="add">
-            <result name="success" type="redirectAction">pricedList</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">pricedList</param>
+                <param name="state">s</param>
+                <param name="message">添加商品成功</param>
+            </result>
             <result name="input">/admin/add_product.jsp</result>
         </action>
         <action name="pricedList" class="action.ProductionAction" method="viewPricedListAdmin">
@@ -284,22 +291,35 @@
             <result name="success">/admin/update_product.jsp</result>
         </action>
         <action name="updatePriced" class="action.ProductionAction" method="update">
-            <result name="success" type="redirectAction">pricedList</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">pricedList</param>
+                <param name="state">s</param>
+                <param name="message">更新商品成功</param>
+            </result>
             <result name="input">/admin/update_product.jsp</result>
         </action>
         <action name="soldOutPriced" class="action.ProductionAction" method="soldOutPriced">
             <result name="success" type="redirectAction">
                 <param name="actionName">pricedList</param>
+                <param name="state">s</param>
                 <param name="message">下架商品成功</param>
             </result>
             <result name="input" type="redirectAction">pricedList</result>
         </action>
         <action name="putOnPriced" class="action.ProductionAction" method="putOnPriced">
-            <result name="success" type="redirectAction">pricedList</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">pricedList</param>
+                <param name="state">s</param>
+                <param name="message">上架商品成功</param>
+            </result>
             <result name="input" type="redirectAction">pricedList</result>
         </action>
         <action name="deletePriced" class="action.ProductionAction" method="deletePriced">
-            <result name="success" type="redirectAction">pricedList</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">pricedList</param>
+                <param name="state">s</param>
+                <param name="message">删除商品成功</param>
+            </result>
             <result name="input" type="redirectAction">pricedList</result>
         </action>
     </package>

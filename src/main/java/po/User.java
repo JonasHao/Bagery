@@ -27,6 +27,7 @@ public class User {
 
     public User() {
         img = "../../img/avatar/halloween-black-cat.png";
+        score = 0;
     }
 
     @Id
@@ -145,7 +146,8 @@ public class User {
         if (realName != null ? !realName.equals(user.realName) : user.realName != null) return false;
         if (email != null ? !email.equals(user.email) : user.email != null) return false;
         if (img != null ? !img.equals(user.img) : user.img != null) return false;
-        if (defaultAddressId != null ? !defaultAddressId.equals(user.defaultAddressId) : user.defaultAddressId != null) return false;
+        if (defaultAddressId != null ? !defaultAddressId.equals(user.defaultAddressId) : user.defaultAddressId != null)
+            return false;
         if (userGroup != null ? !userGroup.equals(user.userGroup) : user.userGroup != null) return false;
 
         return true;
@@ -212,6 +214,7 @@ public class User {
     }
 
     @OneToMany(mappedBy = "user")
+    @OrderBy("recordDate DESC")
     public List<UserPricedRecord> getHistoryRecords() {
         return historyRecords;
     }

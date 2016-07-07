@@ -14,8 +14,8 @@
     <jsp:attribute name="title">我的足迹</jsp:attribute>
     <jsp:attribute name="breadcrumb">
        <ol class="breadcrumb">
-           <li><a href="index.jsp">首页</a></li>
-           <li><a href="home.jsp">个人中心</a></li>
+           <li><a href="/index.jsp">首页</a></li>
+           <li><s:a action="home" namespace="/user">个人中心</s:a></li>
            <li class="active">浏览纪录</li>
        </ol>
     </jsp:attribute>
@@ -24,77 +24,24 @@
         <div class="container">
 
             <div class="history-block">
-                <!--Heading
+
                 <div class="reviews">
                     <h2 class="h2-responsive">今天</h2>
                 </div>
-                -->
+
                 <div class="row">
-                    <s:iterator value="records">
-                    <div class="col-md-3 col-lg-2 ">
-                        <t:favoriteItem>
-                            <jsp:attribute name="img"><s:property value="priced.img"/></jsp:attribute>
-                            <jsp:attribute name="title"><s:property value="priced.title"/></jsp:attribute>
-                            <jsp:attribute name="price"><s:property value="priced.unitPrice"/></jsp:attribute>
-                            <jsp:attribute name="pricedId"><s:property value="priced.pricedId"/></jsp:attribute>
-                        </t:favoriteItem>
-                    </div>
+                    <s:iterator value="historyList">
+                        <div class="col-md-3 col-lg-2 ">
+                            <t:favoriteItem>
+                                <jsp:attribute name="img"><s:property value="priced.img"/></jsp:attribute>
+                                <jsp:attribute name="title"><s:property value="priced.title"/></jsp:attribute>
+                                <jsp:attribute name="price"><s:property value="priced.unitPrice"/></jsp:attribute>
+                                <jsp:attribute name="pricedId"><s:property value="priced.pricedId"/></jsp:attribute>
+                            </t:favoriteItem>
+                        </div>
                     </s:iterator>
                 </div>
             </div>
-
-            <%--
-            <div class="history-block">
-                <!--Heading-->
-                <div class="reviews">
-                    <h2 class="h2-responsive">昨天</h2>
-                </div>
-                <div class="row">
-                    <div class="col-md-3 col-lg-2 ">
-                        <t:favoriteItem>
-                            <jsp:attribute name="img">img/bags/bag1.png</jsp:attribute>
-                            <jsp:attribute name="title">包包标题</jsp:attribute>
-                            <jsp:attribute name="price">99999.00</jsp:attribute>
-                        </t:favoriteItem>
-                    </div>
-                    <div class="col-md-3 col-lg-2 ">
-                        <t:favoriteItem>
-                            <jsp:attribute name="img">img/bags/bag1.png</jsp:attribute>
-                            <jsp:attribute name="title">包包标题</jsp:attribute>
-                            <jsp:attribute name="price">99999.00</jsp:attribute>
-                        </t:favoriteItem>
-                    </div>
-                    <div class="col-md-3 col-lg-2 ">
-                        <t:favoriteItem>
-                            <jsp:attribute name="img">img/bags/bag1.png</jsp:attribute>
-                            <jsp:attribute name="title">包包标题</jsp:attribute>
-                            <jsp:attribute name="price">99999.00</jsp:attribute>
-                        </t:favoriteItem>
-                    </div>
-                    <div class="col-md-3 col-lg-2 ">
-                        <t:favoriteItem>
-                            <jsp:attribute name="img">img/bags/bag1.png</jsp:attribute>
-                            <jsp:attribute name="title">包包标题</jsp:attribute>
-                            <jsp:attribute name="price">99999.00</jsp:attribute>
-                        </t:favoriteItem>
-                    </div>
-                    <div class="col-md-3 col-lg-2 ">
-                        <t:favoriteItem>
-                            <jsp:attribute name="img">img/bags/bag1.png</jsp:attribute>
-                            <jsp:attribute name="title">包包标题</jsp:attribute>
-                            <jsp:attribute name="price">99999.00</jsp:attribute>
-                        </t:favoriteItem>
-                    </div>
-                    <div class="col-md-3 col-lg-2 ">
-                        <t:favoriteItem>
-                            <jsp:attribute name="img">img/bags/bag1.png</jsp:attribute>
-                            <jsp:attribute name="title">包包标题</jsp:attribute>
-                            <jsp:attribute name="price">99999.00</jsp:attribute>
-                        </t:favoriteItem>
-                    </div>
-                </div>
-            </div>
-                --%>
         </div>
 
 

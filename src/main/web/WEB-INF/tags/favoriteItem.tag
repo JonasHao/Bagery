@@ -7,19 +7,6 @@
 <%@attribute name="itemId" fragment="true" %>
 <div class="card card-favorite">
 
-    <%--&lt;%&ndash;todo 更新商品详情action&ndash;%&gt;--%>
-    <%--<s:url var="productUrl" namespace="/product" action="viewProduct">--%>
-        <%--<s:param name="priced_id">--%>
-            <%--<jsp:invoke fragment="pricedId"/>--%>
-        <%--</s:param>--%>
-    <%--</s:url>--%>
-
-    <%--<s:url var="unfavorUrl" namespace="/favorite" action="unfavor">--%>
-    <%--<s:param name="itemId">--%>
-    <%--<jsp:invoke fragment="itemId"/>--%>
-    <%--</s:param>--%>
-    <%--</s:url>--%>
-
     <!--Card image-->
     <div class="view overlay hm-white-slight ">
         <img src="<jsp:invoke fragment="img"/>" class="img-fluid" alt="">
@@ -29,7 +16,7 @@
                     <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
                 </a>
             </div>
-            <%--</s:a>--%>
+
 
 
         </div>

@@ -260,11 +260,6 @@
                                                             <input type="text" placeholder="请输入库存" class="form-control m-b">
                                                         </div>
                                                     </div>
-
-
-
-
-
                                                 </div>
 
                                             </div>
@@ -370,8 +365,9 @@
                 }
 
                 $("#download").click(function() {
-                    console.log($image);
-                    // window.open($image.cropper("getDataURL"));
+                    // console.log($image);
+                    var imgdata = $image.cropper("getDataURL");
+                    console.log($image.cropper("getDataURL"));
                 });
 
          

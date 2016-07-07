@@ -1,7 +1,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
+
 <t:base>
+    <jsp:attribute name="scripts">
+        <script type="text/javascript">
+            if(1==1) {
+                notify("登录成功！");
+            }
+        </script>
+    </jsp:attribute>
+
+
     <jsp:attribute name="title">首页 </jsp:attribute>
     <jsp:body>
 

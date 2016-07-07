@@ -1,6 +1,8 @@
 package action;
 
 import com.opensymphony.xwork2.ActionSupport;
+import org.hibernate.Hibernate;
+import org.hibernate.HibernateException;
 import po.Address;
 import po.User;
 import service.AddressService;
@@ -29,62 +31,90 @@ public class AddressAction extends ActionSupport {
     private int add;
 
     public String viewAddress() {
-        user = userService.getCurrentUser();
-        addressList = user.getAddresses();
-        defaultAddressId=user.getDefaultAddressId();
-        return SUCCESS;
-
+        try {
+            user = userService.getCurrentUser();
+            addressList = user.getAddresses();
+            defaultAddressId = user.getDefaultAddressId();
+            return SUCCESS;
+        }
+        catch (HibernateException e){
+            e.printStackTrace();
+            return ERROR;
+        }
     }
 
     public String addAddress() {
-        user = userService.getCurrentUser();
-        address = new Address();
-        address.setUserId(user.getUserId());
-        address.setReceiver(receiver);
-        address.setMobile(mobile);
-        address.setAddressProvince(addressProvince);
-        address.setAddressCity(addressCity);
-        address.setAddressDistrict(addressDistrict);
-        address.setAddressDetail(addressDetail);
+        try {
+            user = userService.getCurrentUser();
+            address = new Address();
+            address.setUserId(user.getUserId());
+            address.setReceiver(receiver);
+            address.setMobile(mobile);
+            address.setAddressProvince(addressProvince);
+            address.setAddressCity(addressCity);
+            address.setAddressDistrict(addressDistrict);
+            address.setAddressDetail(addressDetail);
 
-
-        addressService.add(address);
+            addressService.add(address);
 //        userService.update(user);
-        user = userService.getCurrentUser();
-        if(user.getAddresses().size()==1){
-            user.setDefaultAddressId(user.getAddresses().get(0).getAddressId());
-            userService.update(user);
+            user = userService.getCurrentUser();
+            if (user.getAddresses().size() == 1) {
+                user.setDefaultAddressId(user.getAddresses().get(0).getAddressId());
+                userService.update(user);
+            }
+            return SUCCESS;
         }
-        return SUCCESS;
+        catch(HibernateException e){
+            e.printStackTrace();
+            return ERROR;
+        }
     }
 
     public String deleteAddress() {
-        addressService.deleteAddress(addressId);
-        return SUCCESS;
+        try {
+            addressService.deleteAddress(addressId);
+            return SUCCESS;
+        }
+        catch(HibernateException e){
+            e.printStackTrace();
+            return ERROR;
+        }
     }
 
     public String updateAddress() {
-        address = addressService.get(addressId);
-        if (address == null) {
+        try {
+            address = addressService.get(addressId);
+            if (address == null) {
+                return ERROR;
+            }
+
+            address.setMobile(mobile);
+            address.setReceiver(receiver);
+            address.setAddressProvince(addressProvince);
+            address.setAddressCity(addressCity);
+            address.setAddressDistrict(addressDistrict);
+            address.setAddressDetail(addressDetail);
+
+            addressService.update(address);
+            return SUCCESS;
+        }
+        catch (HibernateException e){
+            e.printStackTrace();
             return ERROR;
         }
-
-        address.setMobile(mobile);
-        address.setReceiver(receiver);
-        address.setAddressProvince(addressProvince);
-        address.setAddressCity(addressCity);
-        address.setAddressDistrict(addressDistrict);
-        address.setAddressDetail(addressDetail);
-
-        addressService.update(address);
-        return SUCCESS;
     }
 
     public String setDefaultAddress(){
-        user=userService.getCurrentUser();
-        user.setDefaultAddressId(defaultAddressId);
-        userService.update(user);
-        return SUCCESS;
+        try {
+            user = userService.getCurrentUser();
+            user.setDefaultAddressId(defaultAddressId);
+            userService.update(user);
+            return SUCCESS;
+        }
+        catch (HibernateException e){
+            e.printStackTrace();
+            return ERROR;
+        }
     }
 
     public UserService getUserService() {

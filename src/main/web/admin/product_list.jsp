@@ -309,6 +309,14 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            console.log(getQueryString(r));
+            if (r != null) return unescape(r[2]);
+            return null;
+        }
+
         $('.dataTables-example').dataTable({
             responsive: true,
             "dom": 'T<"clear">lfrtip',
@@ -316,10 +324,8 @@
                 "sSwfPath": "js/plugins/dataTables/swf/copy_csv_xls_pdf.swf"
             }
         });
-
         $('.DTTT_container').remove();
 
-
         setTimeout(function () {
                     toastr.options = {
                         closeButton: true,
@@ -327,28 +333,12 @@
                         showMethod: 'slideDown',
                         timeOut: 4000
                     };
-                    toastr.success('后台管理系统', '欢迎来到Bagery');
+                    var m=getQueryString("message");
+                    toastr.success('后台管理系统',m);
 
                 },
                 1300);
-
-        toastr.warning('My name is Inigo Montoya. You killed my father, prepare to die!');
     });
-
-    function notify(str){
-        setTimeout(function () {
-                    toastr.options = {
-                        closeButton: true,
-                        progressBar: true,
-                        showMethod: 'slideDown',
-                        timeOut: 4000
-                    };
-                    toastr.success(str);
-
-                },
-                1300);
-    }
-
 </script>
 
 <style scoped>
