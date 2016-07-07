@@ -2,6 +2,7 @@ package action;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import org.apache.struts2.dispatcher.DefaultActionSupport;
 import org.hibernate.HibernateException;
 import po.User;
 import po.UserPricedRecord;
@@ -13,7 +14,7 @@ import java.util.Random;
 /**
  * Created by zhang on 2016/6/23.
  */
-public class UserInfoAction extends ActionSupport {
+public class UserInfoAction extends DefaultActionSupport {
     private UserService userService;
     private User user;
 
