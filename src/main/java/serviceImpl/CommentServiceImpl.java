@@ -43,7 +43,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public void deleteComment(int commentId) {
-        dao.delete(commentId);
+        dao.delete(dao.get(Comment.class, commentId));
 
     }
     public void setDao(Dao dao) {

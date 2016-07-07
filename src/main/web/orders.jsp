@@ -19,6 +19,8 @@
     </jsp:attribute>
 
 
+
+
     <jsp:attribute name="scripts">
         <script type="text/javascript">
             // Javascript to enable link to tab
@@ -40,8 +42,6 @@
             }
 
         </script>
-
-
      </jsp:attribute>
 
     <jsp:body>
@@ -55,10 +55,10 @@
                     <a class="nav-link" data-toggle="tab" href="#unpaid" role="tab">待付款</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " data-toggle="tab" href="#unshiped" role="tab">待发货</a>
+                    <a class="nav-link " data-toggle="tab" href="#unshipped" role="tab">待发货</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#shiped" role="tab">待收货</a>
+                    <a class="nav-link" data-toggle="tab" href="#shipped" role="tab">待收货</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link " data-toggle="tab" href="#uncomment" role="tab">待评价</a>
@@ -72,6 +72,212 @@
                 <div class="tab-pane active" id="all" role="tabpanel">
                     <br>
                     <s:iterator value="orderList">
+
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <p>2016-6-24</p>
+
+                                        <p>订单号：<s:property value="orderId"/></p>
+                                    </div>
+                                    <div class="col-md-2 ">
+                                        <p>总价:<s:property value="total"/></p>
+
+                                        <p>运费:不要钱</p>
+                                    </div>
+
+                                    <div class="col-md-2 ">
+                                        <p>收货人：<s:property value="address.receiver"/></p>
+
+                                        <p>待收货</p>
+                                    </div>
+
+                                    <div class="col-md-1 col-md-push-4">
+                                        <i class="fa fa-trash fa-lg" onclick="deleteOrder(orderId)"
+                                           aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-block">
+                                <s:iterator value="orderItems">
+                                    <t:orderItem>
+                                        <jsp:attribute name="img">"../../img/bags/bag1.png"</jsp:attribute>
+                                        <jsp:attribute name="title"><s:property value="productTitle"/></jsp:attribute>
+                                        <jsp:attribute name="price"><s:property value="totalPriced"/></jsp:attribute>
+                                        <jsp:attribute name="number"><s:property value="num"/></jsp:attribute>
+                                        <jsp:attribute name="color"><s:property value="product.color"/></jsp:attribute>
+                                    </t:orderItem>
+                                </s:iterator>
+
+                            </div>
+                        </div>
+                    </s:iterator>
+                </div>
+                <!--/.Panel 1-->
+
+
+                <!--Panel 2-->
+                <div class="tab-pane" id="unpaid" role="tabpanel">
+                    <br>
+                    <s:iterator value="orderList">
+
+                        <s:if test='orderStatus == "unpaid" '>
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <p>2016-6-24</p>
+
+                                            <p>订单号：<s:property value="orderId"/> </p>
+                                        </div>
+                                        <div class="col-md-2 ">
+                                            <p>总价:<s:property value="total"/></p>
+
+                                            <p>运费:不要钱</p>
+                                        </div>
+
+                                        <div class="col-md-2 ">
+                                            <p>收货人：<s:property value="address.receiver"/></p>
+
+                                            <p>待收货<s:property value="orderStatus"/></p>
+                                        </div>
+
+                                        <div class="col-md-1 col-md-push-4">
+                                            <i onclick="bootbox.confirm({
+                                                    message:'hello',
+                                                    callback: function(result){   if(result){
+                                                    test(<s:property value="orderId"/>);
+                                                    } },
+                                                    local:'zh_CN'
+                                                    })"
+                                               class="fa fa-trash fa-lg"
+                                               aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-block">
+                                    <s:iterator value="orderItems">
+                                        <t:orderItem>
+                                            <jsp:attribute name="img">"../../img/bags/bag1.png"</jsp:attribute>
+                                            <jsp:attribute name="title"><s:property value="productTitle"/></jsp:attribute>
+                                            <jsp:attribute name="price"><s:property value="totalPriced"/></jsp:attribute>
+                                            <jsp:attribute name="number"><s:property value="num"/></jsp:attribute>
+                                            <jsp:attribute name="color"><s:property value="product.color"/></jsp:attribute>
+                                        </t:orderItem>
+                                    </s:iterator>
+
+                                </div>
+                            </div>
+                        </s:if>
+                    </s:iterator>
+                </div>
+                <!--/.Panel 2-->
+
+                <!--Panel 3-->
+                <div class="tab-pane" id="unshipped" role="tabpanel">
+                    <br>
+                    <s:iterator value="orderList">
+
+                        <s:if test='orderStatus == "unshipped" '>
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <p>2016-6-24</p>
+
+                                            <p>订单号：<s:property value="orderId"/></p>
+                                        </div>
+                                        <div class="col-md-2 ">
+                                            <p>总价:<s:property value="total"/></p>
+
+                                            <p>运费:不要钱</p>
+                                        </div>
+
+                                        <div class="col-md-2 ">
+                                            <p>收货人：<s:property value="address.receiver"/></p>
+
+                                            <p>待收货</p>
+                                        </div>
+
+                                        <div class="col-md-1 col-md-push-4">
+                                            <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-block">
+                                    <s:iterator value="orderItems">
+                                        <t:orderItem>
+                                            <jsp:attribute name="img">"../../img/bags/bag1.png"</jsp:attribute>
+                                            <jsp:attribute name="title"><s:property value="productTitle"/></jsp:attribute>
+                                            <jsp:attribute name="price"><s:property value="totalPriced"/></jsp:attribute>
+                                            <jsp:attribute name="number"><s:property value="num"/></jsp:attribute>
+                                            <jsp:attribute name="color"><s:property value="product.color"/></jsp:attribute>
+                                        </t:orderItem>
+                                    </s:iterator>
+
+                                </div>
+                            </div>
+                        </s:if>
+                    </s:iterator>
+
+                </div>
+                <!--/.Panel 3-->
+
+                <!--Panel 4-->
+                <div class="tab-pane" id="shipped" role="tabpanel">
+                    <br>
+                    <s:iterator value="orderList">
+
+                        <s:if test='orderStatus == "shipped" '>
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <p>2016-6-24</p>
+
+                                            <p>订单号：<s:property value="orderId"/></p>
+                                        </div>
+                                        <div class="col-md-2 ">
+                                            <p>总价:<s:property value="total"/></p>
+
+                                            <p>运费:不要钱</p>
+                                        </div>
+
+                                        <div class="col-md-2 ">
+                                            <p>收货人：<s:property value="address.receiver"/></p>
+
+                                            <p>待收货</p>
+                                        </div>
+
+                                        <div class="col-md-1 col-md-push-4">
+                                            <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-block">
+                                    <s:iterator value="orderItems">
+                                        <t:orderItem>
+                                            <jsp:attribute name="img">"../../img/bags/bag1.png"</jsp:attribute>
+                                            <jsp:attribute name="title">产品名称：<s:property value="productTitle"/></jsp:attribute>
+                                            <jsp:attribute name="price"><s:property value="totalPriced"/></jsp:attribute>
+                                            <jsp:attribute name="number"><s:property value="num"/></jsp:attribute>
+                                            <jsp:attribute name="color"><s:property value="product.color"/></jsp:attribute>
+                                        </t:orderItem>
+                                    </s:iterator>
+
+                                </div>
+                            </div>
+                        </s:if>
+                    </s:iterator>
+
+                </div>
+                <!--/.Panel 4-->
+
+                <!--Panel 5-->
+                <div class="tab-pane" id="uncomment" role="tabpanel">
+                    <br>
+                    <s:iterator value="uncomment">
 
                         <s:if test='orderStatus == "unpaid" '>
                             <div class="card">
@@ -95,26 +301,18 @@
                                         </div>
 
                                         <div class="col-md-1 col-md-push-4">
-                                            <i onclick="bootbox.confirm({
-                                                    message:'hello',
-                                                    callback: function(result){   if(result){
-                                                    test(<s:property value="orderId"/>);
-                                                    } },
-                                                    local:'zh_CN'
-                                                    })"
-                                               class="fa fa-trash fa-lg"
-                                               aria-hidden="true"></i>
+                                            <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-block">
-                                    <s:iterator begin="1" end="3">
+                                    <s:iterator value="orderItems">
                                         <t:orderItem>
                                             <jsp:attribute name="img">"../../img/bags/bag1.png"</jsp:attribute>
-                                            <jsp:attribute name="title">商品标题</jsp:attribute>
-                                            <jsp:attribute name="price">99999.99</jsp:attribute>
-                                            <jsp:attribute name="number">1</jsp:attribute>
-                                            <jsp:attribute name="color">红色</jsp:attribute>
+                                            <jsp:attribute name="title"><s:property value="productTitle"/></jsp:attribute>
+                                            <jsp:attribute name="price"><s:property value="totalPriced"/></jsp:attribute>
+                                            <jsp:attribute name="number"><s:property value="num"/></jsp:attribute>
+                                            <jsp:attribute name="color"><s:property value="product.color"/></jsp:attribute>
                                         </t:orderItem>
                                     </s:iterator>
 
@@ -122,42 +320,6 @@
                             </div>
                         </s:if>
                     </s:iterator>
-                </div>
-                <!--/.Panel 1-->
-
-
-                <!--Panel 2-->
-                <div class="tab-pane" id="unpaid" role="tabpanel">
-                    <br>
-
-                    <p>Content for Panel 2</p>
-
-                </div>
-                <!--/.Panel 2-->
-
-                <!--Panel 3-->
-                <div class="tab-pane" id="unshiped" role="tabpanel">
-                    <br>
-
-                    <p>Content for Panel 3</p>
-
-                </div>
-                <!--/.Panel 3-->
-
-                <!--Panel 4-->
-                <div class="tab-pane" id="shiped" role="tabpanel">
-                    <br>
-
-                    <p>Content for Panel 4</p>
-
-                </div>
-                <!--/.Panel 4-->
-
-                <!--Panel 5-->
-                <div class="tab-pane" id="uncomment" role="tabpanel">
-                    <br>
-
-                    <p>Content for Panel 5</p>
 
                 </div>
                 <!--/.Panel 5-->

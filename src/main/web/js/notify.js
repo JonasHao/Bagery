@@ -15,3 +15,18 @@ function notify(str) {
         1300);
 }
 
+
+function warning(str) {
+    setTimeout(function () {
+            toastr.options = {
+                closeButton: true,
+                progressBar: true,
+                showMethod: 'slideDown',
+                timeOut: 4000
+            };
+            toastr.warning(str);
+
+        },
+        1300);
+}
+

@@ -1,6 +1,7 @@
 package action;
 
 import com.opensymphony.xwork2.ActionContext;
+import constant.Config;
 import org.apache.struts2.dispatcher.DefaultActionSupport;
 import org.hibernate.HibernateException;
 import po.Address;
@@ -13,9 +14,9 @@ import service.OrderService;
 import service.UserService;
 import constant.OrderStatus;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
+
+import static constant.Key.RESULT;
 
 /**
  * Created by 41159 on 2016/6/29.
@@ -26,7 +27,6 @@ public class OrderAction extends DefaultActionSupport {
     private OrderService orderService;
     private AddressService addressService;
     private CartService cartService;
-
     private Order order;
     private User user;
     private Address defaultAddress;
@@ -48,8 +48,10 @@ public class OrderAction extends DefaultActionSupport {
     private String logisticsCompany;
     private String status;
 
-    //????
-    public String balance() throws Exception {
+    private Map<String,Object> data=new HashMap<>();
+
+    //����
+    public String balance() throws Exception{
         try {
             user = userService.getCurrentUser();
             addressList = user.getAddresses();
@@ -77,8 +79,8 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-    //????????
-    public String addOrder() throws Exception {
+    //��������
+    public String addOrder() throws Exception{
         try {
             user = userService.getCurrentUser();
             userId = user.getUserId();
@@ -89,95 +91,99 @@ public class OrderAction extends DefaultActionSupport {
             order.setOrderStatus(OrderStatus.UNPAID);
             orderService.addOrder(order, cartItemIdList);
             return SUCCESS;
-        } catch (HibernateException e) {
+        }catch (HibernateException e){
             e.printStackTrace();
         }
         return ERROR;
     }
 
-    //??????
-    public String queryOrder() throws Exception {
+    //�鿴����
+    public String queryOrder() throws Exception{
         try {
             user = userService.getCurrentUser();
             orderList = user.getOrders();
             return SUCCESS;
-        } catch (HibernateException e) {
+        }catch (HibernateException e){
             e.printStackTrace();
         }
         return ERROR;
     }
 
-    //???????
-    public String deleteOrder() throws Exception {
+    //ɾ������
+    public String deleteOrder() throws Exception{
         try {
             orderService.deleteOrder(orderId);
-            return SUCCESS;
-        } catch (HibernateException e) {
-            e.printStackTrace();
+            data.put(RESULT, SUCCESS);
+        }catch (HibernateException e){
+            if (Config.DEBUG) {
+                data.put(RESULT, SUCCESS);
+            } else {
+                data.put(RESULT, ERROR);
+            }
         }
-        return ERROR;
+        return SUCCESS;
     }
 
-    //???????
-    public String cancelOrder() throws Exception {
+    //ȡ������
+    public String cancelOrder() throws Exception{
         try {
             order = orderService.getByOrderId(orderId);
             order.setOrderStatus(OrderStatus.CANCELED);
             orderService.updateOrder(order);
             return SUCCESS;
-        } catch (HibernateException e) {
+        }catch (HibernateException e){
             e.printStackTrace();
         }
         return ERROR;
     }
 
-    //???
-    public String payment() throws Exception {
+    //֧��
+    public String payment() throws Exception{
         try {
             order = orderService.getByOrderId(orderId);
             order.setOrderStatus(OrderStatus.UNSHIPED);
             orderService.updateOrder(order);
             return SUCCESS;
-        } catch (HibernateException e) {
+        }catch (HibernateException e){
             e.printStackTrace();
         }
         return ERROR;
     }
 
-    //??????
-    public String confirmReceive() throws Exception {
+    //ȷ���ջ�
+    public String confirmReceive() throws Exception{
         try {
             user = userService.getCurrentUser();
             order = orderService.getByOrderId(orderId);
             order.setOrderStatus(OrderStatus.COMPLETED);
             orderService.updateOrder(order);
             return SUCCESS;
-        } catch (HibernateException e) {
+        }catch (HibernateException e){
             e.printStackTrace();
         }
         return ERROR;
     }
 
-    //?????????
-    public String getLogisticsStatus() throws Exception {
+    //�鿴������Ϣ
+    public String getLogisticsStatus() throws Exception{
         try {
             user = userService.getCurrentUser();
             logistics = orderService.getLogisticsStatus(orderId);
             ActionContext.getContext().getSession().put("logistics", logistics);
             return SUCCESS;
-        } catch (HibernateException e) {
+        }catch (HibernateException e){
             e.printStackTrace();
         }
         return ERROR;
     }
 
-    //??????
-    public String sendPackage() throws Exception {
+    //�̼ҷ���
+    public String sendPackage() throws Exception{
         try {
             orderService.sendPackage(orderId, logisticsNum, logisticsCompany);
 
             return SUCCESS;
-        } catch (HibernateException e) {
+        }catch (HibernateException e){
             e.printStackTrace();
         }
         return ERROR;
@@ -351,4 +357,13 @@ public class OrderAction extends DefaultActionSupport {
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
+
+    public Map<String, Object> getData() {
+        return data;
+    }
+
+    public void setData(Map<String, Object> data) {
+        this.data = data;
+    }
+
 }
