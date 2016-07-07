@@ -29,6 +29,8 @@ public class UserInfoAction extends ActionSupport {
     private byte isActivate;
     private String confirmpassword;
 
+    private int group;
+
     private int code;
     private String confirmCode;
 
@@ -43,6 +45,17 @@ public class UserInfoAction extends ActionSupport {
         try {
             user = userService.getCurrentUser();
             score = user.getScore();
+            username=user.getUsername();
+            userGroup=user.getUserGroup();
+            if(userGroup.equals("r")){
+                group=1;
+            }
+            if(userGroup.equals("cu")){
+                group=2;
+            }
+            if(userGroup.equals("ag")){
+                group=3;
+            }
             return SUCCESS;
         }catch (HibernateException e){
             e.printStackTrace();
@@ -104,20 +117,22 @@ public class UserInfoAction extends ActionSupport {
         user=userService.getUserByEmial(email);
 
         if(user==null) {
-            addFieldError("email","no existing email");
+            addFieldError("email","不存在的邮箱");
             return INPUT;
-
         }
+
         if(user.getIsActivate()==0) {
-            addFieldError("email","not confirmed email");
+            addFieldError("email","未验证的邮箱不可找回密码");
             return INPUT;
         }
 
         code=(int)(Math.random()*9000)+1000;
         ActionContext.getContext().getSession().put("Code",code);
         ActionContext.getContext().getSession().put("User",user);
+        ActionContext.getContext().getSession().put("Email",email);
 
         //发送邮件
+        addActionMessage("验证码已发送");
         return SUCCESS;
     }
 
@@ -128,10 +143,9 @@ public class UserInfoAction extends ActionSupport {
         }
 
         if(!newPassword.equals(confirmNewPassword)){
-            addFieldError("confirmNewPassword","验证密码错误");
+            addFieldError("confirmNewPassword","确认密码错误");
             return INPUT;
         }
-
 
         user=userService.getCurrentUser();
 
@@ -141,6 +155,7 @@ public class UserInfoAction extends ActionSupport {
 
         ActionContext.getContext().getSession().remove("Code");
         ActionContext.getContext().getSession().remove("User");
+        ActionContext.getContext().getSession().remove("Email");
         ActionContext.getContext().getSession().put("User",user);
         return SUCCESS;
     }
@@ -311,6 +326,13 @@ public class UserInfoAction extends ActionSupport {
         this.code = code;
     }
 
+    public int getGroup() {
+        return group;
+    }
+
+    public void setGroup(int group) {
+        this.group = group;
+    }
     public List<UserPricedRecord> getHistoryList() {
         return historyList;
     }

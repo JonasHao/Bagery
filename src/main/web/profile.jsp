@@ -33,13 +33,15 @@
                         <form class="form-user" action="update" namespace="/user" method="POST">
                             <div class="card-block">
 
-                                <div class="md-form">
+                                <s:set name="active" value="isActivate"/>
+                                <div class="md-form input-group" >
                                     <s:textfield label="邮箱" name="email" class="form-control" disabled="true"/>
+                                    <span class="input-group-addon email-active-label">
+                                        <s:if test="#active == 1">已验证<i class="fa fa-bullseye" aria-hidden="true"></i></s:if>
+                                        <s:else><s:a action="openConfirm">验证</s:a></s:else>
+                                    </span>
+
                                 </div>
-
-
-                                <s:if test="#session.User.isActivate == 1">邮箱已验证</s:if>
-                                <s:else><s:a action="openConfirm">请验证邮箱</s:a></s:else>
 
                                 <div class="md-form">
                                     <s:textfield label="姓名" name="realname" class="form-control" disabled="false"/>

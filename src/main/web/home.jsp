@@ -26,10 +26,13 @@
                             <img class="img-circle" width="128" height="128" src="../../admin/img/a1.jpg"/>
                         </a>
 
+                        <s:set name="group" value="group"/>
                         <div class="media-body home-profile-body">
-                            <h4 class="media-heading heading-username">John Doe</h4>
+                            <h4 class="media-heading heading-username"><s:property value="username"/></h4>
                             <p>积分：<s:property value="score"/> &nbsp;&nbsp;
-                                等级： 铜牌会员
+                                <s:if test="#group==1">等级：普通用户</s:if>
+                                <s:elseif test="#group==2">等级：中级用户</s:elseif>
+                                <s:elseif test="#group==3">等级：高级用户</s:elseif>
                             </p>
                         </div>
                     </div>

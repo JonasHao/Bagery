@@ -44,7 +44,6 @@ a {
 
 .product-title {
     margin-bottom: 0.25rem;
-    text-align: center;
 }
 
 .product-text {
@@ -197,6 +196,6 @@ a {
     font-style: normal;
 }
 
-.hm-black-strong .full-bg-img, .hm-black-strong .mask{
-    background-color: rgba(255, 255, 255, 1);
+.email-active-label {
+    background: transparent;
 }
