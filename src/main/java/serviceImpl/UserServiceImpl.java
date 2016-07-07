@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getCurrentUser() {
         if(Config.DEBUG){
-            user = dao.get(User.class,2);
+            user = dao.get(User.class,1);
             return user;
         }
         user=(User)ActionContext.getContext().getSession().get(Key.USER);
@@ -80,6 +80,15 @@ public class UserServiceImpl implements UserService {
             return true;
         else
             return false;
+    }
+
+    public User getUserByEmial(String email){
+        userList=dao.query("from User where email=?").setParameter(0,email).list();
+        if(userList.size()!=0){
+            return userList.get(0);
+        }
+        else
+            return null;
     }
 
     @Override

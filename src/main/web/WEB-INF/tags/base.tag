@@ -15,17 +15,24 @@
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta http-equiv="expires" content="0">
+    <% response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1
+        response.setHeader("Pragma", "no-cache"); //HTTP 1.0
+        response.setDateHeader("Expires", 0); //prevents caching at the proxy server
+    %>
 
-    <title><jsp:invoke fragment="title"/></title>
+    <title>
+        <jsp:invoke fragment="title"/>
+    </title>
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
-
+    <link href="../../font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet">
     <!-- Bootstrap core CSS -->
     <link href="../../css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Material Design Bootstrap -->
     <link href="../../css/mdb.min.css" rel="stylesheet">
+
+    <link href="../../css/toastr.min.css" rel="stylesheet">
 
     <link href="../../css/style.css" rel="stylesheet">
 
@@ -44,7 +51,7 @@
 
     <!--Navbar-->
     <nav class="navbar navbar-light white">
-        <%@include file="../components/nav.tag"%>
+        <%@include file="../components/nav.tag" %>
     </nav>
     <!--/.Navbar-->
     <jsp:invoke fragment="breadcrumb"/>
@@ -56,7 +63,7 @@
     </div>
 </main>
 
-<%@include file="../components/footer.tag"%>
+<%@include file="../components/footer.tag" %>
 
 <!-- SCRIPTS -->
 
@@ -71,6 +78,24 @@
 
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="../../js/mdb.min.js"></script>
+
+<%--通知--%>
+<script type="text/javascript" src="../../js/plugin/toastr/toastr.min.js"></script>
+
+<script type="text/javascript" src="../../js/notify.js"></script>
+
+<%--弹出框--%>
+<script type="text/javascript" src="../../js/plugin/bootbox/bootbox.min.js"></script>
+
+<script type="text/javascript">
+    bootbox.addLocale("Bagery", {
+        OK : '确定',
+        CANCEL : '取消',
+        CONFIRM : '确认'
+    });
+    bootbox.setDefaults("locale","Bagery")
+</script>
+
 <jsp:invoke fragment="scripts"/>
 
 </body>

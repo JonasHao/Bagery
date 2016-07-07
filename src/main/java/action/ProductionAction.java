@@ -3,17 +3,22 @@ package action;
 import java.util.*;
 
 import com.opensymphony.xwork2.ActionContext;
+import constant.Key;
 import org.apache.struts2.dispatcher.DefaultActionSupport;
 import org.hibernate.HibernateException;
 import service.ProductService;
 import po.*;
 import service.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import java.util.ArrayList;
+
 public class ProductionAction extends DefaultActionSupport {
     private int product_id;
-    private int priced_id;
+    private int pricedId;
     private int pricedpro_id;
     private int user_id;
+    private int pro_id;
     private String title;
     private String description;
     private double unit_price;
@@ -29,24 +34,29 @@ public class ProductionAction extends DefaultActionSupport {
     private PricedPro pricedPro;
     private List<Product> products;
     private List<Priced> priceds;
-    private List<Property> pros;
+
     private List<Property> pros1;
     private List<Property> pros2;
     private List<Property> pros3;
+
+    private List<List<Property>> pross;
     private List<Integer> proIDs;
-    private List<Integer> proIDs1;
-    private List<Integer> proIDs2;
-    private List<Integer> proIDs3;
+    private List<List<Integer>> proIDss;
+
     private List<UserPricedRecord> records;
     private List<Comment> comments;
     private ProductService productService;
     private UserService userService;
     private CommentService commentService;
-    private Map<Integer,String> productMap;
+    private Map<Integer, String> productMap;
+
+
+    private List<List<Property>> proNames;
+
 
     public String add() {
         try {
-            priced=new Priced();
+            priced = new Priced();
             priced.setTitle(title);
             priced.setDescription(description);
             priced.setImg(img);
@@ -54,21 +64,21 @@ public class ProductionAction extends DefaultActionSupport {
             priced.setSalePrice(sale_price);
             priced.setIsExisted(1);
             productService.addPriced(priced);
-            priced_id = priced.getPricedId();
+            pricedId = priced.getPricedId();
             for (Product product : products) {
-                if (product.getColor() == null) {
+                if (product.getColor().length() < 1) {
                     continue;
                 }
-                product.setPricedId(priced_id);
+                product.setPricedId(pricedId);
                 productService.addProduct(product);
-                System.out.println(product);
             }
             for (Integer proID : proIDs) {
                 pricedPro = new PricedPro();
-                pricedPro.setPricedId(priced_id);
+                pricedPro.setPricedId(pricedId);
                 pricedPro.setProId(proID);
                 productService.addPricedPro(pricedPro);
             }
+
             return SUCCESS;
         } catch (HibernateException e) {
             e.printStackTrace();
@@ -78,22 +88,35 @@ public class ProductionAction extends DefaultActionSupport {
 
     public String viewProduct() {
         try {
-            priced = productService.findPriced(priced_id);
-            products = productService.findProductsByPriced(priced_id);
-            comments = commentService.getByPricedId(priced_id);
+            priced = productService.findPriced(pricedId);
+            products = productService.findProductsByPriced(pricedId);
+            comments = commentService.getByPricedId(pricedId);
+
+            user = userService.getCurrentUser();
+            productService.addRecord(user.getUserId(), pricedId);
             return SUCCESS;
         } catch (HibernateException e) {
             e.printStackTrace();
             return ERROR;
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            return ERROR;
         }
     }
+
     public String viewProductAdmin() {
         try {
-            priced = productService.findPriced(priced_id);
-            products = productService.findProductsByPricedAdmin(priced_id);
-            proIDs=productService.findProIDsByPriced(priced_id);
-            //comments = commentService.getByPricedId(priced_id);
-            return SUCCESS;
+            proNames = productService.getPross();
+            pros1 = proNames.get(0);
+            pros2 = proNames.get(1);
+            pros3 = proNames.get(2);
+            if (pricedId != 0) {
+                priced = productService.findPriced(pricedId);
+                products = productService.findProductsByPricedAdmin(pricedId);
+                proIDs = productService.findProIDsByPriced(pricedId);
+                return SUCCESS;
+            }
+            return ERROR;
         } catch (HibernateException e) {
             e.printStackTrace();
             return ERROR;
@@ -102,20 +125,25 @@ public class ProductionAction extends DefaultActionSupport {
 
     public String update() {
         try {
-            productService.updatePriced(priced);
-            priced_id=priced.getPricedId();
-            productService.deleteProductsByPriced(priced_id);
-            productService.deletePricedProsByPriced(priced_id);
+            Priced p=productService.findPriced(pricedId);
+            p.setTitle(priced.getTitle());
+            p.setDescription(priced.getDescription());
+            p.setImg(priced.getImg());
+            p.setUnitPrice(priced.getUnitPrice());
+            p.setSalePrice(priced.getSalePrice());
+            productService.updatePriced(p);
+            productService.deleteProductsByPriced(pricedId);
+            productService.deletePricedProsByPriced(pricedId);
             for (Product product : products) {
-                if (product.getColor() == null) {
+                if (product.getColor().length() < 1) {
                     continue;
                 }
-                product.setPricedId(priced_id);
+                product.setPricedId(pricedId);
                 productService.addProduct(product);
             }
             for (Integer proID : proIDs) {
                 pricedPro = new PricedPro();
-                pricedPro.setPricedId(priced_id);
+                pricedPro.setPricedId(pricedId);
                 pricedPro.setProId(proID);
                 productService.addPricedPro(pricedPro);
             }
@@ -128,57 +156,62 @@ public class ProductionAction extends DefaultActionSupport {
 
     public String deletePriced() {
         try {
-            productService.deletePriced(priced_id);
-            return SUCCESS;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ERROR;
-        }
-    }
-    /*
-    public String deleteProduct() {
-        try {
-            productService.deleteProduct(product_id);
-            return SUCCESS;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ERROR;
-        }
-    }
-    */
-    public String soldOutPriced() {
-        try {
-            priced = productService.findPriced(priced_id);
-            priced.setIsExisted(0);
-            productService.updatePriced(priced);
-            return SUCCESS;
+            if (productService.findPriced(pricedId) != null) {
+                productService.deletePriced(pricedId);
+                return SUCCESS;
+            }
+            return INPUT;
         } catch (Exception e) {
             e.printStackTrace();
             return ERROR;
         }
     }
 
+    public String putOnPriced() {
+        try {
+            if (productService.findPriced(pricedId) != null) {
+                priced = productService.findPriced(pricedId);
+                priced.setIsExisted(1);
+                productService.updatePriced(priced);
+                return SUCCESS;
+            }
+            return INPUT;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ERROR;
+        }
+    }
+
+    public String soldOutPriced() {
+        try {
+            if (productService.findPriced(pricedId) != null) {
+                priced = productService.findPriced(pricedId);
+                priced.setIsExisted(0);
+                productService.updatePriced(priced);
+                return SUCCESS;
+            }
+
+            return INPUT;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ERROR;
+        }
+    }
 
     public String viewPricedList() {
         try {
             priceds = productService.findAll();
-            pros1 = productService.findProsByCategory("品牌");
-            pros2 = productService.findProsByCategory("材质");
-            pros3 = productService.findProsByCategory("款式");
+            pross = productService.getPross();
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
             return ERROR;
         }
     }
+
     public String viewPricedListAdmin() {
         try {
             priceds = productService.findAllAdmin();
-            /*
-            pros1 = productService.findProsByCategory("品牌");
-            pros2 = productService.findProsByCategory("材质");
-            pros3 = productService.findProsByCategory("款式");
-            */
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -200,6 +233,7 @@ public class ProductionAction extends DefaultActionSupport {
     public String findPricedsByWord() {
         try {
             priceds = productService.findPricedsByWord(word);
+            pross = productService.getPross();
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -207,9 +241,40 @@ public class ProductionAction extends DefaultActionSupport {
         }
     }
 
+    private void handlePro(List<List<Integer>> proIDss, int category, int pro_id) {
+        if (proIDss.get(category).indexOf(pro_id) < 0)
+            proIDss.get(category).add(pro_id);
+        else
+            proIDss.get(category).remove(proIDss.get(category).indexOf(pro_id));
+    }
+
     public String findPricedsByPro() {
         try {
-            priceds = productService.findPricedsByProperty(proIDs1, proIDs2, proIDs3);
+            if (ActionContext.getContext().getSession().get(Key.PROID) == null) {
+                proIDss = new ArrayList<>(3);
+                for (int i = 0; i < 3; i++)
+                    proIDss.add(new ArrayList<>());
+            } else {
+                proIDss = (List<List<Integer>>) ActionContext.getContext().getSession().get(Key.PROID);
+            }
+
+            String category = productService.getProByProID(pro_id);
+            if (category != null) {
+                switch (category) {
+                    case "品牌":
+                        handlePro(proIDss, 0, pro_id);
+                        break;
+                    case "材质":
+                        handlePro(proIDss, 1, pro_id);
+                        break;
+                    case "款式":
+                        handlePro(proIDss, 2, pro_id);
+                        break;
+                }
+                ActionContext.getContext().getSession().put(Key.PROID, proIDss);
+            }
+            priceds = productService.findPricedsByProperty(proIDss.get(0), proIDss.get(1), proIDss.get(2));
+            pross = productService.getPross();
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -225,12 +290,12 @@ public class ProductionAction extends DefaultActionSupport {
         this.product_id = product_id;
     }
 
-    public int getPriced_id() {
-        return priced_id;
+    public int getPricedId() {
+        return pricedId;
     }
 
-    public void setPriced_id(int priced_id) {
-        this.priced_id = priced_id;
+    public void setPricedId(int pricedId) {
+        this.pricedId = pricedId;
     }
 
     public int getUser_id() {
@@ -385,60 +450,12 @@ public class ProductionAction extends DefaultActionSupport {
         this.pricedPro = pricedPro;
     }
 
-    public List<Property> getPros1() {
-        return pros1;
+    public List<List<Property>> getPross() {
+        return pross;
     }
 
-    public void setPros1(List<Property> pros1) {
-        this.pros1 = pros1;
-    }
-
-    public List<Property> getPros2() {
-        return pros2;
-    }
-
-    public void setPros2(List<Property> pros2) {
-        this.pros2 = pros2;
-    }
-
-    public List<Property> getPros3() {
-        return pros3;
-    }
-
-    public void setPros3(List<Property> pros3) {
-        this.pros3 = pros3;
-    }
-
-    public List<Property> getPros() {
-        return pros;
-    }
-
-    public void setPros(List<Property> pros) {
-        this.pros = pros;
-    }
-
-    public List<Integer> getProIDs1() {
-        return proIDs1;
-    }
-
-    public void setProIDs1(List<Integer> proIDs1) {
-        this.proIDs1 = proIDs1;
-    }
-
-    public List<Integer> getProIDs2() {
-        return proIDs2;
-    }
-
-    public void setProIDs2(List<Integer> proIDs2) {
-        this.proIDs2 = proIDs2;
-    }
-
-    public List<Integer> getProIDs3() {
-        return proIDs3;
-    }
-
-    public void setProIDs3(List<Integer> proIDs3) {
-        this.proIDs3 = proIDs3;
+    public void setPross(List<List<Property>> pross) {
+        this.pross = pross;
     }
 
     public void setUnit_price(double unit_price) {
@@ -487,5 +504,63 @@ public class ProductionAction extends DefaultActionSupport {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public int getPro_id() {
+        return pro_id;
+    }
+
+    public void setPro_id(int pro_id) {
+        this.pro_id = pro_id;
+    }
+
+//    public List<Map<Integer,String>> getProNames() {
+//        return proNames;
+//    }
+//
+//    public void setProNames(List<Map<Integer,String>> proNames) {
+//        this.proNames = proNames;
+//    }
+
+
+    public List<List<Integer>> getProIDss() {
+        return proIDss;
+    }
+
+    public void setProIDss(List<List<Integer>> proIDss) {
+        this.proIDss = proIDss;
+    }
+
+
+    public List<List<Property>> getProNames() {
+        return proNames;
+    }
+
+    public void setProNames(List<List<Property>> proNames) {
+        this.proNames = proNames;
+    }
+
+    public List<Property> getPros1() {
+        return pros1;
+    }
+
+    public void setPros1(List<Property> pros1) {
+        this.pros1 = pros1;
+    }
+
+    public List<Property> getPros2() {
+        return pros2;
+    }
+
+    public void setPros2(List<Property> pros2) {
+        this.pros2 = pros2;
+    }
+
+    public List<Property> getPros3() {
+        return pros3;
+    }
+
+    public void setPros3(List<Property> pros3) {
+        this.pros3 = pros3;
     }
 }

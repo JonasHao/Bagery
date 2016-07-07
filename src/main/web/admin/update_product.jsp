@@ -47,7 +47,7 @@
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="/admin/add_product.jsp">发布商品</a></li>
+                            <a href="add_product.jsp">发布商品</a></li>
                         <li>
                             <s:url action="pricedList" namespace="/admin" var="Link" />
                             <a href="${Link}">商品列表</a></li>
@@ -153,7 +153,7 @@
                                     <form action="updatePriced" namespace="/admin"  class="form-horizontal">
                                         <div class="form-group">
 
-                                         <input hidden="true" type="text" name="priced.pricedId" value="<s:property value="priced_id"/>" >
+                                         <input hidden="true" type="text" name="pricedId" value="<s:property value="pricedId"/>" >
 
                                         </div>
 
@@ -203,10 +203,9 @@
                                                            style="font-weight:normal;">品牌</label>
                                                     <div class="col-sm-4">
                                                         <%--todo: s:select的list属性设置成action中的List--%>
-                                                        <s:select
-                                                                list="#{'1':'A品牌', '2':'B品牌'}"
-                                                                name="proIDs[0]" cssClass="form-control m-b">
-                                                        </s:select>
+                                                            <s:select
+                                                                    list="#{'1':'A品牌', '2':'B品牌'}"
+                                                                    name="proIDs[0]" cssClass="form-control m-b" />
                                                     </div>
                                                 </div>
                                                 <div class="row">

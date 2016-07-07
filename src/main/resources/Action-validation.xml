@@ -41,12 +41,7 @@
         <param name="maxLength">20</param>
         <message>商品名要求1~20个字符</message>
     </validator>
-    <validator type="stringlength">
-        <param name="fieldName">product_color</param>
-        <param name="minLength">1</param>
-        <param name="maxLength">10</param>
-        <message>商品颜色要求1~10个字符</message>
-    </validator>
+
     <validator type="double">
         <param name="fieldName">unit_price</param>
         <param name="minInclusive">0.00</param>
@@ -68,6 +63,12 @@
         <message>总价要求在${minInclusive}和${maxInclusive}之间
         </message>
     </validator>
+    <validator type="stringlength">
+        <param name="fieldName">product_color</param>
+        <param name="minLength">1</param>
+        <param name="maxLength">10</param>
+        <message>商品颜色要求1~10个字符</message>
+    </validator>
     <validator type="int">
         <param name="fieldName">num</param>
         <param name="min">1</param>
@@ -77,17 +78,6 @@
         <param name="fieldName">stock</param>
         <param name="min">0</param>
         <message>库存要求为非负整数</message>
-    </validator>
-    <validator type="int">
-        <param name="fieldName">stock</param>
-        <param name="min">0</param>
-        <message>库存要求为非负整数</message>
-    </validator>
-    <validator type="int">
-        <param name="fieldName">star</param>
-        <param name="min">1</param>
-        <param name="max">5</param>
-        <message>评分要求为1~5的整数</message>
     </validator>
     <validator type="int">
         <param name="fieldName">star</param>

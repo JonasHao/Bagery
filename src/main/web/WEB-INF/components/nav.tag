@@ -18,20 +18,23 @@
                     <!--Links-->
 
                     <ul class="nav navbar-nav">
+                        <s:url var="womanUrl" namespace="/product" action="productList">
+                        </s:url>
+
                         <li class="nav-item">
-                            <a class="nav-link" href="../../list.jsp">女人</a>
+                            <a class="nav-link" href="${womanUrl}">女人</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../../list.jsp">男人</a>
+                            <a class="nav-link" href="${womanUrl}">男人</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="../../list.jsp">运动</a>
+                            <a class="nav-link" href="${womanUrl}">运动</a>
                         </li>
 
                     </ul>
                     <!--Search form-->
-                    <s:form class="form-inline">
-                        <input class="form-control" type="text" placeholder="Search">
+                    <s:form class="form-inline" action="productListByWord" namespace="/product">
+                        <input class="form-control" type="text" placeholder="Search" name="word">
                     </s:form>
 
                 </div>
@@ -54,7 +57,7 @@
                             %>
                             <s:if test="#session.user!=null">
                                 <s:a class="dropdown-item" action="home" namespace="/user">个人中心</s:a>
-                                <a class="dropdown-item" href="#">我的订单</a>
+                                <s:a class="dropdown-item" action="queryOrder" namespace="/order">我的订单</s:a>
                                 <s:a class="dropdown-item" action="queryFavorite" namespace="/favorite">收藏夹</s:a>
                                 <s:a class="dropdown-item"  action="logout" namespace="/user">退出</s:a>
                             </s:if>

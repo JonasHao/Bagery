@@ -15,7 +15,7 @@
         <div class="container">
 
             <div class="card card-login col-sm-push-2 col-sm-8 col-lg-push-4 col-lg-4 ">
-                <form class="form-signin" action="user/login"  method="POST">
+                <form class="form-signin" action="/user/login" method="POST">
                 <div class="card-block">
                         <%--<h2><strong>登录</strong></h2>--%>
                     <div class="md-form">
@@ -26,9 +26,9 @@
                         <i class="fa fa-lock prefix"></i>
                         <s:textfield label="密码" id="form2" name="password" class="form-control"/>
                     </div>
-                    <s:submit cssClass="grey btn btn-primary" value="登录"/>
+                    <s:submit cssClass="grey btn btn-primary btn-input" value="登录"/>
                     <a href="signUp.jsp">注册</a>
-                    <a href="#">忘记密码</a>
+                    <s:a action="openFind" namespace="/user">忘记密码</s:a>
                 </div>
                 </form>
             </div>

@@ -136,4 +136,6 @@ public class UserAction extends ActionSupport {
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
+
+
 }

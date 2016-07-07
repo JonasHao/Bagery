@@ -24,10 +24,11 @@
         <div class="container">
 
             <div class="history-block">
-                <!--Heading-->
+                <!--Heading
                 <div class="reviews">
                     <h2 class="h2-responsive">今天</h2>
                 </div>
+                -->
                 <div class="row">
                     <s:iterator value="records">
                     <div class="col-md-3 col-lg-2 ">
@@ -42,6 +43,7 @@
                 </div>
             </div>
 
+            <%--
             <div class="history-block">
                 <!--Heading-->
                 <div class="reviews">
@@ -92,8 +94,10 @@
                     </div>
                 </div>
             </div>
-
+                --%>
         </div>
+
+
         <!--/.Main layout-->
     </jsp:body>
 </t:base>

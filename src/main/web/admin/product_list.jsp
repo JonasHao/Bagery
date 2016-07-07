@@ -43,9 +43,10 @@
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="/admin/add_product.jsp">发布商品</a></li>
+                            <s:url action="viewProduct" namespace="/admin" var="addLink"/>
+                            <a href="add_product.jsp">发布商品</a></li>
                         <li class="active">
-                            <s:url action="pricedList" namespace="/admin" var="listLink" />
+                            <s:url action="pricedList" namespace="/admin" var="listLink"/>
                             <a href="${listLink}">商品列表</a></li>
                     </ul>
                 </li>
@@ -167,7 +168,7 @@
                                                     <%--url definitions   --%>
                                                 <s:url var="productDetail" action="viewProduct"
                                                        namespace="/admin">
-                                                    <s:param name="priced_id"><s:property value="pricedId"/> </s:param>
+                                                    <s:param name="pricedId"><s:property value="pricedId"/> </s:param>
                                                 </s:url>
 
                                                     <%--id--%>
@@ -190,31 +191,55 @@
                                                     <a href="${productDetail}">
                                                         <button type="button"
                                                                 class="btn btn-info"
-                                                            style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">
+                                                                style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">
                                                             更新
                                                         </button>
                                                     </a>
-                                                    <%-- 下架 --%>
-                                                    <s:url var="soldOutPriced" action="soldOutPriced"
-                                                           namespace="/admin">
-                                                        <s:param name="priced_id"><s:property value="pricedId"/> </s:param>
-                                                    </s:url>
-                                                    <a href="${soldOutPriced}">
-                                                    <button type="button" class="btn btn-warning"
-                                                            style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">
-                                                        下架
-                                                    </button>
-                                                    </a>
+
+                                                    <s:if test="isExisted==1">
+                                                        <%-- 下架 --%>
+                                                        <s:url var="soldOutPriced" action="soldOutPriced"
+                                                               namespace="/admin">
+                                                            <s:param name="pricedId"><s:property value="pricedId"/>
+                                                            </s:param>
+                                                        </s:url>
+                                                        <a href="${soldOutPriced}">
+                                                            <button type="button" class="btn btn-warning"
+                                                                    style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">
+                                                                下架
+                                                            </button>
+                                                        </a>
+                                                        <%-- /下架 --%>
+                                                    </s:if>
+
+                                                    <s:else>
+                                                        <%-- 上架 --%>
+                                                        <s:url var="putOnPriced" action="putOnPriced"
+                                                               namespace="/admin">
+                                                            <s:param name="pricedId"><s:property value="pricedId"/>
+                                                            </s:param>
+                                                        </s:url>
+                                                        <a href="${putOnPriced}">
+                                                            <button type="button" class="btn btn-primary"
+                                                                    style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">
+                                                                上架
+                                                            </button>
+                                                        </a>
+
+                                                        <%-- /删除 --%>
+                                                    </s:else>
+
                                                     <s:url var="deletePriced" action="deletePriced"
                                                            namespace="/admin">
-                                                        <s:param name="priced_id"><s:property value="pricedId"/> </s:param>
+                                                        <s:param name="pricedId"><s:property value="pricedId"/>
+                                                        </s:param>
                                                     </s:url>
-                                                        <a href="${deletePriced}">
-                                                    <button type="button" class="btn btn-danger"
-                                                            style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">
-                                                        删除
-                                                    </button>
-                                                        </a>
+                                                    <a  onclick="notify('删除成功')">
+                                                        <button type="button" class="btn btn-danger"
+                                                                style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">
+                                                            删除
+                                                        </button>
+                                                    </a>
                                                 </td>
                                             </tr>
                                         </s:iterator>
@@ -243,10 +268,10 @@
         </div>
     </div>
 </div>
-</div>
+
 <!-- Mainly scripts -->
 <script src="js/jquery-2.1.1.js"></script>
-<script src="../js/bootstrap.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="js/plugins/jeditable/jquery.jeditable.js"></script>
@@ -279,23 +304,54 @@
 <script src="js/plugins/dataTables/dataTables.bootstrap.js"></script>
 <script src="js/plugins/dataTables/dataTables.responsive.js"></script>
 <script src="js/plugins/dataTables/dataTables.tableTools.min.js"></script>
-<script>$(document).ready(function () {
+<script src="../js/notify.js"></script>
 
-    $('.dataTables-example').dataTable({
-        responsive: true,
-        "dom": 'T<"clear">lfrtip',
-        "tableTools": {
-            "sSwfPath": "js/plugins/dataTables/swf/copy_csv_xls_pdf.swf"
-        }
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('.dataTables-example').dataTable({
+            responsive: true,
+            "dom": 'T<"clear">lfrtip',
+            "tableTools": {
+                "sSwfPath": "js/plugins/dataTables/swf/copy_csv_xls_pdf.swf"
+            }
+        });
+
+        $('.DTTT_container').remove();
+
+
+        setTimeout(function () {
+                    toastr.options = {
+                        closeButton: true,
+                        progressBar: true,
+                        showMethod: 'slideDown',
+                        timeOut: 4000
+                    };
+                    toastr.success('后台管理系统', '欢迎来到Bagery');
+
+                },
+                1300);
+
+        toastr.warning('My name is Inigo Montoya. You killed my father, prepare to die!');
     });
 
-    $('.DTTT_container').remove();
+    function notify(str){
+        setTimeout(function () {
+                    toastr.options = {
+                        closeButton: true,
+                        progressBar: true,
+                        showMethod: 'slideDown',
+                        timeOut: 4000
+                    };
+                    toastr.success(str);
 
+                },
+                1300);
+    }
 
-})</script>
+</script>
 
-
-<style>
+<style scoped>
     body.DTTT_Print {
         background: #fff;
     }

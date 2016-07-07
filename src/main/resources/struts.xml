@@ -36,7 +36,11 @@
 
     <package name="order" namespace="/order" extends="default,json-default">
         <action name="balance" class="action.OrderAction" method="balance">
-            <result name="success">/index.jsp</result>
+            <result name="success">/balance.jsp</result>
+            <result name="input" type="redirectAction">
+                <param name="namespace">/cart</param>
+                <param name="actionName">queryCart</param>
+            </result>
         </action>
 
         <action name="addOrder" class="action.OrderAction" method="addOrder">
@@ -123,16 +127,50 @@
             <result name="success">/home.jsp</result>
         </action>
 
+        <action name="viewInfo" class="action.UserInfoAction" method="viewInfo">
+            <result name="success">/profile.jsp</result>
+        </action>
+
         <action name="update" class="action.UserInfoAction" method="update">
             <!--<interceptor-ref name="loginChecker"/>-->
-            <result name="success"></result>
-            <result name="error"></result>
-            <result name="input"></result>
+            <result name="success" type="redirectAction">home</result>
+            <result name="input" type="redirectAction">viewInfo</result>
+        </action>
+
+        <action name="openReset" class="action.UserInfoAction" method="openReset">
+            <result name="success">/resetPassword.jsp</result>
         </action>
 
         <action name="resetPassword" class="action.UserInfoAction" method="resetPassword">
-            <result name="success"></result>
-            <result name="input"></result>
+            <result name="success" type="redirectAction">home</result>
+            <result name="input">/resetPassword.jsp</result>
+        </action>
+
+        <action name="openFind" class="action.UserInfoAction" method="openFind">
+            <result name="success">/FindPassword.jsp</result>
+        </action>
+
+        <action name="sendConfirmCode" class="action.UserInfoAction" method="sendConfirmCode">
+            <result name="success" type="redirectAction">sendConfirmCode</result>
+            <result name="input">/FindPassword.jsp</result>
+        </action>
+
+        <action name="confirmEmail" class="action.UserInfoAction" method="confirmEmail">
+            <result name="success" type="redirectAction">home</result>
+            <result name="input">/FindPassword.jsp</result>
+        </action>
+
+        <action name="openConfirm" class="action.UserInfoAction" method="openConfirm">
+            <result name="success">/ConfirmEmail.jsp</result>
+        </action>
+
+        <action name="confirmCode" class="action.UserInfoAction" method="confirmCode">
+            <result name="success">/home.jsp</result>
+            <result name="input">/home.jsp</result>
+        </action>
+
+        <action name="history" class="action.UserInfoAction" method="history">
+            <result name="success">/history.jsp</result>
         </action>
     </package>
 
@@ -162,10 +200,6 @@
     </package>
 
     <package name="cart" namespace="/cart" extends="default,json-default">
-        <global-results>
-            <result name="error">/error.jsp</result>
-            <result name="login">/login.jsp</result>
-        </global-results>
 
         <action name="addCart" class="action.CartAction" method="addCart">
             <result name="success" type="json">
@@ -229,10 +263,10 @@
             <result name="success">/history.jsp</result>
         </action>
         <action name="productListByWord" class="action.ProductionAction" method="findPricedsByWord">
-            <result name="success"></result>
+            <result name="success">/list.jsp</result>
         </action>
         <action name="productListByPro" class="action.ProductionAction" method="findPricedsByPro">
-            <result name="success"></result>
+            <result name="success">/list.jsp</result>
         </action>
     </package>
 
@@ -243,22 +277,30 @@
             <result name="success" type="redirectAction">pricedList</result>
             <result name="input">/admin/add_product.jsp</result>
         </action>
+        <action name="pricedList" class="action.ProductionAction" method="viewPricedListAdmin">
+            <result name="success">/admin/product_list.jsp</result>
+        </action>
         <action name="viewProduct" class="action.ProductionAction" method="viewProductAdmin">
             <result name="success">/admin/update_product.jsp</result>
         </action>
         <action name="updatePriced" class="action.ProductionAction" method="update">
             <result name="success" type="redirectAction">pricedList</result>
-            <result name="input"></result>
+            <result name="input">/admin/update_product.jsp</result>
         </action>
         <action name="soldOutPriced" class="action.ProductionAction" method="soldOutPriced">
+            <result name="success" type="redirectAction">
+                <param name="actionName">pricedList</param>
+                <param name="message">下架商品成功</param>
+            </result>
+            <result name="input" type="redirectAction">pricedList</result>
+        </action>
+        <action name="putOnPriced" class="action.ProductionAction" method="putOnPriced">
             <result name="success" type="redirectAction">pricedList</result>
+            <result name="input" type="redirectAction">pricedList</result>
         </action>
         <action name="deletePriced" class="action.ProductionAction" method="deletePriced">
             <result name="success" type="redirectAction">pricedList</result>
+            <result name="input" type="redirectAction">pricedList</result>
         </action>
-        <action name="pricedList" class="action.ProductionAction" method="viewPricedListAdmin">
-            <result name="success">/admin/product_list.jsp</result>
-        </action>
-
     </package>
 </struts>

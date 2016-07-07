@@ -33,7 +33,7 @@ public class Order {
     }
 
     @Basic
-    @Column(name = "user_id", nullable = false, insertable = false  , updatable = false)
+    @Column(name = "user_id", nullable = false, insertable = false, updatable = false)
     public int getUserId() {
         return userId;
     }
@@ -172,5 +172,10 @@ public class Order {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    @Transient
+    public boolean isComented() {
+        return comments != null && comments.size() > 0;
     }
 }

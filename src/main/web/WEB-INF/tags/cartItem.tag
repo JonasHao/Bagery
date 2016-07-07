@@ -26,10 +26,9 @@
                 <div class="col-md-3">
                     <div>
                         <!--Title-->
-                        <h5 class="card-title product-title">
+                        <h5 class="card-title cart-item-title">
                             <jsp:invoke fragment="title"/>
                         </h5>
-                        <br/><br/>
                         <!--Text-->
                         <%--<i class="fa fa-circle color-icon" aria-hidden="true"></i>--%>
                         <p class="bag-color">颜色分类：
@@ -49,7 +48,8 @@
                 <div class="col-md-2 quantity-control">
                     <button type="button" onclick="minus(<jsp:invoke fragment="stock"/>)">-</button>
                     <input type="text" onkeyup="this.value=minmax(this.value,1,<jsp:invoke fragment="stock"/>)"
-                           onchange="updateCart( <jsp:invoke fragment="itemId"/>,parseInt(this.value))" min="1" max="<jsp:invoke fragment="stock"/>"
+                           onchange="updateCart( <jsp:invoke fragment="itemId"/>,parseInt(this.value))" min="1"
+                           max="<jsp:invoke fragment="stock"/>"
                            value="<jsp:invoke fragment="number"/>">
                     <button type="button" onclick="add(<jsp:invoke fragment="stock"/>)">+</button>
                     <br/>
@@ -89,7 +89,7 @@
                                 </div>
                                 <!--Footer-->
                                 <div class="modal-footer" style="border-top: 0px">
-                                    <button type="button" onclick="deleteCart()"  class="btn blue btn-primary">确认
+                                    <button type="button" onclick="deleteCart()" class="btn blue btn-primary">确认
                                     </button>
                                     <button type="button" class="btn grey" data-dismiss="modal">取消</button>
                                 </div>
@@ -102,7 +102,9 @@
             </div>
         </div>
     </div>
-    <script>
+
+    <script type="text/javascript">
+
         var todelete;
         function deleteCart() {
             $('#myModal').modal('hide');
@@ -117,6 +119,7 @@
                         success: function (data) {
                             if (data.result == "success") {
                                 todelete.remove();
+                                notify("成功移除购物车");
                             } else {
                                 alert("删除失败！");
                             }
@@ -153,29 +156,29 @@
         }
         function minmax(value, min, max) {
             var myself = event.target;
-            var salePrice=myself.parentNode.previousSibling.previousSibling.childNodes[5].innerHTML;
+            var salePrice = myself.parentNode.previousSibling.previousSibling.childNodes[5].innerHTML;
             console.log(salePrice);
             if (parseInt(value) > max) {
                 myself.parentNode.childNodes[9].innerHTML = "最多只能购买" + max + "件";
-                myself.parentNode.parentNode.childNodes[7].childNodes[3].innerHTML=max*salePrice;
+                myself.parentNode.parentNode.childNodes[7].childNodes[3].innerHTML = max * salePrice;
                 return max;
             }
             myself.parentNode.childNodes[9].innerHTML = "";
             if (min <= parseInt(value) && parseInt(value) <= max) {
-                myself.parentNode.parentNode.childNodes[7].childNodes[3].innerHTML=value*salePrice;
+                myself.parentNode.parentNode.childNodes[7].childNodes[3].innerHTML = value * salePrice;
                 return value;
             }
-            myself.parentNode.parentNode.childNodes[7].childNodes[3].innerHTML=min*salePrice;
+            myself.parentNode.parentNode.childNodes[7].childNodes[3].innerHTML = min * salePrice;
             return min;
         }
 
-        function updateCart(itemId,number) {
+        function updateCart(itemId, number) {
             $.ajax(
                     {
                         url: "/cart/updateCart",
                         dataType: "json",   //返回格式为json
                         type: 'post',
-                        data: {itemId:itemId, num: number },
+                        data: {itemId: itemId, num: number},
 //                        success: function (data) {
 //                            if (data.result == "success")
 //                                alert("更新成功")

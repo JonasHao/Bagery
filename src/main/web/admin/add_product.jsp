@@ -47,7 +47,7 @@
                     </a>
                     <ul class="nav nav-second-level">
                         <li class="active">
-                            <a href="/admin/add_product.jsp">发布商品</a></li>
+                            <a href="add_product.jsp">发布商品</a></li>
                         <li>
                             <s:url action="pricedList" namespace="/admin" var="Link" />
                             <a href="${Link}">商品列表</a></li>
@@ -201,9 +201,9 @@
                                                            style="font-weight:normal;">品牌</label>
                                                     <div class="col-sm-4">
                                                         <%--todo: s:select的list属性设置成action中的List--%>
-                                                        <s:select
-                                                                list="#{'1':'A品牌', '2':'B品牌'}"
-                                                                name="proIDs[0]" cssClass="form-control m-b"/>
+                                                            <s:select
+                                                                    list="#{'1':'A品牌', '2':'B品牌'}"
+                                                                    name="proIDs[0]" cssClass="form-control m-b" />
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -315,11 +315,19 @@
         // document.getElementById('color_stock').appendChild("<strong>test</strong>");
         var div = document.createElement("div");
         div.className = "row";
-
+    <%--<div class="col-sm-6">--%>
+                <%--<s:textfield name="products[0].color" placeholder="请输入颜色"--%>
+                             <%--cssClass="form-control m-b"/>--%>
+                <%--</div>--%>
+                <%--<div class="col-sm-4">--%>
+        <%--<s:textfield name="products[0].stock" placeholder="请输入库存"--%>
+                     <%--cssClass="form-control m-b"/>--%>
+        <%--</div>--%>
         div.innerHTML = "<div class=\"col-sm-6\"><input type=\"text\" placeholder=\"请输入颜色\" class=\"form-control m-b\"></div>" +
                 "<div class=\"col-sm-4\"><input type=\"text\" placeholder=\"请输入库存\" class=\"form-control m-b\"></div>" +
                 "<button class=\"col-sm-2 btn btn-warning btn-circle\" type=\"button\" onclick=\"deleteColor()\">" +
                 "<i class=\"fa fa-times\"></i></button>";
+
 
         document.getElementById('color_stock').appendChild(div);
     }

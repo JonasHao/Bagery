@@ -29,11 +29,15 @@ public class OrderAction extends DefaultActionSupport {
     private CartService cartService;
     private Order order;
     private User user;
-    private List<Integer> itemIdList;
-    private List<CartItem> cartItemList;
-    private Collection<Address> addressList;
-    private Collection<Order> orderList;
-    private List<Integer> cartItemIdList;
+    private Address defaultAddress;
+
+    private double totalPrice;
+
+    private List<Integer> itemIdList = new ArrayList<>();
+    private List<CartItem> cartItemList = new ArrayList<>();
+    private Collection<Address> addressList = new ArrayList<>();
+    private Collection<Order> orderList = new ArrayList<>();
+    private List<Integer> cartItemIdList = new ArrayList<>();
 
     private int userId;
     private int shipInfId;
@@ -51,28 +55,26 @@ public class OrderAction extends DefaultActionSupport {
         try {
             user = userService.getCurrentUser();
             addressList = user.getAddresses();
-            ActionContext.getContext().getSession().put("addressList", addressList);
+            defaultAddress = addressService.get(user.getDefaultAddressId());
 
             int itemId;
-            CartItem cartItem;
-            int size = itemIdList.size();
-            cartItemList = new ArrayList<>();
-            for (int i = 0; i < size; i++) {
-                itemId = itemIdList.get(i);
-                cartItem = cartService.getCartItem(itemId);
+            if (itemIdList == null || itemIdList.size() == 0) {
+                return INPUT;
+            }
+
+            for (Integer anItemIdList : itemIdList) {
+                itemId = anItemIdList;
+                CartItem cartItem = cartService.getCartItem(itemId);
                 cartItemList.add(cartItem);
             }
             ActionContext.getContext().getSession().put("cartItemList", cartItemList);
 
-            //¼ÆËã×Ü¼Û
-            double totalPriced = 0.0;
-            int cartSize = cartItemList.size();
-            for (int i = 0; i < cartSize; i++) {
-                totalPriced += cartItemList.get(i).getSubtotal();
+            for (CartItem item : cartItemList) {
+                totalPrice += item.getSubtotal();
             }
-            ActionContext.getContext().getSession().put("totalPriced", totalPriced);
+
             return SUCCESS;
-        }catch (HibernateException e){
+        } catch (HibernateException e) {
             e.printStackTrace();
         }
         return ERROR;
@@ -101,7 +103,6 @@ public class OrderAction extends DefaultActionSupport {
         try {
             user = userService.getCurrentUser();
             orderList = user.getOrders();
-            ActionContext.getContext().getSession().put("orderList", orderList);
             return SUCCESS;
         }catch (HibernateException e){
             e.printStackTrace();
@@ -340,6 +341,22 @@ public class OrderAction extends DefaultActionSupport {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Address getDefaultAddress() {
+        return defaultAddress;
+    }
+
+    public void setDefaultAddress(Address defaultAddress) {
+        this.defaultAddress = defaultAddress;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public Map<String, Object> getData() {

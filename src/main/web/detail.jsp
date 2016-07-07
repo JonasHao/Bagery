@@ -29,6 +29,8 @@
 //                                    console.log(tmp);
                                     document.getElementById("favor-icon").className = classname;
                                     if (classname == "fa fa-star fa-lg amber-text") {
+//                                        $(".alert #alert-block").text("收藏成功！");
+//                                        $(".alert").alert()
                                         alert("收藏成功！");
                                     }
                                     else {
@@ -50,9 +52,9 @@
                             success: function (data) {
                                 console.log(data);
                                 if (data.result == "success") {
-                                        alert("加入购物车成功！");
-                                    }
+                                    alert("加入购物车成功！");
                                 }
+                            }
                         })
             }
         </script>
@@ -60,12 +62,19 @@
     <jsp:body>
         <!--Main layout-->
         <div class="container">
-            <%--<s:url id="favor" var="favorUrl" action="favor" namespace="/favorite">--%>
+                <%--<s:url id="favor" var="favorUrl" action="favor" namespace="/favorite">--%>
                 <%--<s:param name="priceId">--%>
-                    <%--&lt;%&ndash;<s:property value="priceId" />&ndash;%&gt;1--%>
+                <%--&lt;%&ndash;<s:property value="priceId" />&ndash;%&gt;1--%>
                 <%--</s:param>--%>
-            <%--</s:url>--%>
-
+                <%--</s:url>--%>
+            <div class="alert alert-warning">
+                <a href="#" class="close" data-dismiss="alert">
+                    &times;
+                </a>
+                <div id="alert-block">
+                    <strong>警告！</strong>您的网络连接有问题。
+                </div>
+            </div>
             <div class="card">
                 <!--First row-->
                 <div class="row  product-card-wrapper">
@@ -94,18 +103,20 @@
                             <!--Product data-->
                             <h2 class="h2-responsive"><s:property value="priced.title"/></h2>
                             <hr>
-                            <h3 class="price"><i class="fa fa-rmb" aria-hidden="true"></i><s:property value="priced.unitPrice"/></h3>
+                            <h3 class="price"><i class="fa fa-rmb" aria-hidden="true"></i><s:property
+                                    value="priced.unitPrice"/></h3>
                             <p><s:property value="priced.description"/></p>
 
                             <div class="row reviews">
                                 <label class="col-sm-2 control-label">颜色</label>
                                 <div class="col-sm-4">
-                                    <s:select list="products"  listValue="color"
+                                    <s:select list="products" listValue="color"
                                               name="color" cssClass="form-control m-b"/>
                                 </div>
                             </div>
 
-                            <a onclick="addCart()" class="btn btn-lg blue-grey"><i class="fa fa-shopping-cart"></i> 加入购物车</a>
+                            <a onclick="addCart()" class="btn btn-lg blue-grey"><i class="fa fa-shopping-cart"></i>
+                                加入购物车</a>
                             <a href="#" class="btn btn-lg blue-grey"><i class="fa fa-check"></i> 立即购买</a>
 
                         </div>
@@ -114,31 +125,45 @@
                 <!--/.First row-->
             </div>
 
+
             <!--Second row-->
             <div class="row">
-
                 <!--Heading-->
                 <div class="reviews">
                     <h2 class="h2-responsive">评论</h2>
                 </div>
 
-                <t:comment>
-                    <jsp:attribute name="img">
-                        http://mdbootstrap.com/wp-content/uploads/2015/10/team-avatar-1.jpg
-                    </jsp:attribute>
+                <s:if test="comments.size>0">
+                    <s:iterator value="comments">
+                        <t:comment>
+                            <jsp:attribute name="img">
+                                <s:property value="user.img"/>
+                            </jsp:attribute>
 
-                    <jsp:attribute name="star">4</jsp:attribute>
+                            <jsp:attribute name="star"><s:property value="star"/></jsp:attribute>
 
-                    <jsp:attribute name="text">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius totam, officiis doloremque
-                        velit nobis dolor nulla unde architecto alias praesentium, soluta error omnis sint,
-                        impedit, delectus ipsam eveniet debitis nemo.
-                    </jsp:attribute>
-                </t:comment>
+                            <jsp:attribute name="text">
+                                <s:property value="content1"/>
+                            </jsp:attribute>
+
+                             <jsp:attribute name="append">
+                                <s:property value="content2"/>
+                             </jsp:attribute>
+
+                             <jsp:attribute name="reply">
+                                <s:property value="adminContent"/>
+                             </jsp:attribute>
+
+                        </t:comment>
+                    </s:iterator>
+                </s:if>
+                <s:else>
+                <p>暂无评论
+                    </s:else>
+
             </div>
+
             <!--/.Second row-->
-
-
         </div>
         <!--/.Main layout-->
 

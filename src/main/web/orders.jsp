@@ -9,7 +9,6 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
-
 <t:base>
     <jsp:attribute name="title">订单列表</jsp:attribute>
     <jsp:attribute name="breadcrumb">
@@ -38,70 +37,14 @@
                 window.location.hash = e.target.hash;
             });
 
-
-        </script>
-
-        <script type="text/javascript">
-            var todelete;
-            function deleteOrder(orderId) {
-                $('#myModal').modal('hide');
-                todelete = event.target.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
-                $.ajax(
-                        {
-                            url: "/order/deleteOrder.action",
-                            dataType: "json",   //返回格式为json
-                            type: 'post',
-                            data: {orderId: orderId},
-                            success: function (data) {
-                                if (data.result == "success") {
-                                    todelete.remove();
-                                } else {
-                                    alert("删除失败！");
-                                }
-                            }
-                        })
-
+            var test = function (id) {
+                console.log("hello" + id);
             }
+
         </script>
      </jsp:attribute>
 
     <jsp:body>
-
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-             aria-labelledby="myModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog" role="document" style="width: 400px;">
-                <!--Content-->
-                <div class="modal-content">
-                    <!--Header-->
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"
-                                aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        <h5 class="modal-title" id="myModalLabel">删除订单</h5>
-                    </div>
-                    <!--Body-->
-                    <div class="modal-body">
-                        <p>确认要删除该订单吗？</p>
-                    </div>
-                    <!--Footer-->
-                    <div class="modal-footer" style="border-top: 0px">
-                        <button type="button" onclick="deleteOrder(<s:property value="orderId"/>)"
-                                class="btn blue btn-primary">确认
-                        </button>
-                        <button type="button" class="btn grey" data-dismiss="modal">
-                            取消
-                        </button>
-                    </div>
-                </div>
-                <!--/.Content-->
-            </div>
-        </div>
-        <!-- /.Live preview-->
-
-
         <!--Main layout-->
         <div class="container">
             <ul class="nav nav-tabs tabs-5" role="tablist">
@@ -186,7 +129,7 @@
                                         <div class="col-md-3">
                                             <p>2016-6-24</p>
 
-                                            <p>订单号：<s:property value="orderId"/></p>
+                                            <p>订单号：<s:property value="orderId"/> </p>
                                         </div>
                                         <div class="col-md-2 ">
                                             <p>总价:<s:property value="total"/></p>
@@ -199,13 +142,17 @@
 
                                             <p>待收货<s:property value="orderStatus"/></p>
                                         </div>
+
                                         <div class="col-md-1 col-md-push-4">
-
-                                            <a data-toggle="modal" data-target="#myModal">
-                                                <i class="fa fa-trash fa-lg" aria-hidden="true"></i>删除
-                                            </a>
-
-
+                                            <i onclick="bootbox.confirm({
+                                                    message:'hello',
+                                                    callback: function(result){   if(result){
+                                                    test(<s:property value="orderId"/>);
+                                                    } },
+                                                    local:'zh_CN'
+                                                    })"
+                                               class="fa fa-trash fa-lg"
+                                               aria-hidden="true"></i>
                                         </div>
                                     </div>
                                 </div>

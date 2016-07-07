@@ -1,0 +1,50 @@
+<!DOCTYPE validators PUBLIC
+        "-//Apache Struts//XWork Validator 1.0.2//EN"
+        "http://struts.apache.org/dtds/xwork-validator-1.0.2.dtd">
+
+<validators>
+    <field name="title">
+        <field-validator type="requiredstring" short-circuit="true">
+            <message>标题不能为空</message>
+        </field-validator>
+        <field-validator type="stringlength" short-circuit="true">
+            <param name="minLength">1</param>
+            <param name="maxLength">20</param>
+            <message>商品名要求1~20个字符</message>
+        </field-validator>
+    </field>
+
+    <field name="unit_price">
+        <field-validator type="required">
+            <message>单价不能为空</message>
+        </field-validator>
+        <field-validator type="double">
+            <param name="minInclusive">0.00</param>
+            <param name="maxInclusive">100000000.00</param>
+            <message>单价要求在${minInclusive}和${maxInclusive}之间</message>
+        </field-validator>
+    </field>
+
+    <field name="sale_price">
+        <field-validator type="double">
+            <param name="minInclusive">0.00</param>
+            <param name="maxInclusive">100000000.00</param>
+            <message>优惠价要求在${minInclusive}和${maxInclusive}之间</message>
+        </field-validator>
+    </field>
+
+    <field name="color">
+        <field-validator type="stringlength">
+            <param name="minLength">1</param>
+            <param name="maxLength">10</param>
+            <message>商品颜色要求1~10个字符</message>
+        </field-validator>
+    </field>
+
+    <field name="stock">
+        <field-validator type="int">
+            <param name="min">0</param>
+            <message>库存要求为非负整数</message>
+        </field-validator>
+    </field>
+</validators>
