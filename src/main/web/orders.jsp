@@ -199,7 +199,6 @@
 
                                             <p>待收货<s:property value="orderStatus"/></p>
                                         </div>
-
                                         <div class="col-md-1 col-md-push-4">
 
                                             <a data-toggle="modal" data-target="#myModal">
