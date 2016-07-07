@@ -32,6 +32,8 @@
     <!-- Material Design Bootstrap -->
     <link href="../../css/mdb.min.css" rel="stylesheet">
 
+    <link href="../../css/toastr.min.css" rel="stylesheet">
+
     <link href="../../css/style.css" rel="stylesheet">
 
     <!-- Template styles -->
@@ -77,8 +79,12 @@
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="../../js/mdb.min.js"></script>
 
+<%--通知--%>
 <script type="text/javascript" src="../../js/plugin/toastr/toastr.min.js"></script>
 
+<script type="text/javascript" src="../../js/notify.js"></script>
+
+<%--弹出框--%>
 <script type="text/javascript" src="../../js/plugin/bootbox/bootbox.min.js"></script>
 
 <script type="text/javascript">

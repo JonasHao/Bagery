@@ -100,7 +100,6 @@ public class OrderAction extends DefaultActionSupport {
         try {
             user = userService.getCurrentUser();
             orderList = user.getOrders();
-            ActionContext.getContext().getSession().put("orderList", orderList);
             return SUCCESS;
         } catch (HibernateException e) {
             e.printStackTrace();
