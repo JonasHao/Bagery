@@ -9,7 +9,7 @@
 <%@attribute name="totalPrice" fragment="true" %>
 <%@attribute name="itemId" fragment="true" %>
 <%@attribute name="stock" fragment="true" %>
-<div class="card">
+<div class="card" id="order-<jsp:invoke fragment="itemId"/>">
     <div class="row">
         <div class="col-md-2">
             <!--Card image-->
@@ -60,17 +60,14 @@
                     <i class="fa fa-rmb" aria-hidden="true"></i>
                     <span><jsp:invoke fragment="totalPrice"/></span>
                 </div>
-                <s:url var="deleteCartUrl" action="deleteCart">
-                    <s:param name="itemId">
-                        <jsp:invoke fragment="itemId"/>
-                    </s:param>
-                </s:url>
+
                 <div class="col-md-2">
                     <a onclick="bootbox.confirm({
                             title:'删除包包',
                             message:'确认要删除该宝贝吗？',
-                            callback: function(result){   if(result){
-                            deleteCart(<s:property value="orderId"/>,$(this));
+                            callback: function(result){
+                            if(result){
+                            deleteCart(<jsp:invoke fragment="itemId"/>);
                             } }
                             })">
                         <i class="fa fa-trash" aria-hidden="true"></i>删除
@@ -83,7 +80,8 @@
 
 <script type="text/javascript">
 
-    function deleteCart(id, to_delete) {
+    function deleteCart(id) {
+        var to_delete = $("#order-" + id);
         console.log(to_delete);
         $.ajax(
                 {

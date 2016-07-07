@@ -50,7 +50,7 @@ public class OrderAction extends DefaultActionSupport {
 
     private Map<String,Object> data=new HashMap<>();
 
-    //½áËã
+    //ï¿½ï¿½ï¿½ï¿½
     public String balance() throws Exception{
         try {
             user = userService.getCurrentUser();
@@ -67,7 +67,6 @@ public class OrderAction extends DefaultActionSupport {
                 CartItem cartItem = cartService.getCartItem(itemId);
                 cartItemList.add(cartItem);
             }
-            ActionContext.getContext().getSession().put("cartItemList", cartItemList);
 
             for (CartItem item : cartItemList) {
                 totalPrice += item.getSubtotal();
@@ -80,7 +79,7 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-    //ÐÂÔö¶©µ¥
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public String addOrder() throws Exception{
         try {
             user = userService.getCurrentUser();
@@ -98,7 +97,7 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-    //²é¿´¶©µ¥
+    //ï¿½é¿´ï¿½ï¿½ï¿½ï¿½
     public String queryOrder() throws Exception{
         try {
             user = userService.getCurrentUser();
@@ -110,7 +109,7 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-    //É¾³ý¶©µ¥
+    //É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public String deleteOrder() throws Exception{
         try {
             orderService.deleteOrder(orderId);
@@ -125,7 +124,7 @@ public class OrderAction extends DefaultActionSupport {
         return SUCCESS;
     }
 
-    //È¡Ïû¶©µ¥
+    //È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public String cancelOrder() throws Exception{
         try {
             order = orderService.getByOrderId(orderId);
@@ -138,7 +137,7 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-    //Ö§¸¶
+    //Ö§ï¿½ï¿½
     public String payment() throws Exception{
         try {
             order = orderService.getByOrderId(orderId);
@@ -151,7 +150,7 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-    //È·ÈÏÊÕ»õ
+    //È·ï¿½ï¿½ï¿½Õ»ï¿½
     public String confirmReceive() throws Exception{
         try {
             user = userService.getCurrentUser();
@@ -165,7 +164,7 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-    //²é¿´ÎïÁ÷ÐÅÏ¢
+    //ï¿½é¿´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
     public String getLogisticsStatus() throws Exception{
         try {
             user = userService.getCurrentUser();
@@ -178,7 +177,7 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-    //ÉÌ¼Ò·¢»õ
+    //ï¿½Ì¼Ò·ï¿½ï¿½ï¿½
     public String sendPackage() throws Exception{
         try {
             orderService.sendPackage(orderId, logisticsNum, logisticsCompany);
