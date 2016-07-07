@@ -272,7 +272,11 @@
         <default-interceptor-ref name="myStack"/>
 
         <action name="addPriced" class="action.ProductionAction" method="add">
-            <result name="success" type="redirectAction">pricedList</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">pricedList</param>
+                <param name="state">s</param>
+                <param name="message">添加商品成功</param>
+            </result>
             <result name="input">/admin/add_product.jsp</result>
         </action>
         <action name="pricedList" class="action.ProductionAction" method="viewPricedListAdmin">
@@ -282,22 +286,34 @@
             <result name="success">/admin/update_product.jsp</result>
         </action>
         <action name="updatePriced" class="action.ProductionAction" method="update">
-            <result name="success" type="redirectAction">pricedList</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">pricedList</param>
+                <param name="state">s</param>
+                <param name="message">更新商品成功</param>
+            </result>
             <result name="input">/admin/update_product.jsp</result>
         </action>
         <action name="soldOutPriced" class="action.ProductionAction" method="soldOutPriced">
             <result name="success" type="redirectAction">
                 <param name="actionName">pricedList</param>
+                <param name="state">s</param>
                 <param name="message">下架商品成功</param>
             </result>
             <result name="input" type="redirectAction">pricedList</result>
         </action>
         <action name="putOnPriced" class="action.ProductionAction" method="putOnPriced">
-            <result name="success" type="redirectAction">pricedList</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">pricedList</param>
+                <param name="state">s</param>
+                <param name="message">上架商品成功</param></result>
             <result name="input" type="redirectAction">pricedList</result>
         </action>
         <action name="deletePriced" class="action.ProductionAction" method="deletePriced">
-            <result name="success" type="redirectAction">pricedList</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">pricedList</param>
+                <param name="state">s</param>
+                <param name="message">删除商品成功</param>
+            </result>
             <result name="input" type="redirectAction">pricedList</result>
         </action>
     </package>
