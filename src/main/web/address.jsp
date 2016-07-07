@@ -71,7 +71,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="md-form">
-                                <s:textfield label="收件人" id="receiver" name="receiver" class="form-control"/>
+                                <s:textfield label="收件人" id="receiver"  name="receiver" class="form-control"/>
                             </div>
                         </div>
                         <div class="col-md-8">

@@ -40,7 +40,6 @@ public class UserInfoAction extends ActionSupport {
 
     private List<UserPricedRecord> historyList;
 
-
     public String home(){
         try {
             user = userService.getCurrentUser();
