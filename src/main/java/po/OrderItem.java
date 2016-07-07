@@ -16,6 +16,9 @@ public class OrderItem {
     private Order order;
     private Product product;
 
+    //自己加的
+//    private Priced prised;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "item_id", nullable = false, insertable = false, updatable = false)
@@ -128,4 +131,14 @@ public class OrderItem {
     public void setProduct(Product product) {
         this.product = product;
     }
+
+//    @ManyToOne
+//    @JoinColumn(name = "ship_inf_id", referencedColumnName = "ship_inf_id", nullable = false)
+//    public Address getAddress() {
+//        return address;
+//    }
+//
+//    public void setAddress(Address address) {
+//        this.address = address;
+//    }
 }

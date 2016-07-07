@@ -34,10 +34,10 @@
                         </div>
 
                         <div class="col-sm-2">
-                            <s:url action="queryOrder" namespace="/order" var="unshiped">
+                            <s:url action="queryOrder" namespace="/order" var="unshipped">
                                 <s:param name="status">unshiped</s:param>
                             </s:url>
-                            <a href="${unshiped}">
+                            <a href="${unshipped}">
                                 <i class="fa fa-truck fa-3x" aria-hidden="true"></i>
                                 <br/>
                                 <span>待发货</span>
@@ -45,10 +45,10 @@
                         </div>
 
                         <div class="col-sm-2">
-                            <s:url action="queryOrder" namespace="/order" var="shiped">
-                                <s:param name="status">shiped</s:param>
+                            <s:url action="queryOrder" namespace="/order" var="shipped">
+                                <s:param name="status">shipped</s:param>
                             </s:url>
-                            <a href="${unpaid}">
+                            <a href="${shipped}">
                                 <i class="fa fa-truck fa-3x" aria-hidden="true"></i>
                                 <br/>
                                 <span>待收货</span>

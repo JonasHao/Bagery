@@ -34,7 +34,7 @@
 
     </package>
 
-    <package name="order" namespace="/order" extends="default">
+    <package name="order" namespace="/order" extends="default,json-default">
         <action name="balance" class="action.OrderAction" method="balance">
             <result name="success">/index.jsp</result>
         </action>
@@ -48,7 +48,9 @@
         </action>
 
         <action name="deleteOrder" class="action.OrderAction" method="deleteOrder">
-            <result name="success">/index.jsp</result>
+            <result name="success" type="json">
+                <param name="root">data</param>
+            </result>
         </action>
 
         <action name="cancelOrder" class="action.OrderAction" method="cancelOrder">

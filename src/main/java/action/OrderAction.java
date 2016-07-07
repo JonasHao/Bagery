@@ -1,6 +1,7 @@
 package action;
 
 import com.opensymphony.xwork2.ActionContext;
+import constant.Config;
 import org.apache.struts2.dispatcher.DefaultActionSupport;
 import org.hibernate.HibernateException;
 import po.Address;
@@ -13,9 +14,9 @@ import service.OrderService;
 import service.UserService;
 import constant.OrderStatus;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
+
+import static constant.Key.RESULT;
 
 /**
  * Created by 41159 on 2016/6/29.
@@ -42,6 +43,8 @@ public class OrderAction extends DefaultActionSupport {
     private String logisticsNum;
     private String logisticsCompany;
     private String status;
+
+    private Map<String,Object> data=new HashMap<>();
 
     //结算
     public String balance() throws Exception{
@@ -110,11 +113,15 @@ public class OrderAction extends DefaultActionSupport {
     public String deleteOrder() throws Exception{
         try {
             orderService.deleteOrder(orderId);
-            return SUCCESS;
+            data.put(RESULT, SUCCESS);
         }catch (HibernateException e){
-            e.printStackTrace();
+            if (Config.DEBUG) {
+                data.put(RESULT, SUCCESS);
+            } else {
+                data.put(RESULT, ERROR);
+            }
         }
-        return ERROR;
+        return SUCCESS;
     }
 
     //取消订单
@@ -334,4 +341,13 @@ public class OrderAction extends DefaultActionSupport {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public Map<String, Object> getData() {
+        return data;
+    }
+
+    public void setData(Map<String, Object> data) {
+        this.data = data;
+    }
+
 }
