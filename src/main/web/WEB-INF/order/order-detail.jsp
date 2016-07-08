@@ -13,7 +13,7 @@
     <jsp:attribute name="title">订单列表</jsp:attribute>
     <jsp:attribute name="breadcrumb">
        <ol class="breadcrumb">
-           <li><a href="index.jsp">首页</a></li>
+           <li><a href="../../index.jsp">首页</a></li>
            <li><a href="orders.jsp">订单列表</a></li>
            <li class="active">订单详情</li>
        </ol>
@@ -66,7 +66,7 @@
                     <div class="col-md-2">
                         <!--Card image-->
                         <div class="view overlay hm-white-slight">
-                            <img src="img/bags/bag1.png" class="img-fluid" alt="">
+                            <img src="../../img/bags/bag1.png" class="img-fluid" alt="">
                             <a href="#">
                                 <div class="mask"></div>
                             </a>

@@ -74,34 +74,34 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="md-form">
-                                    <s:textfield label="收件人" name="receiver" class="form-control"/>
+                                    <s:textfield label="收件人" name="receiver" required="true" class="form-control"/>
                                 </div>
                             </div>
                             <div class="col-md-8">
                                 <div class="md-form">
-                                    <s:textfield label="电话" name="mobile" class="form-control"/>
+                                    <s:textfield label="电话" name="mobile" required="true" class="form-control"/>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="md-form">
-                                    <s:textfield label="省" name="addressProvince" class="form-control"/>
+                                    <s:textfield label="省" name="addressProvince" required="true" class="form-control"/>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="md-form">
-                                    <s:textfield label="市" name="addressCity" class="form-control"
+                                    <s:textfield label="市" name="addressCity" required="true" class="form-control"
                                                  cssClass="form-control"/>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="md-form">
-                                    <s:textfield label="区" name="addressDistrict" class="form-control"/>
+                                    <s:textfield label="区" name="addressDistrict" required="true" class="form-control"/>
                                 </div>
                             </div>
 
                             <div class="col-md-12">
                                 <div class="md-form">
-                                    <s:textfield label="详细地址" name="addressDetail" class="form-control"/>
+                                    <s:textfield label="详细地址" name="addressDetail" required="true" class="form-control"/>
                                 </div>
                             </div>
                         </div>

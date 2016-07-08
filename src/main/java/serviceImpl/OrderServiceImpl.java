@@ -33,7 +33,6 @@ public class OrderServiceImpl implements OrderService {
             orderItemList.add(orderItem);
         }
         orderDao.saveOrder(order, orderItemList);
-//        dao.saveM(orderItemList, CartItem.class.getSimpleName());
     }
 
 
