@@ -62,13 +62,13 @@ public class Order {
     @Basic
     @Column(name = "total", nullable = true, insertable = true, updatable = true, precision = 0)
     public Double getTotal() {
-//        total = 0.0;
-//        if (orderItems != null && orderItems.size() > 0)
-//            for (OrderItem item : orderItems) {
-//                if (item != null) {
-//                    total += item.getTotalPriced();
-//                }
-//            }
+        total = 0.0;
+        if (orderItems != null && orderItems.size() > 0)
+            for (OrderItem item : orderItems) {
+                if (item != null) {
+                    total += item.getTotalPriced();
+                }
+            }
         return total;
     }
 

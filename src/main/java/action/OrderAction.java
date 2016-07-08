@@ -88,6 +88,9 @@ public class OrderAction extends DefaultActionSupport {
             order.setUserId(userId);
             order.setAddressId(user.getDefaultAddressId());
             order.setInstruction(instruction);
+//            order.setTotal(total);
+//            order.setOrderStatus(OrderStatus.UNPAID);
+
             orderService.addOrder(order, cartItemIdList);
 
             return SUCCESS;

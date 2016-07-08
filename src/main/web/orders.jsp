@@ -57,6 +57,7 @@
                         }
                 )
             }
+
         </script>
      </jsp:attribute>
 
@@ -203,6 +204,13 @@
                                             <a href="${cancelOrder}">
                                                 <span>取消订单</span>
                                             </a>
+                                            <br/>
+                                            <s:url action="payment" namespace="/order" var="payment">
+                                                <s:param name="orderId"><s:property value="orderId"/></s:param>
+                                            </s:url>
+                                            <a href="${payment}">
+                                                <span>支付订单</span>
+                                            </a>
                                         </div>
 
                                     </div>
@@ -313,15 +321,27 @@
                                     </div>
                                 </div>
                                 <div class="card-block">
-                                    <s:iterator value="orderItems">
-                                        <t:orderItem>
-                                            <jsp:attribute name="img">"../../img/bags/bag1.png"</jsp:attribute>
-                                            <jsp:attribute name="title">产品名称：<s:property value="productTitle"/></jsp:attribute>
-                                            <jsp:attribute name="price"><s:property value="totalPriced"/></jsp:attribute>
-                                            <jsp:attribute name="number"><s:property value="num"/></jsp:attribute>
-                                            <jsp:attribute name="color"><s:property value="product.color"/></jsp:attribute>
-                                        </t:orderItem>
-                                    </s:iterator>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <s:iterator value="orderItems">
+                                                <t:orderItem>
+                                                    <jsp:attribute name="img">"../../img/bags/bag1.png"</jsp:attribute>
+                                                    <jsp:attribute name="title">产品名称：<s:property value="productTitle"/></jsp:attribute>
+                                                    <jsp:attribute name="price"><s:property value="totalPriced"/></jsp:attribute>
+                                                    <jsp:attribute name="number"><s:property value="num"/></jsp:attribute>
+                                                    <jsp:attribute name="color"><s:property value="product.color"/></jsp:attribute>
+                                                </t:orderItem>
+                                            </s:iterator>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <s:url action="confirmReceive" namespace="/order" var="confirmReceive">
+                                                <s:param name="orderId"><s:property value="orderId"/></s:param>
+                                            </s:url>
+                                            <a href="${confirmReceive}">
+                                                <span>确认收货</span>
+                                            </a>
+                                        </div>
+                                    </div>
 
                                 </div>
                             </div>

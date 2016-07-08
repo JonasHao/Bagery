@@ -68,11 +68,11 @@
         </action>
 
         <action name="payment" class="action.OrderAction" method="payment">
-            <result name="success">/index.jsp</result>
+            <result name="success" type="redirect">queryOrder.action</result>
         </action>
 
         <action name="confirmReceive" class="action.OrderAction" method="confirmReceive">
-            <result name="success">/index.jsp</result>
+            <result name="success" type="redirect">queryOrder.action</result>
         </action>
 
         <action name="getLogisticsStatus" class="action.OrderAction" method="getLogisticsStatus">
