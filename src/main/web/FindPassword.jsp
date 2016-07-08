@@ -3,6 +3,21 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
 <t:base>
+    <jsp:attribute name="scripts">
+        <script type="text/javascript">
+            var reg = new RegExp("(^|&)" + "actionMessages" + "=([^&]*)(&|$)", "i");
+            var r = location.search.substr(1).match(reg);
+            var m;
+            if (r != null)
+                m=unescape(decodeURI(r[2]));
+            else m=null;
+
+            if(m!=null){
+                notify(m);
+            }
+        </script>
+    </jsp:attribute>
+
     <jsp:attribute name="title">找回密码<s:property value="#session.Code"/></jsp:attribute>
 
     <jsp:attribute name="head">
@@ -19,7 +34,7 @@
 
                         <form class="form-user" action="/user/sendConfirmCode"  method="POST">
                             <div class="md-form">
-                                <s:textfield label="邮箱" id="form1"  name="email"  class="form-control" required="true" disabled="false"/>
+                                <s:textfield label="邮箱" id="form1"  name="email"  class="form-control" required="true"  disabled="false"/>
                                 <s:submit cssClass="grey btn btn-primary" value="发送验证码"/>
                             </div>
                             <s:fielderror fieldName="email" name="email" cssClass="errorMessage"/>
@@ -44,8 +59,6 @@
                             <s:submit cssClass="grey btn btn-primary" value="确认"/>
 
                         </form>
-
-                        <s:submit cssClass="grey btn btn-primary" value="确认"/>
                         <a href="/login.jsp" >取消</a>
                     </div>
                 </div>

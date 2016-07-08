@@ -3,6 +3,21 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
 <t:base>
+    <jsp:attribute name="scripts">
+        <script type="text/javascript">
+            var reg = new RegExp("(^|&)" + "message" + "=([^&]*)(&|$)", "i");
+            var r = location.search.substr(1).match(reg);
+            var m;
+            if (r != null)
+                m=unescape(decodeURI(r[2]));
+            else m=null;
+
+            if(m!=null){
+                notify(m);
+            }
+        </script>
+    </jsp:attribute>
+
     <jsp:attribute name="head">
             <link href="../../css/home.css" rel="stylesheet">
     </jsp:attribute>
