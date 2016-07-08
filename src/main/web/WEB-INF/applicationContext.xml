@@ -55,9 +55,13 @@
         <property name="userService" ref="userService"/>
     </bean>
     <bean class="serviceImpl.OrderServiceImpl" id="orderService">
+        <property name="orderDao" ref="orderDao"/>
         <property name="dao" ref="dao"/>
     </bean>
     <bean class="action.OrderAction" id="orderAction">
         <property name="orderService" ref="orderService"/>
+    </bean>
+    <bean class="dao.OrderDao" id="orderDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 </beans>

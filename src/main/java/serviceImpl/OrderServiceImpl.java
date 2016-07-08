@@ -1,6 +1,7 @@
 package serviceImpl;
 
 import dao.Dao;
+import dao.OrderDao;
 import po.CartItem;
 import po.OrderItem;
 import po.Order;
@@ -13,30 +14,26 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
 
     private Dao dao;
+    private OrderDao orderDao;
 
     /**
      * 创建订单
      */
     @Override
     public void addOrder(Order order, List<Integer> cartItemIdList) {
-        int id = (int) dao.save(order);
         List<OrderItem> orderItemList = new ArrayList<>();
-//        int size = cartItemIdList.size();
-//        int cartItemId;
+
         CartItem cartItem;
         OrderItem orderItem = new OrderItem();
         for (int cartItemId : cartItemIdList) {
-//            cartItemId = aCartItemIdList;
             cartItem = dao.get(CartItem.class, cartItemId);
-
             orderItem.setProductId(cartItem.getProductId());
             orderItem.setProductTitle(cartItem.getProduct().getPriced().getTitle());
             orderItem.setNum(cartItem.getNum());
-//            orderItem.setTotalPriced(cartItem.getSubtotal());
-            orderItem.setOrderId(order.getOrderId());
             orderItemList.add(orderItem);
         }
-        dao.saveM(orderItemList, CartItem.class.getSimpleName());
+        orderDao.saveOrder(order, orderItemList);
+//        dao.saveM(orderItemList, CartItem.class.getSimpleName());
     }
 
 
@@ -69,12 +66,10 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public void sendPackage(int orderId, String logisticsNum, String logisticsCompany) {
-
         Order order = dao.get(Order.class, orderId);
         order.setCourierCompany(logisticsCompany);
         order.setCourierNumber(logisticsNum);
         dao.update(order);
-
     }
 
     /**
@@ -93,7 +88,12 @@ public class OrderServiceImpl implements OrderService {
         return logistics;
     }
 
+
     public void setDao(Dao dao) {
         this.dao = dao;
+    }
+
+    public void setOrderDao(OrderDao orderDao) {
+        this.orderDao = orderDao;
     }
 }
