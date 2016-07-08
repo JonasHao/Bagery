@@ -307,6 +307,11 @@
                 <param name="state">e</param>
                 <param name="message">更新商品失败</param>
             </result>
+            <result name="ERROR1" type="redirectAction">
+                <param name="actionName">pricedList</param>
+                <param name="state">e</param>
+                <param name="message">商品添加重复</param>
+            </result>
         </action>
         <action name="soldOutPriced" class="action.ProductionAction" method="soldOutPriced">
             <result name="success" type="redirectAction">

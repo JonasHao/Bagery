@@ -1,7 +1,6 @@
 package action;
 
 import java.util.*;
-
 import com.opensymphony.xwork2.ActionContext;
 import constant.Key;
 import org.apache.struts2.dispatcher.DefaultActionSupport;
@@ -9,9 +8,8 @@ import org.hibernate.HibernateException;
 import service.ProductService;
 import po.*;
 import service.*;
-
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
+
 
 public class ProductionAction extends DefaultActionSupport {
     private int product_id;
@@ -30,26 +28,24 @@ public class ProductionAction extends DefaultActionSupport {
     private Priced priced;
     private Product product;
     private String img;
+    private String message;
     private User user;
     private PricedPro pricedPro;
+    private List<Integer> proIDs;
     private List<Product> products;
     private List<Priced> priceds;
-
+    private List<PricedPro> pricedpros;
+    private List<UserPricedRecord> records;
+    private List<Comment> comments;
     private List<Property> pros1;
     private List<Property> pros2;
     private List<Property> pros3;
-
     private List<List<Property>> pross;
-    private List<Integer> proIDs;
     private List<List<Integer>> proIDss;
-
-    private List<UserPricedRecord> records;
-    private List<Comment> comments;
     private ProductService productService;
     private UserService userService;
     private CommentService commentService;
-    private Map<Integer, String> productMap;
-    private List<List<Property>> proNames;
+    //private Map<Integer, String> productMap;
 
 
     public String add() {
@@ -64,7 +60,7 @@ public class ProductionAction extends DefaultActionSupport {
             productService.addPriced(priced);
             pricedId = priced.getPricedId();
             for (Product product : products) {
-                if (product.getColor().trim().length() < 1||product.getStock()<0) {
+                if (product.getColor().trim().length() < 1 || product.getStock() < 0) {
                     continue;
                 }
                 product.setPricedId(pricedId);
@@ -104,10 +100,6 @@ public class ProductionAction extends DefaultActionSupport {
 
     public String viewProductAdmin() {
         try {
-            proNames = productService.getPross();
-            pros1 = proNames.get(0);
-            pros2 = proNames.get(1);
-            pros3 = proNames.get(2);
             if (pricedId != 0) {
                 priced = productService.findPriced(pricedId);
                 products = productService.findProductsByPricedAdmin(pricedId);
@@ -123,28 +115,47 @@ public class ProductionAction extends DefaultActionSupport {
 
     public String update() {
         try {
-            Priced p=productService.findPriced(pricedId);
+            Priced p = productService.findPriced(pricedId);
             p.setTitle(priced.getTitle().trim());
             p.setDescription(priced.getDescription().trim());
             p.setImg(priced.getImg().trim());
             p.setUnitPrice(priced.getUnitPrice());
             p.setSalePrice(priced.getSalePrice());
             productService.updatePriced(p);
-            productService.deleteProductsByPriced(pricedId);
-            productService.deletePricedProsByPriced(pricedId);
-            for (Product product : products) {
-                if (product.getColor().trim().length() < 1||product.getStock()<0) {
-                    continue;
+
+            //更新具体商品
+            List<Product> ps = productService.deleteProductsByPriced(pricedId);
+            try {
+                for (Product product : products) {
+                    if (product.getColor().trim().length() < 1 || product.getStock() < 0) {
+                        continue;
+                    }
+                    product.setPricedId(pricedId);
+                    productService.addProduct(product);
                 }
-                product.setPricedId(pricedId);
-                productService.addProduct(product);
+            } catch (Exception e) {
+                for (Product product : ps)
+                    productService.addProduct(product);
+                e.printStackTrace();
+                return ERROR;
             }
-            for (Integer proID : proIDs) {
-                pricedPro = new PricedPro();
-                pricedPro.setPricedId(pricedId);
-                pricedPro.setProId(proID);
-                productService.addPricedPro(pricedPro);
+
+            //更新属性
+            pricedpros = productService.findPricedProByPriced(pricedId);
+            if (pricedpros.size() == 3)
+                for (int i = 0; i < 3; i++) {
+                    pricedpros.get(i).setProId(proIDs.get(i));
+                    productService.updatePricedPro(pricedpros.get(i));
+                }
+            else {
+                for (Integer proID : proIDs) {
+                    pricedPro = new PricedPro();
+                    pricedPro.setPricedId(pricedId);
+                    pricedPro.setProId(proID);
+                    productService.addPricedPro(pricedPro);
+                }
             }
+
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -487,13 +498,13 @@ public class ProductionAction extends DefaultActionSupport {
         this.page_num = page_num;
     }
 
-    public Map<Integer, String> getProductMap() {
-        return productMap;
-    }
-
-    public void setProductMap(Map<Integer, String> productMap) {
-        this.productMap = productMap;
-    }
+//    public Map<Integer, String> getProductMap() {
+//        return productMap;
+//    }
+//
+//    public void setProductMap(Map<Integer, String> productMap) {
+//        this.productMap = productMap;
+//    }
 
     public String getImg() {
         return img;
@@ -511,30 +522,12 @@ public class ProductionAction extends DefaultActionSupport {
         this.pro_id = pro_id;
     }
 
-//    public List<Map<Integer,String>> getProNames() {
-//        return proNames;
-//    }
-//
-//    public void setProNames(List<Map<Integer,String>> proNames) {
-//        this.proNames = proNames;
-//    }
-
-
     public List<List<Integer>> getProIDss() {
         return proIDss;
     }
 
     public void setProIDss(List<List<Integer>> proIDss) {
         this.proIDss = proIDss;
-    }
-
-
-    public List<List<Property>> getProNames() {
-        return proNames;
-    }
-
-    public void setProNames(List<List<Property>> proNames) {
-        this.proNames = proNames;
     }
 
     public List<Property> getPros1() {
@@ -559,5 +552,21 @@ public class ProductionAction extends DefaultActionSupport {
 
     public void setPros3(List<Property> pros3) {
         this.pros3 = pros3;
+    }
+
+    public List<PricedPro> getPricedpros() {
+        return pricedpros;
+    }
+
+    public void setPricedpros(List<PricedPro> pricedpros) {
+        this.pricedpros = pricedpros;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

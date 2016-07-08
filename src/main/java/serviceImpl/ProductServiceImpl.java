@@ -3,7 +3,6 @@ package serviceImpl;
 import dao.Dao;
 import po.*;
 import service.ProductService;
-
 import java.util.*;
 
 @SuppressWarnings("unchecked")
@@ -71,16 +70,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     /**
-     * 通过productID删除商品对象
+     * 通过priceID删除商品对象
      */
     public void deletePriced(int pricedId) {
         Priced priced = dao.get(Priced.class, pricedId);
         dao.delete(priced);
-    }
-
-    public void deleteProduct(int productId) {
-        Product product = dao.get(Product.class, productId);
-        dao.delete(product);
     }
 
     /**
@@ -197,10 +191,11 @@ public class ProductServiceImpl implements ProductService {
         return dao.query("select pp.proId from PricedPro pp,Property p where pp.pricedId=? and pp.proId=p.proId ").setParameter(0, pricedID).list();
     }
 
-    public void deleteProductsByPriced(int pricedID) {
-        List<Product> products = findProductsByPriced(pricedID);
+    public List<Product> deleteProductsByPriced(int pricedID) {
+        List<Product> products = findProductsByPricedAdmin(pricedID);
         for (Product product : products)
             dao.delete(product);
+        return products;
     }
 
     public void deletePricedProsByPriced(int pricedID) {
