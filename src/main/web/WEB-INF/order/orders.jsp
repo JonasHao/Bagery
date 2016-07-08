@@ -163,9 +163,16 @@
                                             </a>
                                         </s:if>
                                         <s:if test='notCommented'>
-                                            <a href="#"/>
-                                            <span>评论</span>
+                                            <a href="#">
+                                                <span>评论</span>
+                                            </a>
                                         </s:if>
+                                        <s:if test='commented'>
+                                            <a href="#">
+                                                <span>追评</span>
+                                            </a>
+                                        </s:if>
+
                                     </div>
                                 </div>
 

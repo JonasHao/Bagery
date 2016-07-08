@@ -54,7 +54,8 @@
         </action>
 
         <action name="queryOrder" class="action.OrderAction" method="queryOrder">
-            <result name="success">/WEB-INF/order/orders.jsp</result>
+            <!--<result name="success">/WEB-INF/order/orders.jsp</result>-->
+            <result name="success">/admin/send_goods.jsp</result>
         </action>
 
         <action name="deleteOrder" class="action.OrderAction" method="deleteOrder">
