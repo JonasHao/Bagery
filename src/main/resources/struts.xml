@@ -68,7 +68,7 @@
         </action>
 
         <action name="payment" class="action.OrderAction" method="payment">
-            <result name="success" type="redirect">queryOrder.action</result>
+            <result name="success">/WEB-INF/order/paymentSuccess.jsp</result>
         </action>
 
         <action name="confirmReceive" class="action.OrderAction" method="confirmReceive">

@@ -234,7 +234,7 @@
                                                         <s:param name="pricedId"><s:property value="pricedId"/>
                                                         </s:param>
                                                     </s:url>
-                                                    <a onclick="notify('删除成功')">
+                                                    <a  onclick="notify('删除成功')">
                                                         <button type="button" class="btn btn-danger"
                                                                 style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">
                                                             删除
@@ -311,10 +311,8 @@
 
         function getQueryString(name) {
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-            var r = window.location.search.substr(1).match(reg);
-            console.log(getQueryString(r));
-            if (r != null) return unescape(r[2]);
-            return null;
+            var r = location.search.substr(1).match(reg);
+            if (r != null) return unescape(decodeURI(r[2])); return null;
         }
 
         $('.dataTables-example').dataTable({
