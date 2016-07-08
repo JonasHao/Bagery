@@ -234,7 +234,7 @@
                                                         <s:param name="pricedId"><s:property value="pricedId"/>
                                                         </s:param>
                                                     </s:url>
-                                                    <a  onclick="notify('删除成功')">
+                                                    <a onclick="notify('删除成功')">
                                                         <button type="button" class="btn btn-danger"
                                                                 style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">
                                                             删除
@@ -326,18 +326,23 @@
         });
         $('.DTTT_container').remove();
 
-        setTimeout(function () {
-                    toastr.options = {
-                        closeButton: true,
-                        progressBar: true,
-                        showMethod: 'slideDown',
-                        timeOut: 4000
-                    };
-                    var m=getQueryString("message");
-                    toastr.success('后台管理系统',m);
+        var s = getQueryString("state");
+        var m = getQueryString("message");
+        if (s != null) {
+            setTimeout(function () {
+                toastr.options = {
+                    closeButton: true,
+                    progressBar: true,
+                    showMethod: 'slideDown',
+                    timeOut: 4000
+                };
+                if (s == "s")
+                    toastr.success('后台管理系统', m);
+                else if (s == "e")
+                    toastr.error('后台管理系统', m);
+            }, 1300);
 
-                },
-                1300);
+        }
     });
 </script>
 
