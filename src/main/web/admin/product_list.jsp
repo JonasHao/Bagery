@@ -309,7 +309,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-        console.log(getQueryString("message"));
+
         function getQueryString(name) {
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
             var r = location.search.substr(1).match(reg);
@@ -325,19 +325,23 @@
         });
         $('.DTTT_container').remove();
 
+        var message = getQueryString("message");
+        console.log(message);
+        console.log(message != null);
+        if(message != null){
+            setTimeout(function () {
+                toastr.options = {
+                    closeButton: true,
+                    progressBar: true,
+                    showMethod: 'slideDown',
+                    timeOut: 4000
+                };
+                var m=getQueryString("message");
+                toastr.success('后台管理系统',m);
 
-        console.log(getQueryString("message"));
-        setTimeout(function () {
-                    toastr.options = {
-                        closeButton: true,
-                        progressBar: true,
-                        showMethod: 'slideDown',
-                        timeOut: 4000
-                    };
-                    var m=getQueryString("message");
-                    toastr.success('后台管理系统',m);
+            },1300);
+        }
 
-                },1300);
     });
 </script>
 
