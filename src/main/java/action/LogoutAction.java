@@ -11,4 +11,8 @@ public class LogoutAction extends DefaultActionSupport {
         ActionContext.getContext().getSession().clear();
         return SUCCESS;
     }
+
+    public String index(){
+        return SUCCESS;
+    }
 }

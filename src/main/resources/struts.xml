@@ -84,10 +84,8 @@
         </action>
     </package>
 
-
     <package name="comment" namespace="/comment" extends="default">
         <default-interceptor-ref name="userStack"/>
-
 
         <action name="viewComment" class="action.CommentAction" method="viewComment">
             <result name="success">/index.jsp</result>
@@ -110,22 +108,33 @@
         </action>
     </package>
 
-
     <package name="user" namespace="/user" extends="default">
         <default-interceptor-ref name="userStack"/>
 
-
         <action name="register" class="action.UserAction" method="register">
-            <result name="success">/WEB-INF/user/home.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">index</param>
+                <param name="message">注册成功！</param>
+            </result>
             <result name="input">/signUp.jsp</result>
         </action>
 
         <action name="login" class="action.UserAction" method="login">
             <result name="input">/login.jsp</result>
-            <result name="success">/index.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">index</param>
+                <param name="message">登录成功！</param>
+            </result>
         </action>
 
         <action name="logout" class="action.LogoutAction" method="logout">
+            <result name="success" type="redirectAction">
+                <param name="actionName">index</param>
+                <param name="message">退出成功！</param>
+            </result>
+        </action>
+
+        <action name="index" class="action.LogoutAction" method="index">
             <result name="success">/index.jsp</result>
         </action>
 
@@ -138,7 +147,10 @@
         </action>
 
         <action name="update" class="action.UserInfoAction" method="update">
-            <result name="success" type="redirectAction">viewInfo</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">viewInfo</param>
+                <param name="message">更新成功！</param>
+            </result>
             <result name="input">/WEB-INF/user/profile.jsp</result>
         </action>
 
@@ -147,7 +159,10 @@
         </action>
 
         <action name="resetPassword" class="action.UserInfoAction" method="resetPassword">
-            <result name="success" type="redirectAction">home</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">home</param>
+                <param name="message">修改密码成功！</param>
+            </result>
             <result name="input">/WEB-INF/user/resetPassword.jsp</result>
         </action>
 
@@ -156,12 +171,18 @@
         </action>
 
         <action name="sendConfirmCode" class="action.UserInfoAction" method="sendConfirmCode">
-            <result name="success">/FindPassword.jsp</result>
+            <result name="success" type="redirect">
+                <param name="location">/FindPassword.jsp</param>
+                <param name="actionMessages">验证码发送成功！</param>
+            </result>
             <result name="input">/FindPassword.jsp</result>
         </action>
 
         <action name="confirmEmail" class="action.UserInfoAction" method="confirmEmail">
-            <result name="success">/index.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">index</param>
+                <param name="message">找回密码成功！</param>
+            </result>
             <result name="input">/FindPassword.jsp</result>
         </action>
 
@@ -170,7 +191,10 @@
         </action>
 
         <action name="confirmCode" class="action.UserInfoAction" method="confirmCode">
-            <result name="success" type="redirectAction">viewInfo</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">viewInfo</param>
+                <param name="message">验证成功！</param>
+            </result>
             <result name="input">/WEB-INF/user/ConfirmEmail.jsp</result>
         </action>
 
@@ -238,21 +262,33 @@
         </action>
 
         <action name="addAddress" class="action.AddressAction" method="addAddress">
-            <result name="success" type="redirectAction">viewAddress</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">viewAddress</param>
+                <param name="message">添加成功！</param>
+            </result>
             <result name="input">/WEB-INF/user/address.jsp</result>
         </action>
 
         <action name="deleteAddress" class="action.AddressAction" method="deleteAddress">
-            <result name="success" type="redirectAction">viewAddress</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">viewAddress</param>
+                <param name="message">删除成功！</param>
+            </result>
         </action>
 
         <action name="updateAddress" class="action.AddressAction" method="updateAddress">
             <result name="input">/WEB-INF/user/address.jsp</result>
-            <result name="success" type="redirectAction">viewAddress</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">viewAddress</param>
+                <param name="message">更新成功！</param>
+            </result>
         </action>
 
         <action name="setDefaultAddress" class="action.AddressAction" method="setDefaultAddress">
-            <result name="success" type="redirectAction">viewAddress</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">viewAddress</param>
+                <param name="message">设置成功！</param>
+            </result>
         </action>
     </package>
 

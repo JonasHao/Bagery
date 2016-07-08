@@ -132,7 +132,6 @@ public class UserInfoAction extends DefaultActionSupport {
         ActionContext.getContext().getSession().put("Email",email);
 
         //发送邮件
-        addActionMessage("验证码已发送");
         return SUCCESS;
     }
 
@@ -153,9 +152,12 @@ public class UserInfoAction extends DefaultActionSupport {
 
         userService.update(user);
 
+        email=(String)ActionContext.getContext().getSession().get("Email");
+
         ActionContext.getContext().getSession().remove("Code");
         ActionContext.getContext().getSession().remove("User");
         ActionContext.getContext().getSession().remove("Email");
+
         ActionContext.getContext().getSession().put("User",user);
         return SUCCESS;
     }
