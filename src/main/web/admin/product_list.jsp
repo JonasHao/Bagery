@@ -308,13 +308,12 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-
+        alert(getQueryString("message"));
+        console.log(getQueryString("message"));
         function getQueryString(name) {
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-            var r = window.location.search.substr(1).match(reg);
-            console.log(getQueryString(r));
-            if (r != null) return unescape(r[2]);
-            return null;
+            var r = location.search.substr(1).match(reg);
+            if (r != null) return unescape(decodeURI(r[2])); return null;
         }
 
         $('.dataTables-example').dataTable({
@@ -326,6 +325,8 @@
         });
         $('.DTTT_container').remove();
 
+
+        console.log(getQueryString("message"));
         setTimeout(function () {
                     toastr.options = {
                         closeButton: true,
@@ -336,8 +337,7 @@
                     var m=getQueryString("message");
                     toastr.success('后台管理系统',m);
 
-                },
-                1300);
+                },1300);
     });
 </script>
 
