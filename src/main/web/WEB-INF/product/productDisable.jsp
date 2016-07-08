@@ -7,11 +7,10 @@
         <!--Main layout-->
         <div class="container">
 
-            <div class="widget-wrapper">
-                <div class="card-danger white-text">
-                    <div class="card-block">
-                        <h3><strong><img src="img/icon/disable.png"><span class="disabled-block">商品失效啦~~快去逛逛别的吧~</span></strong></h3>
-                    </div>
+            <div class="card-danger white-text blue-grey">
+                <div class="card-block">
+                    <h3><strong><img src="../../img/icon/disable.png"><span
+                            class="disabled-block">商品失效啦~~快去逛逛别的吧~</span></strong></h3>
                 </div>
             </div>
 

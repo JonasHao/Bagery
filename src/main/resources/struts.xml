@@ -42,7 +42,7 @@
 
     <package name="order" namespace="/order" extends="default,json-default">
         <action name="balance" class="action.OrderAction" method="balance">
-            <result name="success">/balance.jsp</result>
+            <result name="success">/WEB-INF/order/balance.jsp</result>
             <result name="input" type="redirectAction">
                 <param name="namespace">/cart</param>
                 <param name="actionName">queryCart</param>
@@ -50,11 +50,11 @@
         </action>
 
         <action name="addOrder" class="action.OrderAction" method="addOrder">
-            <result name="success">/index.jsp</result>
+            <result name="success">/WEB-INF/order/orderSuccess.jsp</result>
         </action>
 
         <action name="queryOrder" class="action.OrderAction" method="queryOrder">
-            <result name="success">/orders.jsp</result>
+            <result name="success">/WEB-INF/order/orders.jsp</result>
         </action>
 
         <action name="deleteOrder" class="action.OrderAction" method="deleteOrder">
@@ -116,7 +116,7 @@
 
 
         <action name="register" class="action.UserAction" method="register">
-            <result name="success">/home.jsp</result>
+            <result name="success">/WEB-INF/user/home.jsp</result>
             <result name="input">/signUp.jsp</result>
         </action>
 
@@ -130,52 +130,52 @@
         </action>
 
         <action name="home" class="action.UserInfoAction" method="home">
-            <result name="success">/home.jsp</result>
+            <result name="success">/WEB-INF/user/home.jsp</result>
         </action>
 
         <action name="viewInfo" class="action.UserInfoAction" method="viewInfo">
-            <result name="success">/profile.jsp</result>
+            <result name="success">/WEB-INF/user/profile.jsp</result>
         </action>
 
         <action name="update" class="action.UserInfoAction" method="update">
             <result name="success" type="redirectAction">viewInfo</result>
-            <result name="input">/profile.jsp</result>
+            <result name="input">/WEB-INF/user/profile.jsp</result>
         </action>
 
         <action name="openReset" class="action.UserInfoAction" method="openReset">
-            <result name="success">/resetPassword.jsp</result>
+            <result name="success">/WEB-INF/user/resetPassword.jsp</result>
         </action>
 
         <action name="resetPassword" class="action.UserInfoAction" method="resetPassword">
             <result name="success" type="redirectAction">home</result>
-            <result name="input">/resetPassword.jsp</result>
+            <result name="input">/WEB-INF/user/resetPassword.jsp</result>
         </action>
 
         <action name="openFind" class="action.UserInfoAction" method="openFind">
-            <result name="success">/FindPassword.jsp</result>
+            <result name="success">/WEB-INF/user/FindPassword.jsp</result>
         </action>
 
         <action name="sendConfirmCode" class="action.UserInfoAction" method="sendConfirmCode">
             <result name="success" type="redirectAction">sendConfirmCode</result>
-            <result name="input">/FindPassword.jsp</result>
+            <result name="input">/WEB-INF/user/FindPassword.jsp</result>
         </action>
 
         <action name="confirmEmail" class="action.UserInfoAction" method="confirmEmail">
             <result name="success">/index.jsp</result>
-            <result name="input">/FindPassword.jsp</result>
+            <result name="input">/WEB-INF/user/FindPassword.jsp</result>
         </action>
 
         <action name="openConfirm" class="action.UserInfoAction" method="openConfirm">
-            <result name="success">/ConfirmEmail.jsp</result>
+            <result name="success">/WEB-INF/user/ConfirmEmail.jsp</result>
         </action>
 
         <action name="confirmCode" class="action.UserInfoAction" method="confirmCode">
             <result name="success" type="redirectAction">viewInfo</result>
-            <result name="input">/home.jsp</result>
+            <result name="input">/WEB-INF/user/home.jsp</result>
         </action>
 
         <action name="history" class="action.UserInfoAction" method="history">
-            <result name="success">/history.jsp</result>
+            <result name="success">/WEB-INF/user/history.jsp</result>
         </action>
     </package>
 
@@ -195,12 +195,12 @@
         </action>
 
         <action name="queryFavorite" class="action.FavoriteAction" method="queryFavorite">
-            <result name="success">/favorite.jsp</result>
+            <result name="success">/WEB-INF/favorite/favorite.jsp</result>
         </action>
 
         <action name="viewProduct" class="action.ProductionAction" method="viewProduct">
-            <result name="success">/detail.jsp</result>
-            <result name="input">/productDisable.jsp</result>
+            <result name="success">/WEB-INF/product/detail.jsp</result>
+            <result name="input">/WEB-INF/product/productDisable.jsp</result>
         </action>
     </package>
 
@@ -219,7 +219,7 @@
         </action>
 
         <action name="queryCart" class="action.CartAction" method="queryCart">
-            <result name="success">/cart.jsp</result>
+            <result name="success">/WEB-INF/cart/cart.jsp</result>
         </action>
 
         <action name="updateCart" class="action.CartAction" method="updateCart">
@@ -234,12 +234,12 @@
 
         <action name="viewAddress" class="action.AddressAction" method="viewAddress">
             <!--<result name="success">/admin/admin_product_detail.jsp</result>-->
-            <result name="success">/address.jsp</result>
+            <result name="success">/WEB-INF/user/address.jsp</result>
         </action>
 
         <action name="addAddress" class="action.AddressAction" method="addAddress">
             <result name="success" type="redirectAction">viewAddress</result>
-            <result name="input">/address.jsp</result>
+            <result name="input">/WEB-INF/user/address.jsp</result>
         </action>
 
         <action name="deleteAddress" class="action.AddressAction" method="deleteAddress">
@@ -247,7 +247,7 @@
         </action>
 
         <action name="updateAddress" class="action.AddressAction" method="updateAddress">
-            <result name="input">/address.jsp</result>
+            <result name="input">/WEB-INF/user/address.jsp</result>
             <result name="success" type="redirectAction">viewAddress</result>
         </action>
 
@@ -258,19 +258,19 @@
 
     <package name="product" namespace="/product" extends="default">
         <action name="viewProduct" class="action.ProductionAction" method="viewProduct">
-            <result name="success">/detail.jsp</result>
+            <result name="success">/WEB-INF/product/detail.jsp</result>
         </action>
         <action name="productList" class="action.ProductionAction" method="viewPricedList">
-            <result name="success">/list.jsp</result>
+            <result name="success">/WEB-INF/product/list.jsp</result>
         </action>
         <action name="historyRecord" class="action.ProductionAction" method="viewHistoryRecord">
-            <result name="success">/history.jsp</result>
+            <result name="success">/WEB-INF/user/history.jsp</result>
         </action>
         <action name="productListByWord" class="action.ProductionAction" method="findPricedsByWord">
-            <result name="success">/list.jsp</result>
+            <result name="success">/WEB-INF/product/list.jsp</result>
         </action>
         <action name="productListByPro" class="action.ProductionAction" method="findPricedsByPro">
-            <result name="success">/list.jsp</result>
+            <result name="success">/WEB-INF/product/list.jsp</result>
         </action>
     </package>
 

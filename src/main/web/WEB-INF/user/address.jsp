@@ -16,7 +16,7 @@
     <jsp:attribute name="title">管理地址簿</jsp:attribute>
     <jsp:attribute name="breadcrumb">
        <ol class="breadcrumb">
-           <li><a href="index.jsp">首页</a></li>
+           <li><a href="../../index.jsp">首页</a></li>
            <li><a href="home.jsp">个人中心</a></li>
            <li class="active">管理地址簿</li>
        </ol>
