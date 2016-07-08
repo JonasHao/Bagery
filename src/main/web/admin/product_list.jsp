@@ -309,7 +309,6 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-
         function getQueryString(name) {
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
             var r = location.search.substr(1).match(reg);
@@ -325,10 +324,9 @@
         });
         $('.DTTT_container').remove();
 
-        var message = getQueryString("message");
-        console.log(message);
-        console.log(message != null);
-        if(message != null){
+        var s = getQueryString("state");
+        var m = getQueryString("message");
+        if (s != null) {
             setTimeout(function () {
                 toastr.options = {
                     closeButton: true,
@@ -336,12 +334,13 @@
                     showMethod: 'slideDown',
                     timeOut: 4000
                 };
-                var m=getQueryString("message");
-                toastr.success('后台管理系统',m);
+                if (s == "s")
+                    toastr.success('后台管理系统', m);
+                else if (s == "e")
+                    toastr.error('后台管理系统', m);
+            }, 1300);
 
-            },1300);
         }
-
     });
 </script>
 
