@@ -20,10 +20,12 @@ public class Dao {
         return pk;
     }
 
-    public void save(List<Object> ts) throws HibernateException {
+    public void saveM(List ts, String entityName) throws HibernateException {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
-        ts.forEach(session::save);
+        for (Object object : ts) {
+            session.save(entityName, object);
+        }
         session.getTransaction().commit();
     }
 

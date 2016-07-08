@@ -94,10 +94,10 @@ public class OrderAction extends DefaultActionSupport {
             orderService.addOrder(order, cartItemIdList);
 
             return SUCCESS;
-        }catch (HibernateException e){
+        }catch (HibernateException | NullPointerException e){
             e.printStackTrace();
-            return ERROR;
         }
+        return ERROR;
 
     }
 

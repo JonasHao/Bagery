@@ -24,6 +24,10 @@ public class Order {
     private User user;
     private Address address;
 
+    public Order() {
+        orderStatus=OrderStatus.UNPAID;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id", nullable = false, insertable = true, updatable = true)
@@ -58,10 +62,13 @@ public class Order {
     @Basic
     @Column(name = "total", nullable = true, insertable = true, updatable = true, precision = 0)
     public Double getTotal() {
-        total = 0.0;
-        for (OrderItem item : orderItems) {
-            total += item.getTotalPriced();
-        }
+//        total = 0.0;
+//        if (orderItems != null && orderItems.size() > 0)
+//            for (OrderItem item : orderItems) {
+//                if (item != null) {
+//                    total += item.getTotalPriced();
+//                }
+//            }
         return total;
     }
 
@@ -187,14 +194,20 @@ public class Order {
     }
 
     @Transient
-    public String getOrderStatusString(){
-        switch (orderStatus){
-            case OrderStatus.UNPAID : return "待付款";
-            case OrderStatus.UNSHIPPED: return "待发货";
-            case OrderStatus.SHIPPED: return "已发货";
-            case OrderStatus.COMPLETED : return "已收货";
-            case OrderStatus.CANCELED : return "已取消";
-            case OrderStatus.UNCOMMENT : return "待评价";
+    public String getOrderStatusString() {
+        switch (orderStatus) {
+            case OrderStatus.UNPAID:
+                return "待付款";
+            case OrderStatus.UNSHIPPED:
+                return "待发货";
+            case OrderStatus.SHIPPED:
+                return "已发货";
+            case OrderStatus.COMPLETED:
+                return "已收货";
+            case OrderStatus.CANCELED:
+                return "已取消";
+            case OrderStatus.UNCOMMENT:
+                return "待评价";
         }
         return "未知状态";
     }

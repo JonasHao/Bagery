@@ -29,7 +29,7 @@ public class OrderItem {
     }
 
     @Basic
-    @Column(name = "product_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "product_id", nullable = false, insertable = true, updatable = true)
     public int getProductId() {
         return productId;
     }
@@ -61,7 +61,9 @@ public class OrderItem {
     @Basic
     @Column(name = "total_priced", nullable = false, insertable = true, updatable = true, precision = 0)
     public double getTotalPriced() {
-        totalPriced=num*product.getPriced().getSalePrice();
+        if (product != null && product.getPriced() != null) {
+            totalPriced = num * product.getPriced().getSalePrice();
+        }
         return totalPriced;
     }
 
@@ -70,7 +72,7 @@ public class OrderItem {
     }
 
     @Basic
-    @Column(name = "order_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "order_id", nullable = false, insertable = true, updatable = true)
     public int getOrderId() {
         return orderId;
     }
@@ -112,7 +114,7 @@ public class OrderItem {
     }
 
     @ManyToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "order_id", nullable = false)
+    @JoinColumn(name = "order_id", referencedColumnName = "order_id", nullable = false, insertable = false, updatable = false)
     public Order getOrder() {
         return order;
     }
@@ -122,7 +124,7 @@ public class OrderItem {
     }
 
     @ManyToOne
-    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false)
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false, insertable = false, updatable = false)
     public Product getProduct() {
         return product;
     }
