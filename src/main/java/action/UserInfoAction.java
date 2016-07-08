@@ -89,6 +89,10 @@ public class UserInfoAction extends DefaultActionSupport {
         return SUCCESS;
     }
 
+    public String openReset(){
+        return SUCCESS;
+    }
+
     public String resetPassword(){
         user=userService.getCurrentUser();
         if(!confirmPassword.equals(user.getPassword())){
@@ -102,10 +106,6 @@ public class UserInfoAction extends DefaultActionSupport {
 
         user.setPassword(newPassword);
         userService.update(user);
-        return SUCCESS;
-    }
-
-    public String openReset(){
         return SUCCESS;
     }
 
@@ -180,6 +180,26 @@ public class UserInfoAction extends DefaultActionSupport {
         user=userService.getCurrentUser();
         ActionContext.getContext().getSession().remove("Code");
         return SUCCESS;
+    }
+
+    public void validateResetPassword(){
+        if (!newPassword.matches("^(\\w){5,20}$")) {
+            addFieldError("newPassword", "密码只能包含字母数字或下划线");
+            return;
+        }
+    }
+
+    public void validateSendConfirmCode(){
+        if (!email.matches("^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$")) {
+            addFieldError("email", "邮箱格式不正确");
+        }
+    }
+
+    public void validateConfirmEmail(){
+        if (!newPassword.matches("^(\\w){5,20}$")) {
+            addFieldError("newPassword", "密码只能包含字母数字或下划线");
+            return;
+        }
     }
 
     public UserService getUserService() {

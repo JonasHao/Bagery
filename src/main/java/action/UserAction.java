@@ -23,10 +23,10 @@ public class UserAction extends DefaultActionSupport {
     private String usergroup;
     private String msg;
 
-    public String logout() {
-        ActionContext.getContext().getSession().clear();
-        return SUCCESS;
-    }
+//    public String logout() {
+//        ActionContext.getContext().getSession().clear();
+//        return SUCCESS;
+//    }
 
     public String login() {
         if (!userService.existUsername(username)) {
@@ -81,7 +81,7 @@ public class UserAction extends DefaultActionSupport {
             return;
         }
 
-        if (password == null || password.length() < 5 || username.length() > 20) {
+        if (password == null || password.length() < 5 || password.length() > 20) {
             addFieldError("password", "密码长度应为5-20位");
             return;
         }
@@ -106,8 +106,6 @@ public class UserAction extends DefaultActionSupport {
         if (!email.matches("^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$")) {
             addFieldError("email", "邮箱格式不正确");
         }
-
-
     }
 
     public void setUsergroup(String usergroup) {

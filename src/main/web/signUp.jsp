@@ -26,7 +26,7 @@
 
 
                             <div class="md-form error-msg-form">
-                                <s:textfield label="邮箱" name="email" errorPosition="none" class="form-control"/>
+                                <s:textfield label="邮箱" name="email" errorPosition="none" class="form-control" required="true"/>
                             </div>
                             <s:fielderror fieldName="email" name="email" cssClass="errorMessage"/>
 

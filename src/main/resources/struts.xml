@@ -125,7 +125,7 @@
             <result name="success">/index.jsp</result>
         </action>
 
-        <action name="logout" class="action.UserAction" method="logout">
+        <action name="logout" class="action.LogoutAction" method="logout">
             <result name="success">/index.jsp</result>
         </action>
 
@@ -152,17 +152,17 @@
         </action>
 
         <action name="openFind" class="action.UserInfoAction" method="openFind">
-            <result name="success">/WEB-INF/user/FindPassword.jsp</result>
+            <result name="success">/FindPassword.jsp</result>
         </action>
 
         <action name="sendConfirmCode" class="action.UserInfoAction" method="sendConfirmCode">
-            <result name="success" type="redirectAction">sendConfirmCode</result>
-            <result name="input">/WEB-INF/user/FindPassword.jsp</result>
+            <result name="success">/FindPassword.jsp</result>
+            <result name="input">/FindPassword.jsp</result>
         </action>
 
         <action name="confirmEmail" class="action.UserInfoAction" method="confirmEmail">
             <result name="success">/index.jsp</result>
-            <result name="input">/WEB-INF/user/FindPassword.jsp</result>
+            <result name="input">/FindPassword.jsp</result>
         </action>
 
         <action name="openConfirm" class="action.UserInfoAction" method="openConfirm">
@@ -171,7 +171,7 @@
 
         <action name="confirmCode" class="action.UserInfoAction" method="confirmCode">
             <result name="success" type="redirectAction">viewInfo</result>
-            <result name="input">/WEB-INF/user/home.jsp</result>
+            <result name="input">/WEB-INF/user/ConfirmEmail.jsp</result>
         </action>
 
         <action name="history" class="action.UserInfoAction" method="history">
