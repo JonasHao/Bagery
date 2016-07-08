@@ -49,7 +49,7 @@
                                 </div>
 
                                 <div class="md-form">
-                                    <s:textfield label="姓名" name="realname" cssClass="form-control"/>
+                                    <s:textfield label="姓名" name="realname" maxLength="15" cssClass="form-control"/>
                                 </div>
 
                                 <s:submit cssClass="grey btn btn-primary" value="确认"/>
