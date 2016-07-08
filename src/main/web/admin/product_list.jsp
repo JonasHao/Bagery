@@ -308,7 +308,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        alert(getQueryString("message"));
+
         console.log(getQueryString("message"));
         function getQueryString(name) {
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
