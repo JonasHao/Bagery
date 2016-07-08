@@ -10,6 +10,7 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
 <t:base>
+
     <jsp:attribute name="head">
             <link href="../../css/home.css" rel="stylesheet">
     </jsp:attribute>
@@ -24,6 +25,15 @@
 
     <jsp:attribute name="scripts">
         <script type="text/javascript">
+            function getQueryString(name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+                var r = location.search.substr(1).match(reg);
+                if (r != null) return unescape(decodeURI(r[2])); return null;
+            }
+            var m=getQueryString("message");
+            if(m!=null){
+                notify(m);
+            }
             var addressForm = $('#address-form');
             addressForm.on('hidden.bs.collapse', function () {
                 $('#btn-add-address').text("添加新地址");

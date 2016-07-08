@@ -2,9 +2,8 @@ package service;
 
 
 import po.*;
-
 import java.util.List;
-import java.util.Map;
+
 
 public interface ProductService {
     /**
@@ -36,7 +35,6 @@ public interface ProductService {
      * 通过productID删除商品对象
      */
     void deletePriced(int pricedId);
-    void deleteProduct(int productId);
     /**
      * 根据关键词获取商品列表
      */
@@ -57,10 +55,9 @@ public interface ProductService {
     List<UserPricedRecord> findHistoryRecord(int userID);
 
     List<Property> findProsByCategory(String category);
-
+    List<PricedPro> findPricedProByPriced(int pricedID);
     List<Integer> findProIDsByPriced(int pricedID);
-    void deleteProductsByPriced(int pricedID);
-    void deletePricedProsByPriced(int pricedID);
+    List<Product> deleteProductsByPriced(int pricedID);
     void addRecord(int userID,int pricedID);
 
     //List<Map<Integer,String>> getProNames();
@@ -68,4 +65,6 @@ public interface ProductService {
 
     String getProByProID(int proID);
     List<List<Property>> getPross();
+
+
 }
