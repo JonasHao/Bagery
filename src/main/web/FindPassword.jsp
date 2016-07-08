@@ -17,25 +17,29 @@
 
                     <div class="card-block">
 
-                        <form class="form-user" action="sendConfirmCode" namespace="/user"  method="POST">
+                        <form class="form-user" action="/user/sendConfirmCode"  method="POST">
                             <div class="md-form">
-                                <s:textfield label="邮箱" id="form1"  name="email"  class="form-control" disabled="false"/>
+                                <s:textfield label="邮箱" id="form1"  name="email"  class="form-control" required="true" disabled="false"/>
                                 <s:submit cssClass="grey btn btn-primary" value="发送验证码"/>
                             </div>
+                            <s:fielderror fieldName="email" name="email" cssClass="errorMessage"/>
                         </form>
 
-                        <form class="form-user" action="confirmEmail" namespace="/user"  method="POST">
+                        <form class="form-user" action="/user/confirmEmail" method="POST">
                             <div class="md-form">
-                                <s:textfield label="验证码" name="confirmCode"  class="form-control" disabled="false"/>
+                                <s:textfield label="验证码" name="confirmCode"  class="form-control" required="true" maxLength="4" minLength="4" disabled="false"/>
                             </div>
+                            <s:fielderror fieldName="confirmCode" name="confirmCode" cssClass="errorMessage"/>
 
                             <div class="md-form">
-                                <s:textfield label="密码" name="newPassword" class="form-control" disabled="false"/>
+                                <s:textfield label="密码" name="newPassword" class="form-control" required="true" maxLength="20" minLength="5" disabled="false"/>
                             </div>
+                            <s:fielderror fieldName="newPassword" name="newPassword" cssClass="errorMessage"/>
 
                             <div class="md-form">
-                                <s:textfield label="确认密码" name="confirmNewPassword" class="form-control" disabled="false"/>
+                                <s:textfield label="确认密码" name="confirmNewPassword" class="form-control" required="true" maxLength="20" minLength="5" disabled="false"/>
                             </div>
+                            <s:fielderror fieldName="confirmNewPassword" name="confirmNewPassword" cssClass="errorMessage"/>
 
                             <s:submit cssClass="grey btn btn-primary" value="确认"/>
 

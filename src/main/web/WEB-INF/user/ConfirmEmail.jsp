@@ -19,7 +19,8 @@
 
                         <form class="form-user" action="confirmCode" namespace="/user"  method="POST">
                             <div class="md-form">
-                                <s:textfield label="验证码" id="form1"  name="confirmCode"  class="form-control" disabled="false"/>
+                                <s:textfield label="验证码" id="form1"  name="confirmCode"  class="form-control" required="true" maxLength="4"
+                                             minLength="4" disabled="false"/>
                                 <s:submit cssClass="grey btn btn-primary" value="确认"/>
                             </div>
                         </form>

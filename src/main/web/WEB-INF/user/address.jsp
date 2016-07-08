@@ -16,7 +16,7 @@
     <jsp:attribute name="title">管理地址簿</jsp:attribute>
     <jsp:attribute name="breadcrumb">
        <ol class="breadcrumb">
-           <li><a href="index.jsp">首页</a></li>
+           <li><a href="../../index.jsp">首页</a></li>
            <li><a href="home.jsp">个人中心</a></li>
            <li class="active">管理地址簿</li>
        </ol>
@@ -71,33 +71,33 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="md-form">
-                                <s:textfield label="收件人" id="receiver"  name="receiver" class="form-control"/>
+                                <s:textfield label="收件人" id="receiver"  name="receiver" required="true" class="form-control"/>
                             </div>
                         </div>
                         <div class="col-md-8">
                             <div class="md-form">
-                                <s:textfield label="电话" name="mobile" class="form-control"/>
+                                <s:textfield label="电话" name="mobile" required="true" class="form-control"/>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="md-form">
-                                <s:textfield label="省" name="addressProvince" class="form-control"/>
+                                <s:textfield label="省" name="addressProvince" required="true" class="form-control"/>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="md-form">
-                                <s:textfield label="市" name="addressCity" class="form-control" cssClass="form-control"/>
+                                <s:textfield label="市" name="addressCity" class="form-control" required="true" cssClass="form-control"/>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="md-form">
-                                <s:textfield label="区" name="addressDistrict" class="form-control"/>
+                                <s:textfield label="区" name="addressDistrict" required="true" class="form-control"/>
                             </div>
                         </div>
 
                         <div class="col-md-12">
                             <div class="md-form">
-                                <s:textfield label="详细地址" name="addressDetail" class="form-control"/>
+                                <s:textfield label="详细地址" name="addressDetail" required="true" class="form-control"/>
                             </div>
                         </div>
                     </div>

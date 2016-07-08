@@ -16,8 +16,6 @@ public class OrderItem {
     private Order order;
     private Product product;
 
-    //自己加的
-//    private Priced prised;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +29,7 @@ public class OrderItem {
     }
 
     @Basic
-    @Column(name = "product_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "product_id", nullable = false, insertable = true, updatable = true)
     public int getProductId() {
         return productId;
     }
@@ -63,6 +61,9 @@ public class OrderItem {
     @Basic
     @Column(name = "total_priced", nullable = false, insertable = true, updatable = true, precision = 0)
     public double getTotalPriced() {
+        if (product != null && product.getPriced() != null) {
+            totalPriced = num * product.getPriced().getSalePrice();
+        }
         return totalPriced;
     }
 
@@ -71,7 +72,7 @@ public class OrderItem {
     }
 
     @Basic
-    @Column(name = "order_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "order_id", nullable = false, insertable = true, updatable = true)
     public int getOrderId() {
         return orderId;
     }
@@ -113,7 +114,7 @@ public class OrderItem {
     }
 
     @ManyToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "order_id", nullable = false)
+    @JoinColumn(name = "order_id", referencedColumnName = "order_id", nullable = false, insertable = false, updatable = false)
     public Order getOrder() {
         return order;
     }
@@ -123,7 +124,7 @@ public class OrderItem {
     }
 
     @ManyToOne
-    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false)
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false, insertable = false, updatable = false)
     public Product getProduct() {
         return product;
     }
@@ -132,13 +133,4 @@ public class OrderItem {
         this.product = product;
     }
 
-//    @ManyToOne
-//    @JoinColumn(name = "ship_inf_id", referencedColumnName = "ship_inf_id", nullable = false)
-//    public Address getAddress() {
-//        return address;
-//    }
-//
-//    public void setAddress(Address address) {
-//        this.address = address;
-//    }
 }

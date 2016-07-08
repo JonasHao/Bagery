@@ -49,24 +49,22 @@ public class ProductionAction extends DefaultActionSupport {
     private UserService userService;
     private CommentService commentService;
     private Map<Integer, String> productMap;
-
-
     private List<List<Property>> proNames;
 
 
     public String add() {
         try {
             priced = new Priced();
-            priced.setTitle(title);
-            priced.setDescription(description);
-            priced.setImg(img);
+            priced.setTitle(title.trim());
+            priced.setDescription(description.trim());
+            priced.setImg(img.trim());
             priced.setUnitPrice(unit_price);
             priced.setSalePrice(sale_price);
             priced.setIsExisted(1);
             productService.addPriced(priced);
             pricedId = priced.getPricedId();
             for (Product product : products) {
-                if (product.getColor().length() < 1) {
+                if (product.getColor().trim().length() < 1||product.getStock()<0) {
                     continue;
                 }
                 product.setPricedId(pricedId);
@@ -126,16 +124,16 @@ public class ProductionAction extends DefaultActionSupport {
     public String update() {
         try {
             Priced p=productService.findPriced(pricedId);
-            p.setTitle(priced.getTitle());
-            p.setDescription(priced.getDescription());
-            p.setImg(priced.getImg());
+            p.setTitle(priced.getTitle().trim());
+            p.setDescription(priced.getDescription().trim());
+            p.setImg(priced.getImg().trim());
             p.setUnitPrice(priced.getUnitPrice());
             p.setSalePrice(priced.getSalePrice());
             productService.updatePriced(p);
             productService.deleteProductsByPriced(pricedId);
             productService.deletePricedProsByPriced(pricedId);
             for (Product product : products) {
-                if (product.getColor().length() < 1) {
+                if (product.getColor().trim().length() < 1||product.getStock()<0) {
                     continue;
                 }
                 product.setPricedId(pricedId);
@@ -160,7 +158,7 @@ public class ProductionAction extends DefaultActionSupport {
                 productService.deletePriced(pricedId);
                 return SUCCESS;
             }
-            return INPUT;
+            return ERROR;
         } catch (Exception e) {
             e.printStackTrace();
             return ERROR;
@@ -175,7 +173,7 @@ public class ProductionAction extends DefaultActionSupport {
                 productService.updatePriced(priced);
                 return SUCCESS;
             }
-            return INPUT;
+            return ERROR;
         } catch (Exception e) {
             e.printStackTrace();
             return ERROR;
@@ -190,8 +188,7 @@ public class ProductionAction extends DefaultActionSupport {
                 productService.updatePriced(priced);
                 return SUCCESS;
             }
-
-            return INPUT;
+            return ERROR;
         } catch (Exception e) {
             e.printStackTrace();
             return ERROR;
