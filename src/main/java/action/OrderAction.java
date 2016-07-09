@@ -24,6 +24,7 @@ public class OrderAction extends DefaultActionSupport {
     private OrderService orderService;
     private AddressService addressService;
     private CartService cartService;
+    private CommentService commentService;
     private Order order;
     private User user;
     private Address defaultAddress;
@@ -36,6 +37,7 @@ public class OrderAction extends DefaultActionSupport {
     private Collection<Order> orderList = new ArrayList<>();
     private List<Integer> cartItemIdList = new ArrayList<>();
     private List<OrderItem> orderItemList = new ArrayList<>();
+    private List<Comment> commentList = new ArrayList<>();
 
     private int userId;
     private int shipInfId;
@@ -106,10 +108,7 @@ public class OrderAction extends DefaultActionSupport {
         try {
             user = userService.getCurrentUser();
             orderList = user.getOrders();
-
-            if(user.getUserGroup().equals("order_admin")){
-                return SUCCESS;
-            }
+            return SUCCESS;
         }catch (HibernateException e){
             e.printStackTrace();
         }
@@ -194,6 +193,62 @@ public class OrderAction extends DefaultActionSupport {
             e.printStackTrace();
         }
         return ERROR;
+    }
+
+    // todo:判断状态
+    public String toAddOrderComment() throws Exception {
+        order = orderService.getByOrderId(orderId);
+
+        if (order != null) {
+            orderItemList = order.getOrderItems();
+            for (OrderItem item : orderItemList) {
+                Comment comment = new Comment();
+                comment.setPricedId(item.getProduct().getPriced().getPricedId());
+                comment.setPriced(item.getProduct().getPriced());
+                comment.setOrderId(order.getOrderId());
+                comment.setOrder(order);
+                commentList.add(comment);
+            }
+            return SUCCESS;
+        }
+        return ERROR;
+    }
+
+    // todo: 判断状态
+    public String addComment() throws Exception {
+        user = userService.getCurrentUser();
+
+        for (Comment comment : commentList) {
+            comment.setUserId(user.getUserId());
+        }
+
+        commentService.saveComments(commentList);
+        return SUCCESS;
+    }
+
+    public void validateAddComment() {
+        for (Comment comment : commentList) {
+            if (comment == null) {
+                continue;
+            }
+            if (comment.getStar() == null || comment.getStar() > 5 || comment.getStar() < 0) {
+                addActionError("评分只能在0-5之间哦，你看到这个消息肯定有谁是作怪了");
+                return;
+            }
+            if (comment.getContent1().isEmpty() || comment.getContent1().length()<10) {
+                addActionError("评价内容至少也要10个字呢");
+                return;
+            }
+
+            if (comment.getContent1().length() > 200) {
+                addActionError("评论内容不能超过200个字");
+                return;
+            }
+        }
+    }
+
+    public void validateToAddOrderComment(){
+        validateAddComment();
     }
 
 
@@ -387,5 +442,18 @@ public class OrderAction extends DefaultActionSupport {
 
     public void setInstruction(String instruction) {
         this.instruction = instruction;
+    }
+
+    public List<Comment> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(List<Comment> commentList) {
+        this.commentList = commentList;
+    }
+
+
+    public void setCommentService(CommentService commentService) {
+        this.commentService = commentService;
     }
 }

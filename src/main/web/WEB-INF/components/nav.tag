@@ -62,8 +62,8 @@
                                 <s:a class="dropdown-item"  action="logout" namespace="/user">退出</s:a>
                             </s:if>
                             <s:else>
-                                <a class="dropdown-item" href="#">登录</a>
-                                <a class="dropdown-item" href="#">注册</a>
+                                <a class="dropdown-item" href="login.jsp">登录</a>
+                                <a class="dropdown-item" href="signUp.jsp">注册</a>
                             </s:else>
 
                         </div>

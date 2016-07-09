@@ -60,6 +60,7 @@
     </bean>
     <bean class="action.OrderAction" id="orderAction">
         <property name="orderService" ref="orderService"/>
+        <property name="commentService" ref="commentService"/>
     </bean>
     <bean class="dao.OrderDao" id="orderDao">
         <property name="sessionFactory" ref="sessionFactory"/>

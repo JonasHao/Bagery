@@ -1,15 +1,16 @@
 package action;
 
 import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
+import constant.Key;
 import org.apache.struts2.dispatcher.DefaultActionSupport;
 import org.hibernate.HibernateException;
 import po.User;
 import po.UserPricedRecord;
 import service.UserService;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
+import java.util.Map;
 
 /**
  * Created by zhang on 2016/6/23.
@@ -40,6 +41,8 @@ public class UserInfoAction extends DefaultActionSupport {
     private String confirmNewPassword;//重新输入新密码
 
     private List<UserPricedRecord> historyList;
+
+    private Map<String,Object> data= new HashMap<>();
 
     public String home(){
         try {
@@ -95,6 +98,7 @@ public class UserInfoAction extends DefaultActionSupport {
 
     public String resetPassword(){
         user=userService.getCurrentUser();
+        confirmPassword=userService.getMD5(confirmPassword.getBytes());
         if(!confirmPassword.equals(user.getPassword())){
             addFieldError("confirmPassword","旧密码不正确");
             return INPUT;
@@ -104,6 +108,7 @@ public class UserInfoAction extends DefaultActionSupport {
             return INPUT;
         }
 
+        newPassword=userService.getMD5(newPassword.getBytes());
         user.setPassword(newPassword);
         userService.update(user);
         return SUCCESS;
@@ -114,23 +119,28 @@ public class UserInfoAction extends DefaultActionSupport {
     }
 
     public String sendConfirmCode(){
-        user=userService.getUserByEmial(email);
+        user=userService.getUserByEmail(email);
 
         if(user==null) {
             addFieldError("email","不存在的邮箱");
-            return INPUT;
+            data.put(Key.RESULT,INPUT);
+            data.put(Key.ERROR_FIELDS,getFieldErrors());
+            return SUCCESS;
         }
 
         if(user.getIsActivate()==0) {
             addFieldError("email","未验证的邮箱不可找回密码");
-            return INPUT;
+            data.put(Key.RESULT,INPUT);
+            data.put(Key.ERROR_FIELDS,getFieldErrors());
+            return SUCCESS;
         }
+
 
         code=(int)(Math.random()*9000)+1000;
         ActionContext.getContext().getSession().put("Code",code);
-        ActionContext.getContext().getSession().put("User",user);
         ActionContext.getContext().getSession().put("Email",email);
 
+        data.put(Key.RESULT,SUCCESS);
         //发送邮件
         return SUCCESS;
     }
@@ -148,6 +158,8 @@ public class UserInfoAction extends DefaultActionSupport {
 
         user=userService.getCurrentUser();
 
+        newPassword=userService.getMD5(newPassword.getBytes());
+
         user.setPassword(newPassword);
 
         userService.update(user);
@@ -155,20 +167,24 @@ public class UserInfoAction extends DefaultActionSupport {
         email=(String)ActionContext.getContext().getSession().get("Email");
 
         ActionContext.getContext().getSession().remove("Code");
-        ActionContext.getContext().getSession().remove("User");
         ActionContext.getContext().getSession().remove("Email");
 
-        ActionContext.getContext().getSession().put("User",user);
+        ActionContext.getContext().getSession().put(Key.USER,user.getUserId());
         return SUCCESS;
     }
 
-    public String openConfirm(){
+    public String sendConfirm(){
         user=userService.getCurrentUser();
         code=(int)(Math.random()*9000)+1000;
         ActionContext.getContext().getSession().put("Code",code);
         //发送邮件
         return SUCCESS;
     }
+
+    public String openConfirm(){
+        return SUCCESS;
+    }
+
 
     public String confirmCode(){
         if(Integer.parseInt(confirmCode)!=(int)ActionContext.getContext().getSession().get("Code")) {
@@ -361,5 +377,13 @@ public class UserInfoAction extends DefaultActionSupport {
 
     public void setHistoryList(List<UserPricedRecord> historyList) {
         this.historyList = historyList;
+    }
+
+    public Map<String, Object> getData() {
+        return data;
+    }
+
+    public void setData(Map<String, Object> data) {
+        this.data = data;
     }
 }

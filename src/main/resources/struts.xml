@@ -89,16 +89,31 @@
         <action name="sendPackage" class="action.OrderAction" method="sendPackage">
             <result name="success">/index.jsp</result>
         </action>
+
+        <action name="toAddOrderComment" class="action.OrderAction" method="toAddOrderComment">
+            <result>/WEB-INF/order/addComment.jsp</result>
+            <result name="input">/WEB-INF/order/addComment.jsp</result>
+        </action>
+
+        <action name="addComment" class="action.OrderAction" method="addComment">
+            <result name="success" type="redirectAction">
+                <param name="namespace">/order</param>
+                <param name="actionName">queryOrder</param>
+            </result>
+
+            <result name="input">/WEB-INF/order/commentInvalid.jsp</result>
+            <!--<result name="input" type="redirectAction">-->
+            <!--<param name="namespace">/order</param>-->
+            <!--<param name="actionName">toAddOrderComment</param>-->
+            <!--<param name="orderId">${orderId}</param>-->
+            <!--</result>-->
+        </action>
     </package>
 
     <package name="comment" namespace="/comment" extends="default">
         <default-interceptor-ref name="userStack"/>
 
         <action name="viewComment" class="action.CommentAction" method="viewComment">
-            <result name="success">/index.jsp</result>
-        </action>
-
-        <action name="addComment" class="action.CommentAction" method="addComment">
             <result name="success">/index.jsp</result>
         </action>
 
@@ -115,7 +130,7 @@
         </action>
     </package>
 
-    <package name="user" namespace="/user" extends="default">
+    <package name="user" namespace="/user" extends="default,json-default">
         <default-interceptor-ref name="userStack"/>
 
         <action name="register" class="action.UserAction" method="register">
@@ -132,6 +147,7 @@
                 <param name="actionName">index</param>
                 <param name="message">登录成功！</param>
             </result>
+            <result name="admin">/admin/index.jsp</result>
         </action>
 
         <action name="logout" class="action.LogoutAction" method="logout">
@@ -147,6 +163,7 @@
 
         <action name="home" class="action.UserInfoAction" method="home">
             <result name="success">/WEB-INF/user/home.jsp</result>
+            <result name="error">/login.jsp</result>
         </action>
 
         <action name="viewInfo" class="action.UserInfoAction" method="viewInfo">
@@ -174,13 +191,12 @@
         </action>
 
         <action name="openFind" class="action.UserInfoAction" method="openFind">
-            <result name="success">/FindPassword.jsp</result>
+            <result name="success">/WEB-INF/user/FindPassword.jsp</result>
         </action>
 
         <action name="sendConfirmCode" class="action.UserInfoAction" method="sendConfirmCode">
-            <result name="success" type="redirect">
-                <param name="location">/FindPassword.jsp</param>
-                <param name="actionMessages">验证码发送成功！</param>
+            <result name="success" type="json">
+                <param name="root">data</param>
             </result>
             <result name="input">/FindPassword.jsp</result>
         </action>
@@ -191,6 +207,13 @@
                 <param name="message">找回密码成功！</param>
             </result>
             <result name="input">/FindPassword.jsp</result>
+        </action>
+
+        <action name="sendConfirm" class="action.UserInfoAction" method="sendConfirm">
+            <result name="success" type="redirectAction">
+                <param name="actionName">openConfirm</param>
+                <param name="message">验证码发送成功！</param>
+            </result>
         </action>
 
         <action name="openConfirm" class="action.UserInfoAction" method="openConfirm">

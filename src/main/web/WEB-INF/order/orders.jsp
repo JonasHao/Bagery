@@ -89,7 +89,6 @@
                 <div class="tab-pane active" id="all" role="tabpanel">
                     <br>
                     <s:iterator value="orderList">
-
                         <div class="card order-<s:property value="orderId"/>">
                             <div class="card-header">
                                 <div class="row">

@@ -31,6 +31,8 @@ public interface CommentService {
      */
     void addComment(Comment comment);
 
+    void saveComments(List<Comment> comments);
+
     /**
      * 在数据库中更新comment信息
      */
