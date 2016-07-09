@@ -1,6 +1,7 @@
 package action;
 
 import java.util.*;
+
 import com.opensymphony.xwork2.ActionContext;
 import constant.Key;
 import org.apache.struts2.dispatcher.DefaultActionSupport;
@@ -8,6 +9,7 @@ import org.hibernate.HibernateException;
 import service.ProductService;
 import po.*;
 import service.*;
+
 import java.util.ArrayList;
 
 
@@ -49,8 +51,6 @@ public class ProductionAction extends DefaultActionSupport {
     private FavoriteService favoriteService;
     //private Map<Integer, String> productMap;
 
-
-
     public String add() {
         try {
             priced = new Priced();
@@ -86,15 +86,18 @@ public class ProductionAction extends DefaultActionSupport {
     public String viewProduct() {
         try {
             priced = productService.findPriced(pricedId);
-            products = productService.findProductsByPriced(pricedId);
-            comments = commentService.getByPricedId(pricedId);
+            if(priced!=null) {
+                products = productService.findProductsByPriced(pricedId);
+                comments = commentService.getByPricedId(pricedId);
 
-            user = userService.getCurrentUser();
-            if (user != null) {
-                productService.addRecord(user.getUserId(), pricedId);
-                isFavor = favoriteService.isFavor(pricedId);
+                user = userService.getCurrentUser();
+                if (user != null) {
+                    productService.addRecord(user.getUserId(), pricedId);
+                    isFavor = favoriteService.isFavor(pricedId);
+                }
+                return SUCCESS;
             }
-            return SUCCESS;
+            return ERROR;
         } catch (HibernateException e) {
             e.printStackTrace();
             return ERROR;
@@ -106,8 +109,8 @@ public class ProductionAction extends DefaultActionSupport {
 
     public String viewProductAdmin() {
         try {
-            if (pricedId != 0) {
-                priced = productService.findPriced(pricedId);
+            priced = productService.findPriced(pricedId);
+            if (priced!=null) {
                 products = productService.findProductsByPricedAdmin(pricedId);
                 proIDs = productService.findProIDsByPriced(pricedId);
                 return SUCCESS;
@@ -236,7 +239,8 @@ public class ProductionAction extends DefaultActionSupport {
     public String viewHistoryRecord() {
         try {
             user = userService.getCurrentUser();
-            records = productService.findHistoryRecord(user.getUserId());
+            if (user != null)
+                records = productService.findHistoryRecord(user.getUserId());
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
