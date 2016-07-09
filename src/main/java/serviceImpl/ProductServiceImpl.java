@@ -12,7 +12,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
     private Dao dao;
-
     /**
      * 保存一个商品对象
      */
@@ -27,7 +26,15 @@ public class ProductServiceImpl implements ProductService {
     public void addPricedPro(PricedPro pricedPro) {
         dao.save(pricedPro);
     }
-
+    /**
+     * 添加浏览记录
+     */
+    public void addRecord(int userID, int pricedID) {
+        UserPricedRecord record = new UserPricedRecord();
+        record.setUserId(userID);
+        record.setPricedId(pricedID);
+        dao.save(record);
+    }
     /**
      * 更改商品对象信息
      */
@@ -54,14 +61,6 @@ public class ProductServiceImpl implements ProductService {
     public List<Priced> findAllAdmin() {
         return dao.query("from Priced").list();
     }
-
-    /**
-     * 通过priceID删除商品对象
-     */
-    public void deletePriced(int pricedId) {
-        Priced priced = dao.get(Priced.class, pricedId);
-        dao.delete(priced);
-    }
     /**
      * 通过商品查找商品颜色
      */
@@ -72,7 +71,6 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> findProductsByPricedAdmin(int pricedID) {
         return dao.query("from Product where pricedId=?").setParameter(0, pricedID).list();
     }
-
     /**
      * 根据关键词获取商品列表
      */
@@ -100,27 +98,6 @@ public class ProductServiceImpl implements ProductService {
     public List<Integer> findProIDsByPriced(int pricedID) {
         return dao.query("select pp.proId from PricedPro pp,Property p where pp.pricedId=? and pp.proId=p.proId ").setParameter(0, pricedID).list();
     }
-    /**
-     * 删除priced对应全部商品
-     */
-    public List<Product> deleteProductsByPriced(int pricedID) {
-        List<Product> products = findProductsByPricedAdmin(pricedID);
-        for (Product product : products)
-            dao.delete(product);
-        return products;
-    }
-    /**
-     * 属性数组转SQL字符串
-     */
-    public String convertToStr(List<Integer> list) {
-        StringBuilder sb = new StringBuilder("(");
-        for (Integer i : list)
-            sb.append(i + ",");
-        sb.deleteCharAt(sb.length() - 1);
-        sb.append(")");
-        return sb.toString();
-    }
-
     /**
      * 通过类别信息获取商品列表
      */
@@ -188,15 +165,6 @@ public class ProductServiceImpl implements ProductService {
                 setParameter(0, userID).list();
     }
     /**
-     * 添加浏览记录
-     */
-    public void addRecord(int userID, int pricedID) {
-        UserPricedRecord record = new UserPricedRecord();
-        record.setUserId(userID);
-        record.setPricedId(pricedID);
-        dao.save(record);
-    }
-    /**
      * 获取过滤器名称
      */
     public String getProByProID(int proID) {
@@ -212,7 +180,33 @@ public class ProductServiceImpl implements ProductService {
         pross.add(findProsByCategory("款式"));
         return pross;
     }
-
+    /**
+     * 删除priced对应全部商品
+     */
+    public List<Product> deleteProductsByPriced(int pricedID) {
+        List<Product> products = findProductsByPricedAdmin(pricedID);
+        for (Product product : products)
+            dao.delete(product);
+        return products;
+    }
+    /**
+     * 通过priceID删除商品对象
+     */
+    public void deletePriced(int pricedId) {
+        Priced priced = dao.get(Priced.class, pricedId);
+        dao.delete(priced);
+    }
+    /**
+     * 属性数组转SQL字符串
+     */
+    public String convertToStr(List<Integer> list) {
+        StringBuilder sb = new StringBuilder("(");
+        for (Integer i : list)
+            sb.append(i + ",");
+        sb.deleteCharAt(sb.length() - 1);
+        sb.append(")");
+        return sb.toString();
+    }
 
         /*
     //返回属性列表名称
