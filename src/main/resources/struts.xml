@@ -189,9 +189,10 @@
         </action>
 
         <action name="sendConfirmCode" class="action.UserInfoAction" method="sendConfirmCode">
-            <result name="success" type="json">
-                <param name="root">data</param>
-            </result>
+            <!--<result name="success" type="json">-->
+                <!--<param name="root">data</param>-->
+            <!--</result>-->
+            <result name="success" type="redirectAction">openFind</result>
             <result name="input">/FindPassword.jsp</result>
         </action>
 

@@ -86,6 +86,7 @@ public class UserInfoAction extends DefaultActionSupport {
     }
 
     public String update() {
+
         user=userService.getCurrentUser();
         user.setRealName(realname);
         userService.update(user);
