@@ -53,7 +53,7 @@
             <result name="success">/WEB-INF/order/orderSuccess.jsp</result>
         </action>
 
-        <action name="queryOrder" class="action.OrderAction" method="queryOrder">
+        <action name="adminQueryOrder" class="action.OrderAction" method="adminQueryOrder">
             <interceptor-ref name="OrdADLoginChecker"/>
             <result name="input">
                 <param name="location">/admin/send_goods.jsp</param>
@@ -62,6 +62,10 @@
 
             <!--<result name="success">/WEB-INF/order/orders.jsp</result>-->
             <result name="success">/admin/send_goods.jsp</result>
+        </action>
+
+        <action name="queryOrder" class="action.OrderAction" method="queryOrder">
+            <result name="success">/WEB-INF/order/orders.jsp</result>
         </action>
 
         <action name="deleteOrder" class="action.OrderAction" method="deleteOrder">

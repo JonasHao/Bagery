@@ -5,10 +5,7 @@ import constant.Config;
 import org.apache.struts2.dispatcher.DefaultActionSupport;
 import org.hibernate.HibernateException;
 import po.*;
-import service.AddressService;
-import service.CartService;
-import service.OrderService;
-import service.UserService;
+import service.*;
 import constant.OrderStatus;
 
 import java.util.*;
@@ -105,6 +102,17 @@ public class OrderAction extends DefaultActionSupport {
 
     //�鿴����
     public String queryOrder() throws Exception{
+        try {
+            user = userService.getCurrentUser();
+            orderList = user.getOrders();
+            return SUCCESS;
+        }catch (HibernateException e){
+            e.printStackTrace();
+        }
+        return ERROR;
+    }
+
+    public String adminQueryOrder() throws Exception{
         try {
             user = userService.getCurrentUser();
             orderList = user.getOrders();
