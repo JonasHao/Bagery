@@ -508,14 +508,6 @@ public class ProductionAction extends DefaultActionSupport {
         this.page_num = page_num;
     }
 
-//    public Map<Integer, String> getProductMap() {
-//        return productMap;
-//    }
-//
-//    public void setProductMap(Map<Integer, String> productMap) {
-//        this.productMap = productMap;
-//    }
-
     public String getImg() {
         return img;
     }
@@ -591,6 +583,5 @@ public class ProductionAction extends DefaultActionSupport {
     public void setIsFavor(int isFavor) {
         this.isFavor = isFavor;
     }
-
 
 }
