@@ -35,6 +35,8 @@ public class UserAction extends DefaultActionSupport {
             return INPUT;
         }
 
+        password=userService.getMD5(password.getBytes());
+
         msg = userService.login(username, password);
 
         if (msg.equals("input")) {
@@ -63,6 +65,8 @@ public class UserAction extends DefaultActionSupport {
             addFieldError("confirmpassword", "Wrong Password,Please Confirm it");
             return INPUT;
         }
+
+        password=userService.getMD5(password.getBytes());
 
         user = new User();
         user.setUsername(username);

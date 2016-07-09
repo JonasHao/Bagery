@@ -46,5 +46,7 @@ public interface UserService {
 
     User getUserByEmail(String email);
 
+    String getMD5(byte[] source);
+
 
 }

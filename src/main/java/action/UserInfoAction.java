@@ -98,6 +98,7 @@ public class UserInfoAction extends DefaultActionSupport {
 
     public String resetPassword(){
         user=userService.getCurrentUser();
+        confirmPassword=userService.getMD5(confirmPassword.getBytes());
         if(!confirmPassword.equals(user.getPassword())){
             addFieldError("confirmPassword","旧密码不正确");
             return INPUT;
@@ -107,6 +108,7 @@ public class UserInfoAction extends DefaultActionSupport {
             return INPUT;
         }
 
+        newPassword=userService.getMD5(newPassword.getBytes());
         user.setPassword(newPassword);
         userService.update(user);
         return SUCCESS;
@@ -156,6 +158,8 @@ public class UserInfoAction extends DefaultActionSupport {
 
         user=userService.getCurrentUser();
 
+        newPassword=userService.getMD5(newPassword.getBytes());
+
         user.setPassword(newPassword);
 
         userService.update(user);
@@ -165,7 +169,7 @@ public class UserInfoAction extends DefaultActionSupport {
         ActionContext.getContext().getSession().remove("Code");
         ActionContext.getContext().getSession().remove("Email");
 
-        ActionContext.getContext().getSession().put("User",user.getUserId());
+        ActionContext.getContext().getSession().put(Key.USER,user.getUserId());
         return SUCCESS;
     }
 
