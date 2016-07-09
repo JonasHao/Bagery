@@ -67,17 +67,19 @@
                 <%--&lt;%&ndash;<s:property value="priceId" />&ndash;%&gt;1--%>
                 <%--</s:param>--%>
                 <%--</s:url>--%>
-            <div class="alert alert-warning">
-                <a href="#" class="close" data-dismiss="alert">
-                    &times;
-                </a>
-                <div id="alert-block">
-                    <strong>警告！</strong>您的网络连接有问题。
-                </div>
-            </div>
+
+            <%--<div class="alert alert-warning">--%>
+                <%--<a href="#" class="close" data-dismiss="alert">--%>
+                    <%--&times;--%>
+                <%--</a>--%>
+                <%--<div id="alert-block">--%>
+                    <%--<strong>警告！</strong>您的网络连接有问题。--%>
+                <%--</div>--%>
+            <%--</div>--%>
+
             <div class="card">
                 <!--First row-->
-                <div class="row  product-card-wrapper">
+                <div class="row product-card-wrapper">
 
                     <div class="col-md-5">
                         <div class="view overlay hm-white-slight product-detail-img">
@@ -107,18 +109,25 @@
                                     value="priced.unitPrice"/></h3>
                             <p><s:property value="priced.description"/></p>
 
+
                             <div class="row reviews">
-                                <label class="col-sm-2 control-label">颜色</label>
+                                <s:if test="products.size()==0">
+                                <p>暂无商品！
+                                    </s:if>
+                                    <s:else>
+                                    <label class="col-sm-2 control-label">颜色</label>
                                 <div class="col-sm-4">
                                     <s:select list="products" listValue="color"
                                               name="color" cssClass="form-control m-b"/>
                                 </div>
+                                </s:else>
                             </div>
 
-                            <a onclick="addCart()" class="btn btn-lg blue-grey"><i class="fa fa-shopping-cart"></i>
-                                加入购物车</a>
-                            <a href="#" class="btn btn-lg blue-grey"><i class="fa fa-check"></i> 立即购买</a>
-
+                            <s:if test="products.size()!=0">
+                                <a onclick="addCart()" class="btn btn-lg blue-grey"><i class="fa fa-shopping-cart"></i>
+                                    加入购物车</a>
+                                <a href="#" class="btn btn-lg blue-grey"><i class="fa fa-check"></i> 立即购买</a>
+                            </s:if>
                         </div>
                     </div>
                 </div>
