@@ -36,6 +36,7 @@ public class UserAction extends DefaultActionSupport {
 
         msg = userService.login(username, password);
 
+        user.getUserGroup();
         if (msg.equals("input")) {
             addFieldError("password", "密码错误");
             return INPUT;

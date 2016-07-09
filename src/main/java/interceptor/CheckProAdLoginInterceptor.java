@@ -42,7 +42,7 @@ public class CheckProAdLoginInterceptor implements Interceptor {
             String  usergroup=userService.getUserGroup(username);
             if(usergroup.equals("PRODUCT_ADMIN"))
             {
-                return Action.SUCCESS;
+                return invocation.invoke();
             }
             else
                 return Action.ERROR;

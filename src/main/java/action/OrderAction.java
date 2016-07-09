@@ -106,7 +106,10 @@ public class OrderAction extends DefaultActionSupport {
         try {
             user = userService.getCurrentUser();
             orderList = user.getOrders();
-            return SUCCESS;
+
+            if(user.getUserGroup().equals("order_admin")){
+                return SUCCESS;
+            }
         }catch (HibernateException e){
             e.printStackTrace();
         }
