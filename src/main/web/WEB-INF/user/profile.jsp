@@ -17,7 +17,7 @@
         </script>
     </jsp:attribute>
 
-    <jsp:attribute name="title">个人信息</jsp:attribute>
+    <jsp:attribute name="title">个人信息管理</jsp:attribute>
 
     <jsp:attribute name="head">
             <link href="../../css/login.css" rel="stylesheet">
@@ -26,7 +26,7 @@
     <jsp:attribute name="breadcrumb">
        <ol class="breadcrumb">
            <li><a href="../../index.jsp">首页</a></li>
-           <li class="active">个人中心</li>
+           <li class="active">个人信息管理</li>
        </ol>
     </jsp:attribute>
 
@@ -54,16 +54,17 @@
                             <div class="card-block">
 
                                 <s:set name="active" value="isActivate"/>
+                                <s:set name="realname" value="realname"/>
                                 <div class="md-form input-group" >
                                     <s:textfield label="邮箱" name="email" cssClass="form-control" disabled="true"/>
                                     <span class="input-group-addon email-active-label">
                                         <s:if test="#active == 1">已验证<i class="fa fa-bullseye" aria-hidden="true"></i></s:if>
-                                        <s:else><s:a action="openConfirm">验证</s:a></s:else>
+                                        <s:else><s:a action="sendConfirm">验证</s:a></s:else>
                                     </span>
                                 </div>
 
                                 <div class="md-form">
-                                    <s:textfield label="姓名" name="realname" maxLength="15" cssClass="form-control"/>
+                                    <s:textfield label="姓名" name="realname" cssClass="form-control"/>
                                 </div>
 
                                 <s:submit cssClass="grey btn btn-primary" value="确认"/>

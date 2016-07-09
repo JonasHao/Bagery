@@ -86,6 +86,7 @@ public class UserInfoAction extends DefaultActionSupport {
     }
 
     public String update() {
+
         user=userService.getCurrentUser();
         user.setRealName(realname);
         userService.update(user);
@@ -98,6 +99,7 @@ public class UserInfoAction extends DefaultActionSupport {
 
     public String resetPassword(){
         user=userService.getCurrentUser();
+        confirmPassword=userService.getMD5(confirmPassword.getBytes());
         if(!confirmPassword.equals(user.getPassword())){
             addFieldError("confirmPassword","旧密码不正确");
             return INPUT;
@@ -107,6 +109,7 @@ public class UserInfoAction extends DefaultActionSupport {
             return INPUT;
         }
 
+        newPassword=userService.getMD5(newPassword.getBytes());
         user.setPassword(newPassword);
         userService.update(user);
         return SUCCESS;
@@ -156,6 +159,8 @@ public class UserInfoAction extends DefaultActionSupport {
 
         user=userService.getCurrentUser();
 
+        newPassword=userService.getMD5(newPassword.getBytes());
+
         user.setPassword(newPassword);
 
         userService.update(user);
@@ -165,17 +170,22 @@ public class UserInfoAction extends DefaultActionSupport {
         ActionContext.getContext().getSession().remove("Code");
         ActionContext.getContext().getSession().remove("Email");
 
-        ActionContext.getContext().getSession().put("User",user.getUserId());
+        ActionContext.getContext().getSession().put(Key.USER,user.getUserId());
         return SUCCESS;
     }
 
-    public String openConfirm(){
+    public String sendConfirm(){
         user=userService.getCurrentUser();
         code=(int)(Math.random()*9000)+1000;
         ActionContext.getContext().getSession().put("Code",code);
         //发送邮件
         return SUCCESS;
     }
+
+    public String openConfirm(){
+        return SUCCESS;
+    }
+
 
     public String confirmCode(){
         if(Integer.parseInt(confirmCode)!=(int)ActionContext.getContext().getSession().get("Code")) {

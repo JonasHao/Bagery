@@ -189,9 +189,10 @@
         </action>
 
         <action name="sendConfirmCode" class="action.UserInfoAction" method="sendConfirmCode">
-            <result name="success" type="json">
-                <param name="root">data</param>
-            </result>
+            <!--<result name="success" type="json">-->
+                <!--<param name="root">data</param>-->
+            <!--</result>-->
+            <result name="success" type="redirectAction">openFind</result>
             <result name="input">/FindPassword.jsp</result>
         </action>
 
@@ -201,6 +202,13 @@
                 <param name="message">找回密码成功！</param>
             </result>
             <result name="input">/FindPassword.jsp</result>
+        </action>
+
+        <action name="sendConfirm" class="action.UserInfoAction" method="sendConfirm">
+            <result name="success" type="redirectAction">
+                <param name="actionName">openConfirm</param>
+                <param name="message">验证码发送成功！</param>
+            </result>
         </action>
 
         <action name="openConfirm" class="action.UserInfoAction" method="openConfirm">
