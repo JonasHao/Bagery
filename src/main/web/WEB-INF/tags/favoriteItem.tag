@@ -53,12 +53,12 @@
                                 if (data.result == "success") {
                                     todelete.remove();
                                 } else {
-                                    alert("收藏失败！");
+                                    alert("删除收藏失败！");
                                 }
                             }
                         })
             } else {
-                window.open("/product/viewProduct.action?priced_id="+pricedId);
+                window.open("/product/viewProduct.action?pricedId="+pricedId);
             }
         }
     </script>

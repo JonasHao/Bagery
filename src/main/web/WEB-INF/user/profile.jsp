@@ -17,7 +17,7 @@
         </script>
     </jsp:attribute>
 
-    <jsp:attribute name="title">个人信息</jsp:attribute>
+    <jsp:attribute name="title">个人信息管理</jsp:attribute>
 
     <jsp:attribute name="head">
             <link href="../../css/login.css" rel="stylesheet">
@@ -26,7 +26,7 @@
     <jsp:attribute name="breadcrumb">
        <ol class="breadcrumb">
            <li><a href="../../index.jsp">首页</a></li>
-           <li class="active">个人中心</li>
+           <li class="active">个人信息管理</li>
        </ol>
     </jsp:attribute>
 
@@ -63,7 +63,7 @@
                                 </div>
 
                                 <div class="md-form">
-                                    <s:textfield label="姓名" name="realname" maxLength="15" cssClass="form-control"/>
+                                    <s:textfield label="姓名" name="realname" cssClass="form-control"/>
                                 </div>
 
                                 <s:submit cssClass="grey btn btn-primary" value="确认"/>
