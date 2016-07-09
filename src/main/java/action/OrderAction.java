@@ -112,16 +112,16 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-    public String adminQueryOrder() throws Exception{
-        try {
-            user = userService.getCurrentUser();
-            orderList = user.getOrders();
-            return SUCCESS;
-        }catch (HibernateException e){
-            e.printStackTrace();
-        }
-        return ERROR;
-    }
+//    public String adminQueryOrder() throws Exception{
+//        try {
+//            user = userService.getCurrentUser();
+//            orderList = user.getOrders();
+//            return SUCCESS;
+//        }catch (HibernateException e){
+//            e.printStackTrace();
+//        }
+//        return ERROR;
+//    }
 
     //ɾ������
     public String deleteOrder() throws Exception{
@@ -150,6 +150,18 @@ public class OrderAction extends DefaultActionSupport {
         }
         return ERROR;
     }
+
+//    public String adminCancelOrder() throws Exception{
+//        try {
+//            order = orderService.getByOrderId(orderId);
+//            order.setOrderStatus(OrderStatus.CANCELED);
+//            orderService.updateOrder(order);
+//            return SUCCESS;
+//        }catch (HibernateException e){
+//            e.printStackTrace();
+//        }
+//        return ERROR;
+//    }
 
     //֧��
     public String payment() throws Exception{

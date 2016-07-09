@@ -65,16 +65,16 @@
                     </a>
                     <ul class="nav nav-second-level">
                         <li class="active">
-                            <s:url action="queryOrder" namespace="/order" var="queryOrder">
+                            <s:url action="adminQueryOrder1" namespace="/order" var="adminQueryOrder1">
                                 <s:param name="orderId"><s:property value="orderId"/></s:param>
                             </s:url>
-                            <a href="${queryOrder}">发货 </a>
+                            <a href="${adminQueryOrder1}">发货 </a>
                         </li>
                         <li>
-                            <s:url action="queryOrder" namespace="/order" var="queryOrder">
+                            <s:url action="adminQueryOrder2" namespace="/order" var="adminQueryOrder2">
                                 <s:param name="orderId"><s:property value="orderId"/></s:param>
                             </s:url>
-                            <a href="${queryOrder}">订单列表</a>
+                            <a href="${adminQueryOrder2}">订单列表</a>
                         </li>
                     </ul>
                 </li>
