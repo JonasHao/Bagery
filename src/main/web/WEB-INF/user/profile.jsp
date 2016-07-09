@@ -54,7 +54,6 @@
                             <div class="card-block">
 
                                 <s:set name="active" value="isActivate"/>
-                                <s:set name="realname" value="realname"/>
                                 <div class="md-form input-group" >
                                     <s:textfield label="邮箱" name="email" cssClass="form-control" disabled="true"/>
                                     <span class="input-group-addon email-active-label">
