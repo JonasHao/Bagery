@@ -580,7 +580,6 @@ public class ProductionAction extends DefaultActionSupport {
         this.favoriteService = favoriteService;
     }
 
-
     public int getIsFavor() {
         return isFavor;
     }
