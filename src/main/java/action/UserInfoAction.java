@@ -173,13 +173,18 @@ public class UserInfoAction extends DefaultActionSupport {
         return SUCCESS;
     }
 
-    public String openConfirm(){
+    public String sendConfirm(){
         user=userService.getCurrentUser();
         code=(int)(Math.random()*9000)+1000;
         ActionContext.getContext().getSession().put("Code",code);
         //发送邮件
         return SUCCESS;
     }
+
+    public String openConfirm(){
+        return SUCCESS;
+    }
+
 
     public String confirmCode(){
         if(Integer.parseInt(confirmCode)!=(int)ActionContext.getContext().getSession().get("Code")) {

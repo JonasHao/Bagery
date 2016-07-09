@@ -58,7 +58,7 @@
                                     <s:textfield label="邮箱" name="email" cssClass="form-control" disabled="true"/>
                                     <span class="input-group-addon email-active-label">
                                         <s:if test="#active == 1">已验证<i class="fa fa-bullseye" aria-hidden="true"></i></s:if>
-                                        <s:else><s:a action="openConfirm">验证</s:a></s:else>
+                                        <s:else><s:a action="sendConfirm">验证</s:a></s:else>
                                     </span>
                                 </div>
 

@@ -203,6 +203,13 @@
             <result name="input">/FindPassword.jsp</result>
         </action>
 
+        <action name="sendConfirm" class="action.UserInfoAction" method="sendConfirm">
+            <result name="success" type="redirectAction">
+                <param name="actionName">openConfirm</param>
+                <param name="message">验证码发送成功！</param>
+            </result>
+        </action>
+
         <action name="openConfirm" class="action.UserInfoAction" method="openConfirm">
             <result name="success">/WEB-INF/user/ConfirmEmail.jsp</result>
         </action>
