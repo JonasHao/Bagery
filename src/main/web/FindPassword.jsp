@@ -16,6 +16,29 @@
                 notify(m);
             }
         </script>
+
+        <script type="text/javascript">
+            function sendCode() {
+                emailStr=$("#form1").value;
+                $.ajax({
+                    url:"/user/sendConfirmCode",
+                    dataType: "json",
+                    type: 'post',
+                    data: {email: emailStr},
+                    success: function (data) {
+                        if(data.result=="input"){
+                            $("#email").text(data.error_fields);
+                        }
+                        if(data.result=="success"){
+                            var btnSendCode =    $("btn-send-code");
+                            btnSendCode.className("grey btn btn-primary disable");
+                            btnSendCode.text("验证码已发送");
+                        }
+                    },
+                })
+            }
+        </script>
+
     </jsp:attribute>
 
     <jsp:attribute name="title">找回密码<s:property value="#session.Code"/></jsp:attribute>
@@ -34,8 +57,8 @@
 
                         <form class="form-user" action="/user/sendConfirmCode"  method="POST">
                             <div class="md-form">
-                                <s:textfield label="邮箱" id="form1"  name="email"  class="form-control" required="true"  disabled="false"/>
-                                <s:submit cssClass="grey btn btn-primary" value="发送验证码"/>
+                                <s:textfield label="邮箱" id="form1"  name="email" errorPosition="none" class="form-control" required="true"  disabled="false"><s:property value="#session.Email"/></s:textfield>
+                                <a onclick="sendCode()" id="btn-send-code" class="grey btn btn-primary">发送验证码</a>
                             </div>
                             <s:fielderror fieldName="email" name="email" cssClass="errorMessage"/>
                         </form>

@@ -124,7 +124,7 @@
         </action>
     </package>
 
-    <package name="user" namespace="/user" extends="default">
+    <package name="user" namespace="/user" extends="default,json-default">
         <default-interceptor-ref name="userStack"/>
 
         <action name="register" class="action.UserAction" method="register">
@@ -188,9 +188,8 @@
         </action>
 
         <action name="sendConfirmCode" class="action.UserInfoAction" method="sendConfirmCode">
-            <result name="success" type="redirect">
-                <param name="location">/FindPassword.jsp</param>
-                <param name="actionMessages">验证码发送成功！</param>
+            <result name="success" type="json">
+                <param name="root">data</param>
             </result>
             <result name="input">/FindPassword.jsp</result>
         </action>
