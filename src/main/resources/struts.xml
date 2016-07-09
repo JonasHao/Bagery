@@ -157,6 +157,7 @@
 
         <action name="home" class="action.UserInfoAction" method="home">
             <result name="success">/WEB-INF/user/home.jsp</result>
+            <result name="error">/login.jsp</result>
         </action>
 
         <action name="viewInfo" class="action.UserInfoAction" method="viewInfo">

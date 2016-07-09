@@ -117,7 +117,7 @@ public class UserInfoAction extends DefaultActionSupport {
     }
 
     public String sendConfirmCode(){
-        user=userService.getUserByEmial(email);
+        user=userService.getUserByEmail(email);
 
         if(user==null) {
             addFieldError("email","不存在的邮箱");
@@ -136,12 +136,10 @@ public class UserInfoAction extends DefaultActionSupport {
 
         code=(int)(Math.random()*9000)+1000;
         ActionContext.getContext().getSession().put("Code",code);
-//        ActionContext.getContext().getSession().put("User",user);
         ActionContext.getContext().getSession().put("Email",email);
 
         data.put(Key.RESULT,SUCCESS);
         //发送邮件
-//        email=(String)ActionContext.getContext().getSession().get("Email");
         return SUCCESS;
     }
 
@@ -165,11 +163,9 @@ public class UserInfoAction extends DefaultActionSupport {
         email=(String)ActionContext.getContext().getSession().get("Email");
 
         ActionContext.getContext().getSession().remove("Code");
-        ActionContext.getContext().getSession().remove("User");
         ActionContext.getContext().getSession().remove("Email");
 
-        ActionContext.getContext().getSession().put("User",user);
-
+        ActionContext.getContext().getSession().put("User",user.getUserId());
         return SUCCESS;
     }
 

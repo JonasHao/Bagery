@@ -12,6 +12,7 @@ public interface UserService {
      */
     User getCurrentUser();
 
+    boolean isLoggedIn();
     /**
      * 通过用户ID获取对应的用户对象
      */
@@ -43,7 +44,7 @@ public interface UserService {
      */
     int checkUserGroup(int userId);
 
-    User getUserByEmial(String email);
+    User getUserByEmail(String email);
 
 
 }

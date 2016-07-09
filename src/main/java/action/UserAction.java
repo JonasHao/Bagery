@@ -14,6 +14,7 @@ public class UserAction extends DefaultActionSupport {
     private UserService userService;
     private User user;
 
+    private String userId;
     private String username;
     private String password;
     private String realname;
@@ -39,7 +40,9 @@ public class UserAction extends DefaultActionSupport {
         if (msg.equals("input")) {
             addFieldError("password", "密码错误");
             return INPUT;
-        } else {
+        }
+        else
+        {
             if(msg.equals("product_admin") || msg.equals("order_admin")){
                 return "admin";
             }
@@ -69,7 +72,7 @@ public class UserAction extends DefaultActionSupport {
         user.setUserGroup("r");
 
         userService.register(user);
-        ActionContext.getContext().getSession().put("User", user);
+
         return SUCCESS;
     }
 
@@ -176,5 +179,27 @@ public class UserAction extends DefaultActionSupport {
         this.userService = userService;
     }
 
+    public UserService getUserService() {
+        return userService;
+    }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
 }

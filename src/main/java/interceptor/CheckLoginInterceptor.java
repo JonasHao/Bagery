@@ -12,6 +12,8 @@ import java.util.Map;
 
 public class CheckLoginInterceptor implements Interceptor {
 
+
+
     @Override
     public void init() {
 
@@ -24,8 +26,8 @@ public class CheckLoginInterceptor implements Interceptor {
         }
 
         Map session = ActionContext.getContext().getSession();
-        String userName = (String) session.get(Key.USER);
-        if (userName != null) {
+        int userId = (int) session.get(Key.USER);
+        if (userId>0){
             return Action.SUCCESS;
         }
         return Action.LOGIN;
