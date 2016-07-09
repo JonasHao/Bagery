@@ -29,6 +29,7 @@ public class ProductionAction extends DefaultActionSupport {
     private Product product;
     private String img;
     private String message;
+    private int isFavor;//显示该商品是否被用户收藏过
     private User user;
     private PricedPro pricedPro;
     private List<Integer> proIDs;
@@ -45,7 +46,9 @@ public class ProductionAction extends DefaultActionSupport {
     private ProductService productService;
     private UserService userService;
     private CommentService commentService;
+    private FavoriteService favoriteService;
     //private Map<Integer, String> productMap;
+
 
 
     public String add() {
@@ -85,9 +88,9 @@ public class ProductionAction extends DefaultActionSupport {
             priced = productService.findPriced(pricedId);
             products = productService.findProductsByPriced(pricedId);
             comments = commentService.getByPricedId(pricedId);
-
             user = userService.getCurrentUser();
             productService.addRecord(user.getUserId(), pricedId);
+            isFavor=favoriteService.isFavor(pricedId);
             return SUCCESS;
         } catch (HibernateException e) {
             e.printStackTrace();
@@ -569,4 +572,19 @@ public class ProductionAction extends DefaultActionSupport {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    public void setFavoriteService(FavoriteService favoriteService) {
+        this.favoriteService = favoriteService;
+    }
+
+
+    public int getIsFavor() {
+        return isFavor;
+    }
+
+    public void setIsFavor(int isFavor) {
+        this.isFavor = isFavor;
+    }
+
+
 }

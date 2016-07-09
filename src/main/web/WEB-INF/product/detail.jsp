@@ -22,7 +22,7 @@
                             url: url,
                             dataType: "json",   //返回格式为json
                             type: 'post',
-                            data: {priceId: 1},
+                            data: {priceId: <s:property value="pricedId"/>},
                             success: function (data) {
                                 if (data.result == "success") {
 //                                    var tmp = document.getElementById("favor-icon");
@@ -31,13 +31,13 @@
                                     if (classname == "fa fa-star fa-lg amber-text") {
 //                                        $(".alert #alert-block").text("收藏成功！");
 //                                        $(".alert").alert()
-                                        alert("收藏成功！");
+                                         notify("收藏成功！");
                                     }
                                     else {
-                                        alert("取消收藏！");
+                                        notify("取消收藏！");
                                     }
                                 } else {
-                                    alert("收藏失败！");
+                                     notify("收藏失败！");
                                 }
                             }
                         })
@@ -48,11 +48,11 @@
                             url: "/cart/addCart",
                             dataType: "json",   //返回格式为json
                             type: 'post',
-                            data: {productId: 1},
+                            data: {productId: <s:property value="product_id"/>},
                             success: function (data) {
-                                console.log(data);
+//                                console.log(data);
                                 if (data.result == "success") {
-                                    alert("加入购物车成功！");
+                                    notify("加入购物车成功！");
                                 }
                             }
                         })
@@ -87,11 +87,12 @@
                             </a>
                         </div>
                         <a onclick="changeFavorState()">
-                            <s:if test="true">
-                                <i class="fa fa-star-o fa-lg amber-text" aria-hidden="true" id="favor-icon"></i>
+                            <s:set name="isFavor" value="isFavor"/>
+                            <s:if test="#isFavor==1">
+                                <i class="fa fa-star fa-lg amber-text" aria-hidden="true" id="favor-icon"></i>
                             </s:if>
                             <s:else>
-                                <i class="fa fa-star fa-lg amber-text" aria-hidden="true" id="favor-icon"></i>
+                                <i class="fa fa-star-o fa-lg amber-text" aria-hidden="true" id="favor-icon"></i>
                             </s:else>
                         </a>
 
