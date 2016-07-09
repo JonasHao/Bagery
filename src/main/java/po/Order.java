@@ -194,6 +194,11 @@ public class Order {
         return orderStatus.equals(OrderStatus.COMPLETED) && !(comments != null && comments.size() > 0);
     }
 
+//    @Transient
+//    public boolean isCommented(){
+//        return orderStatus.equals(OrderStatus.COMPLETED) && comments != null && comments.size() > 0;
+//    }
+
     @Transient
     public String getOrderStatusString() {
         switch (orderStatus) {

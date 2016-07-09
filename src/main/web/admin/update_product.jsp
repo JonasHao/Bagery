@@ -202,14 +202,56 @@
                                                     </div>
                                                 </div>
 
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <s:textfield name="products[1].color" placeholder="请输入颜色"
+                                                                     cssClass="form-control m-b"/>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <s:textfield name="products[1].stock" placeholder="请输入库存"
+                                                                     cssClass="form-control m-b"/>
+                                                    </div>
+                                                </div>
 
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <s:textfield name="products[2].color" placeholder="请输入颜色"
+                                                                     cssClass="form-control m-b"/>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <s:textfield name="products[2].stock" placeholder="请输入库存"
+                                                                     cssClass="form-control m-b"/>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <s:textfield name="products[3].color" placeholder="请输入颜色"
+                                                                     cssClass="form-control m-b"/>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <s:textfield name="products[3].stock" placeholder="请输入库存"
+                                                                     cssClass="form-control m-b"/>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <s:textfield name="products[4].color" placeholder="请输入颜色"
+                                                                     cssClass="form-control m-b"/>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <s:textfield name="products[4].stock" placeholder="请输入库存"
+                                                                     cssClass="form-control m-b"/>
+                                                    </div>
+                                                </div>
                                             </div>
 
                                         </div>
-                                        <div class="form-group">
-                                            <span class="col-sm-2"></span>
-                                            <small class="col-sm-10 text-navy" onclick="addColor()">再添加一种颜色</small>
-                                        </div>
+                                        <%--<div class="form-group">--%>
+                                            <%--<span class="col-sm-2"></span>--%>
+                                            <%--<small class="col-sm-10 text-navy" onclick="addColor()">再添加一种颜色</small>--%>
+                                        <%--</div>--%>
                                         <div class="hr-line-dashed"></div>
                                         <div class="form-group">
                                             <div class="col-sm-4 col-sm-offset-2">

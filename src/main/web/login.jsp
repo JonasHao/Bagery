@@ -40,11 +40,7 @@
                     </div>
                 </form>
             </div>
-
         </div>
-
-
         <!--/.Main layout-->
     </jsp:body>
-
 </t:base>

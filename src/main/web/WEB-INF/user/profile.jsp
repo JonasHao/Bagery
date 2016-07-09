@@ -3,6 +3,20 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
 <t:base>
+    <jsp:attribute name="scripts">
+        <script type="text/javascript">
+            function getQueryString(name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+                var r = location.search.substr(1).match(reg);
+                if (r != null) return unescape(decodeURI(r[2])); return null;
+            }
+            var m=getQueryString("message");
+            if(m!=null){
+                notify(m);
+            }
+        </script>
+    </jsp:attribute>
+
     <jsp:attribute name="title">个人信息</jsp:attribute>
 
     <jsp:attribute name="head">
@@ -49,7 +63,7 @@
                                 </div>
 
                                 <div class="md-form">
-                                    <s:textfield label="姓名" name="realname" cssClass="form-control"/>
+                                    <s:textfield label="姓名" name="realname" maxLength="15" cssClass="form-control"/>
                                 </div>
 
                                 <s:submit cssClass="grey btn btn-primary" value="确认"/>

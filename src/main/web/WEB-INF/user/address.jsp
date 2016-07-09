@@ -10,6 +10,7 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
 <t:base>
+
     <jsp:attribute name="head">
             <link href="../../css/home.css" rel="stylesheet">
     </jsp:attribute>
@@ -24,6 +25,15 @@
 
     <jsp:attribute name="scripts">
         <script type="text/javascript">
+            function getQueryString(name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+                var r = location.search.substr(1).match(reg);
+                if (r != null) return unescape(decodeURI(r[2])); return null;
+            }
+            var m=getQueryString("message");
+            if(m!=null){
+                notify(m);
+            }
             var addressForm = $('#address-form');
             addressForm.on('hidden.bs.collapse', function () {
                 $('#btn-add-address').text("添加新地址");
@@ -71,33 +81,33 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="md-form">
-                                <s:textfield label="收件人" id="receiver"  name="receiver" class="form-control"/>
+                                <s:textfield label="收件人" id="receiver"  name="receiver" required="true" class="form-control"/>
                             </div>
                         </div>
                         <div class="col-md-8">
                             <div class="md-form">
-                                <s:textfield label="电话" name="mobile" class="form-control"/>
+                                <s:textfield label="电话" name="mobile" required="true" class="form-control"/>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="md-form">
-                                <s:textfield label="省" name="addressProvince" class="form-control"/>
+                                <s:textfield label="省" name="addressProvince" required="true" class="form-control"/>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="md-form">
-                                <s:textfield label="市" name="addressCity" class="form-control" cssClass="form-control"/>
+                                <s:textfield label="市" name="addressCity" class="form-control" required="true" cssClass="form-control"/>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="md-form">
-                                <s:textfield label="区" name="addressDistrict" class="form-control"/>
+                                <s:textfield label="区" name="addressDistrict" required="true" class="form-control"/>
                             </div>
                         </div>
 
                         <div class="col-md-12">
                             <div class="md-form">
-                                <s:textfield label="详细地址" name="addressDetail" class="form-control"/>
+                                <s:textfield label="详细地址" name="addressDetail" required="true" class="form-control"/>
                             </div>
                         </div>
                     </div>
