@@ -22,7 +22,7 @@
                             url: url,
                             dataType: "json",   //返回格式为json
                             type: 'post',
-                            data: {priceId: 1},
+                            data: {priceId: <s:property value="pricedId"/>},
                             success: function (data) {
                                 if (data.result == "success") {
 //                                    var tmp = document.getElementById("favor-icon");
@@ -31,13 +31,13 @@
                                     if (classname == "fa fa-star fa-lg amber-text") {
 //                                        $(".alert #alert-block").text("收藏成功！");
 //                                        $(".alert").alert()
-                                        alert("收藏成功！");
+                                         notify("收藏成功！");
                                     }
                                     else {
-                                        alert("取消收藏！");
+                                        notify("取消收藏！");
                                     }
                                 } else {
-                                    alert("收藏失败！");
+                                     notify("收藏失败！");
                                 }
                             }
                         })
@@ -48,11 +48,11 @@
                             url: "/cart/addCart",
                             dataType: "json",   //返回格式为json
                             type: 'post',
-                            data: {productId: 1},
+                            data: {productId: <s:property value="product_id"/>},
                             success: function (data) {
-                                console.log(data);
+//                                console.log(data);
                                 if (data.result == "success") {
-                                    alert("加入购物车成功！");
+                                    notify("加入购物车成功！");
                                 }
                             }
                         })
@@ -67,17 +67,19 @@
                 <%--&lt;%&ndash;<s:property value="priceId" />&ndash;%&gt;1--%>
                 <%--</s:param>--%>
                 <%--</s:url>--%>
-            <div class="alert alert-warning">
-                <a href="#" class="close" data-dismiss="alert">
-                    &times;
-                </a>
-                <div id="alert-block">
-                    <strong>警告！</strong>您的网络连接有问题。
-                </div>
-            </div>
+
+            <%--<div class="alert alert-warning">--%>
+                <%--<a href="#" class="close" data-dismiss="alert">--%>
+                    <%--&times;--%>
+                <%--</a>--%>
+                <%--<div id="alert-block">--%>
+                    <%--<strong>警告！</strong>您的网络连接有问题。--%>
+                <%--</div>--%>
+            <%--</div>--%>
+
             <div class="card">
                 <!--First row-->
-                <div class="row  product-card-wrapper">
+                <div class="row product-card-wrapper">
 
                     <div class="col-md-5">
                         <div class="view overlay hm-white-slight product-detail-img">
@@ -87,11 +89,12 @@
                             </a>
                         </div>
                         <a onclick="changeFavorState()">
-                            <s:if test="true">
-                                <i class="fa fa-star-o fa-lg amber-text" aria-hidden="true" id="favor-icon"></i>
+                            <s:set name="isFavor" value="isFavor"/>
+                            <s:if test="#isFavor==1">
+                                <i class="fa fa-star fa-lg amber-text" aria-hidden="true" id="favor-icon"></i>
                             </s:if>
                             <s:else>
-                                <i class="fa fa-star fa-lg amber-text" aria-hidden="true" id="favor-icon"></i>
+                                <i class="fa fa-star-o fa-lg amber-text" aria-hidden="true" id="favor-icon"></i>
                             </s:else>
                         </a>
 
@@ -107,18 +110,25 @@
                                     value="priced.unitPrice"/></h3>
                             <p><s:property value="priced.description"/></p>
 
+
                             <div class="row reviews">
-                                <label class="col-sm-2 control-label">颜色</label>
+                                <s:if test="products.size()==0">
+                                <p>暂无商品！
+                                    </s:if>
+                                    <s:else>
+                                    <label class="col-sm-2 control-label">颜色</label>
                                 <div class="col-sm-4">
                                     <s:select list="products" listValue="color"
                                               name="color" cssClass="form-control m-b"/>
                                 </div>
+                                </s:else>
                             </div>
 
-                            <a onclick="addCart()" class="btn btn-lg blue-grey"><i class="fa fa-shopping-cart"></i>
-                                加入购物车</a>
-                            <a href="#" class="btn btn-lg blue-grey"><i class="fa fa-check"></i> 立即购买</a>
-
+                            <s:if test="products.size()!=0">
+                                <a onclick="addCart()" class="btn btn-lg blue-grey"><i class="fa fa-shopping-cart"></i>
+                                    加入购物车</a>
+                                <a href="#" class="btn btn-lg blue-grey"><i class="fa fa-check"></i> 立即购买</a>
+                            </s:if>
                         </div>
                     </div>
                 </div>

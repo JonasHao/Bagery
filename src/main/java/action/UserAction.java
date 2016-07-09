@@ -55,15 +55,15 @@ public class UserAction extends DefaultActionSupport {
 
     public String register() {
         if (userService.existUsername(username)) {
-            addFieldError("username", "Exist UserName,Please Input Again");
+            addFieldError("username", "用户名已被注册");
             return INPUT;
         }
         if (userService.existEmail(email)) {
-            addFieldError("email", "Exist Email,Please Input Again");
+            addFieldError("email", "邮箱已被注册");
             return INPUT;
         }
         if (!password.equals(confirmpassword)) {
-            addFieldError("confirmpassword", "Wrong Password,Please Confirm it");
+            addFieldError("confirmpassword", "两次密码输入不一致");
             return INPUT;
         }
 

@@ -199,9 +199,10 @@
         </action>
 
         <action name="sendConfirmCode" class="action.UserInfoAction" method="sendConfirmCode">
-            <result name="success" type="json">
-                <param name="root">data</param>
-            </result>
+            <!--<result name="success" type="json">-->
+                <!--<param name="root">data</param>-->
+            <!--</result>-->
+            <result name="success" type="redirectAction">openFind</result>
             <result name="input">/FindPassword.jsp</result>
         </action>
 
@@ -329,6 +330,11 @@
     <package name="product" namespace="/product" extends="default">
         <action name="viewProduct" class="action.ProductionAction" method="viewProduct">
             <result name="success">/WEB-INF/product/detail.jsp</result>
+            <result name="error" type="redirectAction">
+                <param name="actionName">productList</param>
+                <param name="state">e</param>
+                <param name="message">商品不存在</param>
+            </result>
         </action>
         <action name="productList" class="action.ProductionAction" method="viewPricedList">
             <result name="success">/WEB-INF/product/list.jsp</result>
@@ -364,6 +370,11 @@
         </action>
         <action name="viewProduct" class="action.ProductionAction" method="viewProductAdmin">
             <result name="success">/admin/update_product.jsp</result>
+            <result name="error" type="redirectAction">
+                <param name="actionName">pricedList</param>
+                <param name="state">e</param>
+                <param name="message">商品不存在</param>
+            </result>
         </action>
         <action name="updatePriced" class="action.ProductionAction" method="update">
             <result name="success" type="redirectAction">
@@ -376,11 +387,6 @@
                 <param name="actionName">pricedList</param>
                 <param name="state">e</param>
                 <param name="message">更新商品失败</param>
-            </result>
-            <result name="ERROR1" type="redirectAction">
-                <param name="actionName">pricedList</param>
-                <param name="state">e</param>
-                <param name="message">商品添加重复</param>
             </result>
         </action>
         <action name="soldOutPriced" class="action.ProductionAction" method="soldOutPriced">

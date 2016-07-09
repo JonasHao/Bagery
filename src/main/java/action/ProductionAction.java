@@ -1,6 +1,7 @@
 package action;
 
 import java.util.*;
+
 import com.opensymphony.xwork2.ActionContext;
 import constant.Key;
 import org.apache.struts2.dispatcher.DefaultActionSupport;
@@ -8,6 +9,7 @@ import org.hibernate.HibernateException;
 import service.ProductService;
 import po.*;
 import service.*;
+
 import java.util.ArrayList;
 
 
@@ -29,6 +31,7 @@ public class ProductionAction extends DefaultActionSupport {
     private Product product;
     private String img;
     private String message;
+    private int isFavor;//显示该商品是否被用户收藏过
     private User user;
     private PricedPro pricedPro;
     private List<Integer> proIDs;
@@ -45,8 +48,8 @@ public class ProductionAction extends DefaultActionSupport {
     private ProductService productService;
     private UserService userService;
     private CommentService commentService;
+    private FavoriteService favoriteService;
     //private Map<Integer, String> productMap;
-
 
     public String add() {
         try {
@@ -83,12 +86,18 @@ public class ProductionAction extends DefaultActionSupport {
     public String viewProduct() {
         try {
             priced = productService.findPriced(pricedId);
-            products = productService.findProductsByPriced(pricedId);
-            comments = commentService.getByPricedId(pricedId);
+            if(priced!=null) {
+                products = productService.findProductsByPriced(pricedId);
+                comments = commentService.getByPricedId(pricedId);
 
-            user = userService.getCurrentUser();
-            productService.addRecord(user.getUserId(), pricedId);
-            return SUCCESS;
+                user = userService.getCurrentUser();
+                if (user != null) {
+                    productService.addRecord(user.getUserId(), pricedId);
+                    isFavor = favoriteService.isFavor(pricedId);
+                }
+                return SUCCESS;
+            }
+            return ERROR;
         } catch (HibernateException e) {
             e.printStackTrace();
             return ERROR;
@@ -100,8 +109,8 @@ public class ProductionAction extends DefaultActionSupport {
 
     public String viewProductAdmin() {
         try {
-            if (pricedId != 0) {
-                priced = productService.findPriced(pricedId);
+            priced = productService.findPriced(pricedId);
+            if (priced!=null) {
                 products = productService.findProductsByPricedAdmin(pricedId);
                 proIDs = productService.findProIDsByPriced(pricedId);
                 return SUCCESS;
@@ -230,7 +239,8 @@ public class ProductionAction extends DefaultActionSupport {
     public String viewHistoryRecord() {
         try {
             user = userService.getCurrentUser();
-            records = productService.findHistoryRecord(user.getUserId());
+            if (user != null)
+                records = productService.findHistoryRecord(user.getUserId());
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -498,14 +508,6 @@ public class ProductionAction extends DefaultActionSupport {
         this.page_num = page_num;
     }
 
-//    public Map<Integer, String> getProductMap() {
-//        return productMap;
-//    }
-//
-//    public void setProductMap(Map<Integer, String> productMap) {
-//        this.productMap = productMap;
-//    }
-
     public String getImg() {
         return img;
     }
@@ -569,4 +571,17 @@ public class ProductionAction extends DefaultActionSupport {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    public void setFavoriteService(FavoriteService favoriteService) {
+        this.favoriteService = favoriteService;
+    }
+
+    public int getIsFavor() {
+        return isFavor;
+    }
+
+    public void setIsFavor(int isFavor) {
+        this.isFavor = isFavor;
+    }
+
 }
