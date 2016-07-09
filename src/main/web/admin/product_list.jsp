@@ -24,48 +24,8 @@
 
 <body>
 <div id="wrapper">
-    <nav class="navbar-default navbar-static-side" role="navigation">
-        <div class="sidebar-collapse">
-            <ul class="nav" id="side-menu">
-                <li class="nav-header">
-                    <div class="dropdown profile-element">
-                        <a href="index.html">
-                            <h1 class="logo-name" style="font-size:48px;">BAGERY</h1>
-                        </a>
-                    </div>
-                    <div class="logo-element" style="font-size:15px;">BAGERY</div>
-                </li>
-                <li class="active">
-                    <a>
-                        <i class="fa fa-diamond"></i>
-                        <span class="nav-label">商品管理</span>
-                        <span class="fa arrow"></span>
-                    </a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <s:url action="viewProduct" namespace="/admin" var="addLink"/>
-                            <a href="add_product.jsp">发布商品</a></li>
-                        <li class="active">
-                            <s:url action="pricedList" namespace="/admin" var="listLink"/>
-                            <a href="${listLink}">商品列表</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a>
-                        <i class="fa fa-files-o"></i>
-                        <span class="nav-label">订单管理</span>
-                        <span class="fa arrow"></span>
-                    </a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="send_goods.html">发货</a></li>
-                        <li>
-                            <a href="order_list.html">订单列表</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </nav>
+    <jsp:include page="/admin/admin_nav.jsp"/>
+
     <div id="page-wrapper" class="gray-bg dashbard-1">
         <div class="row border-bottom">
             <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">

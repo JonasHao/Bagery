@@ -39,8 +39,12 @@ public class UserAction extends DefaultActionSupport {
         if (msg.equals("input")) {
             addFieldError("password", "密码错误");
             return INPUT;
-        } else
+        } else {
+            if(msg.equals("product_admin") || msg.equals("order_admin")){
+                return "admin";
+            }
             return SUCCESS;
+        }
     }
 
     public String register() {

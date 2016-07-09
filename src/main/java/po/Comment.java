@@ -71,7 +71,7 @@ public class Comment {
     }
 
     @Basic
-    @Column(name = "priced_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "priced_id", nullable = false, insertable = true, updatable = true)
     public int getPricedId() {
         return pricedId;
     }
@@ -81,7 +81,7 @@ public class Comment {
     }
 
     @Basic
-    @Column(name = "user_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "user_id", nullable = false, insertable = true, updatable = true)
     public int getUserId() {
         return userId;
     }
@@ -91,7 +91,7 @@ public class Comment {
     }
 
     @Basic
-    @Column(name = "order_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "order_id", nullable = false, insertable = true, updatable = true)
     public int getOrderId() {
         return orderId;
     }
@@ -134,7 +134,7 @@ public class Comment {
     }
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false, insertable = false, updatable = false)
     public User getUser() {
         return user;
     }
@@ -144,7 +144,7 @@ public class Comment {
     }
 
     @ManyToOne
-    @JoinColumn(name = "priced_id", referencedColumnName = "priced_id", nullable = false)
+    @JoinColumn(name = "priced_id", referencedColumnName = "priced_id", nullable = false, insertable = false, updatable = false)
     public Priced getPriced() {
         return priced;
     }
@@ -154,7 +154,7 @@ public class Comment {
     }
 
     @ManyToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "order_id", nullable = false)
+    @JoinColumn(name = "order_id", referencedColumnName = "order_id", nullable = false, insertable = false, updatable = false)
     public Order getOrder() {
         return order;
     }

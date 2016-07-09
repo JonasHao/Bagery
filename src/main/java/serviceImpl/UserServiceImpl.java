@@ -42,18 +42,19 @@ public class UserServiceImpl implements UserService {
 
         if(user.getPassword().equals(password))
         {
-            ActionContext.getContext().getSession().put("User",user);
-            if(user.getUserGroup().equals("product_admin")){
-                return "success";
-            }
-            else
-            {
-                if(user.getUserGroup().equals("order_admin")){
-                    return "success";
-                }
-                else
-                    return "success";
-            }
+            ActionContext.getContext().getSession().put(Key.USER,user);
+            return user.getUserGroup();
+//            if(user.getUserGroup().equals("product_admin")){
+//                return "success";
+//            }
+//            else
+//            {
+//                if(user.getUserGroup().equals("order_admin")){
+//                    return "success";
+//                }
+//                else
+//                    return "success";
+//            }
         }
         else return "input";
     }

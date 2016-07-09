@@ -82,18 +82,32 @@
         <action name="sendPackage" class="action.OrderAction" method="sendPackage">
             <result name="success">/index.jsp</result>
         </action>
+
+        <action name="toAddOrderComment" class="action.OrderAction" method="toAddOrderComment">
+            <result>/WEB-INF/order/addComment.jsp</result>
+            <result name="input">/WEB-INF/order/addComment.jsp</result>
+        </action>
+
+        <action name="addComment" class="action.OrderAction" method="addComment">
+            <result name="success" type="redirectAction">
+                <param name="namespace">/order</param>
+                <param name="actionName">queryOrder</param>
+            </result>
+
+            <result name="input">/WEB-INF/order/commentInvalid.jsp</result>
+            <!--<result name="input" type="redirectAction">-->
+            <!--<param name="namespace">/order</param>-->
+            <!--<param name="actionName">toAddOrderComment</param>-->
+            <!--<param name="orderId">${orderId}</param>-->
+            <!--</result>-->
+        </action>
     </package>
 
 
     <package name="comment" namespace="/comment" extends="default">
         <default-interceptor-ref name="userStack"/>
 
-
         <action name="viewComment" class="action.CommentAction" method="viewComment">
-            <result name="success">/index.jsp</result>
-        </action>
-
-        <action name="addComment" class="action.CommentAction" method="addComment">
             <result name="success">/index.jsp</result>
         </action>
 
@@ -123,6 +137,7 @@
         <action name="login" class="action.UserAction" method="login">
             <result name="input">/login.jsp</result>
             <result name="success">/index.jsp</result>
+            <result name="admin">/admin/index.jsp</result>
         </action>
 
         <action name="logout" class="action.UserAction" method="logout">

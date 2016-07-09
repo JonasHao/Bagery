@@ -5,10 +5,7 @@ import constant.Config;
 import org.apache.struts2.dispatcher.DefaultActionSupport;
 import org.hibernate.HibernateException;
 import po.*;
-import service.AddressService;
-import service.CartService;
-import service.OrderService;
-import service.UserService;
+import service.*;
 import constant.OrderStatus;
 
 import java.util.*;
@@ -24,6 +21,7 @@ public class OrderAction extends DefaultActionSupport {
     private OrderService orderService;
     private AddressService addressService;
     private CartService cartService;
+    private CommentService commentService;
     private Order order;
     private User user;
     private Address defaultAddress;
@@ -36,6 +34,7 @@ public class OrderAction extends DefaultActionSupport {
     private Collection<Order> orderList = new ArrayList<>();
     private List<Integer> cartItemIdList = new ArrayList<>();
     private List<OrderItem> orderItemList = new ArrayList<>();
+    private List<Comment> commentList = new ArrayList<>();
 
     private int userId;
     private int shipInfId;
@@ -47,10 +46,10 @@ public class OrderAction extends DefaultActionSupport {
     private String status;
     private String instruction;
 
-    private Map<String,Object> data=new HashMap<>();
+    private Map<String, Object> data = new HashMap<>();
 
     //����
-    public String balance() throws Exception{
+    public String balance() throws Exception {
         try {
             user = userService.getCurrentUser();
             addressList = user.getAddresses();
@@ -77,7 +76,7 @@ public class OrderAction extends DefaultActionSupport {
     }
 
     //��������
-    public String addOrder() throws Exception{
+    public String addOrder() throws Exception {
         if (cartItemIdList == null || cartItemIdList.size() == 0) {
             return INPUT;
         }
@@ -94,7 +93,7 @@ public class OrderAction extends DefaultActionSupport {
             orderService.addOrder(order, cartItemIdList);
 
             return SUCCESS;
-        }catch (HibernateException | NullPointerException e){
+        } catch (HibernateException | NullPointerException e) {
             e.printStackTrace();
         }
         return ERROR;
@@ -102,23 +101,23 @@ public class OrderAction extends DefaultActionSupport {
     }
 
     //�鿴����
-    public String queryOrder() throws Exception{
+    public String queryOrder() throws Exception {
         try {
             user = userService.getCurrentUser();
             orderList = user.getOrders();
             return SUCCESS;
-        }catch (HibernateException e){
+        } catch (HibernateException e) {
             e.printStackTrace();
         }
         return ERROR;
     }
 
     //ɾ������
-    public String deleteOrder() throws Exception{
+    public String deleteOrder() throws Exception {
         try {
             orderService.deleteOrder(orderId);
             data.put(RESULT, SUCCESS);
-        }catch (HibernateException e){
+        } catch (HibernateException e) {
             if (Config.DEBUG) {
                 data.put(RESULT, SUCCESS);
             } else {
@@ -129,68 +128,124 @@ public class OrderAction extends DefaultActionSupport {
     }
 
     //ȡ������
-    public String cancelOrder() throws Exception{
+    public String cancelOrder() throws Exception {
         try {
             order = orderService.getByOrderId(orderId);
             order.setOrderStatus(OrderStatus.CANCELED);
             orderService.updateOrder(order);
             return SUCCESS;
-        }catch (HibernateException e){
+        } catch (HibernateException e) {
             e.printStackTrace();
         }
         return ERROR;
     }
 
     //֧��
-    public String payment() throws Exception{
+    public String payment() throws Exception {
         try {
             order = orderService.getByOrderId(orderId);
             order.setOrderStatus(OrderStatus.UNSHIPPED);
             orderService.updateOrder(order);
             return SUCCESS;
-        }catch (HibernateException e){
+        } catch (HibernateException e) {
             e.printStackTrace();
         }
         return ERROR;
     }
 
     //ȷ���ջ�
-    public String confirmReceive() throws Exception{
+    public String confirmReceive() throws Exception {
         try {
             user = userService.getCurrentUser();
             order = orderService.getByOrderId(orderId);
             order.setOrderStatus(OrderStatus.COMPLETED);
             orderService.updateOrder(order);
             return SUCCESS;
-        }catch (HibernateException e){
+        } catch (HibernateException e) {
             e.printStackTrace();
         }
         return ERROR;
     }
 
     //�鿴������Ϣ
-    public String getLogisticsStatus() throws Exception{
+    public String getLogisticsStatus() throws Exception {
         try {
             user = userService.getCurrentUser();
             logistics = orderService.getLogisticsStatus(orderId);
             ActionContext.getContext().getSession().put("logistics", logistics);
             return SUCCESS;
-        }catch (HibernateException e){
+        } catch (HibernateException e) {
             e.printStackTrace();
         }
         return ERROR;
     }
 
     //�̼ҷ���
-    public String sendPackage() throws Exception{
+    public String sendPackage() throws Exception {
         try {
             orderService.sendPackage(orderId, logisticsNum, logisticsCompany);
 
             return SUCCESS;
-        }catch (HibernateException e){
+        } catch (HibernateException e) {
             e.printStackTrace();
         }
         return ERROR;
+    }
+
+    // todo:判断状态
+    public String toAddOrderComment() throws Exception {
+        order = orderService.getByOrderId(orderId);
+
+        if (order != null) {
+            orderItemList = order.getOrderItems();
+            for (OrderItem item : orderItemList) {
+                Comment comment = new Comment();
+                comment.setPricedId(item.getProduct().getPriced().getPricedId());
+                comment.setPriced(item.getProduct().getPriced());
+                comment.setOrderId(order.getOrderId());
+                comment.setOrder(order);
+                commentList.add(comment);
+            }
+            return SUCCESS;
+        }
+        return ERROR;
+    }
+
+    // todo: 判断状态
+    public String addComment() throws Exception {
+        user = userService.getCurrentUser();
+
+        for (Comment comment : commentList) {
+            comment.setUserId(user.getUserId());
+        }
+
+        commentService.saveComments(commentList);
+        return SUCCESS;
+    }
+
+    public void validateAddComment() {
+        for (Comment comment : commentList) {
+            if (comment == null) {
+                continue;
+            }
+            if (comment.getStar() == null || comment.getStar() > 5 || comment.getStar() < 0) {
+                addActionError("评分只能在0-5之间哦，你看到这个消息肯定有谁是作怪了");
+                return;
+            }
+            if (comment.getContent1().isEmpty() || comment.getContent1().length()<10) {
+                addActionError("评价内容至少也要10个字呢");
+                return;
+            }
+
+            if (comment.getContent1().length() > 200) {
+                addActionError("评论内容不能超过200个字");
+                return;
+            }
+        }
+    }
+
+    public void validateToAddOrderComment(){
+        validateAddComment();
     }
 
 
@@ -384,5 +439,18 @@ public class OrderAction extends DefaultActionSupport {
 
     public void setInstruction(String instruction) {
         this.instruction = instruction;
+    }
+
+    public List<Comment> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(List<Comment> commentList) {
+        this.commentList = commentList;
+    }
+
+
+    public void setCommentService(CommentService commentService) {
+        this.commentService = commentService;
     }
 }
