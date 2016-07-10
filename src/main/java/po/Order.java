@@ -26,7 +26,7 @@ public class Order {
     private Address address;
 
     public Order() {
-        orderStatus=OrderStatus.UNPAID;
+        orderStatus = OrderStatus.UNPAID;
     }
 
     @Id
@@ -192,6 +192,11 @@ public class Order {
     @Transient
     public boolean isNotCommented() {
         return orderStatus.equals(OrderStatus.COMPLETED) && !(comments != null && comments.size() > 0);
+    }
+
+    @Transient
+    public boolean isCommented() {
+        return orderStatus.equals(OrderStatus.COMPLETED) && (comments != null && comments.size() > 0);
     }
 
 //    @Transient

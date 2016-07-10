@@ -30,6 +30,7 @@
     <link href="/admin/css/plugins/dataTables/dataTables.responsive.css" rel="stylesheet">
     <link href="/admin/css/plugins/dataTables/dataTables.tableTools.min.css" rel="stylesheet">
 
+
     <script type="text/javascript">
         // Javascript to enable link to tab
         var url = document.location.toString();
@@ -46,7 +47,7 @@
         });
 
         function deleteOrder(id) {
-            var to_delete = $(".order-" + id);
+            var to_delete = $("#order-" + id);
             console.log(to_delete);
             $.ajax(
                     {
@@ -59,7 +60,7 @@
                                 to_delete.remove();
                                 notify("成功删除订单");
                             } else {
-                                warning("删除失败！");
+                                warning("无法删除此订单！该订单还有评论内容。");
                             }
                         }
                     }
@@ -175,7 +176,7 @@
 
                                         <s:iterator value="orderList" id="orders">
 
-                                            <tr>
+                                            <tr id="order-<s:property value="#orders.orderId"/>">
                                                 <td class="center" style="padding-bottom: 16px;padding-top: 16px;">
                                                     <s:property value="#orders.orderId"/>
                                                 </td>
@@ -199,20 +200,15 @@
 
                                                     <a onclick="bootbox.confirm({
                                                             title:'删除订单',
-                                                            message:'确定删除么？',
+                                                            message:'确定删除该订单么？',
                                                             callback: function(result){
                                                             if(result){
                                                             deleteOrder(<s:property value="#orders.orderId"/>);
                                                             } }
-                                                            })">
-                                                            <%--<i class="fa fa-trash fa-lg" aria-hidden="true"></i>--%>
-                                                        <button type="button" class="btn btn-danger"
-                                                                style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">
-                                                            删除订单
-                                                        </button>
-                                                    </a>
+                                                            })" class="btn btn-primary">
+                                                            删除订单</a>
 
-                                                    <s:url action="adminCancelOrder" namespace="/order"
+                                                    <s:url action="cancel" namespace="/admin/order"
                                                            var="adminCancelOrder">
                                                         <s:param name="orderId"><s:property
                                                                 value="#orders.orderId"/></s:param>
@@ -465,6 +461,12 @@
 <script src="/admin/js/plugins/dataTables/dataTables.bootstrap.js"></script>
 <script src="/admin/js/plugins/dataTables/dataTables.responsive.js"></script>
 <script src="/admin/js/plugins/dataTables/dataTables.tableTools.min.js"></script>
+<script type="text/javascript" src="/js/plugin/bootbox/bootbox.min.js"></script>
+<%--通知--%>
+<script type="text/javascript" src="/js/plugin/toastr/toastr.min.js"></script>
+
+<script type="text/javascript" src="/js/notify.js"></script>
+
 
 <script>$(document).ready(function () {
     $('.dataTables-example').dataTable({

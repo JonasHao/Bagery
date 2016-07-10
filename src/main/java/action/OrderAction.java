@@ -113,28 +113,23 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-//    public String adminQueryOrder() throws Exception{
-//        try {
-//            user = userService.getCurrentUser();
-//            orderList = user.getOrders();
-//            return SUCCESS;
-//        }catch (HibernateException e){
-//            e.printStackTrace();
-//        }
-//        return ERROR;
-//    }
+    public String adminQueryOrder() throws Exception {
+        try {
+            orderList = orderService.getAll();
+            return SUCCESS;
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+        return ERROR;
+    }
 
     //ɾ������
     public String deleteOrder() throws Exception {
         try {
             orderService.deleteOrder(orderId);
             data.put(RESULT, SUCCESS);
-        } catch (HibernateException e) {
-            if (Config.DEBUG) {
-                data.put(RESULT, SUCCESS);
-            } else {
-                data.put(RESULT, ERROR);
-            }
+        } catch (Exception e) {
+            data.put(RESULT, ERROR);
         }
         return SUCCESS;
     }
@@ -143,6 +138,9 @@ public class OrderAction extends DefaultActionSupport {
     public String cancelOrder() throws Exception {
         try {
             order = orderService.getByOrderId(orderId);
+            if (order == null) {
+                return ERROR;
+            }
             order.setOrderStatus(OrderStatus.CANCELED);
             orderService.updateOrder(order);
             return SUCCESS;
@@ -152,23 +150,12 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-//    public String adminCancelOrder() throws Exception{
-//        try {
-//            order = orderService.getByOrderId(orderId);
-//            order.setOrderStatus(OrderStatus.CANCELED);
-//            orderService.updateOrder(order);
-//            return SUCCESS;
-//        }catch (HibernateException e){
-//            e.printStackTrace();
-//        }
-//        return ERROR;
-//    }
 
     //֧��
     public String payment() throws Exception {
         try {
             order = orderService.getByOrderId(orderId);
-            if(order==null){
+            if (order == null) {
                 return ERROR;
             }
             order.setOrderStatus(OrderStatus.UNSHIPPED);
@@ -185,7 +172,7 @@ public class OrderAction extends DefaultActionSupport {
         try {
             user = userService.getCurrentUser();
             order = orderService.getByOrderId(orderId);
-            if(order==null){
+            if (order == null) {
                 return ERROR;
             }
             order.setOrderStatus(OrderStatus.COMPLETED);
@@ -214,7 +201,6 @@ public class OrderAction extends DefaultActionSupport {
     public String sendPackage() throws Exception {
         try {
             orderService.sendPackage(orderId, logisticsNum, logisticsCompany);
-
             return SUCCESS;
         } catch (HibernateException e) {
             e.printStackTrace();
@@ -222,11 +208,10 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-    // todo:判断状态
     public String toAddOrderComment() throws Exception {
         order = orderService.getByOrderId(orderId);
 
-        if (order != null) {
+        if (order != null && order.isNotCommented()) {
             orderItemList = order.getOrderItems();
             for (OrderItem item : orderItemList) {
                 Comment comment = commentService.getByPricedIdAndOrderId(item.getProduct().getPricedId(), orderId);
@@ -244,16 +229,20 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
-    // todo: 判断状态
     public String addComment() throws Exception {
         user = userService.getCurrentUser();
-
-        for (Comment comment : commentList) {
-            comment.setUserId(user.getUserId());
+        int userId = user.getUserId();
+        if (commentList.size() > 0) {
+            Order order = orderService.getByOrderId(commentList.get(0).getOrderId());
+            if (order.isNotCommented()) {
+                for (Comment comment : commentList) {
+                    comment.setUserId(userId);
+                }
+                commentService.saveComments(commentList);
+                return SUCCESS;
+            }
         }
-
-        commentService.saveComments(commentList);
-        return SUCCESS;
+        return INPUT;
     }
 
     public String appendComment() throws Exception {

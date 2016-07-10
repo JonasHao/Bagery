@@ -176,7 +176,7 @@
 
 
                                                                                 <form role="form"
-                                                                                      action="/order/sendPackage.action">
+                                                                                      action="/admin/order/sendPackage.action">
 
                                                                                     <input style="display: none"
                                                                                            name="orderId"
@@ -184,7 +184,7 @@
 
                                                                                     <div class="form-group">
                                                                                         <label>物流公司</label> <input
-                                                                                            type="text" placeholder="顺丰"
+                                                                                            type="text" placeholder="请输入物流公司"
                                                                                             class="form-control"
                                                                                             name="logisticsCompany"
                                                                                             value="${logisticsCompany}"/>
@@ -192,7 +192,7 @@
                                                                                     <div class="form-group">
                                                                                         <label>物流单号</label> <input
                                                                                             type="text"
-                                                                                            placeholder="1648679434651"
+                                                                                            placeholder="请输入物流单号"
                                                                                             class="form-control"
                                                                                             name="logisticsNum"
                                                                                             value="${logisticsNum}"/>

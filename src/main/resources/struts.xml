@@ -370,7 +370,7 @@
             <result name="invalid">/invalid.jsp</result>
         </global-results>
 
-        <action name="queryOrder" class="action.OrderAction" method="queryOrder">
+        <action name="queryOrder" class="action.OrderAction" method="adminQueryOrder">
             <interceptor-ref name="OrdADLoginChecker"/>
             <result name="input">
                 <param name="location">/admin/send_goods.jsp</param>
@@ -378,7 +378,7 @@
             </result>
             <result name="success">/admin/send_goods.jsp</result>
         </action>
-        <action name="queryOrder2" class="action.OrderAction" method="queryOrder">
+        <action name="queryOrder2" class="action.OrderAction" method="adminQueryOrder">
             <interceptor-ref name="OrdADLoginChecker"/>
             <result name="input">
                 <param name="location">/admin/order_list.jsp</param>
@@ -397,7 +397,10 @@
             <result name="success" type="redirect">queryOrder.action</result>
         </action>
         <action name="sendPackage" class="action.OrderAction" method="sendPackage">
-            <result name="success">/index.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="namespace">/admin/order</param>
+                <param name="actionName">queryOrder</param>
+            </result>
         </action>
     </package>
 

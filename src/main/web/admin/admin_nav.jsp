@@ -37,13 +37,11 @@
                 <ul class="nav nav-second-level">
                     <li class="active">
                         <s:url action="queryOrder" namespace="/admin/order" var="adminQueryOrder1">
-                            <s:param name="orderId"><s:property value="orderId"/></s:param>
                         </s:url>
                         <a href="${adminQueryOrder1}">发货 </a>
                     </li>
                     <li>
                         <s:url action="queryOrder2" namespace="/admin/order" var="adminQueryOrder2">
-                            <s:param name="orderId"><s:property value="orderId"/></s:param>
                         </s:url>
                         <a href="${adminQueryOrder2}">订单列表</a>
                     </li>
