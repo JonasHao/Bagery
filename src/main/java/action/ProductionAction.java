@@ -86,7 +86,7 @@ public class ProductionAction extends DefaultActionSupport {
     public String viewProduct() {
         try {
             priced = productService.findPriced(pricedId);
-            if(priced!=null) {
+            if (priced != null) {
                 products = productService.findProductsByPriced(pricedId);
                 comments = commentService.getByPricedId(pricedId);
 
@@ -110,7 +110,7 @@ public class ProductionAction extends DefaultActionSupport {
     public String viewProductAdmin() {
         try {
             priced = productService.findPriced(pricedId);
-            if (priced!=null) {
+            if (priced != null) {
                 products = productService.findProductsByPricedAdmin(pricedId);
                 proIDs = productService.findProIDsByPriced(pricedId);
                 return SUCCESS;
@@ -125,47 +125,49 @@ public class ProductionAction extends DefaultActionSupport {
     public String update() {
         try {
             Priced p = productService.findPriced(pricedId);
-            p.setTitle(priced.getTitle().trim());
-            p.setDescription(priced.getDescription().trim());
-            p.setImg(priced.getImg().trim());
-            p.setUnitPrice(priced.getUnitPrice());
-            p.setSalePrice(priced.getSalePrice());
-            productService.updatePriced(p);
+            if (p != null) {
+                p.setTitle(priced.getTitle().trim());
+                p.setDescription(priced.getDescription().trim());
+                p.setImg(priced.getImg().trim());
+                p.setUnitPrice(priced.getUnitPrice());
+                p.setSalePrice(priced.getSalePrice());
+                productService.updatePriced(p);
 
-            //更新具体商品
-            List<Product> ps = productService.deleteProductsByPriced(pricedId);
-            try {
-                for (Product product : products) {
-                    if (product.getColor().trim().length() < 1 || product.getStock() < 0) {
-                        continue;
+                //更新具体商品
+                List<Product> ps = productService.deleteProductsByPriced(pricedId);
+                try {
+                    for (Product product : products) {
+                        if (product.getColor().trim().length() < 1 || product.getStock() < 0) {
+                            continue;
+                        }
+                        product.setPricedId(pricedId);
+                        productService.addProduct(product);
                     }
-                    product.setPricedId(pricedId);
-                    productService.addProduct(product);
+                } catch (Exception e) {
+                    for (Product product : ps)
+                        productService.addProduct(product);
+                    e.printStackTrace();
+                    return ERROR;
                 }
-            } catch (Exception e) {
-                for (Product product : ps)
-                    productService.addProduct(product);
-                e.printStackTrace();
-                return ERROR;
-            }
 
-            //更新属性
-            pricedpros = productService.findPricedProByPriced(pricedId);
-            if (pricedpros.size() == 3)
-                for (int i = 0; i < 3; i++) {
-                    pricedpros.get(i).setProId(proIDs.get(i));
-                    productService.updatePricedPro(pricedpros.get(i));
+                //更新属性
+                pricedpros = productService.findPricedProByPriced(pricedId);
+                if (pricedpros.size() == 3)
+                    for (int i = 0; i < 3; i++) {
+                        pricedpros.get(i).setProId(proIDs.get(i));
+                        productService.updatePricedPro(pricedpros.get(i));
+                    }
+                else {
+                    for (Integer proID : proIDs) {
+                        pricedPro = new PricedPro();
+                        pricedPro.setPricedId(pricedId);
+                        pricedPro.setProId(proID);
+                        productService.addPricedPro(pricedPro);
+                    }
                 }
-            else {
-                for (Integer proID : proIDs) {
-                    pricedPro = new PricedPro();
-                    pricedPro.setPricedId(pricedId);
-                    pricedPro.setProId(proID);
-                    productService.addPricedPro(pricedPro);
-                }
+                return SUCCESS;
             }
-
-            return SUCCESS;
+            return ERROR;
         } catch (Exception e) {
             e.printStackTrace();
             return ERROR;
