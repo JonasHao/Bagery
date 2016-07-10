@@ -33,11 +33,20 @@
                     <span class="nav-label">订单管理</span>
                     <span class="fa arrow"></span>
                 </a>
+
                 <ul class="nav nav-second-level">
+                    <li class="active">
+                        <s:url action="queryOrder" namespace="/admin/order" var="adminQueryOrder1">
+                            <s:param name="orderId"><s:property value="orderId"/></s:param>
+                        </s:url>
+                        <a href="${adminQueryOrder1}">发货 </a>
+                    </li>
                     <li>
-                        <a href="/admin/send_goods.html">发货</a></li>
-                    <li>
-                        <a href="/admin/order_list.html">订单列表</a></li>
+                        <s:url action="queryOrder2" namespace="/admin/order" var="adminQueryOrder2">
+                            <s:param name="orderId"><s:property value="orderId"/></s:param>
+                        </s:url>
+                        <a href="${adminQueryOrder2}">订单列表</a>
+                    </li>
                 </ul>
             </li>
         </ul>

@@ -44,8 +44,13 @@ public class UserAction extends DefaultActionSupport {
         }
 
         String group = user.getUserGroup();
-        if (group != null && (group.equals(UserGroup.ORDER_ADMIN) || group.equals(UserGroup.PRODUCT_ADMIN))) {
-            return "admin";
+        if (group != null) {
+            switch (group) {
+                case UserGroup.ORDER_ADMIN:
+                case UserGroup.PRODUCT_ADMIN:
+                case UserGroup.ROOT:
+                    return "admin";
+            }
         }
         return SUCCESS;
     }

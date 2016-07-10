@@ -12,6 +12,7 @@
                     <h3><strong><i class="fa fa-bell" aria-hidden="true"></i></strong></h3>
                     <br/>
                     <h5>对不起，您无权访问该页面</h5>
+                    <a href="/login.jsp">登录</a>&nbsp; &nbsp; <a href="/index.jsp">首页</a>
                 </div>
             </div>
         </div>
