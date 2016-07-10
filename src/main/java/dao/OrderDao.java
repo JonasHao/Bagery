@@ -7,9 +7,7 @@ import po.OrderItem;
 
 import java.util.Collection;
 
-/**
- * Created by Koche on 2016/7/8.
- */
+
 public class OrderDao extends Dao {
     private SessionFactory sessionFactory;
 

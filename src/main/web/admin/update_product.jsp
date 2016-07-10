@@ -55,7 +55,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="login.html">
+                        <a href="/admin/login.jsp">
                             <i class="fa fa-sign-out"></i>退出</a>
                     </li>
                 </ul>
@@ -109,10 +109,11 @@
                                 </div>
                                 <div class="ibox-content">
 
-                                    <form action="updatePriced" namespace="/admin"  class="form-horizontal">
+                                    <form action="updatePriced" namespace="/admin" class="form-horizontal">
                                         <div class="form-group">
 
-                                         <input hidden="true" type="text" name="pricedId" value="<s:property value="pricedId"/>" >
+                                            <input hidden="true" type="text" name="pricedId"
+                                                   value="<s:property value="pricedId"/>">
 
                                         </div>
 
@@ -162,9 +163,9 @@
                                                            style="font-weight:normal;">品牌</label>
                                                     <div class="col-sm-4">
                                                         <%--todo: s:select的list属性设置成action中的List--%>
-                                                            <s:select
-                                                                    list="#{'1':'A品牌', '2':'B品牌'}"
-                                                                    name="proIDs[0]" cssClass="form-control m-b" />
+                                                        <s:select
+                                                                list="#{'1':'A品牌', '2':'B品牌'}"
+                                                                name="proIDs[0]" cssClass="form-control m-b"/>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -249,8 +250,8 @@
 
                                         </div>
                                         <%--<div class="form-group">--%>
-                                            <%--<span class="col-sm-2"></span>--%>
-                                            <%--<small class="col-sm-10 text-navy" onclick="addColor()">再添加一种颜色</small>--%>
+                                        <%--<span class="col-sm-2"></span>--%>
+                                        <%--<small class="col-sm-10 text-navy" onclick="addColor()">再添加一种颜色</small>--%>
                                         <%--</div>--%>
                                         <div class="hr-line-dashed"></div>
                                         <div class="form-group">

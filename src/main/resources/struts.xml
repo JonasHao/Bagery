@@ -35,12 +35,12 @@
             <result name="error">/error.jsp</result>
         </global-results>
 
-
-        <action name="test" class="action.TestAction">
-        </action>
     </package>
 
     <package name="order" namespace="/order" extends="default,json-default">
+
+        <default-interceptor-ref name="userStack"/>
+
         <action name="balance" class="action.OrderAction" method="balance">
             <result name="success">/WEB-INF/order/balance.jsp</result>
             <result name="input" type="redirectAction">
@@ -59,8 +59,6 @@
                 <param name="location">/admin/send_goods.jsp</param>
                 <param name="actionErrors">"没有权限"</param>
             </result>
-
-            <!--<result name="success">/WEB-INF/order/orders.jsp</result>-->
             <result name="success">/admin/send_goods.jsp</result>
         </action>
 
@@ -99,7 +97,7 @@
         </action>
 
         <action name="payment" class="action.OrderAction" method="payment">
-            <result name="success">/WEB-INF/order/payment-success.jsp</result>
+            <result name="success">/WEB-INF/order/order-payment-success.jsp</result>
         </action>
 
         <action name="confirmReceive" class="action.OrderAction" method="confirmReceive">
@@ -312,6 +310,10 @@
             <result name="success" type="json">
                 <param name="root">data</param>
             </result>
+            <result name="login" type="json">
+                <param name="result">login</param>
+                <param name="includeProperties">result</param>
+            </result>
 
         </action>
 
@@ -322,6 +324,10 @@
         <action name="updateCart" class="action.CartAction" method="updateCart">
             <result name="success" type="json">
                 <param name="root">data</param>
+            </result>
+            <result name="login" type="json">
+                <param name="result">login</param>
+                <param name="includeProperties">result</param>
             </result>
         </action>
     </package>
@@ -390,6 +396,11 @@
 
     <package name="admin" namespace="/admin" extends="default">
         <default-interceptor-ref name="productStack"/>
+        <global-results>
+            <result name="login">/admin/login.jsp</result>
+            <result name="invalid">/invalid.jsp</result>
+        </global-results>
+
         <action name="addPriced" class="action.ProductionAction" method="add">
             <result name="success" type="redirectAction">
                 <param name="actionName">pricedList</param>

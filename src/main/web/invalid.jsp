@@ -2,20 +2,18 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <t:base>
-    <jsp:attribute name="title">支付成功</jsp:attribute>
+    <jsp:attribute name="title">你点了不该点的哦~</jsp:attribute>
     <jsp:body>
         <!--Main layout-->
         <div class="container">
 
-            <div class="card white-text light-green" style="margin: 2rem; padding: 2rem;">
+            <div class="card-danger white-text" style="margin: 2rem; padding: 2rem; text-align: center">
                 <div class="card-block" style="text-align: center">
-                    <h3><strong><i class="fa fa-google-wallet" aria-hidden="true"></i></strong></h3>
+                    <h3><strong><i class="fa fa-bell" aria-hidden="true"></i></strong></h3>
                     <br/>
-                    <h5>支付成功！</h5>
-                    <h6><a style="color: #2a4011;" href="/index.jsp">回到首页</a> &nbsp; &nbsp;</h6>
+                    <h5>对不起，您无权访问该页面</h5>
                 </div>
             </div>
-
         </div>
         <!--/.Main layout-->
     </jsp:body>

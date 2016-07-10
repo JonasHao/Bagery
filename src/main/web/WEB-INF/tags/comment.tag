@@ -4,8 +4,8 @@
 <%@attribute name="img" fragment="true" %>
 <%@attribute name="alt" fragment="true" %>
 <%@attribute name="text" fragment="true" %>
-<%@attribute name="append" fragment="true" %>
-<%@attribute name="reply" fragment="true" %>
+<%@attribute name="append" type="java.lang.String" %>
+<%@attribute name="reply" type="java.lang.String" %>
 <%@attribute name="star" type="java.lang.Integer" %>
 
 <div class="container">
@@ -27,21 +27,21 @@
                 <li><i class="fa fa-star"></i></li>
                 <% } %>
             </ul>
-            <p>
+            <p>评价：
                 <jsp:invoke fragment="text"/>
             </p>
 
-            <% if (append != null) {
+            <% if (append != null && append.length() > 0) {
             %>
             <p class="comment-append">追评：
-                <jsp:invoke fragment="append"/>
+                <% out.println(append);%>
             </p>
             <% }%>
 
-            <% if (reply != null) {
+            <% if (reply != null && reply.length() > 0) {
             %>
             <p class="comment-reply">回复：
-                <jsp:invoke fragment="reply"/>
+                <% out.println(reply);%>
             </p>
             <% }%>
 

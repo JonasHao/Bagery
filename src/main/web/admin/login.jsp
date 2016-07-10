@@ -29,7 +29,7 @@
         <h3>Welcome to Bagery</h3>
 
         <p>Login in.</p>
-        <form class="m-t" role="form" action="/user/login.action">
+        <form class="m-t" role="form" action="/user/login.action" method="post">
             <div class="form-group">
                 <s:textfield name="username" maxLength="12" minLength="5" errorPosition="none" class="form-control"
                              placeholder="Username" required="true"/>

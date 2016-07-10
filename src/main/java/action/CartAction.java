@@ -69,12 +69,9 @@ public class CartAction extends ActionSupport {
             user = userService.getCurrentUser();
             cartService.deleteCart(user.getUserId(), itemId);
             data.put(RESULT, SUCCESS);
-        } catch (HibernateException e) {
-            if (Config.DEBUG) {
-                data.put(RESULT, SUCCESS);
-            } else {
-                data.put(RESULT, ERROR);
-            }
+        } catch (HibernateException | NullPointerException e) {
+            e.printStackTrace();
+            data.put(RESULT, ERROR);
         }
         return SUCCESS;
     }

@@ -34,6 +34,7 @@
                         </button>
                         <h5 class="modal-title" id="myModalLabel" data-toggle="modal" data-target="#myModal">编辑地址</h5>
                     </div>
+
                     <form class="form-address" action="updateAddress" namespace="/address" method="post">
                         <div style="display: none">
                             <s:textfield name="addressId"/>
@@ -96,34 +97,42 @@
                 <div class="col-md-9">
                     <h4>收件人</h4>
                     <br>
-
-                    <div class="card">
-                        <div class="row card-block">
-                            <div class="col-md-10 address-info">
-                                <div class="row">
-                                    <div class="col-md-10 address-line">
-                                        <s:property value="defaultAddress.receiver"/>
-                                    </div>
-                                    <div class="col-md-10 address-line">
-                                        <s:property value="defaultAddress.addressProvince"/>省
-                                        <s:property value="defaultAddress.addressCity"/>市
-                                        <s:property value="defaultAddress.addressDistrict"/>区
-                                    </div>
-                                    <div class="col-md-10 address-line">
-                                        <s:property value="defaultAddress.addressDetail"/>
-                                    </div>
-                                    <div class="col-md-10 address-line">
-                                        电话：<s:property value="defaultAddress.mobile"/>
+                    <s:if test="defaultAddress != null">
+                        <div class="card">
+                            <div class="row card-block">
+                                <div class="col-md-10 address-info">
+                                    <div class="row">
+                                        <div class="col-md-10 address-line">
+                                            <s:property value="defaultAddress.receiver"/>
+                                        </div>
+                                        <div class="col-md-10 address-line">
+                                            <s:property value="defaultAddress.addressProvince"/>省
+                                            <s:property value="defaultAddress.addressCity"/>市
+                                            <s:property value="defaultAddress.addressDistrict"/>区
+                                        </div>
+                                        <div class="col-md-10 address-line">
+                                            <s:property value="defaultAddress.addressDetail"/>
+                                        </div>
+                                        <div class="col-md-10 address-line">
+                                            电话：<s:property value="defaultAddress.mobile"/>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-2 col-sm-2">
-                                <a data-target="#changeAddress" data-toggle="modal">更改</a>
-                            </div>
+                                <div class="col-md-2 col-sm-2">
+                                    <a data-target="#changeAddress" data-toggle="modal">更改</a>
+                                </div>
 
 
+                            </div>
                         </div>
-                    </div>
+                    </s:if>
+                    <s:else>
+                        <s:url var="addAdd" action="viewAddress" namespace="/address">
+                            <s:param name="add">1</s:param>
+                        </s:url>
+                        <span><strong>地址簿为空</strong></span> （<a href="${addAdd}">添加</a>）
+                    </s:else>
+
 
                     <br/>
                     <br/>
@@ -171,12 +180,13 @@
 
                 <form action="/order/addOrder.action">
                     <s:iterator value="cartItemList" status="row">
-                        <s:hidden name="cartItemIdList[%{#row.index}]" value= "%{itemId}" />
+                        <s:hidden name="cartItemIdList[%{#row.index}]" value="%{itemId}"/>
                     </s:iterator>
                     <div class="col-md-3 order-submit-block">
                         <div class="card">
                             <div class="card-block">
-                                <h4><s:submit cssClass="btn btn-primary btn-lg grey btn-submit-order btn-input" value="提交订单"/></h4>
+                                <h4><s:submit cssClass="btn btn-primary btn-lg grey btn-submit-order btn-input"
+                                              value="提交订单"/></h4>
                                 <br>
 
                                 <div class="font-weight-bold">订单汇总</div>
