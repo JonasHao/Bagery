@@ -26,7 +26,7 @@ public interface OrderService {
     /**
      * 删除订单
      */
-    void deleteOrder(int orderId) throws HibernateException;
+    void deleteOrder(Order order) throws HibernateException;
 
     /**
      * 发货，填写物流单号和物流公司

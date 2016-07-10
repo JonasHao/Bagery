@@ -64,8 +64,8 @@ public class OrderServiceImpl implements OrderService {
      * 删除订单
      */
     @Override
-    public void deleteOrder(int orderId) throws HibernateException {
-        dao.delete(dao.get(Order.class, orderId));
+    public void deleteOrder(Order order) throws HibernateException {
+        dao.delete(order);
     }
 
     /**

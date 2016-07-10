@@ -126,8 +126,21 @@ public class OrderAction extends DefaultActionSupport {
     //ɾ������
     public String deleteOrder() throws Exception {
         try {
-            orderService.deleteOrder(orderId);
-            data.put(RESULT, SUCCESS);
+            order = orderService.getByOrderId(orderId);
+            if (order == null) {
+                data.put(RESULT, ERROR);
+                return SUCCESS;
+            }
+            switch (order.getOrderStatus()) {
+                case OrderStatus.CANCELED:
+                case OrderStatus.UNPAID:
+                case OrderStatus.COMPLETED:
+                    orderService.deleteOrder(order);
+                    data.put(RESULT, SUCCESS);
+                    break;
+                default:
+                    data.put(RESULT, INPUT);
+            }
         } catch (Exception e) {
             data.put(RESULT, ERROR);
         }
@@ -141,13 +154,18 @@ public class OrderAction extends DefaultActionSupport {
             if (order == null) {
                 return ERROR;
             }
-            order.setOrderStatus(OrderStatus.CANCELED);
-            orderService.updateOrder(order);
-            return SUCCESS;
-        } catch (HibernateException e) {
-            e.printStackTrace();
+            switch (order.getOrderStatus()) {
+                case OrderStatus.UNPAID:
+                    order.setOrderStatus(OrderStatus.CANCELED);
+                    orderService.updateOrder(order);
+                    break;
+                default:
+                    data.put(RESULT, INPUT);
+            }
+        } catch (Exception e) {
+            data.put(RESULT, ERROR);
         }
-        return ERROR;
+        return SUCCESS;
     }
 
 

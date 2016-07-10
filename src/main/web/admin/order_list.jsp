@@ -56,9 +56,22 @@
                         type: 'post',
                         data: {orderId: id},
                         success: function (data) {
-                            if (data.result == "success") {
+                            var result = data.result;
+                            if (result == "success") {
                                 to_delete.remove();
                                 notify("成功删除订单");
+                            } else if (result == "input") {
+                                warning("该状态的订单不能被删除");
+                            } else if (result == "login") {
+                                bootbox.confirm({
+                                    title: '登录',
+                                    message: '您不在登录状态，现在去登陆？',
+                                    callback: function (result) {
+                                        if (result) {
+                                            window.location.href = '/login.jsp';
+                                        }
+                                    }
+                                })
                             } else {
                                 warning("无法删除此订单！该订单还有评论内容。");
                             }
@@ -74,7 +87,7 @@
 
 <body>
 <div id="wrapper">
-  <jsp:include page="/admin/admin_nav.jsp"/>
+    <jsp:include page="/admin/admin_nav.jsp"/>
 
 
     <div id="page-wrapper" class="gray-bg dashbard-1">
@@ -187,14 +200,14 @@
                                                     <s:property value="#orders.total"/>
                                                 </td>
                                                 <td class="center" style="padding-bottom: 16px;padding-top: 16px;">
-                                                    <s:property value="#orders.orderStatus"/>
+                                                    <s:property value="#orders.orderStatusString"/>
                                                 </td>
                                                 <td class="center" style="padding-bottom: 16px;padding-top: 16px;">
                                                     <s:property value="#orders.instruction"/>
                                                 </td>
                                                 <td class="center">
                                                     <a data-toggle="modal" class="btn btn-info"
-                                                       style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;"
+                                                       style="margin-bottom: 0;margin-right: 5px;margin-left: 5px;"
                                                        href="#modal-form-detail-<s:property value="#orders.orderId"/>">订单详情</a>
 
 
@@ -205,19 +218,19 @@
                                                             if(result){
                                                             deleteOrder(<s:property value="#orders.orderId"/>);
                                                             } }
-                                                            })" class="btn btn-primary">
-                                                            删除订单</a>
+                                                            })" style="margin-bottom: 0;margin-right: 5px;margin-left: 5px;" class="btn btn-primary <s:if test='#orders.orderStatus="canceled" ||
+                                                            #orders.orderStatus="unpaid"||#orders.orderStatus="completed"'> disabled </s:if>">
+                                                        删除订单</a>
 
-                                                    <s:url action="cancel" namespace="/admin/order"
+                                                    <s:url action="cancel" namespace="/admin-order"
                                                            var="adminCancelOrder">
                                                         <s:param name="orderId"><s:property
                                                                 value="#orders.orderId"/></s:param>
                                                     </s:url>
-                                                    <a href="${adminCancelOrder}">
-                                                        <button type="button" class="btn btn-warning"
-                                                                style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">
-                                                            取消订单
-                                                        </button>
+                                                    <a href="${adminCancelOrder}" class="btn btn-warning <s:if test='
+                                                            #orders.orderStatus="unpaid"'> disabled</s:if>"
+                                                       style="margin-bottom: 0;margin-right: 5px;margin-left: 5px;">
+                                                        取消订单
                                                     </a>
 
                                                     <div id="modal-form-detail-<s:property value="#orders.orderId"/>"
