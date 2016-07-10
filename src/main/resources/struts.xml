@@ -53,15 +53,45 @@
             <result name="success">/WEB-INF/order/orderSuccess.jsp</result>
         </action>
 
-        <action name="queryOrder" class="action.OrderAction" method="queryOrder">
+        <action name="adminQueryOrder1" class="action.OrderAction" method="queryOrder">
+            <interceptor-ref name="OrdADLoginChecker"/>
+            <result name="input">
+                <param name="location">/admin/send_goods.jsp</param>
+                <param name="actionErrors">"没有权限"</param>
+            </result>
+
             <!--<result name="success">/WEB-INF/order/orders.jsp</result>-->
             <result name="success">/admin/send_goods.jsp</result>
+        </action>
+
+        <action name="adminQueryOrder2" class="action.OrderAction" method="queryOrder">
+            <interceptor-ref name="OrdADLoginChecker"/>
+            <result name="input">
+                <param name="location">/admin/order_list.jsp</param>
+                <param name="actionErrors">"没有权限"</param>
+            </result>
+
+            <!--<result name="success">/WEB-INF/order/orders.jsp</result>-->
+            <result name="success">/admin/order_list.jsp</result>
+        </action>
+
+        <action name="queryOrder" class="action.OrderAction" method="queryOrder">
+            <result name="success">/WEB-INF/order/orders.jsp</result>
         </action>
 
         <action name="deleteOrder" class="action.OrderAction" method="deleteOrder">
             <result name="success" type="json">
                 <param name="root">data</param>
             </result>
+        </action>
+
+        <action name="adminCancelOrder" class="action.OrderAction" method="cancelOrder">
+            <interceptor-ref name="OrdADLoginChecker"/>
+            <result name="input">
+                <param name="location">/admin/order_list.jsp</param>
+                <param name="actionErrors">"没有权限"</param>
+            </result>
+            <result name="success" type="redirect">adminQueryOrder2.action</result>
         </action>
 
         <action name="cancelOrder" class="action.OrderAction" method="cancelOrder">
@@ -190,7 +220,7 @@
 
         <action name="sendConfirmCode" class="action.UserInfoAction" method="sendConfirmCode">
             <!--<result name="success" type="json">-->
-                <!--<param name="root">data</param>-->
+            <!--<param name="root">data</param>-->
             <!--</result>-->
             <result name="success" type="redirectAction">openFind</result>
             <result name="input">/FindPassword.jsp</result>

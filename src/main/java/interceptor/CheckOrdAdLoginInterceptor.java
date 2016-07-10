@@ -43,10 +43,13 @@ public class CheckOrdAdLoginInterceptor implements Interceptor{
             String  usergroup=userService.getUserGroup(username);
             if(usergroup.equals("ORDER_ADMIN"))
             {
-                return Action.SUCCESS;
+                return invocation.invoke();
             }
-            else
-                return Action.ERROR;
+            else {
+
+
+                return Action.INPUT;
+            }
         }
     }
 }

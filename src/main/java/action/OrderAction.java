@@ -46,10 +46,10 @@ public class OrderAction extends DefaultActionSupport {
     private String status;
     private String instruction;
 
-    private Map<String, Object> data = new HashMap<>();
+    private Map<String,Object> data=new HashMap<>();
 
     //����
-    public String balance() throws Exception {
+    public String balance() throws Exception{
         try {
             user = userService.getCurrentUser();
             addressList = user.getAddresses();
@@ -76,7 +76,7 @@ public class OrderAction extends DefaultActionSupport {
     }
 
     //��������
-    public String addOrder() throws Exception {
+    public String addOrder() throws Exception{
         if (cartItemIdList == null || cartItemIdList.size() == 0) {
             return INPUT;
         }
@@ -93,7 +93,7 @@ public class OrderAction extends DefaultActionSupport {
             orderService.addOrder(order, cartItemIdList);
 
             return SUCCESS;
-        } catch (HibernateException | NullPointerException e) {
+        }catch (HibernateException | NullPointerException e){
             e.printStackTrace();
         }
         return ERROR;
@@ -101,23 +101,34 @@ public class OrderAction extends DefaultActionSupport {
     }
 
     //�鿴����
-    public String queryOrder() throws Exception {
+    public String queryOrder() throws Exception{
         try {
             user = userService.getCurrentUser();
             orderList = user.getOrders();
             return SUCCESS;
-        } catch (HibernateException e) {
+        }catch (HibernateException e){
             e.printStackTrace();
         }
         return ERROR;
     }
 
+//    public String adminQueryOrder() throws Exception{
+//        try {
+//            user = userService.getCurrentUser();
+//            orderList = user.getOrders();
+//            return SUCCESS;
+//        }catch (HibernateException e){
+//            e.printStackTrace();
+//        }
+//        return ERROR;
+//    }
+
     //ɾ������
-    public String deleteOrder() throws Exception {
+    public String deleteOrder() throws Exception{
         try {
             orderService.deleteOrder(orderId);
             data.put(RESULT, SUCCESS);
-        } catch (HibernateException e) {
+        }catch (HibernateException e){
             if (Config.DEBUG) {
                 data.put(RESULT, SUCCESS);
             } else {
@@ -128,65 +139,77 @@ public class OrderAction extends DefaultActionSupport {
     }
 
     //ȡ������
-    public String cancelOrder() throws Exception {
+    public String cancelOrder() throws Exception{
         try {
             order = orderService.getByOrderId(orderId);
             order.setOrderStatus(OrderStatus.CANCELED);
             orderService.updateOrder(order);
             return SUCCESS;
-        } catch (HibernateException e) {
+        }catch (HibernateException e){
             e.printStackTrace();
         }
         return ERROR;
     }
 
+//    public String adminCancelOrder() throws Exception{
+//        try {
+//            order = orderService.getByOrderId(orderId);
+//            order.setOrderStatus(OrderStatus.CANCELED);
+//            orderService.updateOrder(order);
+//            return SUCCESS;
+//        }catch (HibernateException e){
+//            e.printStackTrace();
+//        }
+//        return ERROR;
+//    }
+
     //֧��
-    public String payment() throws Exception {
+    public String payment() throws Exception{
         try {
             order = orderService.getByOrderId(orderId);
             order.setOrderStatus(OrderStatus.UNSHIPPED);
             orderService.updateOrder(order);
             return SUCCESS;
-        } catch (HibernateException e) {
+        }catch (HibernateException e){
             e.printStackTrace();
         }
         return ERROR;
     }
 
     //ȷ���ջ�
-    public String confirmReceive() throws Exception {
+    public String confirmReceive() throws Exception{
         try {
             user = userService.getCurrentUser();
             order = orderService.getByOrderId(orderId);
             order.setOrderStatus(OrderStatus.COMPLETED);
             orderService.updateOrder(order);
             return SUCCESS;
-        } catch (HibernateException e) {
+        }catch (HibernateException e){
             e.printStackTrace();
         }
         return ERROR;
     }
 
     //�鿴������Ϣ
-    public String getLogisticsStatus() throws Exception {
+    public String getLogisticsStatus() throws Exception{
         try {
             user = userService.getCurrentUser();
             logistics = orderService.getLogisticsStatus(orderId);
             ActionContext.getContext().getSession().put("logistics", logistics);
             return SUCCESS;
-        } catch (HibernateException e) {
+        }catch (HibernateException e){
             e.printStackTrace();
         }
         return ERROR;
     }
 
     //�̼ҷ���
-    public String sendPackage() throws Exception {
+    public String sendPackage() throws Exception{
         try {
             orderService.sendPackage(orderId, logisticsNum, logisticsCompany);
 
             return SUCCESS;
-        } catch (HibernateException e) {
+        }catch (HibernateException e){
             e.printStackTrace();
         }
         return ERROR;
