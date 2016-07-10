@@ -48,8 +48,8 @@
                 <div class="col-md-2 quantity-control">
                     <button type="button" onclick="minus(<jsp:invoke fragment="stock"/>)">-</button>
                     <input type="text" onkeyup="this.value=minmax(this.value,1,<jsp:invoke fragment="stock"/>)"
-                           onchange="updateCart( <jsp:invoke fragment="itemId"/>,parseInt(this.value))" min="1"
-                           max="<jsp:invoke fragment="stock"/>"
+                           onchange="updateCart( <jsp:invoke fragment="itemId"/>,parseInt(this.value))"
+                           min="1"   max="<jsp:invoke fragment="stock"/>"
                            value="<jsp:invoke fragment="number"/>">
                     <button type="button" onclick="add(<jsp:invoke fragment="stock"/>)">+</button>
                     <br/>

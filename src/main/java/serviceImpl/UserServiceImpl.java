@@ -25,9 +25,11 @@ public class UserServiceImpl implements UserService {
             user = dao.get(User.class, 1);
             return user;
         }
-        int userId = (int) ActionContext.getContext().getSession().get(Key.USER);
-        user = dao.get(User.class, userId);
-        return user;
+        Integer userId = (Integer) ActionContext.getContext().getSession().get(Key.USER);
+        if(userId != null) {
+            return dao.get(User.class, userId);
+        }
+        return null;
     }
 
     public boolean isLoggedIn(){
@@ -41,14 +43,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String login(String username, String password) {
+    public User login(String username, String password) {
         user = (User) dao.query("from User where username=?").setParameter(0, username).list().get(0);
 
         if (user.getPassword().equals(password)) {
             ActionContext.getContext().getSession().put(Key.USER, user.getUserId());
-            return user.getUserGroup();
+            return user;
         }
-        else return "input";
+
+        return null;
     }
 
     @Override

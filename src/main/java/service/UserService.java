@@ -21,7 +21,7 @@ public interface UserService {
     /**
      * 校验用户Id和密码是否匹配
      */
-    String login(String username, String password);
+    User login(String username, String password);
 
     boolean existUsername(String username);
 

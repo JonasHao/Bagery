@@ -222,11 +222,14 @@ public class OrderAction extends DefaultActionSupport {
         if (order != null) {
             orderItemList = order.getOrderItems();
             for (OrderItem item : orderItemList) {
-                Comment comment = new Comment();
-                comment.setPricedId(item.getProduct().getPriced().getPricedId());
-                comment.setPriced(item.getProduct().getPriced());
-                comment.setOrderId(order.getOrderId());
-                comment.setOrder(order);
+                Comment comment  = commentService.getByPricedIdAndOrderId(item.getProduct().getPricedId(),orderId);
+                if(comment==null){
+                    comment = new Comment();
+                    comment.setPricedId(item.getProduct().getPriced().getPricedId());
+                    comment.setPriced(item.getProduct().getPriced());
+                    comment.setOrderId(order.getOrderId());
+                    comment.setOrder(order);
+                }
                 commentList.add(comment);
             }
             return SUCCESS;
@@ -244,6 +247,35 @@ public class OrderAction extends DefaultActionSupport {
 
         commentService.saveComments(commentList);
         return SUCCESS;
+    }
+
+    public String appendComment() throws Exception {
+        user = userService.getCurrentUser();
+
+        for (Comment comment : commentList) {
+            comment.setUserId(user.getUserId());
+        }
+
+        commentService.saveComments(commentList);
+        return SUCCESS;
+    }
+
+    public void validateAppendComment() {
+        for (Comment comment : commentList) {
+            if (comment == null) {
+                continue;
+            }
+
+            if (comment.getContent2().isEmpty() || comment.getContent2().length()<10) {
+                addActionError("评价内容至少也要10个字呢");
+                return;
+            }
+
+            if (comment.getContent2().length() > 200) {
+                addActionError("评论内容不能超过200个字");
+                return;
+            }
+        }
     }
 
     public void validateAddComment() {

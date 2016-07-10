@@ -20,6 +20,8 @@ import static constant.Key.RESULT;
  */
 public class FavoriteAction extends ActionSupport {
     private int priceId;
+    private String result = "login";
+
     private UserService userService;
     private FavoriteItem favoriteItem;
     private FavoriteService favoriteService;
@@ -143,5 +145,13 @@ public class FavoriteAction extends ActionSupport {
 
     public void setData(Map<String, Object> data) {
         this.data = data;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
     }
 }

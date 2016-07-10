@@ -111,6 +111,6 @@ public class Product {
 
     @Override
     public String toString() {
-        return "color:" + color + " stock:" + stock + " priceID:"+pricedId ;
+        return Integer.toString(productId);
     }
 }

@@ -14,7 +14,6 @@ import java.util.Map;
 public class CheckLoginInterceptor implements Interceptor {
 
 
-
     @Override
     public void init() {
 
@@ -22,21 +21,22 @@ public class CheckLoginInterceptor implements Interceptor {
 
     @Override
     public String intercept(ActionInvocation invocation) throws Exception {
-        if (!Config.DEBUG) {
+        if (Config.DEBUG) {
             return invocation.invoke();
         }
 
         ActionProxy ap = invocation.getProxy();
-        if (ap.getNamespace().equals("/user")&&ap.getActionName().equals("UserAction")&&(ap.getMethod().equals("login") || ap.getMethod().equals("register")))
-        {
+        if (ap.getNamespace().equals("/user")  && (ap.getMethod().equals("login") || ap.getMethod().equals("register"))) {
             return invocation.invoke();
         }
 
         Map session = ActionContext.getContext().getSession();
         Integer userId = (Integer) session.get(Key.USER);
-        if (userId!=null){
-            return Action.SUCCESS;
+        if (userId != null && userId > 0) {
+            return invocation.invoke();
         }
+
+        System.out.println("Not Logged in.");
         return Action.LOGIN;
     }
 

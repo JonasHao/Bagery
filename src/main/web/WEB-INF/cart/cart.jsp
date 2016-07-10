@@ -66,7 +66,6 @@
                     <jsp:attribute name="itemId"><s:property value="itemId"/></jsp:attribute>
                     <jsp:attribute name="stock"><s:property value="product.stock"/></jsp:attribute>
                 </t:cartItem>
-
             </s:iterator>
 
             <form action="/order/balance.action">

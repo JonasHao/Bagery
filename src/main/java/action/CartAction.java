@@ -28,6 +28,7 @@ public class CartAction extends ActionSupport {
     private CartService cartService;
     private UserService userService;
     private ProductService productService;
+    private String result = "login";
     private Map<String, Object> data = new HashMap<>();
     private List<CartItem> cartItemList = new ArrayList<CartItem>();
 
@@ -57,11 +58,8 @@ public class CartAction extends ActionSupport {
             cartService.addCart(cartItem);
             data.put(RESULT, SUCCESS);
         } catch (HibernateException e) {
-            if (Config.DEBUG) {
-                data.put(RESULT, SUCCESS);
-            } else {
-                data.put(RESULT, ERROR);
-            }
+            e.printStackTrace();
+            data.put(RESULT, ERROR);
         }
         return SUCCESS;
     }
@@ -86,8 +84,8 @@ public class CartAction extends ActionSupport {
             cartItem = cartService.getCartItem(itemId);
             if (num > 0 && num <= cartItem.getProduct().getStock()) {
                 cartItem.setNum(num);
-                double salePrice=cartItem.getProduct().getPriced().getSalePrice();
-                cartItem.setSubtotal(salePrice*num);
+                double salePrice = cartItem.getProduct().getPriced().getSalePrice();
+                cartItem.setSubtotal(salePrice * num);
                 cartService.updateCart(cartItem);
                 data.put(RESULT, SUCCESS);
             } else {
@@ -178,5 +176,13 @@ public class CartAction extends ActionSupport {
 
     public void setProductService(ProductService productService) {
         this.productService = productService;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
     }
 }

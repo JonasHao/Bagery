@@ -17,9 +17,14 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public Comment getByPricedIdAndOrderId(int pricedId, int orderId) {
-        return (Comment) dao.query("from Comment where pricedId=? and orderId=?")
-                .setParameter(0, pricedId).setParameter(1, orderId).list().get(0);
+        List<Comment> comments = dao.query("from Comment where pricedId=? and orderId=?")
+                .setParameter(0, pricedId).setParameter(1, orderId).list();
+        if (comments.size() != 1) {
+            return null;
+        }
+        return comments.get(0);
     }
 
     @SuppressWarnings("unchecked")

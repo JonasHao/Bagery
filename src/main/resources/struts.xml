@@ -50,7 +50,7 @@
         </action>
 
         <action name="addOrder" class="action.OrderAction" method="addOrder">
-            <result name="success">/WEB-INF/order/orderSuccess.jsp</result>
+            <result name="success">/WEB-INF/order/order-success.jsp</result>
         </action>
 
         <action name="adminQueryOrder1" class="action.OrderAction" method="queryOrder">
@@ -99,7 +99,7 @@
         </action>
 
         <action name="payment" class="action.OrderAction" method="payment">
-            <result name="success">/WEB-INF/order/paymentSuccess.jsp</result>
+            <result name="success">/WEB-INF/order/payment-success.jsp</result>
         </action>
 
         <action name="confirmReceive" class="action.OrderAction" method="confirmReceive">
@@ -115,8 +115,8 @@
         </action>
 
         <action name="toAddOrderComment" class="action.OrderAction" method="toAddOrderComment">
-            <result>/WEB-INF/order/addComment.jsp</result>
-            <result name="input">/WEB-INF/order/addComment.jsp</result>
+            <result>/WEB-INF/order/comment-add.jsp</result>
+            <result name="input">/WEB-INF/order/comment-add.jsp</result>
         </action>
 
         <action name="addComment" class="action.OrderAction" method="addComment">
@@ -125,12 +125,21 @@
                 <param name="actionName">queryOrder</param>
             </result>
 
-            <result name="input">/WEB-INF/order/commentInvalid.jsp</result>
-            <!--<result name="input" type="redirectAction">-->
-            <!--<param name="namespace">/order</param>-->
-            <!--<param name="actionName">toAddOrderComment</param>-->
-            <!--<param name="orderId">${orderId}</param>-->
-            <!--</result>-->
+            <result name="input">/WEB-INF/order/comment-invalid.jsp</result>
+        </action>
+
+        <action name="toAppendComment" class="action.OrderAction" method="toAddOrderComment">
+            <result>/WEB-INF/order/comment-append.jsp</result>
+            <result name="input">/WEB-INF/order/comment-add.jsp</result>
+        </action>
+
+        <action name="appendComment" class="action.OrderAction" method="appendComment">
+            <result name="success" type="redirectAction">
+                <param name="namespace">/order</param>
+                <param name="actionName">queryOrder</param>
+            </result>
+
+            <result name="input">/WEB-INF/order/comment-append-invalid.jsp</result>
         </action>
     </package>
 
@@ -259,11 +268,14 @@
     </package>
 
     <package name="favorite" namespace="/favorite" extends="default,json-default">
-        <!--<default-interceptor-ref name="myStack"/>-->
+        <default-interceptor-ref name="userStack"/>
 
         <action name="favor" class="action.FavoriteAction" method="favor">
             <result name="success" type="json">
                 <param name="root">data</param>
+            </result>
+            <result name="login" type="json">
+                <param name="includeProperties">result</param>
             </result>
         </action>
 
@@ -271,23 +283,28 @@
             <result name="success" type="json">
                 <param name="root">data</param>
             </result>
+            <result name="login" type="json">
+                <param name="includeProperties">result</param>
+            </result>
         </action>
 
         <action name="queryFavorite" class="action.FavoriteAction" method="queryFavorite">
             <result name="success">/WEB-INF/favorite/favorite.jsp</result>
         </action>
 
-        <action name="viewProduct" class="action.ProductionAction" method="viewProduct">
-            <result name="success">/WEB-INF/product/detail.jsp</result>
-            <result name="input">/WEB-INF/product/productDisable.jsp</result>
-        </action>
     </package>
 
     <package name="cart" namespace="/cart" extends="default,json-default">
+        <default-interceptor-ref name="userStack"/>
 
         <action name="addCart" class="action.CartAction" method="addCart">
             <result name="success" type="json">
                 <param name="root">data</param>
+            </result>
+
+            <result name="login" type="json">
+                <param name="result">login</param>
+                <param name="includeProperties">result</param>
             </result>
         </action>
 
@@ -295,6 +312,7 @@
             <result name="success" type="json">
                 <param name="root">data</param>
             </result>
+
         </action>
 
         <action name="queryCart" class="action.CartAction" method="queryCart">
