@@ -35,6 +35,7 @@ public class OrderServiceImpl implements OrderService {
             orderItemList.add(orderItem);
         }
         orderDao.saveOrder(order, orderItemList);
+
     }
 
 
@@ -89,6 +90,11 @@ public class OrderServiceImpl implements OrderService {
         String company = order.getCourierCompany();
         String number = order.getCourierNumber();
         return queryLogisticsAPI(company, number);
+    }
+
+    @Override
+    public List<Order> getStatusOf(String orderStatus) throws HibernateException {
+        return dao.query("from Order where orderStatus = ?").setParameter(0,orderStatus).list();
     }
 
     private String queryLogisticsAPI(String company, String number) {

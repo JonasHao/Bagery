@@ -1,15 +1,12 @@
-<%@ taglib prefix="s" uri="/struts-tags" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: Koche
-  Date: 2016/6/29
-  Time: 15:56
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
+<%
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+    response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+    response.setHeader("Expires", "0"); // Proxies.
+%>
 
 <html>
 
@@ -73,7 +70,7 @@
                                     }
                                 })
                             } else {
-                                warning("无法删除此订单！该订单还有评论内容。");
+                                warning("无法删除此订单！");
                             }
                         }
                     }
@@ -129,7 +126,7 @@
                 <h2>订单列表</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="index.html">首页</a>
+                        <a href="html/index.html">首页</a>
                     </li>
                     <li>
                         <a>订单管理</a>

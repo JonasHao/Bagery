@@ -15,9 +15,10 @@
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta http-equiv="expires" content="0">
-    <% response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1
-        response.setHeader("Pragma", "no-cache"); //HTTP 1.0
-        response.setDateHeader("Expires", 0); //prevents caching at the proxy server
+    <%
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+        response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+        response.setHeader("Expires", "0"); // Proxies.
     %>
 
     <title>
@@ -89,11 +90,11 @@
 
 <script type="text/javascript">
     bootbox.addLocale("Bagery", {
-        OK : '确定',
-        CANCEL : '取消',
-        CONFIRM : '确认'
+        OK: '确定',
+        CANCEL: '取消',
+        CONFIRM: '确认'
     });
-    bootbox.setDefaults("locale","Bagery")
+    bootbox.setDefaults("locale", "Bagery")
 </script>
 
 <jsp:invoke fragment="scripts"/>

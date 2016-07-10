@@ -164,7 +164,9 @@
                                 <s:property value="user.img"/>
                             </jsp:attribute>
 
-                            <jsp:attribute name="star"><s:property value="star"/></jsp:attribute>
+                            <jsp:attribute name="star">
+                                <s:property value="star"/>
+                            </jsp:attribute>
 
                             <jsp:attribute name="text">
                                 <s:property value="content1"/>

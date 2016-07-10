@@ -38,12 +38,12 @@
                 <div class="card-block order-block">
                     <div class="media">
                         <a class="media-left home-avatar" href="/user/viewInfo.action">
-                            <img class="img-circle" width="128" height="128" src="../../admin/img/a1.jpg"/>
+                            <img class="img-circle" width="128" height="128" src="<s:property value="img"/>"/>
                         </a>
 
                         <s:set name="group" value="group"/>
                         <div class="media-body home-profile-body">
-                            <h4 class="media-heading heading-username"><s:property value="username"/></h4>
+                            <h4 class="media-heading heading-username"><s:property value="user.username"/></h4>
                             <p>积分：<s:property value="score"/> &nbsp;&nbsp;
                                 <s:if test="#group==1">等级：普通用户</s:if>
                                 <s:elseif test="#group==2">等级：中级用户</s:elseif>

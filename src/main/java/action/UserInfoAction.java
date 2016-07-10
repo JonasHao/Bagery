@@ -50,6 +50,7 @@ public class UserInfoAction extends DefaultActionSupport {
             score = user.getScore();
             username=user.getUsername();
             userGroup=user.getUserGroup();
+            img = user.getImg();
             if(userGroup.equals("r")){
                 group=1;
             }

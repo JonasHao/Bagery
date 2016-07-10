@@ -3,6 +3,7 @@ package service;
 import org.hibernate.HibernateException;
 import po.Order;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface OrderService {
@@ -39,4 +40,5 @@ public interface OrderService {
     String getLogisticsStatus(int orderId);
 
 
+    List<Order> getStatusOf(String orderStatus) throws HibernateException;
 }

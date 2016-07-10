@@ -1,12 +1,10 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: Koche
-  Date: 2016/6/29
-  Time: 15:56
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+    response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+    response.setHeader("Expires", "0"); // Proxies.
+%>
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="src/main/web/admin/css/product.css"/>
@@ -67,7 +65,7 @@
                 <h2>更新商品信息</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="index.html">首页</a>
+                        <a href="html/index.html">首页</a>
                     </li>
                     <li>
                         <a>商品管理</a>
