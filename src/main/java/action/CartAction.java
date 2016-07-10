@@ -82,6 +82,10 @@ public class CartAction extends ActionSupport {
     public String updateCart() {
         try {
             cartItem = cartService.getCartItem(itemId);
+            if (cartItem == null || cartItem.getProduct() == null) {
+                data.put(RESULT, INPUT);
+                return SUCCESS;
+            }
             if (num > 0 && num <= cartItem.getProduct().getStock()) {
                 cartItem.setNum(num);
                 double salePrice = cartItem.getProduct().getPriced().getSalePrice();
@@ -91,13 +95,9 @@ public class CartAction extends ActionSupport {
             } else {
                 data.put(RESULT, INPUT);
             }
-
-        } catch (HibernateException e) {
-            if (Config.DEBUG) {
-                data.put(RESULT, SUCCESS);
-            } else {
-                data.put(RESULT, ERROR);
-            }
+        } catch (HibernateException | NullPointerException e) {
+            e.printStackTrace();
+            data.put(RESULT, ERROR);
         }
         return SUCCESS;
     }
