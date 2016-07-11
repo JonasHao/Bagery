@@ -238,7 +238,32 @@
     <script src="js/plugins/dataTables/dataTables.bootstrap.js"></script>
     <script src="js/plugins/dataTables/dataTables.responsive.js"></script>
     <script src="js/plugins/dataTables/dataTables.tableTools.min.js"></script>
-    <script>$(document).ready(function() {
+    <script>
+
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = location.search.substr(1).match(reg);
+            if (r != null) return unescape(decodeURI(r[2])); return null;
+        }
+
+        function noCache(){
+            
+            // console.log(window.location.href);
+            // console.log(self.location.href);
+            // console.log(document.URL);
+            console.log(document.location.pathname);
+  
+            console.log(getQueryString("vincent"));
+            if (getQueryString("vincent")){
+
+            }else{
+                var s=Math.random();          
+                window.location.href=document.location.pathname+"?vincent="+s;
+            }
+        }
+
+    $(document).ready(function() {
+        noCache();
 
         $('.dataTables-example').dataTable({
             responsive: true,
