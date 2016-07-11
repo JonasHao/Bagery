@@ -174,7 +174,7 @@
 
 
                                                                                 <form role="form"
-                                                                                      action="/admin/order/sendPackage.action">
+                                                                                      action="/admin-order/sendPackage.action">
 
                                                                                     <input style="display: none"
                                                                                            name="orderId"

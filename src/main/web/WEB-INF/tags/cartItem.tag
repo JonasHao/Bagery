@@ -46,13 +46,13 @@
                 </div>
 
                 <div class="col-md-2 quantity-control">
-                    <button type="button" onclick="minus(<jsp:invoke fragment="stock"/>)">-</button>
+                    <button type="button" onclick="minus(<jsp:invoke fragment="stock"/>,<jsp:invoke fragment="salePrice"/>,<jsp:invoke fragment="itemId"/>)">-</button>
                     <input type="text" min="1" max="<jsp:invoke fragment="stock"/>"
                            onkeyup="this.value=minmax(this.value,1,<jsp:invoke fragment="stock"/>,
-                           <jsp:invoke fragment="salePrice"/> )"
+                           <jsp:invoke fragment="salePrice"/> ,<jsp:invoke fragment="itemId"/>)"
                            onblur="updateCart( <jsp:invoke fragment="itemId"/>,this.value)"
                            value="<jsp:invoke fragment="number"/>">
-                    <button type="button" onclick="add(<jsp:invoke fragment="stock"/>)">+</button>
+                    <button type="button" onclick="add(<jsp:invoke fragment="stock"/>,<jsp:invoke fragment="salePrice"/>,<jsp:invoke fragment="itemId"/>)">+</button>
                     <br/>
                     <span style="color:red"></span>
                 </div>
@@ -101,7 +101,7 @@
                 })
     }
 
-    function add(stock) {
+    function add(stock, price, id) {
         console.log(event.target.parentNode.childNodes);
         var myself = event.target;
         var inputtext = myself.previousSibling.previousSibling;
@@ -114,11 +114,11 @@
                 inputtext.previousSibling.previousSibling.isDisabled = "false";
             inputtext.value++;
             console.log("input text:" + inputtext.value);
-            minmax(inputtext.value, 1, stock, <jsp:invoke fragment="salePrice"/>);
+            minmax(inputtext.value, 1, stock, price, id);
         }
 
     }
-    function minus(stock) {
+    function minus(stock, price, id) {
         var myself = event.target;
         var inputtext = myself.nextSibling.nextSibling;
         if (inputtext.value <= 1)
@@ -130,13 +130,13 @@
             }
             inputtext.value--;
             console.log("input text:" + inputtext.value);
-            minmax(inputtext.value, 1, stock, <jsp:invoke fragment="salePrice"/>);
+            minmax(inputtext.value, 1, stock, price, id);
         }
     }
-    function minmax(value, min, max, price) {
+    function minmax(value, min, max, price, id) {
         console.log("value=" + value + " min=" + min + " max=" + max + " price=" + price);
         var myself = event.target;
-        var total = $("#total-<jsp:invoke fragment="itemId"/>");
+        var total = $("#total-"+id);
 
         value = parseInt(value);
         min = parseInt(min);
