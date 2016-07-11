@@ -40,7 +40,7 @@
                     <div class="card-header">
                         <div class="center-block home-avatar">
                             <div class="media home-avatar">
-                                <img class="img-circle" width="128" height="128" src="../../admin/img/a1.jpg"/>
+                                <img class="img-circle" width="128" height="128" src="<s:property value="img"/>"/>
                             </div>
                         </div>
 

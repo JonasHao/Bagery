@@ -49,4 +49,5 @@ public interface UserService {
     String getMD5(byte[] source);
 
 
+    void removeHistory(int historyId);
 }

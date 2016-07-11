@@ -9,10 +9,10 @@
             var r = location.search.substr(1).match(reg);
             var m;
             if (r != null)
-                m=unescape(decodeURI(r[2]));
-            else m=null;
+                m = unescape(decodeURI(r[2]));
+            else m = null;
 
-            if(m!=null){
+            if (m != null) {
                 notify(m);
             }
         </script>
@@ -88,7 +88,7 @@
                                 <s:param name="status">unshipped</s:param>
                             </s:url>
                             <a href="${unshipped}">
-                                <i class="fa fa-truck fa-3x" aria-hidden="true"></i>
+                                <i class="fa fa-cubes fa-3x" aria-hidden="true"></i>
                                 <br/>
                                 <span>待发货</span>
                             </a>
@@ -164,14 +164,14 @@
                         <div class="col-sm-6">
                             <h5 class="h5-responsive font-weight-bold">收藏夹</h5>
                             <ul>
-                                <li><a href="#">查看收藏夹</a></li>
+                                <li><s:a namespace="/favorite" action="queryFavorite">查看收藏夹</s:a></li>
                             </ul>
                         </div>
 
                         <div class="col-sm-6">
                             <h5 class="h5-responsive font-weight-bold">个性化推荐</h5>
                             <ul>
-                                <li><a href="/user/history.action">浏览记录</a></li>
+                                <li><s:a namespace="/product" action="historyRecord">浏览记录</s:a></li>
                                 <li><a href="#">猜你喜欢</a></li>
                             </ul>
                         </div>

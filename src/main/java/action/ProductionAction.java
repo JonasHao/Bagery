@@ -586,4 +586,5 @@ public class ProductionAction extends DefaultActionSupport {
         this.isFavor = isFavor;
     }
 
+
 }

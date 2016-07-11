@@ -23,6 +23,14 @@
             <link href="../../css/login.css" rel="stylesheet">
     </jsp:attribute>
 
+    <jsp:attribute name="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="/index.jsp">首页</a></li>
+        <li><s:a action="home" namespace="/user">个人中心</s:a></li>
+        <li class="active">验证邮箱</li>
+    </ol>
+    </jsp:attribute>
+
     <jsp:body>
         <!--Main layout-->
         <div class="container">

@@ -229,9 +229,7 @@
             <result name="input">/WEB-INF/user/ConfirmEmail.jsp</result>
         </action>
 
-        <action name="history" class="action.UserInfoAction" method="history">
-            <result name="success">/WEB-INF/user/history.jsp</result>
-        </action>
+
     </package>
 
     <package name="favorite" namespace="/favorite" extends="default,json-default">
@@ -340,7 +338,7 @@
         </action>
     </package>
 
-    <package name="product" namespace="/product" extends="default">
+    <package name="product" namespace="/product" extends="default, json-default">
         <action name="viewProduct" class="action.ProductionAction" method="viewProduct">
             <result name="success">/WEB-INF/product/detail.jsp</result>
             <result name="error" type="redirectAction">
@@ -355,6 +353,16 @@
         <action name="historyRecord" class="action.ProductionAction" method="viewHistoryRecord">
             <result name="success">/WEB-INF/user/history.jsp</result>
         </action>
+
+        <action name="removeHistory" class="action.UserInfoAction" method="removeHistory">
+            <result name="success" type="json">
+                <param name="root">data</param>
+            </result>
+            <result name="login" type="json">
+                <param name="includeProperties">result</param>
+            </result>
+        </action>
+
         <action name="productListByWord" class="action.ProductionAction" method="findPricedsByWord">
             <result name="success">/WEB-INF/product/list.jsp</result>
         </action>

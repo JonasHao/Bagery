@@ -191,10 +191,12 @@
 
                                 <div class="font-weight-bold">订单汇总</div>
                                 运费：包邮<br/>
-                                商品小计：<s:property value="totalPrice"/>
+                                商品小计： <i class="fa fa-rmb" aria-hidden="true"></i><s:property value="totalPrice"/>
                                 <br/> <br/>
 
-                                <div class="font-weight-bold">总价:<s:property value="totalPrice"/></div>
+                                <div class="font-weight-bold">总价:
+                                    <i class="fa fa-rmb" aria-hidden="true"></i><s:property value="totalPrice"/>
+                                </div>
                             </div>
                         </div>
 
@@ -205,9 +207,9 @@
                             <div class="card">
                                 <div class="card-block">
                                     <div class="md-form">
-                                        <i class="fa fa-user prefix"></i>
+                                        <i class="fa fa-comment  prefix"></i>
                                         <s:textfield id="form1" name="instruction" class="form-control"/>
-                                        <label for="form1">Your name</label>
+                                        <label for="form1">备注</label>
                                     </div>
                                 </div>
                             </div>
