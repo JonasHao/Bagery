@@ -143,4 +143,10 @@ public class Address {
     public void setUser(User user) {
         this.user = user;
     }
+
+    @Override
+    public String toString() {
+        return receiver + "\n" + addressProvince + " " + addressCity + " " + addressDistrict + "\n" +
+                addressDetail + "\n" + mobile;
+    }
 }

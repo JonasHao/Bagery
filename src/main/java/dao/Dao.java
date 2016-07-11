@@ -33,6 +33,8 @@ public class Dao {
     public <T> T get(Class<T> entityType, Serializable id) throws HibernateException {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
+        session.clear();
+
         return session.get(entityType, id);
     }
 

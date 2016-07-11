@@ -97,6 +97,7 @@
     bootbox.setDefaults("locale", "Bagery")
 </script>
 
+
 <jsp:invoke fragment="scripts"/>
 
 </body>

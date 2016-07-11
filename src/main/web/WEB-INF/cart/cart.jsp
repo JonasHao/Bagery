@@ -8,13 +8,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
-
-<%
-    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
-    response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
-    response.setHeader("Expires", "0"); // Proxies.
-%>
-
 <t:base>
 
     <jsp:attribute name="title">购物车列表</jsp:attribute>
@@ -30,7 +23,7 @@
     <jsp:body>
         <!--Main layout-->
         <div class="container">
-            <s:if test="cartItemList.size >0">
+            <s:if test="cartItemList.size() >0">
                 <div>
                     <div class="row">
                         <div class="col-md-10 cart-item-block col-md-push-2">

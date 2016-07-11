@@ -17,8 +17,13 @@
                     <jsp:invoke fragment="receiver"/>
                 </div>
                 <div class="col-md-10 address-line">
-                    <jsp:invoke fragment="province"/>省<jsp:invoke fragment="city"/>市
-                    <jsp:invoke fragment="district"/>区<jsp:invoke fragment="detail"/>
+                    <jsp:invoke fragment="province"/>
+                    省
+                    <jsp:invoke fragment="city"/>
+                    市
+                    <jsp:invoke fragment="district"/>
+                    区
+                    <jsp:invoke fragment="detail"/>
                 </div>
                 <div class="col-md-10 address-line">
                     <jsp:invoke fragment="phone"/>
@@ -29,21 +34,17 @@
             <a data-target="#${status}" data-toggle="modal">编辑</a>
             <br>
             <s:url var="deleteAdd" action="deleteAddress" namespace="/address">
-                <s:param name="addressId" >
+                <s:param name="addressId">
                     <jsp:invoke fragment="addressId"/>
                 </s:param>
             </s:url>
             <a href="${deleteAdd}">删除</a>
             <br>
-            <% if (status==defaultAddressId) { %>
+            <% if (status == defaultAddressId) { %>
             默认地址
             <% } else {%>
-            <s:url var="setDefault" action="setDefaultAddress" namespace="/address">
-                <s:param name="defaultAddressId">
-                    <jsp:invoke fragment="addressId"/>
-                </s:param>
-            </s:url>
-            <a href="${setDefault}">设为默认</a>
+            <a id="btn-default-<jsp:invoke fragment="addressId"/>"
+               onclick="setDefault(<jsp:invoke fragment="addressId"/>)">设为默认</a>
             <br>
             <% }%>
         </div>
@@ -101,7 +102,8 @@
 
                             <div class="col-md-12">
                                 <div class="md-form">
-                                    <s:textfield label="详细地址" name="addressDetail" required="true" class="form-control"/>
+                                    <s:textfield label="详细地址" name="addressDetail" required="true"
+                                                 class="form-control"/>
                                 </div>
                             </div>
                         </div>
@@ -118,3 +120,23 @@
     </div>
 </div>
 <!-- /.Live preview-->
+
+
+<script type="text/javascript">
+    function setDefault(addressId) {
+        var btn = $("#btn-default-addressId");
+        $.ajax(
+                {
+                    url: "/address/setDefaultAddress.action",
+                    dataType: "json",   //返回格式为json
+                    type: 'post',
+                    data: {defaultAddressId: addressId},
+                    success: function (data) {
+                        console.log(data);
+                        if (data.result == "success") {
+                            location.reload();
+                        }
+                    }
+                });
+    }
+</script>

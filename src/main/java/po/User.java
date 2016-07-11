@@ -227,6 +227,7 @@ public class User {
     }
 
     @OneToMany(mappedBy = "user")
+    @OrderBy("orderId DESC")
     public List<Order> getOrders() {
         return orders;
     }
@@ -235,7 +236,7 @@ public class User {
         this.orders = ordersesByUserId;
     }
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
     public List<Address> getAddresses() {
         return addresses;
     }

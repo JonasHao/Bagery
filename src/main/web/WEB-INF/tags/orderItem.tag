@@ -32,7 +32,7 @@
     <div class="col-md-10 order-item-block">
         <div>
             <!--Title-->
-            <h5 class="card-title product-title">
+            <h5 class="card-title product-order-title">
                 <jsp:invoke fragment="title"/>
             </h5>
             <div><i class="fa fa-rmb" aria-hidden="true"></i>
