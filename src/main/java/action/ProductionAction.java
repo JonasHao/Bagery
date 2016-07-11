@@ -19,7 +19,6 @@ public class ProductionAction extends DefaultActionSupport {
     private int pricedpro_id;
     private int user_id;
     private int pro_id;
-    private int page_num;
     private int stock;
     private int isFavor;
     private double unit_price;
@@ -29,7 +28,6 @@ public class ProductionAction extends DefaultActionSupport {
     private String color;
     private String word;
     private String img;
-    private String message;
     private Priced priced;
     private Product product;
     private PricedPro pricedPro;
@@ -302,6 +300,7 @@ public class ProductionAction extends DefaultActionSupport {
         }
     }
 
+
     public int getProduct_id() {
         return product_id;
     }
@@ -502,14 +501,6 @@ public class ProductionAction extends DefaultActionSupport {
         this.proIDs = proIDs;
     }
 
-    public int getPage_num() {
-        return page_num;
-    }
-
-    public void setPage_num(int page_num) {
-        this.page_num = page_num;
-    }
-
     public String getImg() {
         return img;
     }
@@ -564,14 +555,6 @@ public class ProductionAction extends DefaultActionSupport {
 
     public void setPricedpros(List<PricedPro> pricedpros) {
         this.pricedpros = pricedpros;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 
     public void setFavoriteService(FavoriteService favoriteService) {
