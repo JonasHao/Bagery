@@ -277,6 +277,7 @@ public class ProductionAction extends DefaultActionSupport {
             }
 
             String category = productService.getProByProID(pro_id);
+
             if (category != null) {
                 switch (category) {
                     case "品牌":
@@ -568,5 +569,6 @@ public class ProductionAction extends DefaultActionSupport {
     public void setIsFavor(int isFavor) {
         this.isFavor = isFavor;
     }
+
 
 }

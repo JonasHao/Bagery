@@ -1,7 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
-
+<%
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+    response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+    response.setHeader("Expires", "0"); // Proxies.
+%>
 
 <html>
 <head>
@@ -53,7 +57,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="login.html">
+                        <a href="/admin/login.jsp">
                             <i class="fa fa-sign-out"></i>退出</a>
                     </li>
                 </ul>
@@ -66,7 +70,7 @@
                 <h2>商品列表</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="index.html">首页</a>
+                        <a href="html/index.html">首页</a>
                     </li>
                     <li>
                         <a>商品管理</a>

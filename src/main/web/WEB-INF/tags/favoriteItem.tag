@@ -18,7 +18,6 @@
             </div>
 
 
-
         </div>
         <!--/.Card image-->
         <!--Card content-->
@@ -30,8 +29,10 @@
                     <jsp:invoke fragment="title"/>
                 </h5>
                 <!--Text-->
-                <i class="fa fa-rmb" aria-hidden="true"></i>
-                <jsp:invoke fragment="price"/>
+                <div class="center" style="width: 6rem">
+                    <i class="fa fa-rmb" aria-hidden="true"></i>
+                    <jsp:invoke fragment="price"/>
+                </div>
             </div>
 
 
@@ -58,7 +59,7 @@
                             }
                         })
             } else {
-                window.open("/product/viewProduct.action?pricedId="+pricedId);
+                window.open("/product/viewProduct.action?pricedId=" + pricedId);
             }
         }
     </script>

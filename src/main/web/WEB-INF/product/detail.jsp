@@ -25,34 +25,54 @@
                             data: {priceId: <s:property value="pricedId"/>},
                             success: function (data) {
                                 if (data.result == "success") {
-//                                    var tmp = document.getElementById("favor-icon");
-//                                    console.log(tmp);
                                     document.getElementById("favor-icon").className = classname;
                                     if (classname == "fa fa-star fa-lg amber-text") {
-//                                        $(".alert #alert-block").text("收藏成功！");
-//                                        $(".alert").alert()
-                                         notify("收藏成功！");
+                                        notify("收藏成功！");
                                     }
                                     else {
-                                        notify("取消收藏！");
+                                        notify("成功取消收藏！");
                                     }
-                                } else {
-                                     notify("收藏失败！");
                                 }
+                                else if (data.result == "login") {
+                                    bootbox.confirm({
+                                        title: '登录',
+                                        message: '登陆之后才可以使用收藏夹，现在去登陆？',
+                                        callback: function (result) {
+                                            if (result) {
+                                                window.location.href = '/login.jsp';
+                                            }
+                                        }
+                                    })
+                                } else {
+                                    warning("收藏失败");
+                                }
+
                             }
                         })
             }
             function addCart() {
+                var productId = $("#color").find('option:selected').val();
                 $.ajax(
                         {
                             url: "/cart/addCart",
                             dataType: "json",   //返回格式为json
                             type: 'post',
-                            data: {productId: <s:property value="product_id"/>},
+                            data: {productId: productId},
                             success: function (data) {
-//                                console.log(data);
                                 if (data.result == "success") {
                                     notify("加入购物车成功！");
+                                }
+
+                                if (data.result == "login") {
+                                    bootbox.confirm({
+                                        title: '登录',
+                                        message: '登陆之后才可以使用购物车，现在去登陆？',
+                                        callback: function (result) {
+                                            if (result) {
+                                                window.location.href = '/login.jsp';
+                                            }
+                                        }
+                                    })
                                 }
                             }
                         })
@@ -62,42 +82,30 @@
     <jsp:body>
         <!--Main layout-->
         <div class="container">
-                <%--<s:url id="favor" var="favorUrl" action="favor" namespace="/favorite">--%>
-                <%--<s:param name="priceId">--%>
-                <%--&lt;%&ndash;<s:property value="priceId" />&ndash;%&gt;1--%>
-                <%--</s:param>--%>
-                <%--</s:url>--%>
-
-            <%--<div class="alert alert-warning">--%>
-                <%--<a href="#" class="close" data-dismiss="alert">--%>
-                    <%--&times;--%>
-                <%--</a>--%>
-                <%--<div id="alert-block">--%>
-                    <%--<strong>警告！</strong>您的网络连接有问题。--%>
-                <%--</div>--%>
-            <%--</div>--%>
-
             <div class="card">
                 <!--First row-->
                 <div class="row product-card-wrapper">
 
                     <div class="col-md-5">
-                        <div class="view overlay hm-white-slight product-detail-img">
-                            <img src="<s:property value="priced.img"/>" class="img-fluid" alt="">
+                        <div class="view overlay hm-white-slight center">
+                            <img src="<s:property value="priced.img"/>" class="img-fluid center" alt="">
                             <a href="#">
                                 <div class="mask"></div>
                             </a>
                         </div>
-                        <a onclick="changeFavorState()">
-                            <s:set name="isFavor" value="isFavor"/>
-                            <s:if test="#isFavor==1">
-                                <i class="fa fa-star fa-lg amber-text" aria-hidden="true" id="favor-icon"></i>
-                            </s:if>
-                            <s:else>
-                                <i class="fa fa-star-o fa-lg amber-text" aria-hidden="true" id="favor-icon"></i>
-                            </s:else>
-                        </a>
-
+                        <div class="row">
+                            <div class="center" style="width: 5rem;">
+                                <a onclick="changeFavorState()">
+                                    <s:set name="isFavor" value="isFavor"/>
+                                    <s:if test="#isFavor==1">
+                                        <i class="fa fa-star fa-lg amber-text" aria-hidden="true" id="favor-icon"></i>已收藏
+                                    </s:if>
+                                    <s:else>
+                                        <i class="fa fa-star-o fa-lg amber-text" aria-hidden="true" id="favor-icon"></i>收藏
+                                    </s:else>
+                                </a>
+                            </div>
+                        </div>
                     </div>
 
 
@@ -118,17 +126,24 @@
                                     <s:else>
                                     <label class="col-sm-2 control-label">颜色</label>
                                 <div class="col-sm-4">
-                                    <s:select list="products" listValue="color"
-                                              name="color" cssClass="form-control m-b"/>
+                                    <form action="cart/addCart">
+                                        <s:select list="products" listValue="color" listkey="productId"
+                                                  name="color" cssClass="form-control m-b"/>
+                                    </form>
                                 </div>
                                 </s:else>
                             </div>
 
-                            <s:if test="products.size()!=0">
-                                <a onclick="addCart()" class="btn btn-lg blue-grey"><i class="fa fa-shopping-cart"></i>
+                            <s:if test="products.size()>0">
+                                <a onclick="addCart( )" class="btn btn-lg blue-grey"><i
+                                        class="fa fa-shopping-cart"></i>
                                     加入购物车</a>
                                 <a href="#" class="btn btn-lg blue-grey"><i class="fa fa-check"></i> 立即购买</a>
                             </s:if>
+                            <s:else>
+                                <h5>正在补货中...</h5>
+                            </s:else>
+
                         </div>
                     </div>
                 </div>
@@ -139,18 +154,19 @@
             <!--Second row-->
             <div class="row">
                 <!--Heading-->
-                <div class="reviews">
-                    <h2 class="h2-responsive">评论</h2>
-                </div>
-
                 <s:if test="comments.size>0">
+                    <div class="reviews">
+                        <h2 class="h2-responsive">评论</h2>
+                    </div>
                     <s:iterator value="comments">
                         <t:comment>
                             <jsp:attribute name="img">
                                 <s:property value="user.img"/>
                             </jsp:attribute>
 
-                            <jsp:attribute name="star"><s:property value="star"/></jsp:attribute>
+                            <jsp:attribute name="star">
+                                <s:property value="star"/>
+                            </jsp:attribute>
 
                             <jsp:attribute name="text">
                                 <s:property value="content1"/>
@@ -168,8 +184,10 @@
                     </s:iterator>
                 </s:if>
                 <s:else>
-                <p>暂无评论
-                    </s:else>
+                    <div class="reviews">
+                        <h2 class="h2-responsive">暂无评论</h2>
+                    </div>
+                </s:else>
 
             </div>
 

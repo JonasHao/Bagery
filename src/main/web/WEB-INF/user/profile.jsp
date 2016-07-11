@@ -25,8 +25,9 @@
 
     <jsp:attribute name="breadcrumb">
        <ol class="breadcrumb">
-           <li><a href="../../index.jsp">首页</a></li>
-           <li class="active">个人信息管理</li>
+           <li><a href="/index.jsp">首页</a></li>
+           <li><s:a action="home" namespace="/user">个人中心</s:a></li>
+           <li class="active">个人信息</li>
        </ol>
     </jsp:attribute>
 
@@ -39,7 +40,7 @@
                     <div class="card-header">
                         <div class="center-block home-avatar">
                             <div class="media home-avatar">
-                                <img class="img-circle" width="128" height="128" src="../../admin/img/a1.jpg"/>
+                                <img class="img-circle" width="128" height="128" src="<s:property value="img"/>"/>
                             </div>
                         </div>
 

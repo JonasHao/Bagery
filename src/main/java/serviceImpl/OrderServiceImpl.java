@@ -1,7 +1,9 @@
 package serviceImpl;
 
+import constant.OrderStatus;
 import dao.Dao;
 import dao.OrderDao;
+import org.hibernate.HibernateException;
 import po.CartItem;
 import po.OrderItem;
 import po.Order;
@@ -20,7 +22,7 @@ public class OrderServiceImpl implements OrderService {
      * 创建订单
      */
     @Override
-    public void addOrder(Order order, List<Integer> cartItemIdList) {
+    public void addOrder(Order order, List<Integer> cartItemIdList) throws HibernateException {
         List<OrderItem> orderItemList = new ArrayList<>();
 
         CartItem cartItem;
@@ -33,6 +35,7 @@ public class OrderServiceImpl implements OrderService {
             orderItemList.add(orderItem);
         }
         orderDao.saveOrder(order, orderItemList);
+
     }
 
 
@@ -40,15 +43,21 @@ public class OrderServiceImpl implements OrderService {
      * 查询订单
      */
     @Override
-    public Order getByOrderId(int orderId) {
+    public Order getByOrderId(int orderId) throws HibernateException {
         return dao.get(Order.class, orderId);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Order> getAll() throws HibernateException {
+        return dao.query("from Order").list();
     }
 
     /**
      * 更新订单
      */
     @Override
-    public void updateOrder(Order order) {
+    public void updateOrder(Order order) throws HibernateException {
         dao.update(order);
     }
 
@@ -56,18 +65,19 @@ public class OrderServiceImpl implements OrderService {
      * 删除订单
      */
     @Override
-    public void deleteOrder(int orderId) {
-        dao.delete(dao.get(Order.class, orderId));
+    public void deleteOrder(Order order) throws HibernateException {
+        dao.delete(order);
     }
 
     /**
      * 发货，填写物流单号和物流公司
      */
     @Override
-    public void sendPackage(int orderId, String logisticsNum, String logisticsCompany) {
+    public void sendPackage(int orderId, String logisticsNum, String logisticsCompany) throws HibernateException {
         Order order = dao.get(Order.class, orderId);
         order.setCourierCompany(logisticsCompany);
         order.setCourierNumber(logisticsNum);
+        order.setOrderStatus(OrderStatus.SHIPPED);
         dao.update(order);
     }
 
@@ -75,16 +85,24 @@ public class OrderServiceImpl implements OrderService {
      * 获取订单的物流信息
      */
     @Override
-    public String getLogisticsStatus(int orderId) {
+    public String getLogisticsStatus(int orderId) throws HibernateException {
         Order order = dao.get(Order.class, orderId);
         String company = order.getCourierCompany();
         String number = order.getCourierNumber();
         return queryLogisticsAPI(company, number);
     }
 
+    @Override
+    public List<Order> getStatusOf(String orderStatus) throws HibernateException {
+        return dao.query("from Order where orderStatus = ?").setParameter(0,orderStatus).list();
+    }
+
     private String queryLogisticsAPI(String company, String number) {
-        String logistics = "锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷息锟斤拷";
-        return logistics;
+        return "物流公司：" + company +
+                "\n物流单号：" + number +
+                "\n2016-6-11 广东省集送中心" +
+                "\n2016-6-12 广东省番禺区集送中心" +
+                "\n2016-6-13 广东省番禺区大学城华南理工大学";
     }
 
 

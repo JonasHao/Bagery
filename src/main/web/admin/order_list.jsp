@@ -1,15 +1,12 @@
-<%@ taglib prefix="s" uri="/struts-tags" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: Koche
-  Date: 2016/6/29
-  Time: 15:56
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
+<%
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+    response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+    response.setHeader("Expires", "0"); // Proxies.
+%>
 
 <html>
 
@@ -30,6 +27,7 @@
     <link href="/admin/css/plugins/dataTables/dataTables.responsive.css" rel="stylesheet">
     <link href="/admin/css/plugins/dataTables/dataTables.tableTools.min.css" rel="stylesheet">
 
+
     <script type="text/javascript">
         // Javascript to enable link to tab
         var url = document.location.toString();
@@ -46,7 +44,7 @@
         });
 
         function deleteOrder(id) {
-            var to_delete = $(".order-" + id);
+            var to_delete = $("#order-" + id);
             console.log(to_delete);
             $.ajax(
                     {
@@ -55,11 +53,24 @@
                         type: 'post',
                         data: {orderId: id},
                         success: function (data) {
-                            if (data.result == "success") {
+                            var result = data.result;
+                            if (result == "success") {
                                 to_delete.remove();
                                 notify("成功删除订单");
+                            } else if (result == "input") {
+                                warning("该状态的订单不能被删除");
+                            } else if (result == "login") {
+                                bootbox.confirm({
+                                    title: '登录',
+                                    message: '您不在登录状态，现在去登陆？',
+                                    callback: function (result) {
+                                        if (result) {
+                                            window.location.href = '/login.jsp';
+                                        }
+                                    }
+                                })
                             } else {
-                                warning("删除失败！");
+                                warning("无法删除此订单！");
                             }
                         }
                     }
@@ -73,56 +84,9 @@
 
 <body>
 <div id="wrapper">
-    <nav class="navbar-default navbar-static-side" role="navigation">
-        <div class="sidebar-collapse">
-            <ul class="nav" id="side-menu">
-                <li class="nav-header">
-                    <div class="dropdown profile-element">
-                        <a href="index.html">
-                            <h1 class="logo-name" style="font-size:48px;">BAGERY</h1>
-                        </a>
+    <jsp:include page="/admin/admin_nav.jsp"/>
 
-                    </div>
 
-                    <div class="logo-element" style="font-size:15px;">BAGERY</div>
-                </li>
-                <li>
-                    <a>
-                        <i class="fa fa-diamond"></i>
-                        <span class="nav-label">商品管理</span>
-                        <span class="fa arrow"></span>
-                    </a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="add_product.html">发布商品</a></li>
-                        <li>
-                            <a href="product_list.html">商品列表</a></li>
-                    </ul>
-                </li>
-                <li class="active">
-                    <a>
-                        <i class="fa fa-files-o"></i>
-                        <span class="nav-label">订单管理</span>
-                        <span class="fa arrow"></span>
-                    </a>
-                    <ul class="nav nav-second-level">
-                        <li class="active">
-                            <s:url action="adminQueryOrder1" namespace="/order" var="adminQueryOrder1">
-                                <s:param name="orderId"><s:property value="orderId"/></s:param>
-                            </s:url>
-                            <a href="${adminQueryOrder1}">发货 </a>
-                        </li>
-                        <li>
-                            <s:url action="adminQueryOrder2" namespace="/order" var="adminQueryOrder2">
-                                <s:param name="orderId"><s:property value="orderId"/></s:param>
-                            </s:url>
-                            <a href="${adminQueryOrder2}">订单列表</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </nav>
     <div id="page-wrapper" class="gray-bg dashbard-1">
         <div class="row border-bottom">
             <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
@@ -150,7 +114,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="login.html">
+                        <a href="/admin/login.jsp">
                             <i class="fa fa-sign-out"></i>退出</a>
                     </li>
                 </ul>
@@ -162,7 +126,7 @@
                 <h2>订单列表</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="index.html">首页</a>
+                        <a href="html/index.html">首页</a>
                     </li>
                     <li>
                         <a>订单管理</a>
@@ -222,7 +186,7 @@
 
                                         <s:iterator value="orderList" id="orders">
 
-                                            <tr>
+                                            <tr id="order-<s:property value="#orders.orderId"/>">
                                                 <td class="center" style="padding-bottom: 16px;padding-top: 16px;">
                                                     <s:property value="#orders.orderId"/>
                                                 </td>
@@ -233,42 +197,37 @@
                                                     <s:property value="#orders.total"/>
                                                 </td>
                                                 <td class="center" style="padding-bottom: 16px;padding-top: 16px;">
-                                                    <s:property value="#orders.orderStatus"/>
+                                                    <s:property value="#orders.orderStatusString"/>
                                                 </td>
                                                 <td class="center" style="padding-bottom: 16px;padding-top: 16px;">
                                                     <s:property value="#orders.instruction"/>
                                                 </td>
                                                 <td class="center">
                                                     <a data-toggle="modal" class="btn btn-info"
-                                                       style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;"
+                                                       style="margin-bottom: 0;margin-right: 5px;margin-left: 5px;"
                                                        href="#modal-form-detail-<s:property value="#orders.orderId"/>">订单详情</a>
 
 
                                                     <a onclick="bootbox.confirm({
                                                             title:'删除订单',
-                                                            message:'确定删除么？',
+                                                            message:'确定删除该订单么？',
                                                             callback: function(result){
                                                             if(result){
                                                             deleteOrder(<s:property value="#orders.orderId"/>);
                                                             } }
-                                                            })">
-                                                            <%--<i class="fa fa-trash fa-lg" aria-hidden="true"></i>--%>
-                                                        <button type="button" class="btn btn-danger"
-                                                                style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">
-                                                            删除订单
-                                                        </button>
-                                                    </a>
+                                                            })" style="margin-bottom: 0;margin-right: 5px;margin-left: 5px;" class="btn btn-primary <s:if test='#orders.orderStatus="canceled" ||
+                                                            #orders.orderStatus="unpaid"||#orders.orderStatus="completed"'> disabled </s:if>">
+                                                        删除订单</a>
 
-                                                    <s:url action="adminCancelOrder" namespace="/order"
+                                                    <s:url action="cancel" namespace="/admin-order"
                                                            var="adminCancelOrder">
                                                         <s:param name="orderId"><s:property
                                                                 value="#orders.orderId"/></s:param>
                                                     </s:url>
-                                                    <a href="${adminCancelOrder}">
-                                                        <button type="button" class="btn btn-warning"
-                                                                style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;">
-                                                            取消订单
-                                                        </button>
+                                                    <a href="${adminCancelOrder}" class="btn btn-warning <s:if test='
+                                                            #orders.orderStatus="unpaid"'> disabled</s:if>"
+                                                       style="margin-bottom: 0;margin-right: 5px;margin-left: 5px;">
+                                                        取消订单
                                                     </a>
 
                                                     <div id="modal-form-detail-<s:property value="#orders.orderId"/>"
@@ -512,6 +471,12 @@
 <script src="/admin/js/plugins/dataTables/dataTables.bootstrap.js"></script>
 <script src="/admin/js/plugins/dataTables/dataTables.responsive.js"></script>
 <script src="/admin/js/plugins/dataTables/dataTables.tableTools.min.js"></script>
+<script type="text/javascript" src="/js/plugin/bootbox/bootbox.min.js"></script>
+<%--通知--%>
+<script type="text/javascript" src="/js/plugin/toastr/toastr.min.js"></script>
+
+<script type="text/javascript" src="/js/notify.js"></script>
+
 
 <script>$(document).ready(function () {
     $('.dataTables-example').dataTable({

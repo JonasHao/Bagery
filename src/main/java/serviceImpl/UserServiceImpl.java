@@ -4,7 +4,9 @@ import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import constant.Config;
 import constant.Key;
+import po.FavoriteItem;
 import po.User;
+import po.UserPricedRecord;
 import service.UserService;
 import dao.Dao;
 
@@ -25,30 +27,33 @@ public class UserServiceImpl implements UserService {
             user = dao.get(User.class, 1);
             return user;
         }
-        int userId = (int) ActionContext.getContext().getSession().get(Key.USER);
-        user = dao.get(User.class, userId);
-        return user;
+        Integer userId = (Integer) ActionContext.getContext().getSession().get(Key.USER);
+        if (userId != null) {
+            return dao.get(User.class, userId);
+        }
+        return null;
     }
 
-    public boolean isLoggedIn(){
-        return (int)ActionContext.getContext().getSession().get(Key.USER)>0;
+    public boolean isLoggedIn() {
+        return (int) ActionContext.getContext().getSession().get(Key.USER) > 0;
     }
 
     @Override
     public User get(int userId) {
-        user = (User) dao.query("from User where userId=?").setParameter(0, userId).list().get(0);
+        user = dao.get(User.class, userId);
         return user;
     }
 
     @Override
-    public String login(String username, String password) {
+    public User login(String username, String password) {
         user = (User) dao.query("from User where username=?").setParameter(0, username).list().get(0);
 
         if (user.getPassword().equals(password)) {
             ActionContext.getContext().getSession().put(Key.USER, user.getUserId());
-            return user.getUserGroup();
+            return user;
         }
-        else return "input";
+
+        return null;
     }
 
     @Override
@@ -96,9 +101,8 @@ public class UserServiceImpl implements UserService {
 
     public String getMD5(byte[] source) {
         String s = null;
-        char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9','a', 'b', 'c', 'd', 'e', 'f' };
-        try
-        {
+        char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+        try {
             java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
             md.update(source);
             byte tmp[] = md.digest();
@@ -110,12 +114,16 @@ public class UserServiceImpl implements UserService {
                 str[k++] = hexDigits[byte0 & 0xf];
             }
             s = new String(str);
-        }
-        catch (NoSuchAlgorithmException e)
-        {
+        } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
         return s;
+    }
+
+    @Override
+    public void removeHistory(int historyId) {
+        UserPricedRecord record = dao.get(UserPricedRecord.class, historyId);
+        dao.delete(record);
     }
 
     @Override

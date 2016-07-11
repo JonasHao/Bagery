@@ -9,11 +9,11 @@
 
     <title>INSPINIA | Login</title>
 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="/admin/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/admin/font-awesome/css/font-awesome.css" rel="stylesheet">
 
-    <link href="css/animate.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <link href="/admin/css/animate.css" rel="stylesheet">
+    <link href="/admin/css/style.css" rel="stylesheet">
 
 </head>
 
@@ -29,7 +29,7 @@
         <h3>Welcome to Bagery</h3>
 
         <p>Login in.</p>
-        <form class="m-t" role="form" action="/user/login.action">
+        <form class="m-t" role="form" action="/user/login.action" method="post">
             <div class="form-group">
                 <s:textfield name="username" maxLength="12" minLength="5" errorPosition="none" class="form-control"
                              placeholder="Username" required="true"/>
@@ -50,8 +50,8 @@
 </div>
 
 <!-- Mainly scripts -->
-<script src="js/jquery-2.1.1.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<script src="/admin/js/jquery-2.1.1.js"></script>
+<script src="/admin/js/bootstrap.min.js"></script>
 
 </body>
 

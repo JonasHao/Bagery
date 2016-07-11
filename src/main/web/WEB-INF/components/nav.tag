@@ -1,4 +1,5 @@
 <%@ tag import="constant.Config" %>
+<%@ tag import="constant.Key" %>
 <%@tag description="Overall Page template" pageEncoding="UTF-8" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <!-- Collapse button-->
@@ -52,7 +53,7 @@
                         <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
                             <%
                                 if(Config.DEBUG){
-                                    session.setAttribute("user","Bagery");
+                                    session.setAttribute(Key.USER,1);
                                 }
                             %>
                             <s:if test="#session.user!=null">

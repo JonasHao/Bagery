@@ -2,6 +2,7 @@ package action;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import constant.UserGroup;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.dispatcher.DefaultActionSupport;
 import po.User;
@@ -22,7 +23,6 @@ public class UserAction extends DefaultActionSupport {
     private String confirmpassword;
     private String isadmin;
     private String usergroup;
-    private String msg;
 
 //    public String logout() {
 //        ActionContext.getContext().getSession().clear();
@@ -35,22 +35,24 @@ public class UserAction extends DefaultActionSupport {
             return INPUT;
         }
 
-        password=userService.getMD5(password.getBytes());
+        password = userService.getMD5(password.getBytes());
+        user = userService.login(username, password);
 
-        msg = userService.login(username, password);
-
-        user.getUserGroup();
-        if (msg.equals("input")) {
+        if (user == null) {
             addFieldError("password", "密码错误");
             return INPUT;
         }
-        else
-        {
-            if(msg.equals("product_admin") || msg.equals("order_admin")){
-                return "admin";
+
+        String group = user.getUserGroup();
+        if (group != null) {
+            switch (group) {
+                case UserGroup.ORDER_ADMIN:
+                case UserGroup.PRODUCT_ADMIN:
+                case UserGroup.ROOT:
+                    return "admin";
             }
-            return SUCCESS;
         }
+        return SUCCESS;
     }
 
     public String register() {
@@ -67,7 +69,7 @@ public class UserAction extends DefaultActionSupport {
             return INPUT;
         }
 
-        password=userService.getMD5(password.getBytes());
+        password = userService.getMD5(password.getBytes());
 
         user = new User();
         user.setUsername(username);
@@ -200,11 +202,4 @@ public class UserAction extends DefaultActionSupport {
         return user;
     }
 
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
 }

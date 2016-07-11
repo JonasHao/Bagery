@@ -1,14 +1,12 @@
-<%@ taglib prefix="s" uri="/struts-tags" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: Koche
-  Date: 2016/6/29
-  Time: 15:56
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+
+<%
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+    response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+    response.setHeader("Expires", "0"); // Proxies.
+%>
 <html>
 
 <head>
@@ -31,56 +29,8 @@
 
 <body>
 <div id="wrapper">
-    <nav class="navbar-default navbar-static-side" role="navigation">
-        <div class="sidebar-collapse">
-            <ul class="nav" id="side-menu">
-                <li class="nav-header">
-                    <div class="dropdown profile-element">
-                        <a href="index.html">
-                            <h1 class="logo-name" style="font-size:48px;">BAGERY</h1>
-                        </a>
+    <jsp:include page="/admin/admin_nav.jsp"/>
 
-                    </div>
-
-                    <div class="logo-element" style="font-size:15px;">BAGERY</div>
-                </li>
-                <li>
-                    <a>
-                        <i class="fa fa-diamond"></i>
-                        <span class="nav-label">商品管理</span>
-                        <span class="fa arrow"></span>
-                    </a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="add_product.html">发布商品</a></li>
-                        <li>
-                            <a href="product_list.html">商品列表</a></li>
-                    </ul>
-                </li>
-                <li class="active">
-                    <a>
-                        <i class="fa fa-files-o"></i>
-                        <span class="nav-label">订单管理</span>
-                        <span class="fa arrow"></span>
-                    </a>
-                    <ul class="nav nav-second-level">
-                        <li class="active">
-                            <s:url action="adminQueryOrder1" namespace="/order" var="adminQueryOrder1">
-                                <s:param name="orderId"><s:property value="orderId"/></s:param>
-                            </s:url>
-                            <a href="${adminQueryOrder1}">发货 </a>
-                        </li>
-                        <li>
-                            <s:url action="adminQueryOrder2" namespace="/order" var="adminQueryOrder2">
-                                <s:param name="orderId"><s:property value="orderId"/></s:param>
-                            </s:url>
-                            <a href="${adminQueryOrder2}">订单列表</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </nav>
     <div id="page-wrapper" class="gray-bg dashbard-1">
         <div class="row border-bottom">
             <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
@@ -108,7 +58,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="login.html">
+                        <a href="/admin/login.jsp">
                             <i class="fa fa-sign-out"></i>退出</a>
                     </li>
                 </ul>
@@ -120,7 +70,7 @@
                 <h2>发货</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="index.html">首页</a>
+                        <a href="html/index.html">首页</a>
                     </li>
                     <li>
                         <a>订单管理</a>
@@ -224,7 +174,7 @@
 
 
                                                                                 <form role="form"
-                                                                                      action="/order/sendPackage.action">
+                                                                                      action="/admin-order/sendPackage.action">
 
                                                                                     <input style="display: none"
                                                                                            name="orderId"
@@ -232,7 +182,7 @@
 
                                                                                     <div class="form-group">
                                                                                         <label>物流公司</label> <input
-                                                                                            type="text" placeholder="顺丰"
+                                                                                            type="text" placeholder="请输入物流公司"
                                                                                             class="form-control"
                                                                                             name="logisticsCompany"
                                                                                             value="${logisticsCompany}"/>
@@ -240,7 +190,7 @@
                                                                                     <div class="form-group">
                                                                                         <label>物流单号</label> <input
                                                                                             type="text"
-                                                                                            placeholder="1648679434651"
+                                                                                            placeholder="请输入物流单号"
                                                                                             class="form-control"
                                                                                             name="logisticsNum"
                                                                                             value="${logisticsNum}"/>

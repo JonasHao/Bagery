@@ -1,6 +1,7 @@
 package action;
 
 import com.opensymphony.xwork2.ActionContext;
+import constant.Config;
 import constant.Key;
 import org.apache.struts2.dispatcher.DefaultActionSupport;
 import org.hibernate.HibernateException;
@@ -11,6 +12,8 @@ import service.UserService;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static constant.Key.RESULT;
 
 /**
  * Created by zhang on 2016/6/23.
@@ -41,182 +44,207 @@ public class UserInfoAction extends DefaultActionSupport {
     private String confirmNewPassword;//重新输入新密码
 
     private List<UserPricedRecord> historyList;
+    private int historyId;
 
-    private Map<String,Object> data= new HashMap<>();
+    private Map<String, Object> data = new HashMap<>();
 
-    public String home(){
+    public String home() {
         try {
             user = userService.getCurrentUser();
             score = user.getScore();
-            username=user.getUsername();
-            userGroup=user.getUserGroup();
-            if(userGroup.equals("r")){
-                group=1;
+            username = user.getUsername();
+            userGroup = user.getUserGroup();
+            img = user.getImg();
+            if (userGroup.equals("r")) {
+                group = 1;
             }
-            if(userGroup.equals("cu")){
-                group=2;
+            if (userGroup.equals("cu")) {
+                group = 2;
             }
-            if(userGroup.equals("ag")){
-                group=3;
+            if (userGroup.equals("ag")) {
+                group = 3;
             }
             return SUCCESS;
-        }catch (HibernateException e){
+        } catch (HibernateException e) {
             e.printStackTrace();
             return ERROR;
         }
     }
 
     public String history() throws Exception {
-        try{
+        try {
             user = userService.getCurrentUser();
             historyList = user.getHistoryRecords();
             return SUCCESS;
-        }catch (Exception e){
+        } catch (Exception e) {
             return ERROR;
         }
     }
 
-    public String viewInfo(){
-        user=userService.getCurrentUser();
-        username=user.getUsername();
-        email=user.getEmail();
-        realname=user.getRealName();
-        isActivate=user.getIsActivate();
+    public String removeHistory() throws Exception {
+        try {
+            user = userService.getCurrentUser();
+            userService.removeHistory(historyId);
+            data.put(RESULT, SUCCESS);
+        } catch (HibernateException e) {
+            if (Config.DEBUG) {
+                data.put(RESULT, SUCCESS);
+            } else {
+                data.put(RESULT, ERROR);
+            }
+        }
+        return SUCCESS;
+    }
+
+    public String viewInfo() {
+        user = userService.getCurrentUser();
+        username = user.getUsername();
+        email = user.getEmail();
+        realname = user.getRealName();
+        img = user.getImg();
+        isActivate = user.getIsActivate();
         return SUCCESS;
     }
 
     public String update() {
-        user=userService.getCurrentUser();
+        user = userService.getCurrentUser();
         user.setRealName(realname);
         userService.update(user);
         return SUCCESS;
     }
 
-    public String openReset(){
+    public String openReset() {
         return SUCCESS;
     }
 
-    public String resetPassword(){
-        user=userService.getCurrentUser();
-        confirmPassword=userService.getMD5(confirmPassword.getBytes());
-        if(!confirmPassword.equals(user.getPassword())){
-            addFieldError("confirmPassword","旧密码不正确");
+    public String resetPassword() {
+        user = userService.getCurrentUser();
+        confirmPassword = userService.getMD5(confirmPassword.getBytes());
+        if (!confirmPassword.equals(user.getPassword())) {
+            addFieldError("confirmPassword", "旧密码不正确");
             return INPUT;
         }
-        if(!newPassword.equals(confirmNewPassword)){
-            addFieldError("newPassword","验证密码不正确");
+        if (!newPassword.equals(confirmNewPassword)) {
+            addFieldError("newPassword", "验证密码不正确");
             return INPUT;
         }
 
-        newPassword=userService.getMD5(newPassword.getBytes());
+        newPassword = userService.getMD5(newPassword.getBytes());
         user.setPassword(newPassword);
         userService.update(user);
         return SUCCESS;
     }
 
-    public String openFind(){
+    public String openFind() {
         return SUCCESS;
     }
 
-    public String sendConfirmCode(){
-        user=userService.getUserByEmail(email);
-
-        if(user==null) {
-            addFieldError("email","不存在的邮箱");
-            data.put(Key.RESULT,INPUT);
-            data.put(Key.ERROR_FIELDS,getFieldErrors());
-            return SUCCESS;
-        }
-
-        if(user.getIsActivate()==0) {
-            addFieldError("email","未验证的邮箱不可找回密码");
-            data.put(Key.RESULT,INPUT);
-            data.put(Key.ERROR_FIELDS,getFieldErrors());
-            return SUCCESS;
-        }
-
-
-        code=(int)(Math.random()*9000)+1000;
-        ActionContext.getContext().getSession().put("Code",code);
-        ActionContext.getContext().getSession().put("Email",email);
-
-        data.put(Key.RESULT,SUCCESS);
-        //发送邮件
-        return SUCCESS;
-    }
-
-    public String confirmEmail(){
-        if(Integer.parseInt(confirmCode)!=(int)ActionContext.getContext().getSession().get("Code")) {
-            addFieldError("confirmCode","验证码错误");
-            return INPUT;
-        }
-
-        if(!newPassword.equals(confirmNewPassword)){
-            addFieldError("confirmNewPassword","确认密码错误");
-            return INPUT;
-        }
-
-        user=userService.getCurrentUser();
-
-        newPassword=userService.getMD5(newPassword.getBytes());
-
-        user.setPassword(newPassword);
-
-        userService.update(user);
-
-        email=(String)ActionContext.getContext().getSession().get("Email");
-
-        ActionContext.getContext().getSession().remove("Code");
-        ActionContext.getContext().getSession().remove("Email");
-
-        ActionContext.getContext().getSession().put(Key.USER,user.getUserId());
-        return SUCCESS;
-    }
-
-    public String sendConfirm(){
-        user=userService.getCurrentUser();
-        code=(int)(Math.random()*9000)+1000;
-        ActionContext.getContext().getSession().put("Code",code);
-        //发送邮件
-        return SUCCESS;
-    }
-
-    public String openConfirm(){
-        return SUCCESS;
-    }
-
-
-    public String confirmCode(){
-        if(Integer.parseInt(confirmCode)!=(int)ActionContext.getContext().getSession().get("Code")) {
-            addFieldError("confirmCode","验证码不正确");
-            return INPUT;
-        }
-        user=userService.getCurrentUser();
-        user.setIsActivate((byte)1);
-
-        userService.update(user);
-        user=userService.getCurrentUser();
-        ActionContext.getContext().getSession().remove("Code");
-        return SUCCESS;
-    }
-
-    public void validateResetPassword(){
-        if (!newPassword.matches("^(\\w){5,20}$")) {
-            addFieldError("newPassword", "密码只能包含字母数字或下划线");
-            return;
-        }
-    }
-
-    public void validateSendConfirmCode(){
+    public String sendConfirmCode() {
         if (!email.matches("^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$")) {
-            addFieldError("email", "邮箱格式不正确");
+            data.put(Key.RESULT, INPUT);
+            data.put(Key.ERROR_MESSAGE, "邮箱格式不正确");
+            return SUCCESS;
         }
+
+        user = userService.getUserByEmail(email);
+
+        if (user == null) {
+            data.put(Key.RESULT, INPUT);
+            data.put(Key.ERROR_MESSAGE, "不存在的邮箱");
+            return SUCCESS;
+        }
+
+        if (user.getIsActivate() == 0) {
+            data.put(Key.RESULT, INPUT);
+            data.put(Key.ERROR_MESSAGE, "未验证的邮箱");
+            return SUCCESS;
+        }
+
+        code = (int) (Math.random() * 90000) + 10000;
+
+        user.setPassword(userService.getMD5(Integer.toString(code).getBytes()));
+        userService.update(user);
+
+        data.put(Key.RESULT, SUCCESS);
+        data.put("code", code);
+        //发送邮件
+        return SUCCESS;
     }
 
-    public void validateConfirmEmail(){
+    public String confirmEmail() {
+        try {
+            user = userService.getUserByEmail(email);
+            if (user == null) {
+                data.put(Key.RESULT, INPUT);
+                data.put(Key.ERROR_MESSAGE, "该邮箱不存在");
+                return SUCCESS;
+            }
+
+            password = user.getPassword();
+            confirmCode = userService.getMD5(confirmCode.getBytes());
+
+            if (!confirmCode.equals(password)) {
+                data.put(Key.RESULT, INPUT);
+                data.put(Key.ERROR_MESSAGE, "验证码错误");
+                return SUCCESS;
+            }
+
+
+            newPassword = userService.getMD5(newPassword.getBytes());
+            user.setPassword(newPassword);
+            userService.update(user);
+
+            data.put(RESULT, SUCCESS);
+            ActionContext.getContext().getSession().put(Key.USER, user.getUserId());
+            return SUCCESS;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            data.put(RESULT, ERROR);
+        }
+        return SUCCESS;
+    }
+
+    public String sendConfirm() {
+        user = userService.getCurrentUser();
+        code = (int) (Math.random() * 9000) + 1000;
+        ActionContext.getContext().getSession().put("Code", code);
+        //发送邮件
+        return SUCCESS;
+    }
+
+    public String openConfirm() {
+        return SUCCESS;
+    }
+
+
+    public String confirmCode() {
+        if (Integer.parseInt(confirmCode) != (int) ActionContext.getContext().getSession().get("Code")) {
+            addFieldError("confirmCode", "验证码不正确");
+            return INPUT;
+        }
+        user = userService.getCurrentUser();
+        user.setIsActivate((byte) 1);
+
+        userService.update(user);
+        user = userService.getCurrentUser();
+        ActionContext.getContext().getSession().remove("Code");
+        return SUCCESS;
+    }
+
+    public void validateResetPassword() {
         if (!newPassword.matches("^(\\w){5,20}$")) {
             addFieldError("newPassword", "密码只能包含字母数字或下划线");
-            return;
+        }
+    }
+//
+//    public void validateSendConfirmCode() {
+//
+//    }
+
+    public void validateConfirmEmail() {
+        if (!newPassword.matches("^(\\w){5,20}$")) {
+            addFieldError("newPassword", "密码只能包含字母数字或下划线");
         }
     }
 
@@ -371,6 +399,7 @@ public class UserInfoAction extends DefaultActionSupport {
     public void setGroup(int group) {
         this.group = group;
     }
+
     public List<UserPricedRecord> getHistoryList() {
         return historyList;
     }
@@ -385,5 +414,13 @@ public class UserInfoAction extends DefaultActionSupport {
 
     public void setData(Map<String, Object> data) {
         this.data = data;
+    }
+
+    public int getHistoryId() {
+        return historyId;
+    }
+
+    public void setHistoryId(int historyId) {
+        this.historyId = historyId;
     }
 }
