@@ -15,6 +15,9 @@ public class ProductServiceImpl implements ProductService {
     /**
      * 保存一个商品对象
      */
+    public Product findProduct(int productId){
+        return dao.get(Product.class,productId);
+    }
     public int addPriced(Priced priced) {
         return (int) dao.save(priced);
     }

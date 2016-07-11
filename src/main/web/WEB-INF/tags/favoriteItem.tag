@@ -44,20 +44,29 @@
         function selectAction(pricedId) {
             if (event.target.nodeName == "I") {
                 todelete = event.target.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
-                $.ajax(
-                        {
-                            url: "/favorite/unfavor",
-                            dataType: "json",   //返回格式为json
-                            type: 'post',
-                            data: {priceId: pricedId},
-                            success: function (data) {
-                                if (data.result == "success") {
-                                    todelete.remove();
-                                } else {
-                                    alert("删除收藏失败！");
-                                }
-                            }
-                        })
+                bootbox.confirm({
+                    title:'删除包包',
+                    message:'确认要删除该宝贝吗？',
+                    callback: function(result){
+                        if(result){
+                            $.ajax(
+                                    {
+                                        url: "/favorite/unfavor",
+                                        dataType: "json",   //返回格式为json
+                                        type: 'post',
+                                        data: {priceId: pricedId},
+                                        success: function (data) {
+                                            if (data.result == "success") {
+                                                todelete.remove();
+                                                notify("成功删除该宝贝");
+                                            } else {
+                                                warning("删除失败！");
+                                            }
+                                        }
+                                    })
+                        } }
+                })
+
             } else {
                 window.open("/product/viewProduct.action?pricedId=" + pricedId);
             }

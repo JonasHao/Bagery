@@ -115,10 +115,13 @@
             myself.isDisabled = true;
             myself.parentNode.childNodes[9].innerHTML = "最多只能购买" + stock + "件";
         }
-        else if (input.value == 1)
-            input.previousSibling.previousSibling.isDisabled = "false";
-        input.value++;
-        console.log("input text:" + input.value);
+        else {
+            if (input.value == 1)
+                input.previousSibling.previousSibling.isDisabled = "false";
+            input.value++;
+            console.log("input text:" + input.value);
+        }
+
         minmax(input.value, 1, stock, price, id);
         updateCart(id, input.value);
 
@@ -129,9 +132,11 @@
         var input = myself.nextSibling.nextSibling;
         if (input.value <= 1)
             myself.isDisabled = true;
-        else if (input.value >= stock) {
-            input.nextSibling.nextSibling.isDisabled = "false";
-            myself.parentNode.childNodes[9].innerHTML = "";
+        else {
+            if (input.value >= stock) {
+                input.nextSibling.nextSibling.isDisabled = "false";
+                myself.parentNode.childNodes[9].innerHTML = "";
+            }
             input.value--;
             console.log("input text:" + input.value);
             minmax(input.value, 1, stock, price, id);

@@ -55,6 +55,8 @@ public class CartAction extends ActionSupport {
             cartItem.setProductId(productId);
             cartItem.setUserId(user.getUserId());
             cartItem.setNum(1);
+            Product product=productService.findProduct(productId);
+            cartItem.setSubtotal(product.getPriced().getSalePrice());
             cartService.addCart(cartItem);
             data.put(RESULT, SUCCESS);
         } catch (HibernateException e) {
