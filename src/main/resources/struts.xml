@@ -208,11 +208,10 @@
         <action name="confirmEmail" class="action.UserInfoAction" method="confirmEmail">
             <interceptor-ref name="defaultStack"/>
 
-            <result name="success" type="redirectAction">
-                <param name="actionName">index</param>
-                <param name="message">找回密码成功！</param>
+            <result name="success" type="json">
+                <param name="root">data</param>
             </result>
-            <result name="input">/FindPassword.jsp</result>
+
         </action>
 
         <action name="sendConfirm" class="action.UserInfoAction" method="sendConfirm">

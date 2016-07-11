@@ -141,8 +141,8 @@ public class UserInfoAction extends DefaultActionSupport {
 
     public String sendConfirmCode() {
         if (!email.matches("^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$")) {
-            data.put(Key.RESULT,INPUT);
-            data.put(Key.ERROR_MESSAGE,"邮箱格式不正确");
+            data.put(Key.RESULT, INPUT);
+            data.put(Key.ERROR_MESSAGE, "邮箱格式不正确");
             return SUCCESS;
         }
 
@@ -156,7 +156,7 @@ public class UserInfoAction extends DefaultActionSupport {
 
         if (user.getIsActivate() == 0) {
             data.put(Key.RESULT, INPUT);
-            data.put(Key.ERROR_MESSAGE,"未验证的邮箱");
+            data.put(Key.ERROR_MESSAGE, "未验证的邮箱");
             return SUCCESS;
         }
 
@@ -175,35 +175,34 @@ public class UserInfoAction extends DefaultActionSupport {
         try {
             user = userService.getUserByEmail(email);
             if (user == null) {
-                addFieldError("email", "不存在的邮箱");
-                return INPUT;
+                data.put(Key.RESULT, INPUT);
+                data.put(Key.ERROR_MESSAGE, "该邮箱不存在");
+                return SUCCESS;
             }
 
             password = user.getPassword();
             confirmCode = userService.getMD5(confirmCode.getBytes());
 
             if (!confirmCode.equals(password)) {
-                addFieldError("confirmCode", "验证码错误");
-                return INPUT;
+                data.put(Key.RESULT, INPUT);
+                data.put(Key.ERROR_MESSAGE, "验证码错误");
+                return SUCCESS;
             }
 
-            if (!newPassword.equals(confirmNewPassword)) {
-                addFieldError("confirmNewPassword", "确认密码错误");
-                return INPUT;
-            }
 
             newPassword = userService.getMD5(newPassword.getBytes());
             user.setPassword(newPassword);
             userService.update(user);
 
+            data.put(RESULT, SUCCESS);
             ActionContext.getContext().getSession().put(Key.USER, user.getUserId());
             return SUCCESS;
 
-
         } catch (Exception e) {
             e.printStackTrace();
+            data.put(RESULT, ERROR);
         }
-        return ERROR;
+        return SUCCESS;
     }
 
     public String sendConfirm() {

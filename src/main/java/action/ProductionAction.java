@@ -279,6 +279,7 @@ public class ProductionAction extends DefaultActionSupport {
             }
 
             String category = productService.getProByProID(pro_id);
+
             if (category != null) {
                 switch (category) {
                     case "品牌":

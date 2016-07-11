@@ -1,6 +1,7 @@
 package service;
 
 
+import org.hibernate.HibernateException;
 import po.CartItem;
 
 public interface CartService {
@@ -17,6 +18,9 @@ public interface CartService {
     /**
      * 删除购物车中的一项
      */
-    void deleteCart(int userId,int itemId);
+    void deleteCart(int userId,int itemId) throws HibernateException;
+
+    void delete(CartItem item);
+
     CartItem getCartItem(int itemId);
 }

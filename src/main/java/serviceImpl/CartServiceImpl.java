@@ -1,6 +1,7 @@
 package serviceImpl;
 
 import dao.Dao;
+import org.hibernate.HibernateException;
 import po.CartItem;
 import service.CartService;
 
@@ -28,6 +29,11 @@ public class CartServiceImpl implements CartService {
         }
         if(cartItem.getUserId()==userId)
             dao.delete(cartItem);
+    }
+
+    @Override
+    public void delete(CartItem item) throws HibernateException{
+        dao.delete(item);
     }
 
     @Override

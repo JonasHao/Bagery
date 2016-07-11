@@ -94,19 +94,22 @@ public class OrderAction extends DefaultActionSupport {
             orderService.addOrder(order, cartItemIdList);
 
             Double newScore = order.getTotal();
-            if (newScore == null) {
-                for (Integer id : cartItemIdList) {
-                    CartItem item = cartService.getCartItem(id);
-                    if (item != null) {
-                        newScore += item.getSubtotal();
-                    }
+
+            for (Integer id : cartItemIdList) {
+                CartItem item = cartService.getCartItem(id);
+                if (item != null) {
+                    newScore += item.getSubtotal();
                 }
+                cartService.delete(item);
             }
+
             if (newScore != null) {
                 int score = (int) (user.getScore() + newScore);
                 user.setScore(score);
                 userService.update(user);
             }
+
+
             return SUCCESS;
         } catch (HibernateException | NullPointerException e) {
             e.printStackTrace();
