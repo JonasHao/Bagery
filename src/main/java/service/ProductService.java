@@ -25,7 +25,7 @@ public interface ProductService {
 
      void updatePricedPro(PricedPro pricedPro);
     /**
-     * 通过productID查找商品对象
+     * 通过pricedID查找商品对象
      */
      Priced findPriced(int pricedID);
     /**
