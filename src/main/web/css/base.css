@@ -220,3 +220,7 @@ a {
 .reset-block {
     display:none;
 }
+
+.address-item {
+    width: 40%;
+}

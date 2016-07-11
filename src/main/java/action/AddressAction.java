@@ -1,6 +1,7 @@
 package action;
 
 import com.opensymphony.xwork2.ActionSupport;
+import constant.Key;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import po.Address;
@@ -8,7 +9,9 @@ import po.User;
 import service.AddressService;
 import service.UserService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by zhang on 2016/6/27.
@@ -29,6 +32,7 @@ public class AddressAction extends ActionSupport {
     private String addressDetail;
     private Integer defaultAddressId;
     private int add;
+    private Map<String,Object> data = new HashMap<>();
 
     public String viewAddress() {
         try {
@@ -109,12 +113,14 @@ public class AddressAction extends ActionSupport {
             user = userService.getCurrentUser();
             user.setDefaultAddressId(defaultAddressId);
             userService.update(user);
-            return SUCCESS;
+            data.put(Key.RESULT,SUCCESS);
         }
         catch (HibernateException e){
             e.printStackTrace();
-            return ERROR;
+            data.put(Key.RESULT,ERROR);
         }
+        return SUCCESS;
+
     }
 
     public UserService getUserService() {
@@ -243,5 +249,13 @@ public class AddressAction extends ActionSupport {
 
     public void setAdd(int add) {
         this.add = add;
+    }
+
+    public Map<String, Object> getData() {
+        return data;
+    }
+
+    public void setData(Map<String, Object> data) {
+        this.data = data;
     }
 }

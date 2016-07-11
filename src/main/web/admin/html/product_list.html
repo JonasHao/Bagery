@@ -234,11 +234,44 @@
     <!-- Toastr -->
     <script src="../js/plugins/toastr/toastr.min.js"></script>
     <!-- Data Tables -->
+<<<<<<< HEAD:src/main/web/admin/product_list.html
+    <script src="js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script src="js/plugins/dataTables/dataTables.responsive.js"></script>
+    <script src="js/plugins/dataTables/dataTables.tableTools.min.js"></script>
+    <script>
+
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = location.search.substr(1).match(reg);
+            if (r != null) return unescape(decodeURI(r[2])); return null;
+        }
+
+        function noCache(){
+            
+            // console.log(window.location.href);
+            // console.log(self.location.href);
+            // console.log(document.URL);
+            console.log(document.location.pathname);
+  
+            console.log(getQueryString("vincent"));
+            if (getQueryString("vincent")){
+
+            }else{
+                var s=Math.random();          
+                window.location.href=document.location.pathname+"?vincent="+s;
+            }
+        }
+
+    $(document).ready(function() {
+        noCache();
+=======
     <script src="../js/plugins/dataTables/jquery.dataTables.js"></script>
     <script src="../js/plugins/dataTables/dataTables.bootstrap.js"></script>
     <script src="../js/plugins/dataTables/dataTables.responsive.js"></script>
     <script src="../js/plugins/dataTables/dataTables.tableTools.min.js"></script>
     <script>$(document).ready(function() {
+>>>>>>> ec6ab580eb129561b4a91af0c1de5c6c4ef62e94:src/main/web/admin/html/product_list.html
 
         $('.dataTables-example').dataTable({
             responsive: true,

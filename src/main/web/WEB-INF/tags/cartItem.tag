@@ -46,13 +46,19 @@
                 </div>
 
                 <div class="col-md-2 quantity-control">
-                    <button type="button" onclick="minus(<jsp:invoke fragment="stock"/>,<jsp:invoke fragment="salePrice"/>,<jsp:invoke fragment="itemId"/>)">-</button>
+                    <button type="button"
+                            onclick="minus(<jsp:invoke fragment="stock"/>,<jsp:invoke fragment="salePrice"/>,<jsp:invoke
+                                    fragment="itemId"/>)">-
+                    </button>
                     <input type="text" min="1" max="<jsp:invoke fragment="stock"/>"
                            onkeyup="this.value=minmax(this.value,1,<jsp:invoke fragment="stock"/>,
                            <jsp:invoke fragment="salePrice"/> ,<jsp:invoke fragment="itemId"/>)"
                            onblur="updateCart( <jsp:invoke fragment="itemId"/>,this.value)"
                            value="<jsp:invoke fragment="number"/>">
-                    <button type="button" onclick="add(<jsp:invoke fragment="stock"/>,<jsp:invoke fragment="salePrice"/>,<jsp:invoke fragment="itemId"/>)">+</button>
+                    <button type="button"
+                            onclick="add(<jsp:invoke fragment="stock"/>,<jsp:invoke fragment="salePrice"/>,<jsp:invoke
+                                    fragment="itemId"/>)">+
+                    </button>
                     <br/>
                     <span style="color:red"></span>
                 </div>
@@ -104,39 +110,38 @@
     function add(stock, price, id) {
         console.log(event.target.parentNode.childNodes);
         var myself = event.target;
-        var inputtext = myself.previousSibling.previousSibling;
-        if (inputtext.value >= stock) {
+        var input = myself.previousSibling.previousSibling;
+        if (input.value >= stock) {
             myself.isDisabled = true;
             myself.parentNode.childNodes[9].innerHTML = "最多只能购买" + stock + "件";
         }
-        else {
-            if (inputtext.value == 1)
-                inputtext.previousSibling.previousSibling.isDisabled = "false";
-            inputtext.value++;
-            console.log("input text:" + inputtext.value);
-            minmax(inputtext.value, 1, stock, price, id);
-        }
+        else if (input.value == 1)
+            input.previousSibling.previousSibling.isDisabled = "false";
+        input.value++;
+        console.log("input text:" + input.value);
+        minmax(input.value, 1, stock, price, id);
+        updateCart(id, input.value);
 
     }
+
     function minus(stock, price, id) {
         var myself = event.target;
-        var inputtext = myself.nextSibling.nextSibling;
-        if (inputtext.value <= 1)
+        var input = myself.nextSibling.nextSibling;
+        if (input.value <= 1)
             myself.isDisabled = true;
-        else {
-            if (inputtext.value >= stock) {
-                inputtext.nextSibling.nextSibling.isDisabled = "false";
-                myself.parentNode.childNodes[9].innerHTML = "";
-            }
-            inputtext.value--;
-            console.log("input text:" + inputtext.value);
-            minmax(inputtext.value, 1, stock, price, id);
+        else if (input.value >= stock) {
+            input.nextSibling.nextSibling.isDisabled = "false";
+            myself.parentNode.childNodes[9].innerHTML = "";
+            input.value--;
+            console.log("input text:" + input.value);
+            minmax(input.value, 1, stock, price, id);
+            updateCart(id, input.value);
         }
     }
     function minmax(value, min, max, price, id) {
         console.log("value=" + value + " min=" + min + " max=" + max + " price=" + price);
         var myself = event.target;
-        var total = $("#total-"+id);
+        var total = $("#total-" + id);
 
         value = parseInt(value);
         min = parseInt(min);

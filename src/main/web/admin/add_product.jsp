@@ -107,6 +107,7 @@
                                     </div>
                                 </div>
                                 <div class="ibox-content">
+                                    
 
 
                                     <s:fielderror/>
@@ -121,13 +122,57 @@
                                             </s:textfield></div>
                                         </div>
 
-                                        <div class="form-group">
+                                        <div class="form-group"><label class="col-sm-2 control-label">商品图片</label>
+                                                <div class="col-sm-10">
+                                                    <img id="added_img" src=""  style="width: 200px;height: 200px; display: none;" />
 
-                                            <label class="col-sm-2 control-label">商品图片</label>
-                                            <div class="col-sm-10"><s:textfield name="img"
-                                                                                cssClass="form-control">
-                                            </s:textfield></div>
-                                        </div>
+                                                    <a id = "add_img_btn" onclick="initCropper()" data-toggle="modal" class="btn btn-info" style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;" href="#modal-upload-img">添加</a>
+
+                                                    <div id="modal-upload-img" class="modal fade" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-body">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-12">
+                                                                            <div class="image-crop">
+                                                                                <img src="./img/p_big1.jpg" class="cropper-hidden">
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-12">
+                                                                            <center>
+                                                                                <h4>预览</h4>
+                                                                                <div class="img-preview img-preview-sm" style="width: 300px; height: 300px;">
+                                                                                    <img src="./img/p_big1.jpg" style="min-width: 0px !important; min-height: 0px !important; max-width: none !important; max-height: none !important; width: 200px; height: 200px; margin-left: -25px; margin-top: -22px;">
+                                                                                </div>
+                                                                                <p></p>
+
+
+                                                                                <div id="qiniu_container"class="btn-group">
+                                                                                    <label title="Upload image file" for="inputImage" class="btn btn-primary">
+                                                                                    <input type="file" accept="image/*"
+                                                                                           name="file" id="inputImage"
+                                                                                           class="hide">
+                                                                                    浏览
+                                                                                    </label>
+                                                                                    <label title="Download image" id="pickfile" class="btn btn-primary">七牛浏览</label>
+                                                                                    <label title="Download image" id="up_load" class="btn btn-primary">七牛上传</label>
+                                                                                </div>
+                                                                            </center>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                       
+                                            
+                                     
 
 
                                         <div class="form-group"><label class="col-sm-2 control-label">商品描述</label>
@@ -304,13 +349,205 @@
 <script src="js/plugins/chartJs/Chart.min.js"></script>
 <!-- Toastr -->
 <script src="js/plugins/toastr/toastr.min.js"></script>
+
+<!-- Image cropper -->
+<script src="js/plugins/cropper/cropper.min.js"></script>
+
+<!-- QiniuUploader -->
+<script src="js/imgupload/qiniu.js"></script>
+<script src="js/imgupload/plupload.full.min.js"></script>
+<!-- Crypto-js -->
+<script type="text/javascript" src="js/crypto-js/crypto-js.js"></script>
+<script type="text/javascript" src="js/crypto-js/hmac-sha1.js"></script>
 <script>
-    $(document).ready(function () {
-        $('.i-checks').iCheck({
-            checkboxClass: 'icheckbox_square-green',
-            radioClass: 'iradio_square-green'
+    var croppeddata;
+        var qiniu_config = {
+        AK: "hRa8KzY6vcwOjKFZ0cNs_zAZNlcnhAWrJtmAmVhC",
+        SK: "EeCydvwVtfPtvg_SHTR5Z7HYuPFHY5aetfOCNWjR",
+        domain: "http://o9s6sj90d.bkt.clouddn.com",
+        bucketName: "bagery"
+    };
+    function getUploadToken(putPolicyConfig) {
+        var putPolicy = JSON.stringify(putPolicyConfig);
+        var encodedPutPolicy = window.btoa(putPolicy);
+        var hash = CryptoJS.HmacSHA1(encodedPutPolicy, qiniu_config.SK);
+        var encodedSign = hash.toString(CryptoJS.enc.Base64);
+        var uploadToken = qiniu_config.AK + ':' + encodedSign + ':' + encodedPutPolicy;
+        return uploadToken;
+    }
+    function initCropper(){
+          var $image = $(".image-crop > img")
+
+        $($image).cropper({
+            aspectRatio: 1,
+            preview: ".img-preview",
+            done: function (data) {
+                croppeddata = data;
+                // Output the result data for cropping image.
+            }
         });
+
+        var $inputImage = $("#inputImage");
+
+        if (window.FileReader) {
+            $inputImage.change(function () {
+                var fileReader = new FileReader(),
+                        files = this.files,
+                        file;
+
+                if (!files.length) {
+                    return;
+                }
+
+                file = files[0];
+
+                if (/^image\/\w+$/.test(file.type)) {
+                    fileReader.readAsDataURL(file);
+                    fileReader.onload = function () {
+                        $inputImage.val("");
+                        $image.cropper("reset", true).cropper("replace", this.result);
+                    };
+                } else {
+                    showMessage("Please choose an image file.");
+                }
+            });
+        } else {
+            $inputImage.addClass("hide");
+        }
+
+    }
+    $(document).ready(function () {
+
+
+      
+
+
+//七牛上传图片
+
+        var deadline = (Date.parse(new Date()) / 1000) + 3600;
+        console.log(deadline);
+        var putPolicyConfig = {
+            scope: qiniu_config.bucketName,
+            deadline: deadline,
+        };
+        myUploadToken = getUploadToken(putPolicyConfig);
+        console.log(myUploadToken);
+
+
+        var uploader = Qiniu.uploader({
+            runtimes: 'html5,flash,html4',      // 上传模式，依次退化
+            browse_button: 'pickfile',         // 上传选择的点选按钮，必需
+            // 在初始化时，uptoken，uptoken_url，uptoken_func三个参数中必须有一个被设置
+            // 切如果提供了多个，其优先级为uptoken > uptoken_url > uptoken_func
+            // 其中uptoken是直接提供上传凭证，uptoken_url是提供了获取上传凭证的地址，如果需要定制获取uptoken的过程则可以设置uptoken_func
+            uptoken: myUploadToken, // uptoken是上传凭证，由其他程序生成
+            // uptoken_url: '/uptoken',         // Ajax请求uptoken的Url，强烈建议设置（服务端提供）
+            // uptoken_func: function(file){    // 在需要获取uptoken时，该方法会被调用
+            //    // do something
+            //    return uptoken;
+            // },
+            get_new_uptoken: false,             // 设置上传文件的时候是否每次都重新获取新的uptoken
+            // downtoken_url: '/downtoken',
+            // Ajax请求downToken的Url，私有空间时使用，JS-SDK将向该地址POST文件的key和domain，服务端返回的JSON必须包含url字段，url值为该文件的下载地址
+            unique_names: true,              // 默认false，key为文件名。若开启该选项，JS-SDK会为每个文件自动生成key（文件名）
+            // save_key: true,                  // 默认false。若在服务端生成uptoken的上传策略中指定了sava_key，则开启，SDK在前端将不对key进行任何处理
+            domain: qiniu_config.domain,     // bucket域名，下载资源时用到，必需
+            container: 'qiniu_container',             // 上传区域DOM ID，默认是browser_button的父元素
+            max_file_size: '100mb',             // 最大文件体积限制
+            flash_swf_url: 'js/imgupload/Moxie.swf',  //引入flash，相对路径
+            max_retries: 3,                     // 上传失败最大重试次数
+            dragdrop: true,                     // 开启可拖曳上传
+            drop_element: 'qiniu_container',          // 拖曳上传区域元素的ID，拖曳文件或文件夹后可触发上传
+            chunk_size: '4mb',                  // 分块上传时，每块的体积
+            auto_start: false,                   // 选择文件后自动上传，若关闭需要自己绑定事件触发上传
+            //x_vars : {
+            //    查看自定义变量
+            //    'time' : function(up,file) {
+            //        var time = (new Date()).getTime();
+            // do something with 'time'
+            //        return time;
+            //    },
+            //    'size' : function(up,file) {
+            //        var size = file.size;
+            // do something with 'size'
+            //        return size;
+            //    }
+            //},
+            init: {
+                'FilesAdded': function (up, files) {
+                    console.log(up);
+                    console.log(files);
+                    plupload.each(files, function (file) {
+                        // 文件添加进队列后，处理相关的事情
+                    });
+                },
+                'BeforeUpload': function (up, file) {
+                    // 每个文件上传前，处理相关的事情
+                },
+                'UploadProgress': function (up, file) {
+
+                    alert("正在上传，请稍后");
+                    // 每个文件上传时，处理相关的事情
+                },
+                'FileUploaded': function (up, file, info) {
+
+                    // 每个文件上传成功后，处理相关的事情
+                    // 其中info是文件上传成功后，服务端返回的json，形式如：
+                    // {
+                    //    "hash": "Fh8xVqod2MQ1mocfI4S4KpRL6D98",
+                    //    "key": "gogopher.jpg"
+                    //  }
+                    // 查看简单反馈
+                    console.log(croppeddata);
+                    var domain = up.getOption('domain');
+                    var res = JSON.parse(info);
+
+                    var suffix = "?imageMogr2/crop/!"+parseInt(croppeddata.width)+"x"+parseInt(croppeddata.height)+"a"+parseInt(croppeddata.x)+"a"+parseInt(croppeddata.y);
+                    var sourceLink = domain + '/' + res.key + suffix;
+                    alert("上传成功，图片地址为"+sourceLink);
+                    console.log(sourceLink)
+                    document.getElementById("add_img_btn").style.display="none";
+                    var img = document.getElementById("added_img");
+                    img.src = sourceLink;
+                    img.style.display="block";
+
+                    $('#modal-upload-img').modal('hide');
+                },
+                'Error': function (up, err, errTip) {
+                    //上传出错时，处理相关的事情
+                },
+                'UploadComplete': function () {
+                    //队列文件处理完毕后，处理相关的事情
+                },
+                'Key': function (up, file) {
+                    // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
+                    // 该配置必须要在unique_names: false，save_key: false时才生效
+
+                    var key = "";
+                    // do something with key here
+                    return key
+                }
+            }
+        });
+
+// domain为七牛空间对应的域名，选择某个空间后，可通过 空间设置->基本设置->域名设置 查看获取
+
+// uploader为一个plupload对象，继承了所有plupload的方法
+
+
+        $('#up_load').on('click', function () {
+            uploader.start();
+        });
+        $('#stop_load').on('click', function () {
+            uploader.stop();
+        });
+
+
+
+
+
     });
+
 
     function addColor() {
         // document.getElementById('color_stock').appendChild("<strong>test</strong>");

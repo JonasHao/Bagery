@@ -182,4 +182,6 @@ public class CartAction extends ActionSupport {
     public void setResult(String result) {
         this.result = result;
     }
+
+
 }

@@ -8,13 +8,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
-
-<%
-    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
-    response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
-    response.setHeader("Expires", "0"); // Proxies.
-%>
-
 <t:base>
 
     <jsp:attribute name="title">购物车列表</jsp:attribute>
@@ -30,61 +23,66 @@
     <jsp:body>
         <!--Main layout-->
         <div class="container">
-            <div>
-                <div class="row">
-                    <div class="col-md-10 cart-item-block col-md-push-2">
-                        <div class="row">
-                            <div class="col-md-3">
-                                商品信息
-                            </div>
+            <s:if test="cartItemList.size() >0">
+                <div>
+                    <div class="row">
+                        <div class="col-md-10 cart-item-block col-md-push-2">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    商品信息
+                                </div>
 
-                            <div class="col-md-3">
-                                单价（元）
-                            </div>
+                                <div class="col-md-3">
+                                    单价（元）
+                                </div>
 
-                            <div class="col-md-2">
-                                数量
-                            </div>
+                                <div class="col-md-2">
+                                    数量
+                                </div>
 
-                            <div class="col-md-2">
-                                金额（元）
-                            </div>
+                                <div class="col-md-2">
+                                    金额（元）
+                                </div>
 
-                            <div class="col-md-2">
-                                操作
+                                <div class="col-md-2">
+                                    操作
+                                </div>
                             </div>
                         </div>
+
                     </div>
-
                 </div>
-            </div>
-            <br/>
-
-            <s:iterator value="cartItemList" status="row">
-                <t:cartItem>
-                    <jsp:attribute name="title"><s:property value="product.priced.title"/></jsp:attribute>
-                    <jsp:attribute name="number"><s:property value="num"/></jsp:attribute>
-                    <jsp:attribute name="color"><s:property value="product.color"/></jsp:attribute>
-                    <jsp:attribute name="img">../img/bags/bag1.png</jsp:attribute>
-                    <jsp:attribute name="totalPrice"><s:property value="subtotal"/></jsp:attribute>
-                    <jsp:attribute name="unitPrice"><s:property value="product.priced.unitPrice"/></jsp:attribute>
-                    <jsp:attribute name="salePrice"><s:property value="product.priced.salePrice"/></jsp:attribute>
-                    <jsp:attribute name="itemId"><s:property value="itemId"/></jsp:attribute>
-                    <jsp:attribute name="stock"><s:property value="product.stock"/></jsp:attribute>
-                </t:cartItem>
-            </s:iterator>
-
-            <form action="/order/balance.action">
+                <br/>
 
                 <s:iterator value="cartItemList" status="row">
-                    <s:hidden name="cartItemIdList[%{#row.index}]" value= "%{itemId}" />
+                    <t:cartItem>
+                        <jsp:attribute name="title"><s:property value="product.priced.title"/></jsp:attribute>
+                        <jsp:attribute name="number"><s:property value="num"/></jsp:attribute>
+                        <jsp:attribute name="color"><s:property value="product.color"/></jsp:attribute>
+                        <jsp:attribute name="img">../img/bags/bag1.png</jsp:attribute>
+                        <jsp:attribute name="totalPrice"><s:property value="subtotal"/></jsp:attribute>
+                        <jsp:attribute name="unitPrice"><s:property value="product.priced.unitPrice"/></jsp:attribute>
+                        <jsp:attribute name="salePrice"><s:property value="product.priced.salePrice"/></jsp:attribute>
+                        <jsp:attribute name="itemId"><s:property value="itemId"/></jsp:attribute>
+                        <jsp:attribute name="stock"><s:property value="product.stock"/></jsp:attribute>
+                    </t:cartItem>
                 </s:iterator>
 
+                <form action="/order/balance.action">
 
-                <div class="pull-right">
-                    <s:submit cssClass="btn btn-primary btn-input blue-grey" value="结算"/>
-                </div>
-            </form>
+                    <s:iterator value="cartItemList" status="row">
+                        <s:hidden name="cartItemIdList[%{#row.index}]" value="%{itemId}"/>
+                    </s:iterator>
+
+
+                    <div class="pull-right">
+                        <s:submit cssClass="btn btn-primary btn-input blue-grey" value="结算"/>
+                    </div>
+                </form>
+            </s:if>
+            <s:else>
+                <h5>购物车还是空空的~</h5>
+            </s:else>
         </div>
 
 

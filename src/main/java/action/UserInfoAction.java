@@ -140,19 +140,23 @@ public class UserInfoAction extends DefaultActionSupport {
     }
 
     public String sendConfirmCode() {
+        if (!email.matches("^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$")) {
+            data.put(Key.RESULT, INPUT);
+            data.put(Key.ERROR_MESSAGE, "邮箱格式不正确");
+            return SUCCESS;
+        }
+
         user = userService.getUserByEmail(email);
 
         if (user == null) {
-            addFieldError("email", "不存在的邮箱");
             data.put(Key.RESULT, INPUT);
-            data.put(Key.ERROR_FIELDS, getFieldErrors());
+            data.put(Key.ERROR_MESSAGE, "不存在的邮箱");
             return SUCCESS;
         }
 
         if (user.getIsActivate() == 0) {
-            addFieldError("email", "未验证的邮箱不可找回密码");
             data.put(Key.RESULT, INPUT);
-            data.put(Key.ERROR_FIELDS, getFieldErrors());
+            data.put(Key.ERROR_MESSAGE, "未验证的邮箱");
             return SUCCESS;
         }
 
@@ -167,40 +171,37 @@ public class UserInfoAction extends DefaultActionSupport {
         return SUCCESS;
     }
 
-
     public String confirmEmail() {
         try {
             user = userService.getUserByEmail(email);
             if (user == null) {
-                addFieldError("email", "不存在的邮箱");
-                return INPUT;
+                data.put(Key.RESULT, INPUT);
+                data.put(Key.ERROR_MESSAGE, "该邮箱不存在");
+                return SUCCESS;
             }
 
             password = user.getPassword();
-            confirmCode = userService.getMD5(confirmCode.getBytes());
+            String temp=userService.getMD5(confirmCode.getBytes());
+//            confirmCode = userService.getMD5(confirmCode.getBytes());
 
-            if (!confirmCode.equals(password)) {
-                addFieldError("confirmCode", "验证码错误");
-                return INPUT;
-            }
-
-            if (!newPassword.equals(confirmNewPassword)) {
-                addFieldError("confirmNewPassword", "确认密码错误");
-                return INPUT;
+            if (!temp.equals(password)) {
+                data.put(Key.RESULT, INPUT);
+                data.put(Key.ERROR_MESSAGE, "验证码错误");
+                return SUCCESS;
             }
 
             newPassword = userService.getMD5(newPassword.getBytes());
             user.setPassword(newPassword);
             userService.update(user);
 
+            data.put(RESULT, SUCCESS);
             ActionContext.getContext().getSession().put(Key.USER, user.getUserId());
             return SUCCESS;
-
-
         } catch (Exception e) {
             e.printStackTrace();
+            data.put(RESULT, ERROR);
         }
-        return ERROR;
+        return SUCCESS;
     }
 
     public String sendConfirm() {
@@ -235,12 +236,10 @@ public class UserInfoAction extends DefaultActionSupport {
             addFieldError("newPassword", "密码只能包含字母数字或下划线");
         }
     }
-
-    public void validateSendConfirmCode() {
-        if (!email.matches("^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$")) {
-            addFieldError("email", "邮箱格式不正确");
-        }
-    }
+//
+//    public void validateSendConfirmCode() {
+//
+//    }
 
     public void validateConfirmEmail() {
         if (!newPassword.matches("^(\\w){5,20}$")) {

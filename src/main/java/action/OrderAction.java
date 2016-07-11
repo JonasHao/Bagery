@@ -25,6 +25,7 @@ public class OrderAction extends DefaultActionSupport {
     private Order order;
     private User user;
     private Address defaultAddress;
+    private int productId;
 
     private double totalPrice;
 
@@ -52,7 +53,10 @@ public class OrderAction extends DefaultActionSupport {
     public String balance() throws Exception {
         try {
             user = userService.getCurrentUser();
+
             addressList = user.getAddresses();
+            addressList.forEach(System.out::println);
+
             Integer defaultAddressId = user.getDefaultAddressId();
 
             if (defaultAddressId != null) {
@@ -79,6 +83,49 @@ public class OrderAction extends DefaultActionSupport {
         return ERROR;
     }
 
+    public String instanceBuy() throws Exception {
+        try {
+            user = userService.getCurrentUser();
+            cartItemList = user.getCartItems();
+            CartItem cartItem = null;
+            for (CartItem item : cartItemList) {
+                if (item.getProductId() == productId) {
+                    cartItem = item;
+                    cartItem.setNum(1);
+                    cartService.updateCart(cartItem);
+                    break;
+                }
+            }
+            if (cartItem == null) {
+                cartItem = new CartItem();
+                cartItem.setProductId(productId);
+                cartItem.setUserId(user.getUserId());
+                cartItem.setNum(1);
+                cartService.addCart(cartItem);
+            }
+
+            addressList = user.getAddresses();
+            if (addressList == null)
+                return ERROR;
+            addressList.forEach(System.out::println);
+
+            Integer defaultAddressId = user.getDefaultAddressId();
+
+            if (defaultAddressId != null) {
+                defaultAddress = addressService.get(user.getDefaultAddressId());
+            }
+
+            cartItemList = new ArrayList<>(1);
+            cartItemList.add(cartItem);
+            totalPrice = cartItem.getSubtotal();
+            return SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ERROR;
+        }
+    }
+
+
     //��������
     public String addOrder() throws Exception {
         if (cartItemIdList == null || cartItemIdList.size() == 0) {
@@ -94,19 +141,22 @@ public class OrderAction extends DefaultActionSupport {
             orderService.addOrder(order, cartItemIdList);
 
             Double newScore = order.getTotal();
-            if (newScore == null) {
-                for (Integer id : cartItemIdList) {
-                    CartItem item = cartService.getCartItem(id);
-                    if (item != null) {
-                        newScore += item.getSubtotal();
-                    }
+
+            for (Integer id : cartItemIdList) {
+                CartItem item = cartService.getCartItem(id);
+                if (item != null) {
+                    newScore += item.getSubtotal();
                 }
+                cartService.delete(item);
             }
+
             if (newScore != null) {
                 int score = (int) (user.getScore() + newScore);
                 user.setScore(score);
                 userService.update(user);
             }
+
+
             return SUCCESS;
         } catch (HibernateException | NullPointerException e) {
             e.printStackTrace();
@@ -542,8 +592,17 @@ public class OrderAction extends DefaultActionSupport {
         this.commentList = commentList;
     }
 
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
 
     public void setCommentService(CommentService commentService) {
         this.commentService = commentService;
     }
+
+
 }

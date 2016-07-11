@@ -7,4 +7,5 @@ public class Key {
     public static final String PROID = "proID";
 
     public static final String ERROR_FIELDS ="error_fields" ;
+    public static final String ERROR_MESSAGE = "error_message";
 }

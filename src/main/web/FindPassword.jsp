@@ -4,7 +4,7 @@
 
 <t:base>
     <jsp:attribute name="scripts">
-        <script type="text/javascript">
+          <script type="text/javascript">
             var reg = new RegExp("(^|&)" + "actionMessages" + "=([^&]*)(&|$)", "i");
             var r = location.search.substr(1).match(reg);
             var m;
@@ -21,6 +21,12 @@
             var code;
             function sendCode() {
                 var emailStr = $("#form1").val();
+
+                if (emailStr == null || emailStr.length == 0) {
+                    warning("邮箱不可为空");
+                    return;
+                }
+
                 console.log("email:" + emailStr);
 
                 $.ajax({
@@ -30,15 +36,52 @@
                     data: {email: emailStr},
                     success: function (data) {
                         console.log(data);
-                        if (data.result == "input") {
-                            $("#email").text(data.error_fields);
-                        } else if (data.result == "success") {
+                        var result = data.result;
+                        if (result == "input") {
+//                            $("#email").text(data.error_fields);
+                            warning(data.error_message);
+                        } else if (result == "success") {
                             notify("验证码正在发送");
                             var btnSendCode = $("#btn-send-code");
                             btnSendCode.addClass("disabled");
                             btnSendCode.text("验证码已发送");
                             $(".reset-block").css("display", "inherit");
                             $("#emailField").val(emailStr);
+                        }
+                    }
+                })
+            }
+
+            function confirmCo() {
+                var confirmCode = $("#confirmCode");
+                var password = $("#newPassword");
+                var confirmPwd = $("#confirmNewPassword");
+                var emailStr = $("#form1").val();
+
+                if (!( password.val() === confirmPwd.val())) {
+                    warning("两次密码输入不一致");
+                    return;
+                }
+                $.ajax({
+                    url: "/user/confirmEmail",
+                    dataType: "json",
+                    type: 'post',
+                    data: {email: emailStr, newPassword: password.val(), confirmCode: confirmCode.val()},
+                    success: function (data) {
+                        console.log(data);
+                        var result = data.result;
+                        if (result == "input") {
+                            warning(data.error_message);
+                            return;
+                        }
+
+                        if (result == "error") {
+                            warning("找回密码失败，请稍后重试");
+                            return;
+                        }
+
+                        if (result == "success") {
+                            window.location.href = '/user/home.action?message=找回密码成功！';
                         }
                     }
                 })
@@ -61,18 +104,17 @@
 
                 <div class="card-block">
 
-                    <form class="form-user" action="/user/sendConfirmCode" method="POST">
-                        <div class="md-form">
-                            <s:textfield label="邮箱" id="form1" name="email" errorPosition="none"
-                                         class="form-control" required="true" disabled="false"><s:property
-                                    value="#session.Email"/></s:textfield>
-                            <a onclick="sendCode()" id="btn-send-code" class="grey btn btn-primary">发送验证码</a>
-                        </div>
-                        <s:fielderror fieldName="email" name="email" cssClass="errorMessage"/>
-                    </form>
+                        <%--<form class="form-user" action="/user/sendConfirmCode" method="POST">--%>
+                    <div class="md-form">
+                        <s:textfield label="邮箱" id="form1" name="email" errorPosition="none"
+                                     class="form-control" disabled="false"/>
+                        <submit onclick="sendCode()" id="btn-send-code" class="grey btn btn-primary">发送验证码</submit>
+                    </div>
+                    <s:fielderror fieldName="email" name="email" cssClass="errorMessage"/>
+                        <%--</form>--%>
 
                     <div class="reset-block">
-                        <form class="form-user" action="/user/confirmEmail" method="GET">
+                        <%--<form class="form-user" action="/user/confirmEmail" method="GET">--%>
 
 
                             <s:hidden name="email" id="emailField"/>
@@ -98,9 +140,9 @@
                             <s:fielderror fieldName="confirmNewPassword" name="confirmNewPassword"
                                           cssClass="errorMessage"/>
 
-                            <s:submit cssClass="grey btn btn-primary" value="确认"/>
+                            <submit onclick="confirmCo()" class="grey btn btn-primary">确认</submit>
 
-                        </form>
+                        <%--</form>--%>
                         <a href="/login.jsp">取消</a>
                     </div>
                 </div>

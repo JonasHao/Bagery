@@ -7,11 +7,11 @@ import java.util.*;
 
 @SuppressWarnings("unchecked")
 public class ProductServiceImpl implements ProductService {
+    private Dao dao;
+
     public void setDao(Dao dao) {
         this.dao = dao;
     }
-
-    private Dao dao;
     /**
      * 保存一个商品对象
      */
@@ -46,7 +46,7 @@ public class ProductServiceImpl implements ProductService {
         dao.update(pricedPro);
     }
     /**
-     * 通过productID查找商品对象
+     * 通过pricedID查找商品对象
      */
     public Priced findPriced(int pricedID) {
         return dao.get(Priced.class, pricedID);

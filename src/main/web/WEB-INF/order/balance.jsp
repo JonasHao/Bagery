@@ -19,6 +19,28 @@
            <li class="active">结算</li>
        </ol>
     </jsp:attribute>
+
+    <jsp:attribute name="scripts">
+        <script type="text/javascript">
+            function setDefault(addressId) {
+                var btn = $("#btn-default-addressId");
+                console.log("id:"+addressId);
+                $.ajax(
+                        {
+                            url: "/address/setDefaultAddress.action",
+                            dataType: "json",   //返回格式为json
+                            type: 'post',
+                            data: {defaultAddressId: addressId},
+                            success: function (data) {
+                                console.log(data);
+                                if (data.result == "success") {
+                                    location.reload();
+                                }
+                            }
+                        });
+            }
+        </script>
+    </jsp:attribute>
     <jsp:body>
 
         <!-- Modal -->
@@ -32,55 +54,18 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <h5 class="modal-title" id="myModalLabel" data-toggle="modal" data-target="#myModal">编辑地址</h5>
+                        <h5 class="modal-title" id="myModalLabel" data-toggle="modal" data-target="#myModal">选择收货人</h5>
                     </div>
 
-                    <form class="form-address" action="updateAddress" namespace="/address" method="post">
-                        <div style="display: none">
-                            <s:textfield name="addressId"/>
-                        </div>
+                    <form class="form-address" id="selectAddress" action="/address/setDefaultAddress.action" method="get">
+
                         <!--Body-->
                         <div class="modal-body">
-                            <div id="address-form-edit">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="md-form">
-                                            <s:textfield label="收件人" name="receiver" class="form-control"/>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="md-form">
-                                            <s:textfield label="电话" name="mobile" class="form-control"/>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="md-form">
-                                            <s:textfield label="省" name="addressProvince" class="form-control"/>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="md-form">
-                                            <s:textfield label="市" name="addressCity" class="form-control"
-                                                         cssClass="form-control"/>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="md-form">
-                                            <s:textfield label="区" name="addressDistrict" class="form-control"/>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-12">
-                                        <div class="md-form">
-                                            <s:textfield label="详细地址" name="addressDetail" class="form-control"/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <s:radio list="addressList" name="defaultAddressId" listKey="addressId" listvaluekey="addressId" cssClass="address-item"/>
                         </div>
                         <!--Footer-->
                         <div class="modal-footer" style="border-top: 0px">
-                            <s:submit type="button" class="btn blue btn-primary">确认</s:submit>
+                            <a onclick="setDefault($('input[name=defaultAddressId]:checked', '#selectAddress').val())" type="button" class="btn blue btn-primary">确认</a>
                             <s:div type="button" class="btn grey" data-dismiss="modal">取消</s:div>
                         </div>
                     </form>
@@ -89,6 +74,7 @@
             </div>
         </div>
         <!-- /.Live preview-->
+
 
         <!--Main layout-->
         <div class="container">
@@ -158,7 +144,7 @@
                                             <div class="col-md-8">
                                                 <div>
                                                     <!--Title-->
-                                                    <h5 class="card-title product-title">
+                                                    <h5 class="card-title product-order-title">
                                                         <p><s:property value="product.priced.title"/></p>
                                                     </h5>
 
@@ -207,7 +193,7 @@
                             <div class="card">
                                 <div class="card-block">
                                     <div class="md-form">
-                                        <i class="fa fa-comment  prefix"></i>
+                                        <i class="fa fa-comments prefix"></i>
                                         <s:textfield id="form1" name="instruction" class="form-control"/>
                                         <label for="form1">备注</label>
                                     </div>
