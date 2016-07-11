@@ -156,42 +156,51 @@ public class UserInfoAction extends DefaultActionSupport {
             return SUCCESS;
         }
 
+        code = (int) (Math.random() * 90000) + 10000;
 
-        code = (int) (Math.random() * 9000) + 1000;
-        ActionContext.getContext().getSession().put("Code", code);
-        ActionContext.getContext().getSession().put("Email", email);
+        user.setPassword(userService.getMD5(Integer.toString(code).getBytes()));
+        userService.update(user);
 
         data.put(Key.RESULT, SUCCESS);
+        data.put("code", code);
         //发送邮件
         return SUCCESS;
     }
 
+
     public String confirmEmail() {
-        if (Integer.parseInt(confirmCode) != (int) ActionContext.getContext().getSession().get("Code")) {
-            addFieldError("confirmCode", "验证码错误");
-            return INPUT;
+        try {
+            user = userService.getUserByEmail(email);
+            if (user == null) {
+                addFieldError("email", "不存在的邮箱");
+                return INPUT;
+            }
+
+            password = user.getPassword();
+            confirmCode = userService.getMD5(confirmCode.getBytes());
+
+            if (!confirmCode.equals(password)) {
+                addFieldError("confirmCode", "验证码错误");
+                return INPUT;
+            }
+
+            if (!newPassword.equals(confirmNewPassword)) {
+                addFieldError("confirmNewPassword", "确认密码错误");
+                return INPUT;
+            }
+
+            newPassword = userService.getMD5(newPassword.getBytes());
+            user.setPassword(newPassword);
+            userService.update(user);
+
+            ActionContext.getContext().getSession().put(Key.USER, user.getUserId());
+            return SUCCESS;
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        if (!newPassword.equals(confirmNewPassword)) {
-            addFieldError("confirmNewPassword", "确认密码错误");
-            return INPUT;
-        }
-
-        user = userService.getCurrentUser();
-
-        newPassword = userService.getMD5(newPassword.getBytes());
-
-        user.setPassword(newPassword);
-
-        userService.update(user);
-
-        email = (String) ActionContext.getContext().getSession().get("Email");
-
-        ActionContext.getContext().getSession().remove("Code");
-        ActionContext.getContext().getSession().remove("Email");
-
-        ActionContext.getContext().getSession().put(Key.USER, user.getUserId());
-        return SUCCESS;
+        return ERROR;
     }
 
     public String sendConfirm() {
