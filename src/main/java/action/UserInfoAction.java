@@ -181,9 +181,10 @@ public class UserInfoAction extends DefaultActionSupport {
             }
 
             password = user.getPassword();
-            confirmCode = userService.getMD5(confirmCode.getBytes());
+            String temp=userService.getMD5(confirmCode.getBytes());
+//            confirmCode = userService.getMD5(confirmCode.getBytes());
 
-            if (!confirmCode.equals(password)) {
+            if (!temp.equals(password)) {
                 data.put(Key.RESULT, INPUT);
                 data.put(Key.ERROR_MESSAGE, "验证码错误");
                 return SUCCESS;
@@ -196,7 +197,6 @@ public class UserInfoAction extends DefaultActionSupport {
             data.put(RESULT, SUCCESS);
             ActionContext.getContext().getSession().put(Key.USER, user.getUserId());
             return SUCCESS;
-
         } catch (Exception e) {
             e.printStackTrace();
             data.put(RESULT, ERROR);

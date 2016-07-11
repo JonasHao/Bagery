@@ -52,7 +52,7 @@
                 })
             }
 
-            function confirmCode() {
+            function confirmCo() {
                 var confirmCode = $("#confirmCode");
                 var password = $("#newPassword");
                 var confirmPwd = $("#confirmNewPassword");
@@ -66,22 +66,22 @@
                     url: "/user/confirmEmail",
                     dataType: "json",
                     type: 'post',
-                    data: {email: emailStr, newPassword: password.val(), conformCode: confirmCode.val()},
+                    data: {email: emailStr, newPassword: password.val(), confirmCode: confirmCode.val()},
                     success: function (data) {
                         console.log(data);
                         var result = data.result;
                         if (result == "input") {
                             warning(data.error_message);
-//                            return;
+                            return;
                         }
 
                         if (result == "error") {
                             warning("找回密码失败，请稍后重试");
-//                            return;
+                            return;
                         }
 
                         if (result == "success") {
-                            window.location.href = '/index.jsp';
+                            window.location.href = '/user/home.action?message=找回密码成功！';
                         }
                     }
                 })
@@ -140,7 +140,7 @@
                             <s:fielderror fieldName="confirmNewPassword" name="confirmNewPassword"
                                           cssClass="errorMessage"/>
 
-                            <submit onclick="confirmCode()" class="grey btn btn-primary">确认</submit>
+                            <submit onclick="confirmCo()" class="grey btn btn-primary">确认</submit>
 
                         <%--</form>--%>
                         <a href="/login.jsp">取消</a>
