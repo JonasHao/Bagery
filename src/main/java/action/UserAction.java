@@ -2,6 +2,7 @@ package action;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import constant.UserGroup;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.dispatcher.DefaultActionSupport;
 import po.User;
@@ -14,6 +15,7 @@ public class UserAction extends DefaultActionSupport {
     private UserService userService;
     private User user;
 
+    private String userId;
     private String username;
     private String password;
     private String realname;
@@ -21,7 +23,6 @@ public class UserAction extends DefaultActionSupport {
     private String confirmpassword;
     private String isadmin;
     private String usergroup;
-    private String msg;
 
 //    public String logout() {
 //        ActionContext.getContext().getSession().clear();
@@ -34,28 +35,41 @@ public class UserAction extends DefaultActionSupport {
             return INPUT;
         }
 
-        msg = userService.login(username, password);
+        password = userService.getMD5(password.getBytes());
+        user = userService.login(username, password);
 
-        if (msg.equals("input")) {
+        if (user == null) {
             addFieldError("password", "密码错误");
             return INPUT;
-        } else
-            return SUCCESS;
+        }
+
+        String group = user.getUserGroup();
+        if (group != null) {
+            switch (group) {
+                case UserGroup.ORDER_ADMIN:
+                case UserGroup.PRODUCT_ADMIN:
+                case UserGroup.ROOT:
+                    return "admin";
+            }
+        }
+        return SUCCESS;
     }
 
     public String register() {
         if (userService.existUsername(username)) {
-            addFieldError("username", "Exist UserName,Please Input Again");
+            addFieldError("username", "用户名已被注册");
             return INPUT;
         }
         if (userService.existEmail(email)) {
-            addFieldError("email", "Exist Email,Please Input Again");
+            addFieldError("email", "邮箱已被注册");
             return INPUT;
         }
         if (!password.equals(confirmpassword)) {
-            addFieldError("confirmpassword", "Wrong Password,Please Confirm it");
+            addFieldError("confirmpassword", "两次密码输入不一致");
             return INPUT;
         }
+
+        password = userService.getMD5(password.getBytes());
 
         user = new User();
         user.setUsername(username);
@@ -65,7 +79,7 @@ public class UserAction extends DefaultActionSupport {
         user.setUserGroup("r");
 
         userService.register(user);
-        ActionContext.getContext().getSession().put("User", user);
+
         return SUCCESS;
     }
 
@@ -172,5 +186,20 @@ public class UserAction extends DefaultActionSupport {
         this.userService = userService;
     }
 
+    public UserService getUserService() {
+        return userService;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public User getUser() {
+        return user;
+    }
 
 }

@@ -3,10 +3,32 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
 <t:base>
+    <jsp:attribute name="scripts">
+        <script type="text/javascript">
+            function getQueryString(name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+                var r = location.search.substr(1).match(reg);
+                if (r != null) return unescape(decodeURI(r[2])); return null;
+            }
+            var m=getQueryString("message");
+            if(m!=null){
+                notify(m);
+            }
+        </script>
+    </jsp:attribute>
+
     <jsp:attribute name="title">验证邮箱<s:property value="#session.Code"/></jsp:attribute>
 
     <jsp:attribute name="head">
             <link href="../../css/login.css" rel="stylesheet">
+    </jsp:attribute>
+
+    <jsp:attribute name="breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="/index.jsp">首页</a></li>
+        <li><s:a action="home" namespace="/user">个人中心</s:a></li>
+        <li class="active">验证邮箱</li>
+    </ol>
     </jsp:attribute>
 
     <jsp:body>

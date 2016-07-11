@@ -25,7 +25,7 @@ main {
 }
 
 .breadcrumb {
-    padding-left: 15%;
+    padding-left: 10%;
 }
 
 a {
@@ -63,7 +63,7 @@ a {
     padding: 1rem 2rem;
 }
 
-.product-detail-img {
+.center {
     margin-left: auto;
     margin-right: auto;
 }
@@ -149,7 +149,7 @@ a {
 }
 
 .quantity-control input {
-    width: 50px;
+    width: 2rem;
     text-align: center;
 }
 
@@ -215,4 +215,8 @@ a {
 
 .error-msg-form {
     margin-bottom: 0;
+}
+
+.reset-block {
+    display:none;
 }

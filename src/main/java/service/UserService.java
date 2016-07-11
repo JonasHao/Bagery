@@ -12,6 +12,7 @@ public interface UserService {
      */
     User getCurrentUser();
 
+    boolean isLoggedIn();
     /**
      * 通过用户ID获取对应的用户对象
      */
@@ -20,7 +21,7 @@ public interface UserService {
     /**
      * 校验用户Id和密码是否匹配
      */
-    String login(String username, String password);
+    User login(String username, String password);
 
     boolean existUsername(String username);
 
@@ -43,7 +44,10 @@ public interface UserService {
      */
     int checkUserGroup(int userId);
 
-    User getUserByEmial(String email);
+    User getUserByEmail(String email);
+
+    String getMD5(byte[] source);
 
 
+    void removeHistory(int historyId);
 }

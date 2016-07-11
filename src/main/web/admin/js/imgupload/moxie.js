@@ -6570,6 +6570,8 @@ define("moxie/runtime/html5/file/FileInput", [
 
 
 				input.onchange = function onChange(e) { // there should be only one handler for this
+
+					console.log("hhahahaha,got you")
 					comp.files = [];
 
 					Basic.each(this.files, function(file) {

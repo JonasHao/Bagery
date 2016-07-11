@@ -1,5 +1,8 @@
 package po;
 
+import constant.Path;
+import constant.UserGroup;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -26,7 +29,9 @@ public class User {
     private List<UserPricedRecord> historyRecords;
 
     public User() {
-        img = "../../img/avatar/halloween-black-cat.png";
+        int avatar = (int) (Math.random() * 100) % 8;
+        img = Path.avatars[avatar];
+        userGroup = UserGroup.REGULAR;
         score = 0;
     }
 
@@ -99,6 +104,32 @@ public class User {
 
     public void setScore(int score) {
         this.score = score;
+        if (userGroup != null) {
+            switch (userGroup) {
+                case UserGroup.ROOT:
+                case UserGroup.ORDER_ADMIN:
+                case UserGroup.PRODUCT_ADMIN:
+                    break;
+
+                case UserGroup.REGULAR:
+                    if (score > UserGroup.TONGPAI_THRESHOLD) {
+                        userGroup = UserGroup.TONGPAI;
+                    }
+                    break;
+
+                case UserGroup.TONGPAI:
+                    if (score > UserGroup.YINPAI_THRESHOLD) {
+                        userGroup = UserGroup.YINPAI;
+                    }
+                    break;
+
+                case UserGroup.YINPAI:
+                    if (score > UserGroup.JINPAI_THRESHOLD) {
+                        userGroup = UserGroup.JINPAI;
+                    }
+                    break;
+            }
+        }
     }
 
     @Basic

@@ -39,20 +39,6 @@ public class CommentAction extends DefaultActionSupport {
     }
 
 
-    @Action("view")
-    public String view() throws Exception {
-        return SUCCESS;
-    }
-
-    //�û���д����
-    public String addComment() {
-        comment.setContent1(content1);
-        comment.setStar(star);
-        comment.setContent2(null);
-        comment.setAdminContent(null);
-        commentService.addComment(comment);
-        return SUCCESS;
-    }
 
     //�û�׷������
     public String appendComment() {
@@ -61,6 +47,7 @@ public class CommentAction extends DefaultActionSupport {
         commentService.updateComment(comment);
         return SUCCESS;
     }
+
 
     //����Աɾ������
     public String deleteComment() {

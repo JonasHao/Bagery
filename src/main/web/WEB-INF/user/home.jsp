@@ -3,6 +3,21 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
 <t:base>
+    <jsp:attribute name="scripts">
+        <script type="text/javascript">
+            var reg = new RegExp("(^|&)" + "message" + "=([^&]*)(&|$)", "i");
+            var r = location.search.substr(1).match(reg);
+            var m;
+            if (r != null)
+                m = unescape(decodeURI(r[2]));
+            else m = null;
+
+            if (m != null) {
+                notify(m);
+            }
+        </script>
+    </jsp:attribute>
+
     <jsp:attribute name="head">
             <link href="../../css/home.css" rel="stylesheet">
     </jsp:attribute>
@@ -23,12 +38,12 @@
                 <div class="card-block order-block">
                     <div class="media">
                         <a class="media-left home-avatar" href="/user/viewInfo.action">
-                            <img class="img-circle" width="128" height="128" src="../../admin/img/a1.jpg"/>
+                            <img class="img-circle" width="128" height="128" src="<s:property value="img"/>"/>
                         </a>
 
                         <s:set name="group" value="group"/>
                         <div class="media-body home-profile-body">
-                            <h4 class="media-heading heading-username"><s:property value="username"/></h4>
+                            <h4 class="media-heading heading-username"><s:property value="user.username"/></h4>
                             <p>积分：<s:property value="score"/> &nbsp;&nbsp;
                                 <s:if test="#group==1">等级：普通用户</s:if>
                                 <s:elseif test="#group==2">等级：中级用户</s:elseif>
@@ -73,7 +88,7 @@
                                 <s:param name="status">unshipped</s:param>
                             </s:url>
                             <a href="${unshipped}">
-                                <i class="fa fa-truck fa-3x" aria-hidden="true"></i>
+                                <i class="fa fa-cubes fa-3x" aria-hidden="true"></i>
                                 <br/>
                                 <span>待发货</span>
                             </a>
@@ -149,14 +164,14 @@
                         <div class="col-sm-6">
                             <h5 class="h5-responsive font-weight-bold">收藏夹</h5>
                             <ul>
-                                <li><a href="#">查看收藏夹</a></li>
+                                <li><s:a namespace="/favorite" action="queryFavorite">查看收藏夹</s:a></li>
                             </ul>
                         </div>
 
                         <div class="col-sm-6">
                             <h5 class="h5-responsive font-weight-bold">个性化推荐</h5>
                             <ul>
-                                <li><a href="/user/history.action">浏览记录</a></li>
+                                <li><s:a namespace="/product" action="historyRecord">浏览记录</s:a></li>
                                 <li><a href="#">猜你喜欢</a></li>
                             </ul>
                         </div>

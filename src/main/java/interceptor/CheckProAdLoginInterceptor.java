@@ -6,6 +6,7 @@ import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.Interceptor;
 import constant.Config;
 import constant.Key;
+import constant.UserGroup;
 import service.UserService;
 import serviceImpl.UserServiceImpl;
 
@@ -15,6 +16,8 @@ import java.util.Map;
  * Created by zhang on 2016/6/29.
  */
 public class CheckProAdLoginInterceptor implements Interceptor {
+    private UserService userService;
+
     @Override
     public void destroy() {
 
@@ -32,21 +35,22 @@ public class CheckProAdLoginInterceptor implements Interceptor {
         }
 
         Map session = ActionContext.getContext().getSession();
-        String username=(String)session.get(Key.USER);
-        UserServiceImpl userService=new UserServiceImpl();
+        Integer userId = (Integer) session.get(Key.USER);
 
-        if(username.equals(null))
+        if (userId == null)
             return Action.LOGIN;
-        else
-        {
-            String  usergroup=userService.getUserGroup(username);
-            if(usergroup.equals("PRODUCT_ADMIN"))
-            {
-                return Action.SUCCESS;
+        else {
+            String userGroup = userService.get(userId).getUserGroup();
+            if (userGroup.equals(UserGroup.PRODUCT_ADMIN) || userGroup.equals(UserGroup.ROOT)) {
+                return invocation.invoke();
+            } else {
+                return "invalid";
             }
-            else
-                return Action.ERROR;
         }
 
+    }
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 }

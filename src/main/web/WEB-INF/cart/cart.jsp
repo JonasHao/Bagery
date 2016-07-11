@@ -9,6 +9,12 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
+<%
+    response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+    response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
+    response.setHeader("Expires", "0"); // Proxies.
+%>
+
 <t:base>
 
     <jsp:attribute name="title">购物车列表</jsp:attribute>
@@ -66,7 +72,6 @@
                     <jsp:attribute name="itemId"><s:property value="itemId"/></jsp:attribute>
                     <jsp:attribute name="stock"><s:property value="product.stock"/></jsp:attribute>
                 </t:cartItem>
-
             </s:iterator>
 
             <form action="/order/balance.action">

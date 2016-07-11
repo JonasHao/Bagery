@@ -5,11 +5,12 @@
 <%@attribute name="price" fragment="true" %>
 <%@attribute name="pricedId" fragment="true" %>
 <%@attribute name="itemId" fragment="true" %>
+<%@attribute name="historyId" fragment="true" %>
 <div class="card card-favorite">
     <!--Card image-->
     <div class="view overlay hm-white-slight ">
         <img src="<jsp:invoke fragment="img"/>" class="img-fluid" alt="">
-        <div class="mask waves-effect waves-light" onclick="selectAction(<jsp:invoke fragment="pricedId"/>);">
+        <div class="mask waves-effect waves-light" onclick="selectAction(<jsp:invoke fragment="historyId"/>,<jsp:invoke fragment="pricedId"/>);">
             <div class="mask">
                 <a class="label-delete">
                     <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
@@ -26,8 +27,10 @@
                     <jsp:invoke fragment="title"/>
                 </h5>
                 <!--Text-->
+                <div class="center" style="width: 6rem;">
                 <i class="fa fa-rmb" aria-hidden="true"></i>
                 <jsp:invoke fragment="price"/>
+                </div>
             </div>
 
 
@@ -36,25 +39,26 @@
     </div>
     <script>
         var todelete;
-        function selectAction(pricedId) {
+        function selectAction(historyId, pricedId) {
             if (event.target.nodeName == "I") {
                 todelete = event.target.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
                 $.ajax(
                         {
-                            url: "/favorite/unfavor",
+                            url: "/product/removeHistory",
                             dataType: "json",   //返回格式为json
                             type: 'post',
-                            data: {priceId: pricedId},
+                            data: {historyId: historyId},
                             success: function (data) {
                                 if (data.result == "success") {
                                     todelete.remove();
+                                    notify("移除历史纪录成功!")
                                 } else {
-                                    alert("收藏失败！");
+                                    warning("移除历史纪录失败!")
                                 }
                             }
                         })
             } else {
-                window.open("/product/viewProduct.action?priced_id="+pricedId);
+                window.open("/product/viewProduct.action?priced_id=" + pricedId);
             }
         }
     </script>

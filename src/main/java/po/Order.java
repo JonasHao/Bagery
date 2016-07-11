@@ -4,6 +4,7 @@ import constant.OrderStatus;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by 41159 on 2016/6/29.
@@ -19,13 +20,13 @@ public class Order {
     private String orderStatus;
     private String courierNumber;
     private String courierCompany;
-    private Collection<Comment> comments;
-    private Collection<OrderItem> orderItems;
+    private List<Comment> comments;
+    private List<OrderItem> orderItems;
     private User user;
     private Address address;
 
     public Order() {
-        orderStatus=OrderStatus.UNPAID;
+        orderStatus = OrderStatus.UNPAID;
     }
 
     @Id
@@ -151,20 +152,20 @@ public class Order {
     }
 
     @OneToMany(mappedBy = "order")
-    public Collection<Comment> getComments() {
+    public List<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(Collection<Comment> comments) {
+    public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
 
     @OneToMany(mappedBy = "order")
-    public Collection<OrderItem> getOrderItems() {
+    public List<OrderItem> getOrderItems() {
         return orderItems;
     }
 
-    public void setOrderItems(Collection<OrderItem> orderItems) {
+    public void setOrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
     }
 
@@ -192,6 +193,16 @@ public class Order {
     public boolean isNotCommented() {
         return orderStatus.equals(OrderStatus.COMPLETED) && !(comments != null && comments.size() > 0);
     }
+
+    @Transient
+    public boolean isCommented() {
+        return orderStatus.equals(OrderStatus.COMPLETED) && (comments != null && comments.size() > 0);
+    }
+
+//    @Transient
+//    public boolean isCommented(){
+//        return orderStatus.equals(OrderStatus.COMPLETED) && comments != null && comments.size() > 0;
+//    }
 
     @Transient
     public String getOrderStatusString() {

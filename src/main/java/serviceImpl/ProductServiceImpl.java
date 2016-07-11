@@ -3,7 +3,6 @@ package serviceImpl;
 import dao.Dao;
 import po.*;
 import service.ProductService;
-
 import java.util.*;
 
 @SuppressWarnings("unchecked")
@@ -13,7 +12,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
     private Dao dao;
-
     /**
      * 保存一个商品对象
      */
@@ -28,7 +26,15 @@ public class ProductServiceImpl implements ProductService {
     public void addPricedPro(PricedPro pricedPro) {
         dao.save(pricedPro);
     }
-
+    /**
+     * 添加浏览记录
+     */
+    public void addRecord(int userID, int pricedID) {
+        UserPricedRecord record = new UserPricedRecord();
+        record.setUserId(userID);
+        record.setPricedId(pricedID);
+        dao.save(record);
+    }
     /**
      * 更改商品对象信息
      */
@@ -36,29 +42,15 @@ public class ProductServiceImpl implements ProductService {
         dao.update(priced);
     }
 
-    public void updateProduct(Product product) {
-        dao.update(product);
-    }
-
     public void updatePricedPro(PricedPro pricedPro) {
         dao.update(pricedPro);
     }
-
     /**
      * 通过productID查找商品对象
      */
     public Priced findPriced(int pricedID) {
         return dao.get(Priced.class, pricedID);
     }
-
-    public Product findProduct(int productID) {
-        return dao.get(Product.class, productID);
-    }
-
-    public PricedPro findPricedPro(int pricedProID) {
-        return dao.get(PricedPro.class, pricedProID);
-    }
-
     /**
      * 获得全部商品列表
      */
@@ -69,20 +61,6 @@ public class ProductServiceImpl implements ProductService {
     public List<Priced> findAllAdmin() {
         return dao.query("from Priced").list();
     }
-
-    /**
-     * 通过productID删除商品对象
-     */
-    public void deletePriced(int pricedId) {
-        Priced priced = dao.get(Priced.class, pricedId);
-        dao.delete(priced);
-    }
-
-    public void deleteProduct(int productId) {
-        Product product = dao.get(Product.class, productId);
-        dao.delete(product);
-    }
-
     /**
      * 通过商品查找商品颜色
      */
@@ -93,27 +71,33 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> findProductsByPricedAdmin(int pricedID) {
         return dao.query("from Product where pricedId=?").setParameter(0, pricedID).list();
     }
-
     /**
      * 根据关键词获取商品列表
      */
     public List<Priced> findPricedsByWord(String keyword) {
+        if(keyword.trim().length()==0)
+            return findAll();
         String hql = String.format("from Priced where isExisted=1 and title like '%%%s%%'", keyword);
         return dao.query(hql).list();
     }
-
     /**
-     * 属性数组转SQL字符串
+     * 通过分类找属性列表
      */
-    public String convertToStr(List<Integer> list) {
-        StringBuilder sb = new StringBuilder("(");
-        for (Integer i : list)
-            sb.append(i + ",");
-        sb.deleteCharAt(sb.length() - 1);
-        sb.append(")");
-        return sb.toString();
+    public List<Property> findProsByCategory(String category) {
+        return dao.query("from Property where category=?").setParameter(0, category).list();
     }
-
+    /**
+     * 获取过滤器对象列表
+     */
+    public List<PricedPro> findPricedProByPriced(int pricedID) {
+        return dao.query("from PricedPro where pricedId=?").setParameter(0, pricedID).list();
+    }
+    /**
+     * 获取过滤器属性ID列表
+     */
+    public List<Integer> findProIDsByPriced(int pricedID) {
+        return dao.query("select pp.proId from PricedPro pp,Property p where pp.pricedId=? and pp.proId=p.proId ").setParameter(0, pricedID).list();
+    }
     /**
      * 通过类别信息获取商品列表
      */
@@ -180,45 +164,51 @@ public class ProductServiceImpl implements ProductService {
         return dao.query("from UserPricedRecord where userId=?").
                 setParameter(0, userID).list();
     }
-
     /**
-     * 通过分类找属性列表
+     * 获取过滤器名称
      */
-    public List<Property> findProsByCategory(String category) {
-        return dao.query("from Property where category=?").setParameter(0, category).list();
+    public String getProByProID(int proID) {
+        return (String) dao.query("select category from Property where proId=?").setParameter(0, proID).list().get(0);
     }
-
-
-    public List<PricedPro> findPricedProByPriced(int pricedID) {
-        return dao.query("from PricedPro where pricedId=?").setParameter(0, pricedID).list();
+    /**
+     * 获取过滤器对象列表
+     */
+    public List<List<Property>> getPross() {
+        List<List<Property>> pross = new ArrayList<>();
+        pross.add(findProsByCategory("品牌"));
+        pross.add(findProsByCategory("材质"));
+        pross.add(findProsByCategory("款式"));
+        return pross;
     }
-
-    public List<Integer> findProIDsByPriced(int pricedID) {
-        return dao.query("select pp.proId from PricedPro pp,Property p where pp.pricedId=? and pp.proId=p.proId ").setParameter(0, pricedID).list();
-    }
-
-    public void deleteProductsByPriced(int pricedID) {
-        List<Product> products = findProductsByPriced(pricedID);
+    /**
+     * 删除priced对应全部商品
+     */
+    public List<Product> deleteProductsByPriced(int pricedID) {
+        List<Product> products = findProductsByPricedAdmin(pricedID);
         for (Product product : products)
             dao.delete(product);
+        return products;
     }
-
-    public void deletePricedProsByPriced(int pricedID) {
-        List<PricedPro> pps = findPricedProByPriced(pricedID);
-        for (PricedPro pp : pps)
-            dao.delete(pp);
-    }
-
     /**
-     * 添加浏览记录
+     * 通过priceID删除商品对象
      */
-    public void addRecord(int userID, int pricedID) {
-        UserPricedRecord record = new UserPricedRecord();
-        record.setUserId(userID);
-        record.setPricedId(pricedID);
-        dao.save(record);
+    public void deletePriced(int pricedId) {
+        Priced priced = dao.get(Priced.class, pricedId);
+        dao.delete(priced);
     }
-    /*
+    /**
+     * 属性数组转SQL字符串
+     */
+    public String convertToStr(List<Integer> list) {
+        StringBuilder sb = new StringBuilder("(");
+        for (Integer i : list)
+            sb.append(i + ",");
+        sb.deleteCharAt(sb.length() - 1);
+        sb.append(")");
+        return sb.toString();
+    }
+
+        /*
     //返回属性列表名称
     public List<Map<Integer, String>> getProNames() {
         int count=1;
@@ -290,21 +280,4 @@ public class ProductServiceImpl implements ProductService {
         return al;
     }
         */
-    /**
-     * 添加浏览记录
-     */
-    public String getProByProID(int proID) {
-        return (String) dao.query("select category from Property where proId=?").setParameter(0, proID).list().get(0);
-    }
-    /**
-     * 添加浏览记录
-     */
-    public List<List<Property>> getPross() {
-        List<List<Property>> pross = new ArrayList<>();
-        pross.add(findProsByCategory("品牌"));
-        pross.add(findProsByCategory("材质"));
-        pross.add(findProsByCategory("款式"));
-        return pross;
-    }
-
 }

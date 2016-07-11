@@ -35,12 +35,12 @@
             <result name="error">/error.jsp</result>
         </global-results>
 
-
-        <action name="test" class="action.TestAction">
-        </action>
     </package>
 
     <package name="order" namespace="/order" extends="default,json-default">
+
+        <default-interceptor-ref name="userStack"/>
+
         <action name="balance" class="action.OrderAction" method="balance">
             <result name="success">/WEB-INF/order/balance.jsp</result>
             <result name="input" type="redirectAction">
@@ -50,7 +50,7 @@
         </action>
 
         <action name="addOrder" class="action.OrderAction" method="addOrder">
-            <result name="success">/WEB-INF/order/orderSuccess.jsp</result>
+            <result name="success">/WEB-INF/order/order-success.jsp</result>
         </action>
 
         <action name="queryOrder" class="action.OrderAction" method="queryOrder">
@@ -63,12 +63,13 @@
             </result>
         </action>
 
+
         <action name="cancelOrder" class="action.OrderAction" method="cancelOrder">
             <result name="success" type="redirect">queryOrder.action</result>
         </action>
 
         <action name="payment" class="action.OrderAction" method="payment">
-            <result name="success">/WEB-INF/order/paymentSuccess.jsp</result>
+            <result name="success">/WEB-INF/order/order-payment-success.jsp</result>
         </action>
 
         <action name="confirmReceive" class="action.OrderAction" method="confirmReceive">
@@ -79,21 +80,40 @@
             <result name="success">/index.jsp</result>
         </action>
 
-        <action name="sendPackage" class="action.OrderAction" method="sendPackage">
-            <result name="success">/index.jsp</result>
+
+        <action name="toAddOrderComment" class="action.OrderAction" method="toAddOrderComment">
+            <result>/WEB-INF/order/comment-add.jsp</result>
+            <result name="input">/WEB-INF/order/comment-add.jsp</result>
+        </action>
+
+        <action name="addComment" class="action.OrderAction" method="addComment">
+            <result name="success" type="redirectAction">
+                <param name="namespace">/order</param>
+                <param name="actionName">queryOrder</param>
+            </result>
+
+            <result name="input">/WEB-INF/order/comment-invalid.jsp</result>
+        </action>
+
+        <action name="toAppendComment" class="action.OrderAction" method="toAddOrderComment">
+            <result>/WEB-INF/order/comment-append.jsp</result>
+            <result name="input">/WEB-INF/order/comment-add.jsp</result>
+        </action>
+
+        <action name="appendComment" class="action.OrderAction" method="appendComment">
+            <result name="success" type="redirectAction">
+                <param name="namespace">/order</param>
+                <param name="actionName">queryOrder</param>
+            </result>
+
+            <result name="input">/WEB-INF/order/comment-append-invalid.jsp</result>
         </action>
     </package>
-
 
     <package name="comment" namespace="/comment" extends="default">
         <default-interceptor-ref name="userStack"/>
 
-
         <action name="viewComment" class="action.CommentAction" method="viewComment">
-            <result name="success">/index.jsp</result>
-        </action>
-
-        <action name="addComment" class="action.CommentAction" method="addComment">
             <result name="success">/index.jsp</result>
         </action>
 
@@ -110,27 +130,40 @@
         </action>
     </package>
 
-
-    <package name="user" namespace="/user" extends="default">
+    <package name="user" namespace="/user" extends="default,json-default">
         <default-interceptor-ref name="userStack"/>
 
-
         <action name="register" class="action.UserAction" method="register">
-            <result name="success">/WEB-INF/user/home.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">index</param>
+                <param name="message">注册成功！</param>
+            </result>
             <result name="input">/signUp.jsp</result>
         </action>
 
         <action name="login" class="action.UserAction" method="login">
             <result name="input">/login.jsp</result>
-            <result name="success">/index.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">index</param>
+                <param name="message">登录成功！</param>
+            </result>
+            <result name="admin">/admin/index.jsp</result>
         </action>
 
         <action name="logout" class="action.LogoutAction" method="logout">
+            <result name="success" type="redirectAction">
+                <param name="actionName">index</param>
+                <param name="message">退出成功！</param>
+            </result>
+        </action>
+
+        <action name="index" class="action.LogoutAction" method="index">
             <result name="success">/index.jsp</result>
         </action>
 
         <action name="home" class="action.UserInfoAction" method="home">
             <result name="success">/WEB-INF/user/home.jsp</result>
+            <result name="error">/login.jsp</result>
         </action>
 
         <action name="viewInfo" class="action.UserInfoAction" method="viewInfo">
@@ -138,7 +171,10 @@
         </action>
 
         <action name="update" class="action.UserInfoAction" method="update">
-            <result name="success" type="redirectAction">viewInfo</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">viewInfo</param>
+                <param name="message">更新成功！</param>
+            </result>
             <result name="input">/WEB-INF/user/profile.jsp</result>
         </action>
 
@@ -147,22 +183,43 @@
         </action>
 
         <action name="resetPassword" class="action.UserInfoAction" method="resetPassword">
-            <result name="success" type="redirectAction">home</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">home</param>
+                <param name="message">修改密码成功！</param>
+            </result>
             <result name="input">/WEB-INF/user/resetPassword.jsp</result>
         </action>
 
         <action name="openFind" class="action.UserInfoAction" method="openFind">
-            <result name="success">/FindPassword.jsp</result>
+            <interceptor-ref name="defaultStack"/>
+
+            <result name="success">/WEB-INF/user/FindPassword.jsp</result>
         </action>
 
         <action name="sendConfirmCode" class="action.UserInfoAction" method="sendConfirmCode">
-            <result name="success">/FindPassword.jsp</result>
+            <interceptor-ref name="defaultStack"/>
+
+            <result name="success" type="json">
+                <param name="root">data</param>
+            </result>
             <result name="input">/FindPassword.jsp</result>
         </action>
 
         <action name="confirmEmail" class="action.UserInfoAction" method="confirmEmail">
-            <result name="success">/index.jsp</result>
+            <interceptor-ref name="defaultStack"/>
+
+            <result name="success" type="redirectAction">
+                <param name="actionName">index</param>
+                <param name="message">找回密码成功！</param>
+            </result>
             <result name="input">/FindPassword.jsp</result>
+        </action>
+
+        <action name="sendConfirm" class="action.UserInfoAction" method="sendConfirm">
+            <result name="success" type="redirectAction">
+                <param name="actionName">openConfirm</param>
+                <param name="message">验证码发送成功！</param>
+            </result>
         </action>
 
         <action name="openConfirm" class="action.UserInfoAction" method="openConfirm">
@@ -170,21 +227,25 @@
         </action>
 
         <action name="confirmCode" class="action.UserInfoAction" method="confirmCode">
-            <result name="success" type="redirectAction">viewInfo</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">viewInfo</param>
+                <param name="message">验证成功！</param>
+            </result>
             <result name="input">/WEB-INF/user/ConfirmEmail.jsp</result>
         </action>
 
-        <action name="history" class="action.UserInfoAction" method="history">
-            <result name="success">/WEB-INF/user/history.jsp</result>
-        </action>
+
     </package>
 
     <package name="favorite" namespace="/favorite" extends="default,json-default">
-        <!--<default-interceptor-ref name="myStack"/>-->
+        <default-interceptor-ref name="userStack"/>
 
         <action name="favor" class="action.FavoriteAction" method="favor">
             <result name="success" type="json">
                 <param name="root">data</param>
+            </result>
+            <result name="login" type="json">
+                <param name="includeProperties">result</param>
             </result>
         </action>
 
@@ -192,23 +253,28 @@
             <result name="success" type="json">
                 <param name="root">data</param>
             </result>
+            <result name="login" type="json">
+                <param name="includeProperties">result</param>
+            </result>
         </action>
 
         <action name="queryFavorite" class="action.FavoriteAction" method="queryFavorite">
             <result name="success">/WEB-INF/favorite/favorite.jsp</result>
         </action>
 
-        <action name="viewProduct" class="action.ProductionAction" method="viewProduct">
-            <result name="success">/WEB-INF/product/detail.jsp</result>
-            <result name="input">/WEB-INF/product/productDisable.jsp</result>
-        </action>
     </package>
 
     <package name="cart" namespace="/cart" extends="default,json-default">
+        <default-interceptor-ref name="userStack"/>
 
         <action name="addCart" class="action.CartAction" method="addCart">
             <result name="success" type="json">
                 <param name="root">data</param>
+            </result>
+
+            <result name="login" type="json">
+                <param name="result">login</param>
+                <param name="includeProperties">result</param>
             </result>
         </action>
 
@@ -216,6 +282,11 @@
             <result name="success" type="json">
                 <param name="root">data</param>
             </result>
+            <result name="login" type="json">
+                <param name="result">login</param>
+                <param name="includeProperties">result</param>
+            </result>
+
         </action>
 
         <action name="queryCart" class="action.CartAction" method="queryCart">
@@ -225,6 +296,10 @@
         <action name="updateCart" class="action.CartAction" method="updateCart">
             <result name="success" type="json">
                 <param name="root">data</param>
+            </result>
+            <result name="login" type="json">
+                <param name="result">login</param>
+                <param name="includeProperties">result</param>
             </result>
         </action>
     </package>
@@ -238,27 +313,44 @@
         </action>
 
         <action name="addAddress" class="action.AddressAction" method="addAddress">
-            <result name="success" type="redirectAction">viewAddress</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">viewAddress</param>
+                <param name="message">添加成功！</param>
+            </result>
             <result name="input">/WEB-INF/user/address.jsp</result>
         </action>
 
         <action name="deleteAddress" class="action.AddressAction" method="deleteAddress">
-            <result name="success" type="redirectAction">viewAddress</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">viewAddress</param>
+                <param name="message">删除成功！</param>
+            </result>
         </action>
 
         <action name="updateAddress" class="action.AddressAction" method="updateAddress">
             <result name="input">/WEB-INF/user/address.jsp</result>
-            <result name="success" type="redirectAction">viewAddress</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">viewAddress</param>
+                <param name="message">更新成功！</param>
+            </result>
         </action>
 
         <action name="setDefaultAddress" class="action.AddressAction" method="setDefaultAddress">
-            <result name="success" type="redirectAction">viewAddress</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">viewAddress</param>
+                <param name="message">设置成功！</param>
+            </result>
         </action>
     </package>
 
-    <package name="product" namespace="/product" extends="default">
+    <package name="product" namespace="/product" extends="default, json-default">
         <action name="viewProduct" class="action.ProductionAction" method="viewProduct">
             <result name="success">/WEB-INF/product/detail.jsp</result>
+            <result name="error" type="redirectAction">
+                <param name="actionName">productList</param>
+                <param name="state">e</param>
+                <param name="message">商品不存在</param>
+            </result>
         </action>
         <action name="productList" class="action.ProductionAction" method="viewPricedList">
             <result name="success">/WEB-INF/product/list.jsp</result>
@@ -266,6 +358,16 @@
         <action name="historyRecord" class="action.ProductionAction" method="viewHistoryRecord">
             <result name="success">/WEB-INF/user/history.jsp</result>
         </action>
+
+        <action name="removeHistory" class="action.UserInfoAction" method="removeHistory">
+            <result name="success" type="json">
+                <param name="root">data</param>
+            </result>
+            <result name="login" type="json">
+                <param name="includeProperties">result</param>
+            </result>
+        </action>
+
         <action name="productListByWord" class="action.ProductionAction" method="findPricedsByWord">
             <result name="success">/WEB-INF/product/list.jsp</result>
         </action>
@@ -274,8 +376,55 @@
         </action>
     </package>
 
+    <package name="adminOrder" namespace="/admin-order" extends="default">
+        <default-interceptor-ref name="orderStack"/>
+        <global-results>
+            <result name="login">/admin/login.jsp</result>
+            <result name="invalid">/invalid.jsp</result>
+        </global-results>
+
+        <action name="queryOrder" class="action.OrderAction" method="adminQueryOrder">
+            <result name="input">
+                <param name="location">/admin/send_goods.jsp</param>
+                <param name="actionErrors">"没有权限"</param>
+            </result>
+            <result name="success">/admin/send_goods.jsp</result>
+        </action>
+
+        <action name="queryOrder2" class="action.OrderAction" method="adminQueryOrder">
+            <result name="input">
+                <param name="location">/admin/order_list.jsp</param>
+                <param name="actionErrors">"没有权限"</param>
+            </result>
+            <result name="success">/admin/order_list.jsp</result>
+        </action>
+
+        <action name="cancel" class="action.OrderAction" method="cancelOrder">
+            <result name="input">
+                <param name="location">/admin/order_list.jsp</param>
+                <param name="actionErrors">"没有权限"</param>
+            </result>
+            <result name="success" type="redirect">queryOrder2.action</result>
+        </action>
+
+        <action name="sendPackage" class="action.OrderAction" method="sendPackage">
+            <result name="success" type="redirectAction">
+                <param name="namespace">/admin-order</param>
+                <param name="actionName">queryOrder</param>
+
+            </result>
+        </action>
+
+    </package>
+
     <package name="admin" namespace="/admin" extends="default">
+
         <default-interceptor-ref name="productStack"/>
+        <global-results>
+            <result name="login">/admin/login.jsp</result>
+            <result name="invalid">/invalid.jsp</result>
+        </global-results>
+
         <action name="addPriced" class="action.ProductionAction" method="add">
             <result name="success" type="redirectAction">
                 <param name="actionName">pricedList</param>
@@ -294,6 +443,11 @@
         </action>
         <action name="viewProduct" class="action.ProductionAction" method="viewProductAdmin">
             <result name="success">/admin/update_product.jsp</result>
+            <result name="error" type="redirectAction">
+                <param name="actionName">pricedList</param>
+                <param name="state">e</param>
+                <param name="message">商品不存在</param>
+            </result>
         </action>
         <action name="updatePriced" class="action.ProductionAction" method="update">
             <result name="success" type="redirectAction">

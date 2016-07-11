@@ -89,7 +89,6 @@
                 <div class="tab-pane active" id="all" role="tabpanel">
                     <br>
                     <s:iterator value="orderList">
-
                         <div class="card order-<s:property value="orderId"/>">
                             <div class="card-header">
                                 <div class="row">
@@ -155,6 +154,13 @@
                                             </a>
                                         </s:if>
                                         <s:if test='orderStatus == "shipped"'>
+                                            <s:url action="getLogisticsStatus" namespace="/order" var="getLogisticsStatus">
+                                                <s:param name="orderId"><s:property value="orderId"/></s:param>
+                                            </s:url>
+                                            <a href="${getLogisticsStatus}">
+                                                <span>查看物流</span>
+                                            </a>
+                                            <br/>
                                             <s:url action="confirmReceive" namespace="/order" var="confirmReceive">
                                                 <s:param name="orderId"><s:property value="orderId"/></s:param>
                                             </s:url>
@@ -163,9 +169,30 @@
                                             </a>
                                         </s:if>
                                         <s:if test='notCommented'>
-                                            <a href="#"/>
-                                            <span>评论</span>
+                                            <s:url action="getLogisticsStatus" namespace="/order" var="getLogisticsStatus">
+                                                <s:param name="orderId"><s:property value="orderId"/></s:param>
+                                            </s:url>
+                                            <a href="${getLogisticsStatus}">
+                                                <span>查看物流</span>
+                                            </a>
+                                            <br/>
+                                            <a href="#">
+                                                <span>评论</span>
+                                            </a>
                                         </s:if>
+                                        <s:if test='commented'>
+                                            <s:url action="getLogisticsStatus" namespace="/order" var="getLogisticsStatus">
+                                                <s:param name="orderId"><s:property value="orderId"/></s:param>
+                                            </s:url>
+                                            <a href="${getLogisticsStatus}">
+                                                <span>查看物流</span>
+                                            </a>
+                                            <br/>
+                                            <a href="#">
+                                                <span>追评</span>
+                                            </a>
+                                        </s:if>
+
                                     </div>
                                 </div>
 
@@ -369,6 +396,13 @@
                                             </s:iterator>
                                         </div>
                                         <div class="col-md-4">
+                                            <s:url action="getLogisticsStatus" namespace="/order" var="getLogisticsStatus">
+                                                <s:param name="orderId"><s:property value="orderId"/></s:param>
+                                            </s:url>
+                                            <a href="${getLogisticsStatus}">
+                                                <span>查看物流</span>
+                                            </a>
+                                            <br/>
                                             <s:url action="confirmReceive" namespace="/order" var="confirmReceive">
                                                 <s:param name="orderId"><s:property value="orderId"/></s:param>
                                             </s:url>
@@ -441,6 +475,13 @@
                                         </div>
 
                                         <div class="col-md-4">
+                                            <s:url action="getLogisticsStatus" namespace="/order" var="getLogisticsStatus">
+                                                <s:param name="orderId"><s:property value="orderId"/></s:param>
+                                            </s:url>
+                                            <a href="${getLogisticsStatus}">
+                                                <span>查看物流</span>
+                                            </a>
+                                            <br/>
                                             <a href="#">
                                                 <span>评论</span>
                                             </a>

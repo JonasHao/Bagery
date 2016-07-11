@@ -1,12 +1,16 @@
 package serviceImpl;
 
+import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import constant.Config;
 import constant.Key;
+import po.FavoriteItem;
 import po.User;
+import po.UserPricedRecord;
 import service.UserService;
 import dao.Dao;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 /**
@@ -17,89 +21,109 @@ public class UserServiceImpl implements UserService {
     private Dao dao;
     private User user;
     private List<User> userList;
-    private int userId;
-    @Override
+
     public User getCurrentUser() {
-        if(Config.DEBUG){
-            user = dao.get(User.class,1);
+        if (Config.DEBUG) {
+            user = dao.get(User.class, 1);
             return user;
         }
-        user=(User)ActionContext.getContext().getSession().get("User");
-        userId=user.getUserId();
-        user=dao.get(User.class,userId);
-        return user;
+        Integer userId = (Integer) ActionContext.getContext().getSession().get(Key.USER);
+        if (userId != null) {
+            return dao.get(User.class, userId);
+        }
+        return null;
+    }
+
+    public boolean isLoggedIn() {
+        return (int) ActionContext.getContext().getSession().get(Key.USER) > 0;
     }
 
     @Override
     public User get(int userId) {
-        user=(User)dao.query("from User where userId=?").setParameter(0,userId).list().get(0);
+        user = dao.get(User.class, userId);
         return user;
     }
 
     @Override
-    public String login(String username, String password) {
-        user=(User)dao.query("from User where username=?").setParameter(0,username).list().get(0);
+    public User login(String username, String password) {
+        user = (User) dao.query("from User where username=?").setParameter(0, username).list().get(0);
 
-        if(user.getPassword().equals(password))
-        {
-            ActionContext.getContext().getSession().put("User",user);
-            if(user.getUserGroup().equals("product_admin")){
-                return "success";
-            }
-            else
-            {
-                if(user.getUserGroup().equals("order_admin")){
-                    return "success";
-                }
-                else
-                    return "success";
-            }
+        if (user.getPassword().equals(password)) {
+            ActionContext.getContext().getSession().put(Key.USER, user.getUserId());
+            return user;
         }
-        else return "input";
+
+        return null;
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public boolean existUsername(String username) {
-        userList=dao.query("from User where username=?").setParameter(0,username).list();
-        if(userList.size()==1)
-            return true;
-        else
-            return false;
+        userList = dao.query("from User where username=?").setParameter(0, username).list();
+        return userList.size() == 1;
     }
 
-    public String getUserGroup(String username){
-        userList=dao.query("from User where username=?").setParameter(0,username).list();
-        if(userList.size()==1)
+    @SuppressWarnings("unchecked")
+    public String getUserGroup(String username) {
+        userList = dao.query("from User where username=?").setParameter(0, username).list();
+        if (userList.size() == 1)
             return userList.get(0).getUserGroup();
         else
             return null;
     }
+
     @Override
+    @SuppressWarnings("unchecked")
     public boolean existEmail(String email) {
-        userList=dao.query("from User where email=?").setParameter(0,email).list();
-        if(userList.size()==1)
-            return true;
-        else
-            return false;
+        userList = dao.query("from User where email=?").setParameter(0, email).list();
+        return userList.size() == 1;
     }
 
-    public User getUserByEmial(String email){
-        userList=dao.query("from User where email=?").setParameter(0,email).list();
-        if(userList.size()!=0){
+    @SuppressWarnings("unchecked")
+    public User getUserByEmail(String email) {
+        userList = dao.query("from User where email=?").setParameter(0, email).list();
+        if (userList.size() != 0) {
             return userList.get(0);
-        }
-        else
+        } else
             return null;
     }
 
     @Override
     public void register(User user) {
-        dao.save(user);
+        int id = (int) dao.save(user);
+        ActionContext.getContext().getSession().put(Key.USER, id);
     }
 
     @Override
     public void update(User user) {
         dao.update(user);
+    }
+
+    public String getMD5(byte[] source) {
+        String s = null;
+        char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+        try {
+            java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
+            md.update(source);
+            byte tmp[] = md.digest();
+            char str[] = new char[16 * 2];
+            int k = 0;
+            for (int i = 0; i < 16; i++) {
+                byte byte0 = tmp[i];
+                str[k++] = hexDigits[byte0 >>> 4 & 0xf];
+                str[k++] = hexDigits[byte0 & 0xf];
+            }
+            s = new String(str);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return s;
+    }
+
+    @Override
+    public void removeHistory(int historyId) {
+        UserPricedRecord record = dao.get(UserPricedRecord.class, historyId);
+        dao.delete(record);
     }
 
     @Override

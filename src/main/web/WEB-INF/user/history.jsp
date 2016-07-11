@@ -25,22 +25,33 @@
 
             <div class="history-block">
 
-                <div class="reviews">
-                    <h2 class="h2-responsive">今天</h2>
-                </div>
+                    <%--<div class="reviews">--%>
+                    <%--<h2 class="h2-responsive">今天</h2>--%>
+                    <%--</div>--%>
 
                 <div class="row">
-                    <s:iterator value="historyList">
-                        <div class="col-md-3 col-lg-2 ">
-                            <t:favoriteItem>
-                                <jsp:attribute name="img"><s:property value="priced.img"/></jsp:attribute>
-                                <jsp:attribute name="title"><s:property value="priced.title"/></jsp:attribute>
-                                <jsp:attribute name="price"><s:property value="priced.unitPrice"/></jsp:attribute>
-                                <jsp:attribute name="pricedId"><s:property value="priced.pricedId"/></jsp:attribute>
-                            </t:favoriteItem>
-                        </div>
+                    <s:if test="user==null">
+                    <p>您还没有登陆系统！
+                        </s:if>
+                        <s:if test="records.size()==0">
+                    <p>您还没有浏览过任何商品！
+                        </s:if>
+                        <s:else>
+                        <s:iterator value="records">
+                    <div class="col-md-3 col-lg-2 ">
+                        <t:historyItem>
+                            <jsp:attribute name="img"><s:property value="priced.img"/></jsp:attribute>
+                            <jsp:attribute name="title"><s:property value="priced.title"/></jsp:attribute>
+                            <jsp:attribute name="price"><s:property value="priced.unitPrice"/></jsp:attribute>
+                            <jsp:attribute name="pricedId"><s:property value="priced.pricedId"/></jsp:attribute>
+                            <jsp:attribute name="historyId"><s:property value="userPricedId"/></jsp:attribute>
+                        </t:historyItem>
+                    </div>
                     </s:iterator>
+                    </s:else>
                 </div>
+
+
             </div>
         </div>
 

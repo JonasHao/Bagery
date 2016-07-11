@@ -32,9 +32,9 @@
 
                             <div class="md-form error-msg-form">
                                 <s:textfield label="姓名" required="true" errorPosition="none" maxLength="15"
-                                             minLength="2" name="realName" class="form-control"/>
+                                             minLength="2" name="realname" class="form-control"/>
                             </div>
-                            <s:fielderror fieldName="realName" name="realName" cssClass="errorMessage"/>
+                            <s:fielderror fieldName="realname" name="realname" cssClass="errorMessage"/>
 
 
                             <div class="md-form error-msg-form">
@@ -55,7 +55,7 @@
 
                             <s:submit cssClass="grey btn btn-primary" value="注册"/>
                             <a href="/login.jsp">登录</a>
-                            <s:a action="openFind" namespace="/user">忘记密码</s:a>
+                            <a href="/FindPassword.jsp">忘记密码</a>
                         </div>
                     </form>
                 </div>

@@ -5,10 +5,7 @@ import constant.Config;
 import org.apache.struts2.dispatcher.DefaultActionSupport;
 import org.hibernate.HibernateException;
 import po.*;
-import service.AddressService;
-import service.CartService;
-import service.OrderService;
-import service.UserService;
+import service.*;
 import constant.OrderStatus;
 
 import java.util.*;
@@ -24,6 +21,7 @@ public class OrderAction extends DefaultActionSupport {
     private OrderService orderService;
     private AddressService addressService;
     private CartService cartService;
+    private CommentService commentService;
     private Order order;
     private User user;
     private Address defaultAddress;
@@ -36,6 +34,7 @@ public class OrderAction extends DefaultActionSupport {
     private Collection<Order> orderList = new ArrayList<>();
     private List<Integer> cartItemIdList = new ArrayList<>();
     private List<OrderItem> orderItemList = new ArrayList<>();
+    private List<Comment> commentList = new ArrayList<>();
 
     private int userId;
     private int shipInfId;
@@ -47,14 +46,18 @@ public class OrderAction extends DefaultActionSupport {
     private String status;
     private String instruction;
 
-    private Map<String,Object> data=new HashMap<>();
+    private Map<String, Object> data = new HashMap<>();
 
     //����
-    public String balance() throws Exception{
+    public String balance() throws Exception {
         try {
             user = userService.getCurrentUser();
             addressList = user.getAddresses();
-            defaultAddress = addressService.get(user.getDefaultAddressId());
+            Integer defaultAddressId = user.getDefaultAddressId();
+
+            if (defaultAddressId != null) {
+                defaultAddress = addressService.get(user.getDefaultAddressId());
+            }
 
             if (cartItemIdList == null || cartItemIdList.size() == 0) {
                 return INPUT;
@@ -77,7 +80,7 @@ public class OrderAction extends DefaultActionSupport {
     }
 
     //��������
-    public String addOrder() throws Exception{
+    public String addOrder() throws Exception {
         if (cartItemIdList == null || cartItemIdList.size() == 0) {
             return INPUT;
         }
@@ -88,13 +91,24 @@ public class OrderAction extends DefaultActionSupport {
             order.setUserId(userId);
             order.setAddressId(user.getDefaultAddressId());
             order.setInstruction(instruction);
-//            order.setTotal(total);
-//            order.setOrderStatus(OrderStatus.UNPAID);
-
             orderService.addOrder(order, cartItemIdList);
 
+            Double newScore = order.getTotal();
+            if (newScore == null) {
+                for (Integer id : cartItemIdList) {
+                    CartItem item = cartService.getCartItem(id);
+                    if (item != null) {
+                        newScore += item.getSubtotal();
+                    }
+                }
+            }
+            if (newScore != null) {
+                int score = (int) (user.getScore() + newScore);
+                user.setScore(score);
+                userService.update(user);
+            }
             return SUCCESS;
-        }catch (HibernateException | NullPointerException e){
+        } catch (HibernateException | NullPointerException e) {
             e.printStackTrace();
         }
         return ERROR;
@@ -102,95 +116,229 @@ public class OrderAction extends DefaultActionSupport {
     }
 
     //�鿴����
-    public String queryOrder() throws Exception{
+    public String queryOrder() throws Exception {
         try {
             user = userService.getCurrentUser();
             orderList = user.getOrders();
             return SUCCESS;
-        }catch (HibernateException e){
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+        return ERROR;
+    }
+
+    public String adminQueryOrder() throws Exception {
+        try {
+            orderList = orderService.getAll();
+            return SUCCESS;
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        }
+        return ERROR;
+    }
+
+    public String QueryOrderFilter() throws Exception {
+        try {
+            orderList = orderService.getStatusOf(OrderStatus.UNSHIPPED);
+            return SUCCESS;
+        } catch (HibernateException e) {
             e.printStackTrace();
         }
         return ERROR;
     }
 
     //ɾ������
-    public String deleteOrder() throws Exception{
+    public String deleteOrder() throws Exception {
         try {
-            orderService.deleteOrder(orderId);
-            data.put(RESULT, SUCCESS);
-        }catch (HibernateException e){
-            if (Config.DEBUG) {
-                data.put(RESULT, SUCCESS);
-            } else {
+            order = orderService.getByOrderId(orderId);
+            if (order == null) {
                 data.put(RESULT, ERROR);
+                return SUCCESS;
             }
+            switch (order.getOrderStatus()) {
+                case OrderStatus.CANCELED:
+                case OrderStatus.UNPAID:
+                case OrderStatus.COMPLETED:
+                    orderService.deleteOrder(order);
+                    data.put(RESULT, SUCCESS);
+                    break;
+                default:
+                    data.put(RESULT, INPUT);
+            }
+        } catch (Exception e) {
+            data.put(RESULT, ERROR);
         }
         return SUCCESS;
     }
 
     //ȡ������
-    public String cancelOrder() throws Exception{
+    public String cancelOrder() throws Exception {
         try {
             order = orderService.getByOrderId(orderId);
-            order.setOrderStatus(OrderStatus.CANCELED);
-            orderService.updateOrder(order);
-            return SUCCESS;
-        }catch (HibernateException e){
-            e.printStackTrace();
+            if (order == null) {
+                return ERROR;
+            }
+            switch (order.getOrderStatus()) {
+                case OrderStatus.UNPAID:
+                    order.setOrderStatus(OrderStatus.CANCELED);
+                    orderService.updateOrder(order);
+                    break;
+                default:
+                    data.put(RESULT, INPUT);
+            }
+        } catch (Exception e) {
+            data.put(RESULT, ERROR);
         }
-        return ERROR;
+        return SUCCESS;
     }
 
+
     //֧��
-    public String payment() throws Exception{
+    public String payment() throws Exception {
         try {
             order = orderService.getByOrderId(orderId);
+            if (order == null) {
+                return ERROR;
+            }
             order.setOrderStatus(OrderStatus.UNSHIPPED);
             orderService.updateOrder(order);
             return SUCCESS;
-        }catch (HibernateException e){
+        } catch (HibernateException e) {
             e.printStackTrace();
         }
         return ERROR;
     }
 
     //ȷ���ջ�
-    public String confirmReceive() throws Exception{
+    public String confirmReceive() throws Exception {
         try {
             user = userService.getCurrentUser();
             order = orderService.getByOrderId(orderId);
+            if (order == null) {
+                return ERROR;
+            }
             order.setOrderStatus(OrderStatus.COMPLETED);
             orderService.updateOrder(order);
             return SUCCESS;
-        }catch (HibernateException e){
+        } catch (HibernateException e) {
             e.printStackTrace();
         }
         return ERROR;
     }
 
     //�鿴������Ϣ
-    public String getLogisticsStatus() throws Exception{
+    public String getLogisticsStatus() throws Exception {
         try {
             user = userService.getCurrentUser();
             logistics = orderService.getLogisticsStatus(orderId);
             ActionContext.getContext().getSession().put("logistics", logistics);
             return SUCCESS;
-        }catch (HibernateException e){
+        } catch (HibernateException e) {
             e.printStackTrace();
         }
         return ERROR;
     }
 
     //�̼ҷ���
-    public String sendPackage() throws Exception{
+    public String sendPackage() throws Exception {
         try {
             orderService.sendPackage(orderId, logisticsNum, logisticsCompany);
-
             return SUCCESS;
-        }catch (HibernateException e){
+        } catch (HibernateException e) {
             e.printStackTrace();
         }
         return ERROR;
+    }
+
+    public String toAddOrderComment() throws Exception {
+        order = orderService.getByOrderId(orderId);
+
+        if (order != null && order.isNotCommented()) {
+            orderItemList = order.getOrderItems();
+            for (OrderItem item : orderItemList) {
+                Comment comment = commentService.getByPricedIdAndOrderId(item.getProduct().getPricedId(), orderId);
+                if (comment == null) {
+                    comment = new Comment();
+                    comment.setPricedId(item.getProduct().getPriced().getPricedId());
+                    comment.setPriced(item.getProduct().getPriced());
+                    comment.setOrderId(order.getOrderId());
+                    comment.setOrder(order);
+                }
+                commentList.add(comment);
+            }
+            return SUCCESS;
+        }
+        return ERROR;
+    }
+
+    public String addComment() throws Exception {
+        user = userService.getCurrentUser();
+        int userId = user.getUserId();
+        if (commentList.size() > 0) {
+            Order order = orderService.getByOrderId(commentList.get(0).getOrderId());
+            if (order.isNotCommented()) {
+                for (Comment comment : commentList) {
+                    comment.setUserId(userId);
+                }
+                commentService.saveComments(commentList);
+                return SUCCESS;
+            }
+        }
+        return INPUT;
+    }
+
+    public String appendComment() throws Exception {
+        user = userService.getCurrentUser();
+
+        for (Comment comment : commentList) {
+            comment.setUserId(user.getUserId());
+        }
+
+        commentService.saveComments(commentList);
+        return SUCCESS;
+    }
+
+    public void validateAppendComment() {
+        for (Comment comment : commentList) {
+            if (comment == null) {
+                continue;
+            }
+
+            if (comment.getContent2().isEmpty() || comment.getContent2().length() < 10) {
+                addActionError("评价内容至少也要10个字呢");
+                return;
+            }
+
+            if (comment.getContent2().length() > 200) {
+                addActionError("评论内容不能超过200个字");
+                return;
+            }
+        }
+    }
+
+    public void validateAddComment() {
+        for (Comment comment : commentList) {
+            if (comment == null) {
+                continue;
+            }
+            if (comment.getStar() == null || comment.getStar() > 5 || comment.getStar() < 0) {
+                addActionError("评分只能在0-5之间哦，你看到这个消息肯定有谁是作怪了");
+                return;
+            }
+            if (comment.getContent1().isEmpty() || comment.getContent1().length() < 10) {
+                addActionError("评价内容至少也要10个字呢");
+                return;
+            }
+
+            if (comment.getContent1().length() > 200) {
+                addActionError("评论内容不能超过200个字");
+                return;
+            }
+        }
+    }
+
+    public void validateToAddOrderComment() {
+        validateAddComment();
     }
 
 
@@ -384,5 +532,18 @@ public class OrderAction extends DefaultActionSupport {
 
     public void setInstruction(String instruction) {
         this.instruction = instruction;
+    }
+
+    public List<Comment> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(List<Comment> commentList) {
+        this.commentList = commentList;
+    }
+
+
+    public void setCommentService(CommentService commentService) {
+        this.commentService = commentService;
     }
 }

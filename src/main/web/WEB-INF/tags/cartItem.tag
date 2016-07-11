@@ -46,19 +46,20 @@
                 </div>
 
                 <div class="col-md-2 quantity-control">
-                    <button type="button" onclick="minus(<jsp:invoke fragment="stock"/>)">-</button>
-                    <input type="text" onkeyup="this.value=minmax(this.value,1,<jsp:invoke fragment="stock"/>)"
-                           onchange="updateCart( <jsp:invoke fragment="itemId"/>,parseInt(this.value))" min="1"
-                           max="<jsp:invoke fragment="stock"/>"
+                    <button type="button" onclick="minus(<jsp:invoke fragment="stock"/>,<jsp:invoke fragment="salePrice"/>,<jsp:invoke fragment="itemId"/>)">-</button>
+                    <input type="text" min="1" max="<jsp:invoke fragment="stock"/>"
+                           onkeyup="this.value=minmax(this.value,1,<jsp:invoke fragment="stock"/>,
+                           <jsp:invoke fragment="salePrice"/> ,<jsp:invoke fragment="itemId"/>)"
+                           onblur="updateCart( <jsp:invoke fragment="itemId"/>,this.value)"
                            value="<jsp:invoke fragment="number"/>">
-                    <button type="button" onclick="add(<jsp:invoke fragment="stock"/>)">+</button>
+                    <button type="button" onclick="add(<jsp:invoke fragment="stock"/>,<jsp:invoke fragment="salePrice"/>,<jsp:invoke fragment="itemId"/>)">+</button>
                     <br/>
                     <span style="color:red"></span>
                 </div>
 
                 <div class="col-md-2">
                     <i class="fa fa-rmb" aria-hidden="true"></i>
-                    <span><jsp:invoke fragment="totalPrice"/></span>
+                    <span id="total-<jsp:invoke fragment="itemId"/>"><jsp:invoke fragment="totalPrice"/></span>
                 </div>
 
                 <div class="col-md-2">
@@ -100,7 +101,7 @@
                 })
     }
 
-    function add(stock) {
+    function add(stock, price, id) {
         console.log(event.target.parentNode.childNodes);
         var myself = event.target;
         var inputtext = myself.previousSibling.previousSibling;
@@ -112,10 +113,12 @@
             if (inputtext.value == 1)
                 inputtext.previousSibling.previousSibling.isDisabled = "false";
             inputtext.value++;
+            console.log("input text:" + inputtext.value);
+            minmax(inputtext.value, 1, stock, price, id);
         }
 
     }
-    function minus(stock) {
+    function minus(stock, price, id) {
         var myself = event.target;
         var inputtext = myself.nextSibling.nextSibling;
         if (inputtext.value <= 1)
@@ -126,37 +129,45 @@
                 myself.parentNode.childNodes[9].innerHTML = "";
             }
             inputtext.value--;
+            console.log("input text:" + inputtext.value);
+            minmax(inputtext.value, 1, stock, price, id);
         }
     }
-    function minmax(value, min, max) {
+    function minmax(value, min, max, price, id) {
+        console.log("value=" + value + " min=" + min + " max=" + max + " price=" + price);
         var myself = event.target;
-        var salePrice = myself.parentNode.previousSibling.previousSibling.childNodes[5].innerHTML;
-        console.log(salePrice);
-        if (parseInt(value) > max) {
+        var total = $("#total-"+id);
+
+        value = parseInt(value);
+        min = parseInt(min);
+        max = parseInt(max);
+
+        if (value > max) {
             myself.parentNode.childNodes[9].innerHTML = "最多只能购买" + max + "件";
-            myself.parentNode.parentNode.childNodes[7].childNodes[3].innerHTML = max * salePrice;
+            total.text(max * price);
             return max;
         }
+
         myself.parentNode.childNodes[9].innerHTML = "";
-        if (min <= parseInt(value) && parseInt(value) <= max) {
-            myself.parentNode.parentNode.childNodes[7].childNodes[3].innerHTML = value * salePrice;
+
+        if (min <= value && value <= max) {
+            total.text(value * price);
+            console.log("total price = " + value * price);
             return value;
         }
-        myself.parentNode.parentNode.childNodes[7].childNodes[3].innerHTML = min * salePrice;
+
+        total.value.text(min * price);
         return min;
     }
 
     function updateCart(itemId, number) {
+        console.log("itemId=" + itemId + " number=" + number);
         $.ajax(
                 {
-                    url: "/cart/updateCart",
+                    url: "/cart/updateCart.action",
                     dataType: "json",   //返回格式为json
                     type: 'post',
-                    data: {itemId: itemId, num: number},
-//                        success: function (data) {
-//                            if (data.result == "success")
-//                                alert("更新成功")
-//                        }
+                    data: {itemId: itemId, num: number}
                 })
     }
 </script>

@@ -1,4 +1,5 @@
 <%@ tag import="constant.Config" %>
+<%@ tag import="constant.Key" %>
 <%@tag description="Overall Page template" pageEncoding="UTF-8" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <!-- Collapse button-->
@@ -52,7 +53,7 @@
                         <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
                             <%
                                 if(Config.DEBUG){
-                                    session.setAttribute("user","Bagery");
+                                    session.setAttribute(Key.USER,1);
                                 }
                             %>
                             <s:if test="#session.user!=null">
@@ -62,8 +63,8 @@
                                 <s:a class="dropdown-item"  action="logout" namespace="/user">退出</s:a>
                             </s:if>
                             <s:else>
-                                <a class="dropdown-item" href="#">登录</a>
-                                <a class="dropdown-item" href="#">注册</a>
+                                <a class="dropdown-item" href="/login.jsp">登录</a>
+                                <a class="dropdown-item" href="/signUp.jsp">注册</a>
                             </s:else>
 
                         </div>

@@ -5,12 +5,17 @@
 <t:base>
     <jsp:attribute name="scripts">
         <script type="text/javascript">
-            if(1==1) {
-                notify("登录成功！");
+            function getQueryString(name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+                var r = location.search.substr(1).match(reg);
+                if (r != null) return unescape(decodeURI(r[2])); return null;
+            }
+            var m=getQueryString("message");
+            if(m!=null){
+                notify(m);
             }
         </script>
     </jsp:attribute>
-
 
     <jsp:attribute name="title">首页 </jsp:attribute>
     <jsp:body>
