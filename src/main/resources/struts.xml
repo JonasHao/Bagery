@@ -404,8 +404,9 @@
 
         <action name="sendPackage" class="action.OrderAction" method="sendPackage">
             <result name="success" type="redirectAction">
-                <param name="namespace">/admin/order</param>
+                <param name="namespace">/admin-order</param>
                 <param name="actionName">queryOrder</param>
+
             </result>
         </action>
 

@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User get(int userId) {
-        user = (User) dao.query("from User where userId=?").setParameter(0, userId).list().get(0);
+        user = dao.get(User.class, userId);
         return user;
     }
 
