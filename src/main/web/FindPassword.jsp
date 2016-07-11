@@ -4,7 +4,7 @@
 
 <t:base>
     <jsp:attribute name="scripts">
-        <script type="text/javascript">
+          <script type="text/javascript">
             var reg = new RegExp("(^|&)" + "actionMessages" + "=([^&]*)(&|$)", "i");
             var r = location.search.substr(1).match(reg);
             var m;
@@ -53,11 +53,10 @@
             }
 
             function confirmCode() {
-                var code = $("#confirmCode");
+                var confirmCode = $("#confirmCode");
                 var password = $("#newPassword");
                 var confirmPwd = $("#confirmNewPassword");
                 var emailStr = $("#form1").val();
-
 
                 if (!( password.val() === confirmPwd.val())) {
                     warning("两次密码输入不一致");
@@ -67,18 +66,18 @@
                     url: "/user/confirmEmail",
                     dataType: "json",
                     type: 'post',
-                    data: {email: emailStr, newPassword: password, code: code},
+                    data: {email: emailStr, newPassword: password.val(), conformCode: confirmCode.val()},
                     success: function (data) {
                         console.log(data);
                         var result = data.result;
                         if (result == "input") {
                             warning(data.error_message);
-                            return;
+//                            return;
                         }
 
                         if (result == "error") {
                             warning("找回密码失败，请稍后重试");
-                            return;
+//                            return;
                         }
 
                         if (result == "success") {
@@ -86,8 +85,6 @@
                         }
                     }
                 })
-
-
             }
         </script>
 
@@ -117,7 +114,7 @@
                         <%--</form>--%>
 
                     <div class="reset-block">
-                        <form class="form-user" action="/user/confirmEmail" method="GET">
+                        <%--<form class="form-user" action="/user/confirmEmail" method="GET">--%>
 
 
                             <s:hidden name="email" id="emailField"/>
@@ -143,9 +140,9 @@
                             <s:fielderror fieldName="confirmNewPassword" name="confirmNewPassword"
                                           cssClass="errorMessage"/>
 
-                            <a onclick="confirmCode()" class="grey btn btn-primary">确认</a>
+                            <submit onclick="confirmCode()" class="grey btn btn-primary">确认</submit>
 
-                        </form>
+                        <%--</form>--%>
                         <a href="/login.jsp">取消</a>
                     </div>
                 </div>

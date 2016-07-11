@@ -189,7 +189,6 @@ public class UserInfoAction extends DefaultActionSupport {
                 return SUCCESS;
             }
 
-
             newPassword = userService.getMD5(newPassword.getBytes());
             user.setPassword(newPassword);
             userService.update(user);
