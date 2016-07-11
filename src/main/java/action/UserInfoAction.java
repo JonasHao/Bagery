@@ -140,19 +140,23 @@ public class UserInfoAction extends DefaultActionSupport {
     }
 
     public String sendConfirmCode() {
+        if (!email.matches("^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$")) {
+            data.put(Key.RESULT,INPUT);
+            data.put(Key.ERROR_MESSAGE,"邮箱格式不正确");
+            return SUCCESS;
+        }
+
         user = userService.getUserByEmail(email);
 
         if (user == null) {
-            addFieldError("email", "不存在的邮箱");
             data.put(Key.RESULT, INPUT);
-            data.put(Key.ERROR_FIELDS, getFieldErrors());
+            data.put(Key.ERROR_MESSAGE, "不存在的邮箱");
             return SUCCESS;
         }
 
         if (user.getIsActivate() == 0) {
-            addFieldError("email", "未验证的邮箱不可找回密码");
             data.put(Key.RESULT, INPUT);
-            data.put(Key.ERROR_FIELDS, getFieldErrors());
+            data.put(Key.ERROR_MESSAGE,"未验证的邮箱");
             return SUCCESS;
         }
 
@@ -166,7 +170,6 @@ public class UserInfoAction extends DefaultActionSupport {
         //发送邮件
         return SUCCESS;
     }
-
 
     public String confirmEmail() {
         try {
@@ -235,12 +238,10 @@ public class UserInfoAction extends DefaultActionSupport {
             addFieldError("newPassword", "密码只能包含字母数字或下划线");
         }
     }
-
-    public void validateSendConfirmCode() {
-        if (!email.matches("^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$")) {
-            addFieldError("email", "邮箱格式不正确");
-        }
-    }
+//
+//    public void validateSendConfirmCode() {
+//
+//    }
 
     public void validateConfirmEmail() {
         if (!newPassword.matches("^(\\w){5,20}$")) {

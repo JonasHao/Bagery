@@ -21,6 +21,12 @@
             var code;
             function sendCode() {
                 var emailStr = $("#form1").val();
+
+                if(emailStr==null||emailStr.length==0){
+                    warning("邮箱不可为空");
+                    return;
+                }
+
                 console.log("email:" + emailStr);
 
                 $.ajax({
@@ -31,7 +37,8 @@
                     success: function (data) {
                         console.log(data);
                         if (data.result == "input") {
-                            $("#email").text(data.error_fields);
+//                            $("#email").text(data.error_fields);
+                            warning(data.error_message);
                         } else if (data.result == "success") {
                             notify("验证码正在发送");
                             var btnSendCode = $("#btn-send-code");
@@ -61,15 +68,14 @@
 
                 <div class="card-block">
 
-                    <form class="form-user" action="/user/sendConfirmCode" method="POST">
+                    <%--<form class="form-user" action="/user/sendConfirmCode" method="POST">--%>
                         <div class="md-form">
                             <s:textfield label="邮箱" id="form1" name="email" errorPosition="none"
-                                         class="form-control" required="true" disabled="false"><s:property
-                                    value="#session.Email"/></s:textfield>
-                            <a onclick="sendCode()" id="btn-send-code" class="grey btn btn-primary">发送验证码</a>
+                                         class="form-control"  disabled="false"/>
+                            <submit onclick="sendCode()" id="btn-send-code" class="grey btn btn-primary">发送验证码</submit>
                         </div>
                         <s:fielderror fieldName="email" name="email" cssClass="errorMessage"/>
-                    </form>
+                    <%--</form>--%>
 
                     <div class="reset-block">
                         <form class="form-user" action="/user/confirmEmail" method="GET">
