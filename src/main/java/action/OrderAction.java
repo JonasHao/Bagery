@@ -73,7 +73,7 @@ public class OrderAction extends DefaultActionSupport {
             }
 
             return SUCCESS;
-        } catch (HibernateException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return ERROR;
@@ -121,7 +121,7 @@ public class OrderAction extends DefaultActionSupport {
             user = userService.getCurrentUser();
             orderList = user.getOrders();
             return SUCCESS;
-        } catch (HibernateException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return ERROR;
@@ -131,7 +131,7 @@ public class OrderAction extends DefaultActionSupport {
         try {
             orderList = orderService.getAll();
             return SUCCESS;
-        } catch (HibernateException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return ERROR;
@@ -141,7 +141,7 @@ public class OrderAction extends DefaultActionSupport {
         try {
             orderList = orderService.getStatusOf(OrderStatus.UNSHIPPED);
             return SUCCESS;
-        } catch (HibernateException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return ERROR;
@@ -203,7 +203,7 @@ public class OrderAction extends DefaultActionSupport {
             order.setOrderStatus(OrderStatus.UNSHIPPED);
             orderService.updateOrder(order);
             return SUCCESS;
-        } catch (HibernateException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return ERROR;
@@ -220,7 +220,7 @@ public class OrderAction extends DefaultActionSupport {
             order.setOrderStatus(OrderStatus.COMPLETED);
             orderService.updateOrder(order);
             return SUCCESS;
-        } catch (HibernateException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return ERROR;
@@ -244,7 +244,7 @@ public class OrderAction extends DefaultActionSupport {
         try {
             orderService.sendPackage(orderId, logisticsNum, logisticsCompany);
             return SUCCESS;
-        } catch (HibernateException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return ERROR;

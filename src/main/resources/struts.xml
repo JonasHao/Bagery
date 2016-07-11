@@ -77,7 +77,7 @@
         </action>
 
         <action name="getLogisticsStatus" class="action.OrderAction" method="getLogisticsStatus">
-            <result name="success">/index.jsp</result>
+            <result name="success">/WEB-INF/order/viewLogistics.jsp</result>
         </action>
 
 

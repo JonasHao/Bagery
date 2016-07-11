@@ -99,10 +99,10 @@ public class OrderServiceImpl implements OrderService {
 
     private String queryLogisticsAPI(String company, String number) {
         return "物流公司：" + company +
-                "\n物流单号：" + number +
-                "\n2016-6-11 广东省集送中心" +
-                "\n2016-6-12 广东省番禺区集送中心" +
-                "\n2016-6-13 广东省番禺区大学城华南理工大学";
+                "<br/>物流单号：" + number +
+                "<br/>2016-6-11 广东省集送中心" +
+                "<br/>2016-6-12 广东省番禺区集送中心" +
+                "<br/>2016-6-13 广东省番禺区大学城华南理工大学";
     }
 
 
