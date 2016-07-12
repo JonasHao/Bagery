@@ -38,7 +38,7 @@ public class UserInfoAction extends DefaultActionSupport {
     private int group;
 
     private int code;
-    private String confirmCode;
+    private int confirmCode;
 
     private String confirmPassword;//密码找回时，输入密码验证身份
     private String newPassword;//新密码
@@ -52,8 +52,7 @@ public class UserInfoAction extends DefaultActionSupport {
     public String home() {
         try {
             user = userService.getCurrentUser();
-            if(user==null)
-            {
+            if (user == null) {
                 return ERROR;
             }
             score = user.getScore();
@@ -66,11 +65,11 @@ public class UserInfoAction extends DefaultActionSupport {
             if (userGroup.equals("cu")) {
                 group = 2;
             }
-            if (userGroup.equals("ag")||userGroup.equals("au")||userGroup.equals("d")) {
+            if (userGroup.equals("ag") || userGroup.equals("au") || userGroup.equals("d")) {
                 group = 3;
             }
-            if(userGroup.equals("product_admin")||userGroup.equals("order_admin")){
-                group=4;
+            if (userGroup.equals("product_admin") || userGroup.equals("order_admin")) {
+                group = 4;
             }
             return SUCCESS;
         } catch (Exception e) {
@@ -105,9 +104,9 @@ public class UserInfoAction extends DefaultActionSupport {
     }
 
     public String viewInfo() {
-        try{
+        try {
             user = userService.getCurrentUser();
-            if(user==null){
+            if (user == null) {
                 return ERROR;
             }
             username = user.getUsername();
@@ -116,8 +115,7 @@ public class UserInfoAction extends DefaultActionSupport {
             img = user.getImg();
             isActivate = user.getIsActivate();
             return SUCCESS;
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             return ERROR;
         }
     }
@@ -125,14 +123,13 @@ public class UserInfoAction extends DefaultActionSupport {
     public String update() {
         try {
             user = userService.getCurrentUser();
-            if(user==null){
+            if (user == null) {
                 return ERROR;
             }
             user.setRealName(realname);
             userService.update(user);
             return SUCCESS;
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             return ERROR;
         }
     }
@@ -161,8 +158,7 @@ public class UserInfoAction extends DefaultActionSupport {
             user.setPassword(newPassword);
             userService.update(user);
             return SUCCESS;
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             return ERROR;
         }
     }
@@ -201,10 +197,9 @@ public class UserInfoAction extends DefaultActionSupport {
             data.put(Key.RESULT, SUCCESS);
             data.put("code", code);
             //发送邮件
-            System.out.println(SendMail.sendOneMail("Bagery验证码", Integer.toString(code), email));
+            System.out.println(SendMail.sendOneMail("Bagery验证码", String.format("您的验证码是：%d", code), email));
             return SUCCESS;
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             return ERROR;
         }
     }
@@ -219,7 +214,7 @@ public class UserInfoAction extends DefaultActionSupport {
             }
 
             password = user.getPassword();
-            String temp=userService.getMD5(confirmCode.getBytes());
+            String temp = userService.getMD5(Integer.toString(confirmCode).getBytes());
 //            confirmCode = userService.getMD5(confirmCode.getBytes());
 
             if (!temp.equals(password)) {
@@ -253,12 +248,10 @@ public class UserInfoAction extends DefaultActionSupport {
 
             //发送邮件
             email = user.getEmail();
-
-//            System.out.println(SendMail.sendOneMail("Bageryy验证码", Integer.toString(code), email));
+            System.out.println(SendMail.sendOneMail("Bagery验证码", String.format("您的验证码是：%d", code), email));
 
             return SUCCESS;
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return ERROR;
         }
@@ -270,7 +263,7 @@ public class UserInfoAction extends DefaultActionSupport {
 
     public String confirmCode() {
         try {
-            if (Integer.parseInt(confirmCode) != (int) ActionContext.getContext().getSession().get("Code")) {
+            if (confirmCode != (int) ActionContext.getContext().getSession().get("Code")) {
                 addFieldError("confirmCode", "验证码不正确");
                 return INPUT;
             }
@@ -290,8 +283,7 @@ public class UserInfoAction extends DefaultActionSupport {
 
             ActionContext.getContext().getSession().remove("Code");
             return SUCCESS;
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return ERROR;
         }
@@ -437,11 +429,11 @@ public class UserInfoAction extends DefaultActionSupport {
         this.confirmNewPassword = confirmNewPassword;
     }
 
-    public String getConfirmCode() {
+    public int getConfirmCode() {
         return confirmCode;
     }
 
-    public void setConfirmCode(String confirmCode) {
+    public void setConfirmCode(int confirmCode) {
         this.confirmCode = confirmCode;
     }
 
