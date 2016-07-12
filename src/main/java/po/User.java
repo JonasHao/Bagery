@@ -4,7 +4,10 @@ import constant.Path;
 import constant.UserGroup;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by 41159 on 2016/6/29.
@@ -199,7 +202,7 @@ public class User {
         return result;
     }
 
-    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     public List<CartItem> getCartItems() {
         return cartItems;
     }
@@ -208,7 +211,7 @@ public class User {
         this.cartItems = cartitemsByUserId;
     }
 
-    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     public List<Comment> getComments() {
         return comments;
     }
@@ -217,8 +220,10 @@ public class User {
         this.comments = commentsByUserId;
     }
 
-    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     public List<FavoriteItem> getFavoriteItems() {
+        Set<FavoriteItem> favoriteItemSet = new HashSet<>(favoriteItems);
+        favoriteItems = new ArrayList<>(favoriteItemSet);
         return favoriteItems;
     }
 
@@ -226,9 +231,11 @@ public class User {
         this.favoriteItems = favoriteitemsByUserId;
     }
 
-    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     @OrderBy("orderId DESC")
     public List<Order> getOrders() {
+        Set<Order> orderSet = new HashSet<>(orders);
+        orders = new ArrayList<>(orderSet);
         return orders;
     }
 
@@ -236,8 +243,10 @@ public class User {
         this.orders = ordersesByUserId;
     }
 
-    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     public List<Address> getAddresses() {
+        Set<Address> addressSet = new HashSet<>(addresses);
+        addresses = new ArrayList<>(addressSet);
         return addresses;
     }
 
@@ -245,9 +254,11 @@ public class User {
         this.addresses = shipInformationsByUserId;
     }
 
-    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     @OrderBy("recordDate DESC")
     public List<UserPricedRecord> getHistoryRecords() {
+        Set<UserPricedRecord> historySet = new HashSet<>(historyRecords);
+        historyRecords = new ArrayList<>(historySet);
         return historyRecords;
     }
 
