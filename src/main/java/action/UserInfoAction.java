@@ -8,6 +8,7 @@ import org.hibernate.HibernateException;
 import po.User;
 import po.UserPricedRecord;
 import service.UserService;
+import util.SendMail;
 
 import java.util.HashMap;
 import java.util.List;
@@ -168,6 +169,7 @@ public class UserInfoAction extends DefaultActionSupport {
         data.put(Key.RESULT, SUCCESS);
         data.put("code", code);
         //发送邮件
+
         return SUCCESS;
     }
 
@@ -208,7 +210,11 @@ public class UserInfoAction extends DefaultActionSupport {
         user = userService.getCurrentUser();
         code = (int) (Math.random() * 9000) + 1000;
         ActionContext.getContext().getSession().put("Code", code);
+
         //发送邮件
+
+        String result = SendMail.sendOneMail("Bagery验证码",Integer.toString(code) ,this.email);
+
         return SUCCESS;
     }
 

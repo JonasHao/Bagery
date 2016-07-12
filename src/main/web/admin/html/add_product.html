@@ -329,6 +329,7 @@
     <script type="text/javascript" src="../js/crypto-js/crypto-js.js"></script>
     <script type="text/javascript" src="../js/crypto-js/hmac-sha1.js"></script>
     <script>
+        var croppeddata;
     var qiniu_config = {
         AK: "hRa8KzY6vcwOjKFZ0cNs_zAZNlcnhAWrJtmAmVhC",
         SK: "EeCydvwVtfPtvg_SHTR5Z7HYuPFHY5aetfOCNWjR",
@@ -345,58 +346,16 @@
     }
     $(document).ready(function () {
 
-        var croppeddata;
-
-        var $image = $(".image-crop > img")
-
-        $($image).cropper({
-            aspectRatio: 1,
-            preview: ".img-preview",
-            done: function (data) {
-                croppeddata = data;
-                // Output the result data for cropping image.
-            }
-        });
-
-        var $inputImage = $("#inputImage");
-
-        if (window.FileReader) {
-            $inputImage.change(function () {
-                var fileReader = new FileReader(),
-                        files = this.files,
-                        file;
-
-                if (!files.length) {
-                    return;
-                }
-
-                file = files[0];
-
-                if (/^image\/\w+$/.test(file.type)) {
-                    fileReader.readAsDataURL(file);
-                    fileReader.onload = function () {
-                        $inputImage.val("");
-                        $image.cropper("reset", true).cropper("replace", this.result);
-                    };
-                } else {
-                    showMessage("Please choose an image file.");
-                }
-            });
-        } else {
-            $inputImage.addClass("hide");
-        }
-
-
 //七牛上传图片
 
         var deadline = (Date.parse(new Date()) / 1000) + 3600;
-        console.log(deadline);
+        // console.log(deadline);
         var putPolicyConfig = {
             scope: qiniu_config.bucketName,
             deadline: deadline,
         };
         myUploadToken = getUploadToken(putPolicyConfig);
-        console.log(myUploadToken);
+        // console.log(myUploadToken);
 
 
         var uploader = Qiniu.uploader({
@@ -440,8 +399,8 @@
             //},
             init: {
                 'FilesAdded': function (up, files) {
-                    console.log(up);
-                    console.log(files);
+                    // console.log(up);
+                    // console.log(files);
                     plupload.each(files, function (file) {
                         // 文件添加进队列后，处理相关的事情
                     });
@@ -506,6 +465,60 @@
         $('#stop_load').on('click', function () {
             uploader.stop();
         });
+
+
+
+//裁剪图片
+
+        console.log(uploader);
+
+        var $image = $(".image-crop > img")
+
+        $($image).cropper({
+            aspectRatio: 1,
+            preview: ".img-preview",
+            done: function (data) {
+                croppeddata = data;
+                // Output the result data for cropping image.
+            }
+        });
+
+        var $inputImage = $("#inputImage");
+
+        if (window.FileReader) {
+            $inputImage.change(function () {
+                var fileReader = new FileReader(),
+                        files = this.files,
+                        file;
+
+                if (!files.length) {
+                    return;
+                }
+
+                file = files[0];
+
+                uploader.files
+
+                console.log(files);
+
+                console.log(file);
+
+
+                if (/^image\/\w+$/.test(file.type)) {
+                    fileReader.readAsDataURL(file);
+                    fileReader.onload = function () {
+                        $inputImage.val("");
+                        $image.cropper("reset", true).cropper("replace", this.result);
+                    };
+                } else {
+                    showMessage("Please choose an image file.");
+                }
+            });
+        } else {
+            $inputImage.addClass("hide");
+        }
+
+
 
 
 
