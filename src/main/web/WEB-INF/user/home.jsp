@@ -13,7 +13,12 @@
             else m = null;
 
             if (m != null) {
-                notify(m);
+                if(m=="网络异常！"){
+                    warning(m);
+                }
+                else {
+                    notify(m);
+                }
             }
         </script>
     </jsp:attribute>
@@ -48,6 +53,7 @@
                                 <s:if test="#group==1">等级：普通用户</s:if>
                                 <s:elseif test="#group==2">等级：中级用户</s:elseif>
                                 <s:elseif test="#group==3">等级：高级用户</s:elseif>
+                                <s:elseif test="#group==4">等级：管理员</s:elseif>
                             </p>
                         </div>
                     </div>

@@ -12,7 +12,12 @@
             }
             var m=getQueryString("message");
             if(m!=null){
-                notify(m);
+                if(m=="网络异常！"){
+                    warning(m);
+                }
+                else {
+                    notify(m);
+                }
             }
         </script>
     </jsp:attribute>
