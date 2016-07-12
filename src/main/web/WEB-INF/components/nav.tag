@@ -23,13 +23,16 @@
                         </s:url>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="${womanUrl}">女人</a>
+                            <a class="nav-link" href="${womanUrl}">单肩包</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="${womanUrl}">男人</a>
+                            <a class="nav-link" href="${womanUrl}">手拿包</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="${womanUrl}">运动</a>
+                            <a class="nav-link" href="${womanUrl}">斜挎包</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="${womanUrl}">电脑包</a>
                         </li>
 
                     </ul>
