@@ -226,7 +226,6 @@
 
         <action name="openFind" class="action.UserInfoAction" method="openFind">
             <interceptor-ref name="defaultStack"/>
-
             <result name="success">/FindPassword.jsp</result>
         </action>
 
