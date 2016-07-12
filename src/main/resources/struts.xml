@@ -170,11 +170,18 @@
 
         <action name="home" class="action.UserInfoAction" method="home">
             <result name="success">/WEB-INF/user/home.jsp</result>
-            <result name="error">/login.jsp</result>
+            <result name="error" type="redirectAction">
+                <param name="actionName">index</param>
+                <param name="message">网络异常！</param>
+            </result>
         </action>
 
         <action name="viewInfo" class="action.UserInfoAction" method="viewInfo">
             <result name="success">/WEB-INF/user/profile.jsp</result>
+            <result name="error" type="redirectAction">
+                <param name="actionName">home</param>
+                <param name="message">网络异常！</param>
+            </result>
         </action>
 
         <action name="update" class="action.UserInfoAction" method="update">
@@ -182,7 +189,11 @@
                 <param name="actionName">viewInfo</param>
                 <param name="message">更新成功！</param>
             </result>
-            <result name="input">/WEB-INF/user/profile.jsp</result>
+            <result name="input" type="redirectAction">viewInfo</result>
+            <result name="error" type="redirectAction">
+                <param name="actionName">viewInfo</param>
+                <param name="message">网络异常！</param>
+            </result>
         </action>
 
         <action name="openReset" class="action.UserInfoAction" method="openReset">
@@ -194,7 +205,11 @@
                 <param name="actionName">home</param>
                 <param name="message">修改密码成功！</param>
             </result>
-            <result name="input">/WEB-INF/user/resetPassword.jsp</result>
+            <result name="input" type="redirectAction">openReset</result>
+            <result name="error" type="redirectAction">
+                <param name="actionName">home</param>
+                <param name="message">网络异常！</param>
+            </result>
         </action>
 
         <action name="openFind" class="action.UserInfoAction" method="openFind">
@@ -210,6 +225,10 @@
                 <param name="root">data</param>
             </result>
             <result name="input">/FindPassword.jsp</result>
+            <result name="error" type="redirectAction">
+                <param name="actionName">openFind</param>
+                <param name="message">网络异常！</param>
+            </result>
         </action>
 
         <action name="confirmEmail" class="action.UserInfoAction" method="confirmEmail">
@@ -226,6 +245,10 @@
                 <param name="actionName">openConfirm</param>
                 <param name="message">验证码发送成功！</param>
             </result>
+            <result name="error" type="redirectAction">
+                <param name="actionName">viewInfo</param>
+                <param name="message">网络异常！</param>
+            </result>
         </action>
 
         <action name="openConfirm" class="action.UserInfoAction" method="openConfirm">
@@ -238,6 +261,10 @@
                 <param name="message">验证成功！</param>
             </result>
             <result name="input">/WEB-INF/user/ConfirmEmail.jsp</result>
+            <result name="error" type="redirectAction">
+                <param name="actionName">viewInfo</param>
+                <param name="message">验证失败！</param>
+            </result>
         </action>
 
 
