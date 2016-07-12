@@ -131,13 +131,13 @@
 
 
                             <div class="md-form">
-                                <s:textfield label="密码" name="newPassword" class="form-control" required="true"
+                                <s:password label="密码" name="newPassword" class="form-control" required="true"
                                              maxLength="20" minLength="5" disabled="false"/>
                             </div>
                             <s:fielderror fieldName="newPassword" name="newPassword" cssClass="errorMessage"/>
 
                             <div class="md-form">
-                                <s:textfield label="确认密码" name="confirmNewPassword" class="form-control"
+                                <s:password label="确认密码" name="confirmNewPassword" class="form-control"
                                              required="true"
                                              maxLength="20" minLength="5" disabled="false"/>
                             </div>
