@@ -32,7 +32,7 @@ public class AddressAction extends ActionSupport {
     private String addressDetail;
     private Integer defaultAddressId;
     private int add;
-    private Map<String,Object> data = new HashMap<>();
+    private Map<String, Object> data = new HashMap<>();
 
     public String viewAddress() {
         try {
@@ -40,8 +40,7 @@ public class AddressAction extends ActionSupport {
             addressList = user.getAddresses();
             defaultAddressId = user.getDefaultAddressId();
             return SUCCESS;
-        }
-        catch (HibernateException e){
+        } catch (HibernateException e) {
             e.printStackTrace();
             return ERROR;
         }
@@ -67,19 +66,30 @@ public class AddressAction extends ActionSupport {
                 userService.update(user);
             }
             return SUCCESS;
-        }
-        catch(HibernateException e){
+        } catch (HibernateException e) {
             e.printStackTrace();
             return ERROR;
         }
     }
 
+
+    public void validateAddAddress() {
+        if (!mobile.matches("^\\w{11}$")) {
+            addFieldError("mobile", "电话号码请输入11位数字");
+            return;
+        }
+        super.validate();
+    }
+
     public String deleteAddress() {
         try {
+            Address address = addressService.get(addressId);
+            if (address == null) {
+                return ERROR;
+            }
             addressService.deleteAddress(addressId);
             return SUCCESS;
-        }
-        catch(HibernateException e){
+        } catch (HibernateException e) {
             e.printStackTrace();
             return ERROR;
         }
@@ -101,23 +111,21 @@ public class AddressAction extends ActionSupport {
 
             addressService.update(address);
             return SUCCESS;
-        }
-        catch (HibernateException e){
+        } catch (HibernateException e) {
             e.printStackTrace();
             return ERROR;
         }
     }
 
-    public String setDefaultAddress(){
+    public String setDefaultAddress() {
         try {
             user = userService.getCurrentUser();
             user.setDefaultAddressId(defaultAddressId);
             userService.update(user);
-            data.put(Key.RESULT,SUCCESS);
-        }
-        catch (HibernateException e){
+            data.put(Key.RESULT, SUCCESS);
+        } catch (HibernateException e) {
             e.printStackTrace();
-            data.put(Key.RESULT,ERROR);
+            data.put(Key.RESULT, ERROR);
         }
         return SUCCESS;
 

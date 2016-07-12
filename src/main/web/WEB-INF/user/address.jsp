@@ -17,8 +17,8 @@
     <jsp:attribute name="title">管理地址簿</jsp:attribute>
     <jsp:attribute name="breadcrumb">
        <ol class="breadcrumb">
-           <li><a href="../../index.jsp">首页</a></li>
-           <li><a href="home.jsp">个人中心</a></li>
+           <li><a href="/index.jsp">首页</a></li>
+           <li><s:a action="home" namespace="/user">个人中心</s:a></li>
            <li class="active">管理地址簿</li>
        </ol>
     </jsp:attribute>
@@ -32,8 +32,13 @@
             }
             var m=getQueryString("message");
             if(m!=null){
+                if(m=="删除失败！"){
+                    warning("删除失败！");
+                }else{
                 notify(m);
+                }
             }
+
             var addressForm = $('#address-form');
             addressForm.on('hidden.bs.collapse', function () {
                 $('#btn-add-address').text("添加新地址");
@@ -86,7 +91,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="md-form">
-                                <s:textfield label="电话" name="mobile" required="true" class="form-control"/>
+                                <s:textfield label="电话" name="mobile" maxLength="11" minLength="11"  required="true" class="form-control"/>
                             </div>
                         </div>
                         <div class="col-md-4">

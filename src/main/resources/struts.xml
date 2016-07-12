@@ -325,13 +325,21 @@
                 <param name="actionName">viewAddress</param>
                 <param name="message">添加成功！</param>
             </result>
-            <result name="input">/WEB-INF/user/address.jsp</result>
+
+            <result name="input" type="redirectAction">
+                <param name="actionName">viewAddress</param>
+            </result>
         </action>
 
         <action name="deleteAddress" class="action.AddressAction" method="deleteAddress">
             <result name="success" type="redirectAction">
                 <param name="actionName">viewAddress</param>
                 <param name="message">删除成功！</param>
+            </result>
+
+            <result name="error" type="redirectAction">
+                <param name="actionName">viewAddress</param>
+                <param name="message">删除失败！</param>
             </result>
         </action>
 
