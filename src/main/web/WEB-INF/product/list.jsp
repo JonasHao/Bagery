@@ -28,7 +28,7 @@
                                 </s:url>
 
                                 <a href="${property_select1}" class="list-group-item filter-list-group-item
-                                   <s:if test="#selected == 1">active</s:if>">
+                                   <s:if test="selected == 1">active</s:if>">
                                     <s:property value="description"/></a>
                             </s:iterator>
                         </div>
@@ -42,8 +42,9 @@
                                     <s:param name="pro_id"><s:property value="proId"/></s:param>
                                 </s:url>
 
-                                <a href="${property_select2}" class="list-group-item filter-list-group-item
-                                   <s:if test="#selected == 1">active</s:if>">
+
+                                <a href="${property_select2}"
+                                   class="list-group-item filter-list-group-item <s:if test="selected == 1">active</s:if>">
                                     <s:property value="description"/></a>
                             </s:iterator>
                         </div>
@@ -58,7 +59,7 @@
                                 </s:url>
 
                                 <a href="${property_select3}" class="list-group-item filter-list-group-item
-                                   <s:if test="#selected == 1">active</s:if>">
+                                   <s:if test="selected == 1">active</s:if>">
                                     <s:property value="description"/></a>
                             </s:iterator>
                         </div>
@@ -74,11 +75,12 @@
                         <s:set name="pricedsSize" value="#priceds!= null ? #priceds.size() : 0"/>
                         <s:set name="pages" value="#pricedsSize/#page_max_size + 1"/>
 
-                        <%--  page_max_size=3  每页最多放3个 --%>
+                            <%--  page_max_size=3  每页最多放3个 --%>
                         <s:iterator begin="1" end="#pages" status="st_page">
                             <%--  实际每页放的商品数量 --%>
                             <s:set name="page_count">
-                                <s:property  value="%{#st_page.index+1<#pages? #page_max_size : #pricedsSize%#page_max_size}"/>
+                                <s:property
+                                        value="%{#st_page.index+1<#pages? #page_max_size : #pricedsSize%#page_max_size}"/>
                             </s:set>
 
                             <s:set name="p">
@@ -108,7 +110,7 @@
                         </s:iterator>
                     </div>
 
-                    <%--         选页         --%>
+                        <%--         选页         --%>
                     <ul class="nav nav-tabs tabs-5 pagination" role="tablist">
 
                         <s:iterator begin="1" end="#pages" status="st_page">
