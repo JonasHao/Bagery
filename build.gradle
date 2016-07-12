@@ -51,5 +51,4 @@ dependencies {
 
     compile('javax.mail:mail:1.4.7')
 
-
 }

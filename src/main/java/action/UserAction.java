@@ -30,57 +30,67 @@ public class UserAction extends DefaultActionSupport {
 //    }
 
     public String login() {
-        if (!userService.existUsername(username)) {
-            addFieldError("username", "用户名不存在");
-            return INPUT;
-        }
-
-        password = userService.getMD5(password.getBytes());
-        user = userService.login(username, password);
-
-        if (user == null) {
-            addFieldError("password", "密码错误");
-            return INPUT;
-        }
-
-        String group = user.getUserGroup();
-        if (group != null) {
-            switch (group) {
-                case UserGroup.ORDER_ADMIN:
-                case UserGroup.PRODUCT_ADMIN:
-                case UserGroup.ROOT:
-                    return "admin";
+        try {
+            if (!userService.existUsername(username)) {
+                addFieldError("username", "用户名不存在");
+                return INPUT;
             }
+
+            password = userService.getMD5(password.getBytes());
+            user = userService.login(username, password);
+
+            if (user == null) {
+                addFieldError("password", "密码错误");
+                return INPUT;
+            }
+
+            String group = user.getUserGroup();
+            if (group != null) {
+                switch (group) {
+                    case UserGroup.ORDER_ADMIN:
+                    case UserGroup.PRODUCT_ADMIN:
+                    case UserGroup.ROOT:
+                        return "admin";
+                }
+            }
+            return SUCCESS;
         }
-        return SUCCESS;
+        catch (Exception e){
+            return ERROR;
+        }
     }
 
     public String register() {
-        if (userService.existUsername(username)) {
-            addFieldError("username", "用户名已被注册");
-            return INPUT;
+        try {
+            if (userService.existUsername(username)) {
+                addFieldError("username", "用户名已被注册");
+                return INPUT;
+            }
+            if (userService.existEmail(email)) {
+                addFieldError("email", "邮箱已被注册");
+                return INPUT;
+            }
+            if (!password.equals(confirmpassword)) {
+                addFieldError("confirmpassword", "两次密码输入不一致");
+                return INPUT;
+            }
+
+            password = userService.getMD5(password.getBytes());
+
+            user = new User();
+            user.setUsername(username);
+            user.setPassword(password);
+            user.setRealName(realname);
+            user.setEmail(email);
+            user.setUserGroup("r");
+
+            userService.register(user);
+
+            return SUCCESS;
         }
-        if (userService.existEmail(email)) {
-            addFieldError("email", "邮箱已被注册");
-            return INPUT;
+        catch (Exception e){
+            return ERROR;
         }
-        if (!password.equals(confirmpassword)) {
-            addFieldError("confirmpassword", "两次密码输入不一致");
-            return INPUT;
-        }
-
-        password = userService.getMD5(password.getBytes());
-
-        user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setRealName(realname);
-        user.setEmail(email);
-        user.setUserGroup("r");
-
-        userService.register(user);
-
-        return SUCCESS;
     }
 
     @Override
