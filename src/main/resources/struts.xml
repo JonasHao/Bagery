@@ -396,11 +396,12 @@
     <package name="product" namespace="/product" extends="default, json-default">
         <action name="viewProduct" class="action.ProductionAction" method="viewProduct">
             <result name="success">/WEB-INF/product/detail.jsp</result>
-            <result name="error" type="redirectAction">
-                <param name="actionName">productList</param>
-                <param name="state">e</param>
-                <param name="message">商品不存在</param>
-            </result>
+            <!--<result name="error" type="redirectAction">-->
+                <!--<param name="actionName">productList</param>-->
+                <!--<param name="state">e</param>-->
+                <!--<param name="message">商品不存在</param>-->
+            <!--</result>-->
+            <result name="error">/WEB-INF/product/product-disable.jsp</result>
         </action>
         <action name="productList" class="action.ProductionAction" method="viewPricedList">
             <result name="success">/WEB-INF/product/list.jsp</result>

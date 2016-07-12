@@ -96,10 +96,7 @@ public class ProductionAction extends DefaultActionSupport {
                 return SUCCESS;
             }
             return ERROR;
-        } catch (HibernateException e) {
-            e.printStackTrace();
-            return ERROR;
-        } catch (NullPointerException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return ERROR;
         }

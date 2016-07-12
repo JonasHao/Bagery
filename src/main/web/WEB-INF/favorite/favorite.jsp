@@ -20,7 +20,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="head">
-         <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="Pragma" content="no-cache">
         <meta http-equiv="Cache-Control" content="no-cache">
     </jsp:attribute>
     <jsp:body>
@@ -33,7 +33,7 @@
                     <div class="col-md-3 col-lg-2 ">
 
                         <t:favoriteItem>
-                            <jsp:attribute name="img">../img/bags/bag1.png</jsp:attribute>
+                            <jsp:attribute name="img"><s:property value="priced.img"/></jsp:attribute>
                             <jsp:attribute name="title"><s:property value="priced.title"/></jsp:attribute>
                             <jsp:attribute name="price"><s:property value="priced.unitPrice"/></jsp:attribute>
                             <jsp:attribute name="pricedId"><s:property value="pricedId"/></jsp:attribute>

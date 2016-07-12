@@ -8,10 +8,11 @@
             function getQueryString(name) {
                 var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
                 var r = location.search.substr(1).match(reg);
-                if (r != null) return unescape(decodeURI(r[2])); return null;
+                if (r != null) return unescape(decodeURI(r[2]));
+                return null;
             }
-            var m=getQueryString("message");
-            if(m!=null){
+            var m = getQueryString("message");
+            if (m != null) {
                 notify(m);
             }
         </script>
@@ -39,14 +40,15 @@
 
                     <div class="card-block">
 
-                        <form class="form-user" action="confirmCode" namespace="/user"  method="POST">
+                        <form class="form-user" action="confirmCode" namespace="/user" method="POST">
                             <div class="md-form">
-                                <s:textfield label="验证码" id="form1"  name="confirmCode"  class="form-control" required="true" maxLength="5"
+                                <s:textfield label="验证码" id="form1" name="confirmCode" class="form-control"
+                                             required="true" maxLength="5"
                                              minLength="5" disabled="false"/>
                                 <s:submit cssClass="grey btn btn-primary" value="确认"/>
                             </div>
                         </form>
-                        <a href="home.jsp">取消</a>
+                        <s:a namespace="/user" action="home">取消</s:a>
                     </div>
                 </div>
             </div>
