@@ -122,54 +122,62 @@
                                             </s:textfield></div>
                                         </div>
 
-                                        <div class="form-group"><label class="col-sm-2 control-label">商品图片</label>
-                                                <div class="col-sm-10">
-                                                    <img id="added_img" src=""  style="width: 200px;height: 200px; display: none;" />
+                                        <div class="form-group">
 
-                                                    <a id = "add_img_btn" onclick="initCropper()" data-toggle="modal" class="btn btn-info" style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;" href="#modal-upload-img">添加</a>
+                                            <label class="col-sm-2 control-label">商品图片</label>
+                                            <div class="col-sm-10"><s:textfield name="img"
+                                                                                cssClass="form-control">
+                                            </s:textfield></div>
+                                        </div>
 
-                                                    <div id="modal-upload-img" class="modal fade" aria-hidden="true">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <div class="modal-body">
-                                                                    <div class="row">
-                                                                        <div class="col-sm-12">
-                                                                            <div class="image-crop">
-                                                                                <img src="./img/p_big1.jpg" class="cropper-hidden">
+                                        <%--<div class="form-group"><label class="col-sm-2 control-label">商品图片</label>--%>
+                                                <%--<div class="col-sm-10">--%>
+                                                    <%--<img id="added_img" src=""  style="width: 200px;height: 200px; display: none;" />--%>
 
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row">
-                                                                        <div class="col-sm-12">
-                                                                            <center>
-                                                                                <h4>预览</h4>
-                                                                                <div class="img-preview img-preview-sm" style="width: 300px; height: 300px;">
-                                                                                    <img src="./img/p_big1.jpg" style="min-width: 0px !important; min-height: 0px !important; max-width: none !important; max-height: none !important; width: 200px; height: 200px; margin-left: -25px; margin-top: -22px;">
-                                                                                </div>
-                                                                                <p></p>
+                                                    <%--<a id = "add_img_btn" onclick="initCropper()" data-toggle="modal" class="btn btn-info" style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;" href="#modal-upload-img">添加</a>--%>
+
+                                                    <%--<div id="modal-upload-img" class="modal fade" aria-hidden="true">--%>
+                                                        <%--<div class="modal-dialog">--%>
+                                                            <%--<div class="modal-content">--%>
+                                                                <%--<div class="modal-body">--%>
+                                                                    <%--<div class="row">--%>
+                                                                        <%--<div class="col-sm-12">--%>
+                                                                            <%--<div class="image-crop">--%>
+                                                                                <%--<img src="./img/p_big1.jpg" class="cropper-hidden">--%>
+
+                                                                            <%--</div>--%>
+                                                                        <%--</div>--%>
+                                                                    <%--</div>--%>
+                                                                    <%--<div class="row">--%>
+                                                                        <%--<div class="col-sm-12">--%>
+                                                                            <%--<center>--%>
+                                                                                <%--<h4>预览</h4>--%>
+                                                                                <%--<div class="img-preview img-preview-sm" style="width: 300px; height: 300px;">--%>
+                                                                                    <%--<img src="./img/p_big1.jpg" style="min-width: 0px !important; min-height: 0px !important; max-width: none !important; max-height: none !important; width: 200px; height: 200px; margin-left: -25px; margin-top: -22px;">--%>
+                                                                                <%--</div>--%>
+                                                                                <%--<p></p>--%>
 
 
-                                                                                <div id="qiniu_container"class="btn-group">
-                                                                                    <label title="Upload image file" for="inputImage" class="btn btn-primary">
-                                                                                    <input type="file" accept="image/*"
-                                                                                           name="file" id="inputImage"
-                                                                                           class="hide">
-                                                                                    浏览
-                                                                                    </label>
-                                                                                    <label title="Download image" id="pickfile" class="btn btn-primary">七牛浏览</label>
-                                                                                    <label title="Download image" id="up_load" class="btn btn-primary">七牛上传</label>
-                                                                                </div>
-                                                                            </center>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                                                <%--<div id="qiniu_container"class="btn-group">--%>
+                                                                                    <%--<label title="Upload image file" for="inputImage" class="btn btn-primary">--%>
+                                                                                    <%--<input type="file" accept="image/*"--%>
+                                                                                           <%--name="file" id="inputImage"--%>
+                                                                                           <%--class="hide">--%>
+                                                                                    <%--浏览--%>
+                                                                                    <%--</label>--%>
+                                                                                    <%--<label title="Download image" id="pickfile" class="btn btn-primary">七牛浏览</label>--%>
+                                                                                    <%--<label title="Download image" id="up_load" class="btn btn-primary">七牛上传</label>--%>
+                                                                                <%--</div>--%>
+                                                                            <%--</center>--%>
+                                                                        <%--</div>--%>
+                                                                    <%--</div>--%>
+                                                                <%--</div>--%>
+                                                            <%--</div>--%>
+                                                        <%--</div>--%>
+                                                    <%--</div>--%>
+                                                <%--</div>--%>
 
-                                            </div>
+                                            <%--</div>--%>
                        
                                             
                                      
@@ -205,7 +213,9 @@
                                                     <div class="col-sm-4">
                                                         <%--todo: s:select的list属性设置成action中的List--%>
                                                             <s:select
-                                                                    list="#{'1':'A品牌', '2':'B品牌'}"
+                                                                    list="#{'1':'芬迪', '2':'古琦','3':'巴宝莉','4':'安娜苏','5':'宝格丽','6':'香奈儿',
+                                                                           '7':'卡尔文•克莱恩','8':'川久保玲','9':'迪奥','10':'登喜路',
+                                                                           '11':'纪梵希','12':'戈雅','13':'爱马仕'}"
                                                                     name="proIDs[0]" cssClass="form-control m-b" />
                                                     </div>
                                                 </div>
@@ -213,7 +223,8 @@
                                                     <label class="col-sm-4 control-label"
                                                            style="font-weight:normal;">材质</label>
                                                     <div class="col-sm-4">
-                                                        <s:select list="#{'3':'A材质'}"
+                                                        <s:select list="#{'14':'鳄鱼皮','15':'帆布','16':'公牛皮','17':'浣熊皮草','18':'棉',
+                                                        '19':'尼龙','20':'蛇皮','21':'羊毛','22':'漆皮','23':'其他纤维'}"
                                                                   name="proIDs[1]" cssClass="form-control m-b"/>
                                                     </div>
                                                 </div>
@@ -221,7 +232,8 @@
                                                     <label class="col-sm-4 control-label"
                                                            style="font-weight:normal;">款式</label>
                                                     <div class="col-sm-4">
-                                                        <s:select list="#{'4':'A款式', '5':'B款式', '6':'C款式'}"
+                                                        <s:select list="#{'24':'单肩包', '25':'双肩包', '26':'手拿包','27':'手提包',
+                                                        '28':'斜挎包','29':'电脑包','30':'箱包','31':'腰包'}"
                                                                   name="proIDs[2]" cssClass="form-control m-b"/>
                                                     </div>
                                                 </div>

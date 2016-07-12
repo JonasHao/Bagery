@@ -210,28 +210,31 @@ public class ProductServiceImpl implements ProductService {
 
         /*
     //返回属性列表名称
-    public List<Map<Integer, String>> getProNames() {
+    public List<Map<String, String>> getProNames() {
         int count=1;
         int t1 = dao.query("from Property where category='品牌'").list().size();
         int t2 = dao.query("from Property where category='材质'").list().size()+t1;
         int t3 = dao.query("from Property where category='款式'").list().size()+t2;
 
-        List<Map<Integer,String>> al=new ArrayList<Map<Integer,String>>(3);
+        List<Map<String,String>> al=new ArrayList<>(3);
 
-        Map<Integer,String> m1=new HashMap<>();
+        Map<String,String> m1=new HashMap<>();
         while(count<=t1) {
             String s= (String) dao.query("select description from Property where proId=?").setParameter(0,count).list().get(0);
-            m1.put(count++, s);
+            count++;
+            m1.put(String.valueOf(count), s);
         }
-        Map<Integer,String> m2=new HashMap<>();
+        Map<String,String> m2=new HashMap<>();
         while(count<=t2) {
             String s= (String) dao.query("select description from Property where proId=?").setParameter(0,count).list().get(0);
-            m2.put(count++, s);
+            count++;
+            m2.put(String.valueOf(count), s);
         }
-        Map<Integer,String> m3=new HashMap<>();
+        Map<String,String> m3=new HashMap<>();
         while(count<=t3) {
             String s= (String) dao.query("select description from Property where proId=?").setParameter(0,count).list().get(0);
-            m3.put(count++, s);
+            count++;
+            m3.put(String.valueOf(count), s);
         }
 
         al.add(m1);

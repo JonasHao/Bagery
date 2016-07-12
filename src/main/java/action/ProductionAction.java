@@ -47,7 +47,7 @@ public class ProductionAction extends DefaultActionSupport {
     private UserService userService;
     private CommentService commentService;
     private FavoriteService favoriteService;
-    //private Map<Integer, String> productMap;
+    //private Map<String, String> productMap;
 
     public String add() {
         try {

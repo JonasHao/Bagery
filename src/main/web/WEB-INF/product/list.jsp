@@ -6,13 +6,14 @@
 
     <jsp:attribute name="title">商品列表</jsp:attribute>
     <jsp:attribute name="breadcrumb">
+            <s:url var="pricedList" action="productList" namespace="/product"/>
        <ol class="breadcrumb">
            <li><a href="/index.jsp">首页</a></li>
-           <li class="active">商品列表</li>
+           <li class="active"><a href="${pricedList}">商品列表</a></li>
        </ol>
     </jsp:attribute>
     <jsp:body>
-        <s:set name="page_max_size" value="3"/>
+        <s:set name="page_max_size" value="8"/>
         <!--Main layout-->
         <div class="container">
             <div class="row">
@@ -74,11 +75,11 @@
                         <s:set name="pricedsSize" value="#priceds!= null ? #priceds.size() : 0"/>
                         <s:set name="pages" value="#pricedsSize/#page_max_size + 1"/>
 
-                        <%--  page_max_size=3  每页最多放3个 --%>
                         <s:iterator begin="1" end="#pages" status="st_page">
                             <%--  实际每页放的商品数量 --%>
                             <s:set name="page_count">
-                                <s:property  value="%{#st_page.index+1<#pages? #page_max_size : #pricedsSize%#page_max_size}"/>
+                                <s:property
+                                        value="%{#st_page.index+1<#pages? #page_max_size : #pricedsSize%#page_max_size}"/>
                             </s:set>
 
                             <s:set name="p">
@@ -108,7 +109,7 @@
                         </s:iterator>
                     </div>
 
-                    <%--         选页         --%>
+                        <%--         选页         --%>
                     <ul class="nav nav-tabs tabs-5 pagination" role="tablist">
 
                         <s:iterator begin="1" end="#pages" status="st_page">

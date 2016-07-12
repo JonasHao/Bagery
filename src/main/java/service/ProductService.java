@@ -2,7 +2,7 @@ package service;
 
 
 import po.*;
-import java.util.List;
+import java.util.*;
 
 
 public interface ProductService {
@@ -86,6 +86,6 @@ public interface ProductService {
      */
      String convertToStr(List<Integer> list);
 
-    //List<Map<Integer,String>> getProNames();
+    //List<Map<String,String>> getProNames();
     //List<List<Map<String,String>>> getProNames();
 }
