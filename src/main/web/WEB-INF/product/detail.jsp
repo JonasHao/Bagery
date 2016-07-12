@@ -118,13 +118,13 @@
                                     value="priced.unitPrice"/></h3>
                             <p><s:property value="priced.description"/></p>
 
-                            <form  action="/order/instanceBuy.action">
+                            <form action="/order/instanceBuy.action">
                                 <div class="row reviews">
                                     <s:if test="products.size()==0">
                                     <p>暂无商品！
                                         </s:if>
                                         <s:else>
-                                        <label class="col-sm-2 control-label">颜色</label>
+                                        <label class="col-sm-3 control-label">颜色</label>
                                     <div class="col-sm-4">
 
                                         <s:select list="products" listValue="color" listkey="productId"
@@ -135,11 +135,17 @@
                                 </div>
 
                                 <s:if test="products.size()>0">
-                                    <a onclick="addCart( )" class="btn btn-lg blue-grey"><i
-                                            class="fa fa-shopping-cart"></i>
-                                        加入购物车</a>
-
-                                    <s:submit  cssClass="btn btn-lg blue-grey btn-input fa fa-check" value="立即购买"/>
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            <a onclick="addCart( )" class="btn btn-lg blue-grey"><i
+                                                    class="fa fa-shopping-cart"></i>
+                                                加入购物车</a></div>
+                                        <div class="col-sm-4">
+                                            <s:submit id="btn-instance-buy" align="none"
+                                                      cssClass="btn btn-lg blue-grey btn-input fa fa-check"
+                                                      value="立即购买"/>
+                                        </div>
+                                    </div>
                                 </s:if>
                                 <s:else>
                                     <h5>正在补货中...</h5>

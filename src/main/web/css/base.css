@@ -238,3 +238,14 @@ a {
 .text-center {
     text-align: center;
 }
+
+.product-order-title {
+    font-weight: 500;
+}
+
+#btn-instance-buy {
+    padding: 0;
+    font-size: 1.25rem;
+    font-family: Roboto, "Microsoft YaHei", "微软雅黑", STXihei, "华文细黑", sans-serif;
+    font-weight: 400;
+}

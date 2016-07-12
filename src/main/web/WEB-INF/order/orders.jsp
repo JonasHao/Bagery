@@ -97,7 +97,7 @@
 
                                         <div>订单号：<s:property value="orderId"/></div>
                                     </div>
-                                    <div class="col-md-2 ">
+                                    <div class="col-md-3 ">
                                         <div>总价：<s:property value="total"/></div>
 
                                         <div>运费：不要钱</div>
@@ -109,7 +109,7 @@
                                         <div>订单状态：<s:property value="orderStatusString"/></div>
                                     </div>
 
-                                    <div class="col-md-1 col-md-push-3">
+                                    <div class="col-md-1 col-md-push-2">
                                         <a onclick="bootbox.confirm({
                                                 title:'删除订单',
                                                 message:'确定删除么？',
