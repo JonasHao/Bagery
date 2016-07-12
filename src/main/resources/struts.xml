@@ -170,6 +170,10 @@
                 <param name="actionName">index</param>
                 <param name="message">退出成功！</param>
             </result>
+            <result name="error" type="redirectAction">
+                <param name="actionName">index</param>
+                <param name="message">网络异常！</param>
+            </result>
         </action>
 
         <action name="index" class="action.LogoutAction" method="index">
