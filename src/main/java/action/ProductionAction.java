@@ -294,6 +294,15 @@ public class ProductionAction extends DefaultActionSupport {
             }
             priceds = productService.findPricedsByProperty(proIDss.get(0), proIDss.get(1), proIDss.get(2));
             pross = productService.getPross();
+
+            for (int i = 0; i < 3; i++) {
+                for (Property property : pross.get(i)) {
+                    proIDss.get(i).stream().filter(id -> property.getProId() == id).forEach(id -> {
+                        property.setSelected(1);
+                    });
+                }
+            }
+
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();

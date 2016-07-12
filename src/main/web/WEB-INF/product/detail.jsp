@@ -51,7 +51,7 @@
                         })
             }
             function addCart() {
-                var productId = $("#color").find('option:selected').val();
+                var productId = $("#productId").find('option:selected').val();
                 $.ajax(
                         {
                             url: "/cart/addCart",
@@ -118,31 +118,39 @@
                                     value="priced.unitPrice"/></h3>
                             <p><s:property value="priced.description"/></p>
 
+                            <form action="/order/instanceBuy.action">
+                                <div class="row reviews">
+                                    <s:if test="products.size()==0">
+                                    <p>暂无商品！
+                                        </s:if>
+                                        <s:else>
+                                        <label class="col-sm-3 control-label">颜色</label>
+                                    <div class="col-sm-4">
 
-                            <div class="row reviews">
-                                <s:if test="products.size()==0">
-                                <p>暂无商品！
-                                    </s:if>
-                                    <s:else>
-                                    <label class="col-sm-2 control-label">颜色</label>
-                                <div class="col-sm-4">
-                                    <form action="cart/addCart">
                                         <s:select list="products" listValue="color" listkey="productId"
-                                                  name="color" cssClass="form-control m-b"/>
-                                    </form>
-                                </div>
-                                </s:else>
-                            </div>
+                                                  name="productId" cssClass="form-control m-b"/>
 
-                            <s:if test="products.size()>0">
-                                <a onclick="addCart( )" class="btn btn-lg blue-grey"><i
-                                        class="fa fa-shopping-cart"></i>
-                                    加入购物车</a>
-                                <a href="#" class="btn btn-lg blue-grey"><i class="fa fa-check"></i> 立即购买</a>
-                            </s:if>
-                            <s:else>
-                                <h5>正在补货中...</h5>
-                            </s:else>
+                                    </div>
+                                    </s:else>
+                                </div>
+
+                                <s:if test="products.size()>0">
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            <a onclick="addCart( )" class="btn btn-lg blue-grey"><i
+                                                    class="fa fa-shopping-cart"></i>
+                                                加入购物车</a></div>
+                                        <div class="col-sm-4">
+                                            <s:submit id="btn-instance-buy" align="none"
+                                                      cssClass="btn btn-lg blue-grey btn-input fa fa-check"
+                                                      value="立即购买"/>
+                                        </div>
+                                    </div>
+                                </s:if>
+                                <s:else>
+                                    <h5>正在补货中...</h5>
+                                </s:else>
+                            </form>
 
                         </div>
                     </div>

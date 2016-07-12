@@ -37,7 +37,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-2 text-center">
                     <div class="unit-price"><i class="fa fa-rmb" aria-hidden="true"></i>
                         <jsp:invoke fragment="unitPrice"/>
                     </div>
@@ -45,24 +45,30 @@
                     <span><jsp:invoke fragment="salePrice"/></span>
                 </div>
 
-                <div class="col-md-2 quantity-control">
-                    <button type="button" onclick="minus(<jsp:invoke fragment="stock"/>,<jsp:invoke fragment="salePrice"/>,<jsp:invoke fragment="itemId"/>)">-</button>
+                <div class="col-md-3 quantity-control text-center">
+                    <button type="button"
+                            onclick="minus(<jsp:invoke fragment="stock"/>,<jsp:invoke fragment="salePrice"/>,<jsp:invoke
+                                    fragment="itemId"/>)">-
+                    </button>
                     <input type="text" min="1" max="<jsp:invoke fragment="stock"/>"
                            onkeyup="this.value=minmax(this.value,1,<jsp:invoke fragment="stock"/>,
                            <jsp:invoke fragment="salePrice"/> ,<jsp:invoke fragment="itemId"/>)"
                            onblur="updateCart( <jsp:invoke fragment="itemId"/>,this.value)"
                            value="<jsp:invoke fragment="number"/>">
-                    <button type="button" onclick="add(<jsp:invoke fragment="stock"/>,<jsp:invoke fragment="salePrice"/>,<jsp:invoke fragment="itemId"/>)">+</button>
+                    <button type="button"
+                            onclick="add(<jsp:invoke fragment="stock"/>,<jsp:invoke fragment="salePrice"/>,<jsp:invoke
+                                    fragment="itemId"/>)">+
+                    </button>
                     <br/>
                     <span style="color:red"></span>
                 </div>
 
-                <div class="col-md-2">
+                <div class="col-md-2 text-center">
                     <i class="fa fa-rmb" aria-hidden="true"></i>
                     <span id="total-<jsp:invoke fragment="itemId"/>"><jsp:invoke fragment="totalPrice"/></span>
                 </div>
 
-                <div class="col-md-2">
+                <div class="col-md-2 text-center">
                     <a onclick="bootbox.confirm({
                             title:'删除包包',
                             message:'确认要删除该宝贝吗？',
@@ -104,39 +110,43 @@
     function add(stock, price, id) {
         console.log(event.target.parentNode.childNodes);
         var myself = event.target;
-        var inputtext = myself.previousSibling.previousSibling;
-        if (inputtext.value >= stock) {
+        var input = myself.previousSibling.previousSibling;
+        if (input.value >= stock) {
             myself.isDisabled = true;
             myself.parentNode.childNodes[9].innerHTML = "最多只能购买" + stock + "件";
         }
         else {
-            if (inputtext.value == 1)
-                inputtext.previousSibling.previousSibling.isDisabled = "false";
-            inputtext.value++;
-            console.log("input text:" + inputtext.value);
-            minmax(inputtext.value, 1, stock, price, id);
+            if (input.value <= 1)
+                input.previousSibling.previousSibling.isDisabled = "false";
+            input.value++;
+            console.log("input text:" + input.value);
         }
 
+        minmax(input.value, 1, stock, price, id);
+        updateCart(id, input.value);
+
     }
+
     function minus(stock, price, id) {
         var myself = event.target;
-        var inputtext = myself.nextSibling.nextSibling;
-        if (inputtext.value <= 1)
+        var input = myself.nextSibling.nextSibling;
+        if (input.value <= 1)
             myself.isDisabled = true;
         else {
-            if (inputtext.value >= stock) {
-                inputtext.nextSibling.nextSibling.isDisabled = "false";
+            if (input.value >= stock) {
+                input.nextSibling.nextSibling.isDisabled = "false";
                 myself.parentNode.childNodes[9].innerHTML = "";
             }
-            inputtext.value--;
-            console.log("input text:" + inputtext.value);
-            minmax(inputtext.value, 1, stock, price, id);
+            input.value--;
+            console.log("input text:" + input.value);
+            minmax(input.value, 1, stock, price, id);
+            updateCart(id, input.value);
         }
     }
     function minmax(value, min, max, price, id) {
         console.log("value=" + value + " min=" + min + " max=" + max + " price=" + price);
         var myself = event.target;
-        var total = $("#total-"+id);
+        var total = $("#total-" + id);
 
         value = parseInt(value);
         min = parseInt(min);
@@ -156,7 +166,7 @@
             return value;
         }
 
-        total.value.text(min * price);
+        total.text(min * price);
         return min;
     }
 

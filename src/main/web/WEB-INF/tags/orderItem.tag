@@ -18,7 +18,7 @@
 
 
 <div class="row order-item">
-    <div class="col-md-2">
+    <div class="col-md-3">
         <!--Card image-->
         <div class="view overlay hm-white-slight">
             <img src=
@@ -29,10 +29,10 @@
         </div>
         <!--/.Card image-->
     </div>
-    <div class="col-md-10 order-item-block">
+    <div class="col-md-7 col-md-push-2 order-item-block">
         <div>
             <!--Title-->
-            <h5 class="card-title product-title">
+            <h5 class="card-title product-order-title">
                 <jsp:invoke fragment="title"/>
             </h5>
             <div><i class="fa fa-rmb" aria-hidden="true"></i>

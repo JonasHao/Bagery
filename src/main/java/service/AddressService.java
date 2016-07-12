@@ -20,4 +20,6 @@ public interface AddressService {
 
     void deleteAddress(int addressId);
 
+    void deleteAddress(Address address);
+
 }

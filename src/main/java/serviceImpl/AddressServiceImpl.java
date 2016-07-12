@@ -10,6 +10,7 @@ import service.AddressService;
 public class AddressServiceImpl implements AddressService {
     private Dao dao;
     private Address address;
+
     @Override
     public void add(Address address) {
         dao.save(address);
@@ -27,7 +28,13 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public void deleteAddress(int addressId) {
-        address=dao.get(Address.class,addressId);
+        address = dao.get(Address.class, addressId);
+        if (address != null)
+            dao.delete(address);
+    }
+
+    @Override
+    public void deleteAddress(Address address) {
         dao.delete(address);
     }
 

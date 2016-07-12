@@ -5,20 +5,23 @@
     response.setHeader("Pragma", "no-cache"); // HTTP 1.0.
     response.setHeader("Expires", "0"); // Proxies.
 %>
+<!DOCTYPE html>
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="src/main/web/admin/css/product.css"/>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="/admin/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/admin/font-awesome/css/font-awesome.css" rel="stylesheet">
     <!-- Toastr style -->
-    <link href="css/plugins/toastr/toastr.min.css" rel="stylesheet">
+    <link href="/admin/css/plugins/toastr/toastr.min.css" rel="stylesheet">
     <!-- Gritter -->
-    <link href="js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
-    <link href="css/animate.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/product.css" rel="stylesheet">
+    <link href="/admin/js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+    <link href="/admin/css/animate.css" rel="stylesheet">
+    <link href="/admin/css/style.css" rel="stylesheet">
+    <link href="/admin/css/product.css" rel="stylesheet">
+    <!-- Image cropper -->
+    <link href="/admin/css/plugins/cropper/cropper.min.css" rel="stylesheet">
     <title>Bagery | 后台管理系统</title>
 </head>
 <body>
@@ -122,65 +125,58 @@
                                             </s:textfield></div>
                                         </div>
 
-                                        <div class="form-group">
+                                        <div class="form-group"><label class="col-sm-2 control-label">商品图片</label>
+                                            <div class="col-sm-10">
+                                                <s:hidden name="img" />
+                                                <img id="added_img" src=""  style="width: 200px;height: 200px; display: none;" />
 
-                                            <label class="col-sm-2 control-label">商品图片</label>
-                                            <div class="col-sm-10"><s:textfield name="img"
-                                                                                cssClass="form-control">
-                                            </s:textfield></div>
+                                                <a id = "add_img_btn" data-toggle="modal" class="btn btn-info" style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;" href="#modal-upload-img">添加</a>
+
+                                                <div id="modal-upload-img" class="modal fade" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-body">
+                                                                <div class="row">
+                                                                    <div class="col-sm-12">
+                                                                        <div class="image-crop">
+                                                                            <img src="/admin/img/p_big1.jpg" class="cropper-hidden ">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div style="margin-top: 1rem" class="row">
+                                                                    <div class="col-sm-12">
+                                                                        <center>
+                                                                            <h4>预览</h4>
+                                                                            <div class="img-preview img-preview-sm" style="width: 300px; height: 300px;">
+                                                                                <img src="/admin/img/p_big1.jpg" style="min-width: 0px !important; min-height: 0px !important; max-width: none !important; max-height: none !important; width: 200px; height: 200px; margin-left: -25px; margin-top: -22px;">
+                                                                            </div>
+                                                                            <p></p>
+
+
+                                                                            <div id="qiniu_container"class="btn-group">
+                                                                                <label title="Upload image file" for="inputImage" class="btn btn-primary">
+                                                                                    <input type="file" accept="image/*"
+                                                                                           name="file" id="inputImage"
+                                                                                           class="hide">
+                                                                                    浏览
+                                                                                </label>
+                                                                                <label title="Download image" id="pickfile" class="btn btn-primary">七牛浏览</label>
+                                                                                <label title="Download image" id="up_load" class="btn btn-primary">七牛上传</label>
+                                                                            </div>
+                                                                        </center>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </div>
 
-                                        <%--<div class="form-group"><label class="col-sm-2 control-label">商品图片</label>--%>
-                                                <%--<div class="col-sm-10">--%>
-                                                    <%--<img id="added_img" src=""  style="width: 200px;height: 200px; display: none;" />--%>
-
-                                                    <%--<a id = "add_img_btn" onclick="initCropper()" data-toggle="modal" class="btn btn-info" style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;" href="#modal-upload-img">添加</a>--%>
-
-                                                    <%--<div id="modal-upload-img" class="modal fade" aria-hidden="true">--%>
-                                                        <%--<div class="modal-dialog">--%>
-                                                            <%--<div class="modal-content">--%>
-                                                                <%--<div class="modal-body">--%>
-                                                                    <%--<div class="row">--%>
-                                                                        <%--<div class="col-sm-12">--%>
-                                                                            <%--<div class="image-crop">--%>
-                                                                                <%--<img src="./img/p_big1.jpg" class="cropper-hidden">--%>
-
-                                                                            <%--</div>--%>
-                                                                        <%--</div>--%>
-                                                                    <%--</div>--%>
-                                                                    <%--<div class="row">--%>
-                                                                        <%--<div class="col-sm-12">--%>
-                                                                            <%--<center>--%>
-                                                                                <%--<h4>预览</h4>--%>
-                                                                                <%--<div class="img-preview img-preview-sm" style="width: 300px; height: 300px;">--%>
-                                                                                    <%--<img src="./img/p_big1.jpg" style="min-width: 0px !important; min-height: 0px !important; max-width: none !important; max-height: none !important; width: 200px; height: 200px; margin-left: -25px; margin-top: -22px;">--%>
-                                                                                <%--</div>--%>
-                                                                                <%--<p></p>--%>
 
 
-                                                                                <%--<div id="qiniu_container"class="btn-group">--%>
-                                                                                    <%--<label title="Upload image file" for="inputImage" class="btn btn-primary">--%>
-                                                                                    <%--<input type="file" accept="image/*"--%>
-                                                                                           <%--name="file" id="inputImage"--%>
-                                                                                           <%--class="hide">--%>
-                                                                                    <%--浏览--%>
-                                                                                    <%--</label>--%>
-                                                                                    <%--<label title="Download image" id="pickfile" class="btn btn-primary">七牛浏览</label>--%>
-                                                                                    <%--<label title="Download image" id="up_load" class="btn btn-primary">七牛上传</label>--%>
-                                                                                <%--</div>--%>
-                                                                            <%--</center>--%>
-                                                                        <%--</div>--%>
-                                                                    <%--</div>--%>
-                                                                <%--</div>--%>
-                                                            <%--</div>--%>
-                                                        <%--</div>--%>
-                                                    <%--</div>--%>
-                                                <%--</div>--%>
 
-                                            <%--</div>--%>
-                       
-                                            
-                                     
 
 
                                         <div class="form-group"><label class="col-sm-2 control-label">商品描述</label>
@@ -213,9 +209,7 @@
                                                     <div class="col-sm-4">
                                                         <%--todo: s:select的list属性设置成action中的List--%>
                                                             <s:select
-                                                                    list="#{'1':'芬迪', '2':'古琦','3':'巴宝莉','4':'安娜苏','5':'宝格丽','6':'香奈儿',
-                                                                           '7':'卡尔文•克莱恩','8':'川久保玲','9':'迪奥','10':'登喜路',
-                                                                           '11':'纪梵希','12':'戈雅','13':'爱马仕'}"
+                                                                    list="#{'1':'A品牌', '2':'B品牌'}"
                                                                     name="proIDs[0]" cssClass="form-control m-b" />
                                                     </div>
                                                 </div>
@@ -223,8 +217,7 @@
                                                     <label class="col-sm-4 control-label"
                                                            style="font-weight:normal;">材质</label>
                                                     <div class="col-sm-4">
-                                                        <s:select list="#{'14':'鳄鱼皮','15':'帆布','16':'公牛皮','17':'浣熊皮草','18':'棉',
-                                                        '19':'尼龙','20':'蛇皮','21':'羊毛','22':'漆皮','23':'其他纤维'}"
+                                                        <s:select list="#{'3':'A材质'}"
                                                                   name="proIDs[1]" cssClass="form-control m-b"/>
                                                     </div>
                                                 </div>
@@ -232,8 +225,7 @@
                                                     <label class="col-sm-4 control-label"
                                                            style="font-weight:normal;">款式</label>
                                                     <div class="col-sm-4">
-                                                        <s:select list="#{'24':'单肩包', '25':'双肩包', '26':'手拿包','27':'手提包',
-                                                        '28':'斜挎包','29':'电脑包','30':'箱包','31':'腰包'}"
+                                                        <s:select list="#{'4':'A款式', '5':'B款式', '6':'C款式'}"
                                                                   name="proIDs[2]" cssClass="form-control m-b"/>
                                                     </div>
                                                 </div>
@@ -333,47 +325,47 @@
 
 
 <!-- Mainly scripts -->
-<script src="js/jquery-2.1.1.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-<script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="/admin/js/jquery-2.1.1.js"></script>
+<script src="/admin/js/bootstrap.min.js"></script>
+<script src="/admin/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="/admin/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <!-- Flot -->
-<script src="js/plugins/flot/jquery.flot.js"></script>
-<script src="js/plugins/flot/jquery.flot.tooltip.min.js"></script>
-<script src="js/plugins/flot/jquery.flot.spline.js"></script>
-<script src="js/plugins/flot/jquery.flot.resize.js"></script>
-<script src="js/plugins/flot/jquery.flot.pie.js"></script>
+<script src="/admin/js/plugins/flot/jquery.flot.js"></script>
+<script src="/admin/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+<script src="/admin/js/plugins/flot/jquery.flot.spline.js"></script>
+<script src="/admin/js/plugins/flot/jquery.flot.resize.js"></script>
+<script src="/admin/js/plugins/flot/jquery.flot.pie.js"></script>
 <!-- Peity -->
-<script src="js/plugins/peity/jquery.peity.min.js"></script>
-<script src="js/demo/peity-demo.js"></script>
+<script src="/admin/js/plugins/peity/jquery.peity.min.js"></script>
+<script src="/admin/js/demo/peity-demo.js"></script>
 <!-- Custom and plugin javascript -->
-<script src="js/inspinia.js"></script>
-<script src="js/plugins/pace/pace.min.js"></script>
+<script src="/admin/js/inspinia.js"></script>
+<script src="/admin/js/plugins/pace/pace.min.js"></script>
 <!-- jQuery UI -->
-<script src="js/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src="/admin/js/plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- GITTER -->
-<script src="js/plugins/gritter/jquery.gritter.min.js"></script>
+<script src="/admin/js/plugins/gritter/jquery.gritter.min.js"></script>
 <!-- Sparkline -->
-<script src="js/plugins/sparkline/jquery.sparkline.min.js"></script>
+<script src="/admin/js/plugins/sparkline/jquery.sparkline.min.js"></script>
 <!-- Sparkline demo data -->
-<script src="js/demo/sparkline-demo.js"></script>
+<script src="/admin/js/demo/sparkline-demo.js"></script>
 <!-- ChartJS-->
-<script src="js/plugins/chartJs/Chart.min.js"></script>
+<script src="/admin/js/plugins/chartJs/Chart.min.js"></script>
 <!-- Toastr -->
-<script src="js/plugins/toastr/toastr.min.js"></script>
+<script src="/admin/js/plugins/toastr/toastr.min.js"></script>
 
 <!-- Image cropper -->
-<script src="js/plugins/cropper/cropper.min.js"></script>
+<script src="/admin/js/plugins/cropper/cropper.min.js"></script>
 
 <!-- QiniuUploader -->
-<script src="js/imgupload/qiniu.js"></script>
-<script src="js/imgupload/plupload.full.min.js"></script>
+<script src="/admin/js/imgupload/qiniu.js"></script>
+<script src="/admin/js/imgupload/plupload.full.min.js"></script>
 <!-- Crypto-js -->
-<script type="text/javascript" src="js/crypto-js/crypto-js.js"></script>
-<script type="text/javascript" src="js/crypto-js/hmac-sha1.js"></script>
+<script type="text/javascript" src="/admin/js/crypto-js/crypto-js.js"></script>
+<script type="text/javascript" src="/admin/js/crypto-js/hmac-sha1.js"></script>
 <script>
     var croppeddata;
-        var qiniu_config = {
+    var qiniu_config = {
         AK: "hRa8KzY6vcwOjKFZ0cNs_zAZNlcnhAWrJtmAmVhC",
         SK: "EeCydvwVtfPtvg_SHTR5Z7HYuPFHY5aetfOCNWjR",
         domain: "http://o9s6sj90d.bkt.clouddn.com",
@@ -387,63 +379,18 @@
         var uploadToken = qiniu_config.AK + ':' + encodedSign + ':' + encodedPutPolicy;
         return uploadToken;
     }
-    function initCropper(){
-          var $image = $(".image-crop > img")
-
-        $($image).cropper({
-            aspectRatio: 1,
-            preview: ".img-preview",
-            done: function (data) {
-                croppeddata = data;
-                // Output the result data for cropping image.
-            }
-        });
-
-        var $inputImage = $("#inputImage");
-
-        if (window.FileReader) {
-            $inputImage.change(function () {
-                var fileReader = new FileReader(),
-                        files = this.files,
-                        file;
-
-                if (!files.length) {
-                    return;
-                }
-
-                file = files[0];
-
-                if (/^image\/\w+$/.test(file.type)) {
-                    fileReader.readAsDataURL(file);
-                    fileReader.onload = function () {
-                        $inputImage.val("");
-                        $image.cropper("reset", true).cropper("replace", this.result);
-                    };
-                } else {
-                    showMessage("Please choose an image file.");
-                }
-            });
-        } else {
-            $inputImage.addClass("hide");
-        }
-
-    }
     $(document).ready(function () {
-
-
-      
-
 
 //七牛上传图片
 
         var deadline = (Date.parse(new Date()) / 1000) + 3600;
-        console.log(deadline);
+        // console.log(deadline);
         var putPolicyConfig = {
             scope: qiniu_config.bucketName,
             deadline: deadline,
         };
         myUploadToken = getUploadToken(putPolicyConfig);
-        console.log(myUploadToken);
+        // console.log(myUploadToken);
 
 
         var uploader = Qiniu.uploader({
@@ -487,8 +434,8 @@
             //},
             init: {
                 'FilesAdded': function (up, files) {
-                    console.log(up);
-                    console.log(files);
+                    // console.log(up);
+                    // console.log(files);
                     plupload.each(files, function (file) {
                         // 文件添加进队列后，处理相关的事情
                     });
@@ -520,9 +467,11 @@
                     console.log(sourceLink)
                     document.getElementById("add_img_btn").style.display="none";
                     var img = document.getElementById("added_img");
+                    var inputImg = document.getElementById("img");
                     img.src = sourceLink;
                     img.style.display="block";
-
+                    inputImg.value = sourceLink;
+                    console.log(inputImg);
                     $('#modal-upload-img').modal('hide');
                 },
                 'Error': function (up, err, errTip) {
@@ -556,29 +505,67 @@
 
 
 
+//裁剪图片
+
+        console.log(uploader);
+
+        var $image = $(".image-crop > img")
+
+        $($image).cropper({
+            aspectRatio: 1,
+            preview: ".img-preview",
+            done: function (data) {
+                croppeddata = data;
+                // Output the result data for cropping image.
+            }
+        });
+
+        var $inputImage = $("#inputImage");
+
+        if (window.FileReader) {
+            $inputImage.change(function () {
+                var fileReader = new FileReader(),
+                        files = this.files,
+                        file;
+
+                if (!files.length) {
+                    return;
+                }
+
+                file = files[0];
+
+                uploader.files
+
+                console.log(files);
+
+                console.log(file);
+
+
+                if (/^image\/\w+$/.test(file.type)) {
+                    fileReader.readAsDataURL(file);
+                    fileReader.onload = function () {
+                        $inputImage.val("");
+                        $image.cropper("reset", true).cropper("replace", this.result);
+                    };
+                } else {
+                    showMessage("Please choose an image file.");
+                }
+            });
+        } else {
+            $inputImage.addClass("hide");
+        }
+
+
+
+
+
 
 
     });
-
-
     function addColor() {
         // document.getElementById('color_stock').appendChild("<strong>test</strong>");
         var div = document.createElement("div");
-        div.className = "row";
-    <%--<div class="col-sm-6">--%>
-                <%--<s:textfield name="products[0].color" placeholder="请输入颜色"--%>
-                             <%--cssClass="form-control m-b"/>--%>
-                <%--</div>--%>
-                <%--<div class="col-sm-4">--%>
-        <%--<s:textfield name="products[0].stock" placeholder="请输入库存"--%>
-                     <%--cssClass="form-control m-b"/>--%>
-        <%--</div>--%>
-
-//        div.innerHTML = "<div class=\"col-sm-6\"><input type=\"text\" placeholder=\"请输入颜色\" class=\"form-control m-b\"></div>" +
-//                "<div class=\"col-sm-4\"><input type=\"text\" placeholder=\"请输入库存\" class=\"form-control m-b\"></div>" +
-//                "<button class=\"col-sm-2 btn btn-warning btn-circle\" type=\"button\" onclick=\"deleteColor()\">" +
-//                "<i class=\"fa fa-times\"></i></button>";
-
+        div.innerHTML = "<div class=\"row\"><div class=\"col-sm-6\"><input type=\"text\" placeholder=\"请输入颜色\" class=\"form-control m-b\"></div><div class=\"col-sm-4\"><input type=\"text\" placeholder=\"请输入库存\" class=\"form-control m-b\"></div><button class=\"col-sm-2 btn btn-warning btn-circle\" type=\"button\" onclick=\"deleteColor()\"><i class=\"fa fa-times\"></i></button></div>";
 
         document.getElementById('color_stock').appendChild(div);
     }

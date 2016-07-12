@@ -8,6 +8,7 @@ import org.hibernate.HibernateException;
 import po.User;
 import po.UserPricedRecord;
 import service.UserService;
+import util.SendMail;
 
 import java.util.HashMap;
 import java.util.List;
@@ -168,6 +169,7 @@ public class UserInfoAction extends DefaultActionSupport {
         data.put(Key.RESULT, SUCCESS);
         data.put("code", code);
         //发送邮件
+
         return SUCCESS;
     }
 
@@ -181,14 +183,14 @@ public class UserInfoAction extends DefaultActionSupport {
             }
 
             password = user.getPassword();
-            confirmCode = userService.getMD5(confirmCode.getBytes());
+            String temp=userService.getMD5(confirmCode.getBytes());
+//            confirmCode = userService.getMD5(confirmCode.getBytes());
 
-            if (!confirmCode.equals(password)) {
+            if (!temp.equals(password)) {
                 data.put(Key.RESULT, INPUT);
                 data.put(Key.ERROR_MESSAGE, "验证码错误");
                 return SUCCESS;
             }
-
 
             newPassword = userService.getMD5(newPassword.getBytes());
             user.setPassword(newPassword);
@@ -197,7 +199,6 @@ public class UserInfoAction extends DefaultActionSupport {
             data.put(RESULT, SUCCESS);
             ActionContext.getContext().getSession().put(Key.USER, user.getUserId());
             return SUCCESS;
-
         } catch (Exception e) {
             e.printStackTrace();
             data.put(RESULT, ERROR);
@@ -207,9 +208,14 @@ public class UserInfoAction extends DefaultActionSupport {
 
     public String sendConfirm() {
         user = userService.getCurrentUser();
-        code = (int) (Math.random() * 9000) + 1000;
+        code = (int) (Math.random() * 90000) + 10000;
         ActionContext.getContext().getSession().put("Code", code);
+
         //发送邮件
+        email = user.getEmail();
+
+        System.out.println(SendMail.sendOneMail("Bageryy验证码",Integer.toString(code),email));
+
         return SUCCESS;
     }
 

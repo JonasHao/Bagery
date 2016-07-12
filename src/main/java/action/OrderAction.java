@@ -25,6 +25,7 @@ public class OrderAction extends DefaultActionSupport {
     private Order order;
     private User user;
     private Address defaultAddress;
+    private int productId;
 
     private double totalPrice;
 
@@ -52,7 +53,10 @@ public class OrderAction extends DefaultActionSupport {
     public String balance() throws Exception {
         try {
             user = userService.getCurrentUser();
+
             addressList = user.getAddresses();
+            addressList.forEach(System.out::println);
+
             Integer defaultAddressId = user.getDefaultAddressId();
 
             if (defaultAddressId != null) {
@@ -73,11 +77,54 @@ public class OrderAction extends DefaultActionSupport {
             }
 
             return SUCCESS;
-        } catch (HibernateException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return ERROR;
     }
+
+    public String instanceBuy() throws Exception {
+        try {
+            user = userService.getCurrentUser();
+            cartItemList = user.getCartItems();
+            CartItem cartItem = null;
+            for (CartItem item : cartItemList) {
+                if (item.getProductId() == productId) {
+                    cartItem = item;
+                    cartItem.setNum(1);
+                    cartService.updateCart(cartItem);
+                    break;
+                }
+            }
+            if (cartItem == null) {
+                cartItem = new CartItem();
+                cartItem.setProductId(productId);
+                cartItem.setUserId(user.getUserId());
+                cartItem.setNum(1);
+                cartService.addCart(cartItem);
+            }
+
+            addressList = user.getAddresses();
+            if (addressList == null)
+                return ERROR;
+            addressList.forEach(System.out::println);
+
+            Integer defaultAddressId = user.getDefaultAddressId();
+
+            if (defaultAddressId != null) {
+                defaultAddress = addressService.get(user.getDefaultAddressId());
+            }
+
+            cartItemList = new ArrayList<>(1);
+            cartItemList.add(cartItem);
+            totalPrice = cartItem.getSubtotal();
+            return SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ERROR;
+        }
+    }
+
 
     //��������
     public String addOrder() throws Exception {
@@ -124,7 +171,7 @@ public class OrderAction extends DefaultActionSupport {
             user = userService.getCurrentUser();
             orderList = user.getOrders();
             return SUCCESS;
-        } catch (HibernateException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return ERROR;
@@ -134,7 +181,7 @@ public class OrderAction extends DefaultActionSupport {
         try {
             orderList = orderService.getAll();
             return SUCCESS;
-        } catch (HibernateException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return ERROR;
@@ -144,7 +191,7 @@ public class OrderAction extends DefaultActionSupport {
         try {
             orderList = orderService.getStatusOf(OrderStatus.UNSHIPPED);
             return SUCCESS;
-        } catch (HibernateException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return ERROR;
@@ -206,7 +253,7 @@ public class OrderAction extends DefaultActionSupport {
             order.setOrderStatus(OrderStatus.UNSHIPPED);
             orderService.updateOrder(order);
             return SUCCESS;
-        } catch (HibernateException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return ERROR;
@@ -223,7 +270,7 @@ public class OrderAction extends DefaultActionSupport {
             order.setOrderStatus(OrderStatus.COMPLETED);
             orderService.updateOrder(order);
             return SUCCESS;
-        } catch (HibernateException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return ERROR;
@@ -247,7 +294,7 @@ public class OrderAction extends DefaultActionSupport {
         try {
             orderService.sendPackage(orderId, logisticsNum, logisticsCompany);
             return SUCCESS;
-        } catch (HibernateException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return ERROR;
@@ -545,8 +592,17 @@ public class OrderAction extends DefaultActionSupport {
         this.commentList = commentList;
     }
 
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
 
     public void setCommentService(CommentService commentService) {
         this.commentService = commentService;
     }
+
+
 }

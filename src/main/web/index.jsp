@@ -39,29 +39,22 @@
                         <!--Slides-->
                         <div class="carousel-inner" role="listbox">
                             <div class="carousel-item active">
-                                <img src="http://mdbootstrap.com/images/ecommerce/slides/slide%20(1).jpg"
-                                     alt="First slide">
+                                <img src="/img/ads/banner1.jpg"
+                                     alt="First slide" width="1200" height="400">
                                 <div class="carousel-caption">
-                                    <h4>New collection</h4>
+                                    <h4>包</h4>
                                     <br>
                                 </div>
                             </div>
                             <div class="carousel-item">
-                                <img src="http://mdbootstrap.com/images/ecommerce/slides/slide%20(2).jpg"
+                                <img src="/img/ads/banner2.jpg"  width="1200" height="400"
                                      alt="Second slide">
                                 <div class="carousel-caption">
-                                    <h4>Get discount!</h4>
+                                    <h4>打折了！</h4>
                                     <br>
                                 </div>
                             </div>
-                            <div class="carousel-item">
-                                <img src="http://mdbootstrap.com/images/ecommerce/slides/slide%20(3).jpg"
-                                     alt="Third slide">
-                                <div class="carousel-caption">
-                                    <h4>Only now for 10$</h4>
-                                    <br>
-                                </div>
-                            </div>
+
                         </div>
                         <!--/.Slides-->
 

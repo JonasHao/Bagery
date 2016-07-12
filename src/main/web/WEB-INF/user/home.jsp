@@ -24,7 +24,7 @@
     <jsp:attribute name="title">个人中心</jsp:attribute>
     <jsp:attribute name="breadcrumb">
        <ol class="breadcrumb">
-           <li><a href="../../index.jsp">首页</a></li>
+           <li><a href="/index.jsp">首页</a></li>
            <li class="active">个人中心</li>
        </ol>
     </jsp:attribute>

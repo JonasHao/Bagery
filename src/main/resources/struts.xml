@@ -49,6 +49,13 @@
             </result>
         </action>
 
+        <action name="instanceBuy" class="action.OrderAction" method="instanceBuy">
+            <result name="success">/WEB-INF/order/balance.jsp</result>
+            <result name="input" type="redirectAction">
+                <param name="namespace">/cart</param>
+                <param name="actionName">queryCart</param>
+            </result>
+        </action>
         <action name="addOrder" class="action.OrderAction" method="addOrder">
             <result name="success">/WEB-INF/order/order-success.jsp</result>
         </action>
@@ -77,7 +84,7 @@
         </action>
 
         <action name="getLogisticsStatus" class="action.OrderAction" method="getLogisticsStatus">
-            <result name="success">/index.jsp</result>
+            <result name="success">/WEB-INF/order/viewLogistics.jsp</result>
         </action>
 
 
@@ -193,7 +200,7 @@
         <action name="openFind" class="action.UserInfoAction" method="openFind">
             <interceptor-ref name="defaultStack"/>
 
-            <result name="success">/WEB-INF/user/FindPassword.jsp</result>
+            <result name="success">/FindPassword.jsp</result>
         </action>
 
         <action name="sendConfirmCode" class="action.UserInfoAction" method="sendConfirmCode">
@@ -301,9 +308,11 @@
                 <param name="includeProperties">result</param>
             </result>
         </action>
+
+
     </package>
 
-    <package name="address" namespace="/address" extends="default">
+    <package name="address" namespace="/address" extends="default,json-default">
         <default-interceptor-ref name="userStack"/>
 
         <action name="viewAddress" class="action.AddressAction" method="viewAddress">
@@ -316,13 +325,21 @@
                 <param name="actionName">viewAddress</param>
                 <param name="message">添加成功！</param>
             </result>
-            <result name="input">/WEB-INF/user/address.jsp</result>
+
+            <result name="input" type="redirectAction">
+                <param name="actionName">viewAddress</param>
+            </result>
         </action>
 
         <action name="deleteAddress" class="action.AddressAction" method="deleteAddress">
             <result name="success" type="redirectAction">
                 <param name="actionName">viewAddress</param>
                 <param name="message">删除成功！</param>
+            </result>
+
+            <result name="error" type="redirectAction">
+                <param name="actionName">viewAddress</param>
+                <param name="message">删除失败！</param>
             </result>
         </action>
 
@@ -335,9 +352,8 @@
         </action>
 
         <action name="setDefaultAddress" class="action.AddressAction" method="setDefaultAddress">
-            <result name="success" type="redirectAction">
-                <param name="actionName">viewAddress</param>
-                <param name="message">设置成功！</param>
+            <result name="success" type="json">
+                <param name="root">data</param>
             </result>
         </action>
     </package>

@@ -183,6 +183,7 @@
                                                                                     <div class="form-group">
                                                                                         <label>物流公司</label> <input
                                                                                             type="text" placeholder="请输入物流公司"
+                                                                                            required="required" maxlength="12" min="2"
                                                                                             class="form-control"
                                                                                             name="logisticsCompany"
                                                                                             value="${logisticsCompany}"/>
@@ -191,6 +192,7 @@
                                                                                         <label>物流单号</label> <input
                                                                                             type="text"
                                                                                             placeholder="请输入物流单号"
+                                                                                            required="required" maxlength="20" min="10"
                                                                                             class="form-control"
                                                                                             name="logisticsNum"
                                                                                             value="${logisticsNum}"/>

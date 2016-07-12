@@ -29,7 +29,7 @@
                                 </s:url>
 
                                 <a href="${property_select1}" class="list-group-item filter-list-group-item
-                                   <s:if test="#selected == 1">active</s:if>">
+                                   <s:if test="selected == 1">active</s:if>">
                                     <s:property value="description"/></a>
                             </s:iterator>
                         </div>
@@ -43,8 +43,9 @@
                                     <s:param name="pro_id"><s:property value="proId"/></s:param>
                                 </s:url>
 
-                                <a href="${property_select2}" class="list-group-item filter-list-group-item
-                                   <s:if test="#selected == 1">active</s:if>">
+
+                                <a href="${property_select2}"
+                                   class="list-group-item filter-list-group-item <s:if test="selected == 1">active</s:if>">
                                     <s:property value="description"/></a>
                             </s:iterator>
                         </div>
@@ -59,7 +60,7 @@
                                 </s:url>
 
                                 <a href="${property_select3}" class="list-group-item filter-list-group-item
-                                   <s:if test="#selected == 1">active</s:if>">
+                                   <s:if test="selected == 1">active</s:if>">
                                     <s:property value="description"/></a>
                             </s:iterator>
                         </div>
@@ -75,6 +76,7 @@
                         <s:set name="pricedsSize" value="#priceds!= null ? #priceds.size() : 0"/>
                         <s:set name="pages" value="#pricedsSize/#page_max_size + 1"/>
 
+                        <%--  page_max_size=3  每页最多放3个 --%>
                         <s:iterator begin="1" end="#pages" status="st_page">
                             <%--  实际每页放的商品数量 --%>
                             <s:set name="page_count">
@@ -90,7 +92,7 @@
                                  id="products-page-<s:property value="#p"/>" role="tabpanel">
                                 <div class="row">
                                     <s:iterator begin="1" end="#page_count" status="st">
-                                        <div class="col-md-3">
+                                        <div class="col-md-3 col-sm-4">
                                             <s:set name="i" value="%{(#p-1)*#page_max_size+ #st.index}"/>
                                             <t:product>
                                                 <jsp:attribute name="img"><s:property
