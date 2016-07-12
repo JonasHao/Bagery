@@ -212,11 +212,9 @@ public class UserInfoAction extends DefaultActionSupport {
         ActionContext.getContext().getSession().put("Code", code);
 
         //发送邮件
-        try {
-            SendMail.sendOneMail("Bagery验证码",Integer.toString(code) ,this.email);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+        String result = SendMail.sendOneMail("Bagery验证码",Integer.toString(code) ,this.email);
+
         return SUCCESS;
     }
 

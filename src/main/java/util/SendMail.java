@@ -1,5 +1,9 @@
 package util;
 
+import com.opensymphony.xwork2.Action;
+
+import javax.mail.MessagingException;
+import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
@@ -19,8 +23,7 @@ public class SendMail {
     public static String myEmailSMTPHost = "smtp.163.com";
 
 
-
-    public static void sendOneMail(String subject ,  String content, String receiveMail) throws Exception {
+    public static String sendOneMail(String subject, String content, String receiveMail) {
         // 1. 创建参数配置, 用于连接邮件服务器的参数配置
         Properties props = new Properties();                    // 参数配置
         props.setProperty("mail.transport.protocol", "smtp");   // 使用的协议（JavaMail规范要求）
@@ -31,21 +34,31 @@ public class SendMail {
         Session session = Session.getDefaultInstance(props);
         session.setDebug(true);                                 // 设置为debug模式, 可以查看详细的发送 log
 
-        // 3. 创建一封邮件
-        MimeMessage message = createMimeMessage(session, subject, content, receiveMail);
 
-        // 4. 根据 Session 获取邮件传输对象
-        Transport transport = session.getTransport();
+        try {
+            // 3. 创建一封邮件
+            MimeMessage message = createMimeMessage(session, subject, content, receiveMail);
+            // 4. 根据 Session 获取邮件传输对象
+            Transport transport = session.getTransport();
+            // 5. 使用 邮箱账号 和 密码 连接邮件服务器
+            //    这里认证的邮箱必须与 message 中的发件人邮箱一致，否则报错
+            transport.connect(myEmailAccount, myEmailPassword);
+            // 6. 发送邮件, 发到所有的收件地址, message.getAllRecipients() 获取到的是在创建邮件对象时添加的所有收件人, 抄送人, 密送人
+            transport.sendMessage(message, message.getAllRecipients());
+            // 7. 关闭连接
+            transport.close();
+            return Action.SUCCESS;
+        } catch (NoSuchProviderException e) {
+            e.printStackTrace();
+            return Action.ERROR;
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            return Action.ERROR;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Action.ERROR;
+        }
 
-        // 5. 使用 邮箱账号 和 密码 连接邮件服务器
-        //    这里认证的邮箱必须与 message 中的发件人邮箱一致，否则报错
-        transport.connect(myEmailAccount, myEmailPassword);
-
-        // 6. 发送邮件, 发到所有的收件地址, message.getAllRecipients() 获取到的是在创建邮件对象时添加的所有收件人, 抄送人, 密送人
-        transport.sendMessage(message, message.getAllRecipients());
-
-        // 7. 关闭连接
-        transport.close();
     }
 
     /**
@@ -54,7 +67,7 @@ public class SendMail {
      * @param session 和服务器交互的会话
      * @throws Exception
      */
-    public static MimeMessage createMimeMessage(Session session,String subject ,  String content, String receiveMail) throws Exception {
+    public static MimeMessage createMimeMessage(Session session, String subject, String content, String receiveMail) throws Exception {
         // 1. 创建一封邮件
         MimeMessage message = new MimeMessage(session);
 
