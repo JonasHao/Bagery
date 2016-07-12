@@ -209,7 +209,9 @@
                                                     <div class="col-sm-4">
                                                         <%--todo: s:select的list属性设置成action中的List--%>
                                                             <s:select
-                                                                    list="#{'1':'A品牌', '2':'B品牌'}"
+                                                                    list="#{'1':'芬迪', '2':'古琦','3':'巴宝莉','4':'安娜苏','5':'宝格丽','6':'香奈儿',
+                                                                           '7':'卡尔文•克莱恩','8':'川久保玲','9':'迪奥','10':'登喜路',
+                                                                           '11':'纪梵希','12':'戈雅','13':'爱马仕'}"
                                                                     name="proIDs[0]" cssClass="form-control m-b" />
                                                     </div>
                                                 </div>
@@ -217,7 +219,8 @@
                                                     <label class="col-sm-4 control-label"
                                                            style="font-weight:normal;">材质</label>
                                                     <div class="col-sm-4">
-                                                        <s:select list="#{'3':'A材质'}"
+                                                        <s:select list="#{'14':'鳄鱼皮','15':'帆布','16':'公牛皮','17':'浣熊皮草','18':'棉',
+                                                        '19':'尼龙','20':'蛇皮','21':'羊毛','22':'漆皮','23':'其他纤维'}"
                                                                   name="proIDs[1]" cssClass="form-control m-b"/>
                                                     </div>
                                                 </div>
@@ -225,7 +228,8 @@
                                                     <label class="col-sm-4 control-label"
                                                            style="font-weight:normal;">款式</label>
                                                     <div class="col-sm-4">
-                                                        <s:select list="#{'4':'A款式', '5':'B款式', '6':'C款式'}"
+                                                        <s:select list="#{'24':'单肩包', '25':'双肩包', '26':'手拿包','27':'手提包',
+                                                        '28':'斜挎包','29':'电脑包','30':'箱包','31':'腰包'}"
                                                                   name="proIDs[2]" cssClass="form-control m-b"/>
                                                     </div>
                                                 </div>
