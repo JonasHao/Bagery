@@ -93,23 +93,23 @@
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <p>2016-6-24</p>
+                                        <div>2016-6-24</div>
 
-                                        <p>订单号：<s:property value="orderId"/></p>
+                                        <div>订单号：<s:property value="orderId"/></div>
                                     </div>
                                     <div class="col-md-2 ">
-                                        <p>总价：<s:property value="total"/></p>
+                                        <div>总价：<s:property value="total"/></div>
 
-                                        <p>运费：不要钱</p>
+                                        <div>运费：不要钱</div>
                                     </div>
 
-                                    <div class="col-md-2 ">
-                                        <p>收货人：<s:property value="address.receiver"/></p>
+                                    <div class="col-md-3 ">
+                                        <div>收货人：<s:property value="address.receiver"/></div>
 
-                                        <p>订单状态：<s:property value="orderStatusString"/></p>
+                                        <div>订单状态：<s:property value="orderStatusString"/></div>
                                     </div>
 
-                                    <div class="col-md-1 col-md-push-4">
+                                    <div class="col-md-1 col-md-push-3">
                                         <a onclick="bootbox.confirm({
                                                 title:'删除订单',
                                                 message:'确定删除么？',

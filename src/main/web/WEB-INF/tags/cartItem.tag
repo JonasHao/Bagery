@@ -37,7 +37,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-2 text-center">
                     <div class="unit-price"><i class="fa fa-rmb" aria-hidden="true"></i>
                         <jsp:invoke fragment="unitPrice"/>
                     </div>
@@ -45,7 +45,7 @@
                     <span><jsp:invoke fragment="salePrice"/></span>
                 </div>
 
-                <div class="col-md-2 quantity-control">
+                <div class="col-md-3 quantity-control text-center">
                     <button type="button"
                             onclick="minus(<jsp:invoke fragment="stock"/>,<jsp:invoke fragment="salePrice"/>,<jsp:invoke
                                     fragment="itemId"/>)">-
@@ -63,12 +63,12 @@
                     <span style="color:red"></span>
                 </div>
 
-                <div class="col-md-2">
+                <div class="col-md-2 text-center">
                     <i class="fa fa-rmb" aria-hidden="true"></i>
                     <span id="total-<jsp:invoke fragment="itemId"/>"><jsp:invoke fragment="totalPrice"/></span>
                 </div>
 
-                <div class="col-md-2">
+                <div class="col-md-2 text-center">
                     <a onclick="bootbox.confirm({
                             title:'删除包包',
                             message:'确认要删除该宝贝吗？',
@@ -116,7 +116,7 @@
             myself.parentNode.childNodes[9].innerHTML = "最多只能购买" + stock + "件";
         }
         else {
-            if (input.value == 1)
+            if (input.value <= 1)
                 input.previousSibling.previousSibling.isDisabled = "false";
             input.value++;
             console.log("input text:" + input.value);
@@ -166,7 +166,7 @@
             return value;
         }
 
-        total.value.text(min * price);
+        total.text(min * price);
         return min;
     }
 

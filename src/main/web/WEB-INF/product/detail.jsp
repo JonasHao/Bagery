@@ -118,7 +118,7 @@
                                     value="priced.unitPrice"/></h3>
                             <p><s:property value="priced.description"/></p>
 
-                            <form action="/order/instanceBuy.action">
+                            <form  action="/order/instanceBuy.action">
                                 <div class="row reviews">
                                     <s:if test="products.size()==0">
                                     <p>暂无商品！
@@ -139,8 +139,7 @@
                                             class="fa fa-shopping-cart"></i>
                                         加入购物车</a>
 
-                                    <s:submit class="btn btn-lg blue-grey btn-input"><i
-                                            class="fa fa-check"></i> 立即购买</s:submit>
+                                    <s:submit  cssClass="btn btn-lg blue-grey btn-input fa fa-check" value="立即购买"/>
                                 </s:if>
                                 <s:else>
                                     <h5>正在补货中...</h5>

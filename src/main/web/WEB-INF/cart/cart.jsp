@@ -32,19 +32,19 @@
                                     商品信息
                                 </div>
 
-                                <div class="col-md-3">
-                                    单价（元）
+                                <div class="col-md-2 text-center">
+                                    单价
                                 </div>
 
-                                <div class="col-md-2">
+                                <div class="col-md-3 text-center">
                                     数量
                                 </div>
 
-                                <div class="col-md-2">
-                                    金额（元）
+                                <div class="col-md-2 text-center">
+                                    金额
                                 </div>
 
-                                <div class="col-md-2">
+                                <div class="col-md-2 text-center">
                                     操作
                                 </div>
                             </div>
@@ -59,7 +59,7 @@
                         <jsp:attribute name="title"><s:property value="product.priced.title"/></jsp:attribute>
                         <jsp:attribute name="number"><s:property value="num"/></jsp:attribute>
                         <jsp:attribute name="color"><s:property value="product.color"/></jsp:attribute>
-                        <jsp:attribute name="img">../img/bags/bag1.png</jsp:attribute>
+                        <jsp:attribute name="img"><s:property value="product.priced.img"/></jsp:attribute>
                         <jsp:attribute name="totalPrice"><s:property value="subtotal"/></jsp:attribute>
                         <jsp:attribute name="unitPrice"><s:property value="product.priced.unitPrice"/></jsp:attribute>
                         <jsp:attribute name="salePrice"><s:property value="product.priced.salePrice"/></jsp:attribute>
