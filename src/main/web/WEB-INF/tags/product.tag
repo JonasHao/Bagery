@@ -3,14 +3,17 @@
 <%@attribute name="img" fragment="true" %>
 <%@attribute name="title" fragment="true" %>
 <%@attribute name="price" fragment="true" %>
-<%@attribute name="pricedId" fragment="true"  %>
+<%@attribute name="pricedId" fragment="true" %>
 <div class="card">
     <!--Card image-->
     <s:url action="viewProduct" var="Link" namespace="/product">
-        <s:param name="pricedId"><jsp:invoke fragment="pricedId"/></s:param>
+        <s:param name="pricedId">
+            <jsp:invoke fragment="pricedId"/>
+        </s:param>
     </s:url>
     <div class="view overlay hm-white-slight">
-        <img src="<jsp:invoke fragment="img"/>" class="img-fluid" alt="">
+        <img src="<jsp:invoke fragment="img"/>" width=200 height="200" class="img-fluid img-product"
+             alt="<jsp:invoke fragment="title"/>">
         <a href="${Link}">
             <div class="mask"></div>
         </a>
