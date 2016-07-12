@@ -208,12 +208,13 @@ public class UserInfoAction extends DefaultActionSupport {
 
     public String sendConfirm() {
         user = userService.getCurrentUser();
-        code = (int) (Math.random() * 9000) + 1000;
+        code = (int) (Math.random() * 90000) + 10000;
         ActionContext.getContext().getSession().put("Code", code);
 
         //发送邮件
+        email = user.getEmail();
 
-        String result = SendMail.sendOneMail("Bagery验证码",Integer.toString(code) ,this.email);
+        System.out.println(SendMail.sendOneMail("Bageryy验证码",Integer.toString(code),email));
 
         return SUCCESS;
     }
