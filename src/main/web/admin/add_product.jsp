@@ -185,7 +185,7 @@
 
 
 
-=======
+
                                         <div class="form-group"><label class="col-sm-2 control-label">商品图片</label>
                                             <div class="col-sm-10">
                                                 <s:hidden name="img" />
@@ -222,7 +222,7 @@
                                                                                     浏览
                                                                                 </label>
                                                                                 <label title="Download image" id="pickfile" class="btn btn-primary">七牛浏览</label>
-                                                                                <label title="Download image" id="up_load" class="btn btn-primary">七牛上传</label>
+                                                                                <label title="Download image" id="up_load" class="btn btn-primary">上传</label>
                                                                             </div>
                                                                         </center>
                                                                     </div>
