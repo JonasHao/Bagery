@@ -88,7 +88,8 @@
 
                     <div class="col-md-5">
                         <div class="view overlay hm-white-slight center">
-                            <img src="<s:property value="priced.img"/>" class="img-fluid center" alt="">
+                            <img src="<s:property value="priced.img"/>" class="img-fluid center" alt=""
+                                 style="max-width: 18rem">
                             <a href="#">
                                 <div class="mask"></div>
                             </a>

@@ -8,6 +8,7 @@ import po.User;
 import service.FavoriteService;
 import service.UserService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,7 +37,16 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     public int isFavor(int priceId) {
         User user = userService.getCurrentUser();
-        List<FavoriteItem> favoriteItemList = user.getFavoriteItems();
+        if(user==null){
+            return 0;
+        }
+        List<FavoriteItem> favoriteItemList = new ArrayList<>();
+        try {
+            favoriteItemList = user.getFavoriteItems();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            favoriteItemList = dao.query("from FavoriteItem where userId = ?").setParameter(0,user.getUserId()).list();
+        }
         for (FavoriteItem item : favoriteItemList) {
             if (item.getPricedId() == priceId) {
                 return 1;

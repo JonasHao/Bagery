@@ -9,8 +9,9 @@
 <div class="card card-favorite">
     <!--Card image-->
     <div class="view overlay hm-white-slight ">
-        <img src="<jsp:invoke fragment="img"/>" class="img-fluid" alt="">
-        <div class="mask waves-effect waves-light" onclick="selectAction(<jsp:invoke fragment="historyId"/>,<jsp:invoke fragment="pricedId"/>);">
+        <img src="<jsp:invoke fragment="img"/>" class="img-fluid" alt="" style="padding: .75rem;">
+        <div class="mask waves-effect waves-light"
+             onclick="selectAction(<jsp:invoke fragment="historyId"/>,<jsp:invoke fragment="pricedId"/>);">
             <div class="mask">
                 <a class="label-delete">
                     <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
@@ -23,13 +24,13 @@
 
             <div class="price">
                 <!--Title-->
-                <h5 class="card-title product-title">
+                <h6 class="card-title product-title">
                     <jsp:invoke fragment="title"/>
-                </h5>
+                </h6>
                 <!--Text-->
                 <div class="center" style="width: 6rem;">
-                <i class="fa fa-rmb" aria-hidden="true"></i>
-                <jsp:invoke fragment="price"/>
+                    <i class="fa fa-rmb" aria-hidden="true"></i>
+                    <jsp:invoke fragment="price"/>
                 </div>
             </div>
 

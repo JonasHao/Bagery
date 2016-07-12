@@ -11,6 +11,7 @@
                 <div class="card-block">
                     <h3><strong><img src="../../img/icon/disable.png"><span
                             class="disabled-block">商品失效啦~~快去逛逛别的吧~</span></strong></h3>
+                    <a style="color: white;" href="/index.jsp">回到首页</a> &nbsp; &nbsp;
                 </div>
             </div>
 

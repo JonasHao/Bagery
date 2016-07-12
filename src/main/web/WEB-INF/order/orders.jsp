@@ -93,7 +93,7 @@
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <div>2016-6-24</div>
+                                        <div>2016-7-13</div>
 
                                         <div>订单号：<s:property value="orderId"/></div>
                                     </div>
@@ -128,7 +128,7 @@
                                     <div class="col-md-8">
                                         <s:iterator value="orderItems">
                                             <t:orderItem>
-                                                <jsp:attribute name="img">"../../img/bags/bag1.png"</jsp:attribute>
+                                                <jsp:attribute name="img"><s:property value="product.priced.img"/></jsp:attribute>
                                                 <jsp:attribute name="title"><s:property value="productTitle"/></jsp:attribute>
                                                 <jsp:attribute name="price"><s:property value="totalPriced"/></jsp:attribute>
                                                 <jsp:attribute name="number"><s:property value="num"/></jsp:attribute>
@@ -154,7 +154,8 @@
                                             </a>
                                         </s:if>
                                         <s:if test='orderStatus == "shipped"'>
-                                            <s:url action="getLogisticsStatus" namespace="/order" var="getLogisticsStatus">
+                                            <s:url action="getLogisticsStatus" namespace="/order"
+                                                   var="getLogisticsStatus">
                                                 <s:param name="orderId"><s:property value="orderId"/></s:param>
                                             </s:url>
                                             <a href="${getLogisticsStatus}">
@@ -169,7 +170,8 @@
                                             </a>
                                         </s:if>
                                         <s:if test='notCommented'>
-                                            <s:url action="getLogisticsStatus" namespace="/order" var="getLogisticsStatus">
+                                            <s:url action="getLogisticsStatus" namespace="/order"
+                                                   var="getLogisticsStatus">
                                                 <s:param name="orderId"><s:property value="orderId"/></s:param>
                                             </s:url>
                                             <a href="${getLogisticsStatus}">
@@ -181,7 +183,8 @@
                                             </a>
                                         </s:if>
                                         <s:if test='commented'>
-                                            <s:url action="getLogisticsStatus" namespace="/order" var="getLogisticsStatus">
+                                            <s:url action="getLogisticsStatus" namespace="/order"
+                                                   var="getLogisticsStatus">
                                                 <s:param name="orderId"><s:property value="orderId"/></s:param>
                                             </s:url>
                                             <a href="${getLogisticsStatus}">
@@ -214,23 +217,23 @@
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <p>2016-6-24</p>
+                                            <div>2016-7-13</div>
 
-                                            <p>订单号：<s:property value="orderId"/></p>
+                                            <div>订单号：<s:property value="orderId"/></div>
                                         </div>
-                                        <div class="col-md-2 ">
-                                            <p>总价：<s:property value="total"/></p>
+                                        <div class="col-md-3 ">
+                                            <div>总价：<s:property value="total"/></div>
 
-                                            <p>运费：不要钱</p>
-                                        </div>
-
-                                        <div class="col-md-2 ">
-                                            <p>收货人：<s:property value="address.receiver"/></p>
-
-                                            <p>订单状态：<s:property value="orderStatusString"/></p>
+                                            <div>运费：不要钱</div>
                                         </div>
 
-                                        <div class="col-md-1 col-md-push-4">
+                                        <div class="col-md-3 ">
+                                            <div>收货人：<s:property value="address.receiver"/></div>
+
+                                            <div>订单状态：<s:property value="orderStatusString"/></div>
+                                        </div>
+
+                                        <div class="col-md-1 col-md-push-2">
                                             <a onclick="bootbox.confirm({
                                                     title:'删除订单',
                                                     message:'确定删除么？',
@@ -242,7 +245,6 @@
                                                 <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
                                             </a>
                                         </div>
-
                                     </div>
                                 </div>
                                 <div class="card-block">
@@ -251,7 +253,7 @@
                                         <div class="col-md-8">
                                             <s:iterator value="orderItems">
                                                 <t:orderItem>
-                                                    <jsp:attribute name="img">"../../img/bags/bag1.png"</jsp:attribute>
+                                                    <jsp:attribute name="img"><s:property value="product.priced.img"/></jsp:attribute>
                                                     <jsp:attribute name="title"><s:property value="productTitle"/></jsp:attribute>
                                                     <jsp:attribute name="price"><s:property value="totalPriced"/></jsp:attribute>
                                                     <jsp:attribute name="number"><s:property value="num"/></jsp:attribute>
@@ -293,23 +295,23 @@
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <p>2016-6-24</p>
+                                            <div>2016-7-13</div>
 
-                                            <p>订单号：<s:property value="orderId"/></p>
+                                            <div>订单号：<s:property value="orderId"/></div>
                                         </div>
-                                        <div class="col-md-2 ">
-                                            <p>总价：<s:property value="total"/></p>
+                                        <div class="col-md-3 ">
+                                            <div>总价：<s:property value="total"/></div>
 
-                                            <p>运费：不要钱</p>
-                                        </div>
-
-                                        <div class="col-md-2 ">
-                                            <p>收货人：<s:property value="address.receiver"/></p>
-
-                                            <p>订单状态：<s:property value="orderStatusString"/></p>
+                                            <div>运费：不要钱</div>
                                         </div>
 
-                                        <div class="col-md-1 col-md-push-4">
+                                        <div class="col-md-3 ">
+                                            <div>收货人：<s:property value="address.receiver"/></div>
+
+                                            <div>订单状态：<s:property value="orderStatusString"/></div>
+                                        </div>
+
+                                        <div class="col-md-1 col-md-push-2">
                                             <a onclick="bootbox.confirm({
                                                     title:'删除订单',
                                                     message:'确定删除么？',
@@ -326,7 +328,7 @@
                                 <div class="card-block">
                                     <s:iterator value="orderItems">
                                         <t:orderItem>
-                                            <jsp:attribute name="img">"../../img/bags/bag1.png"</jsp:attribute>
+                                            <jsp:attribute name="img"><s:property value="product.priced.img"/></jsp:attribute>
                                             <jsp:attribute name="title"><s:property value="productTitle"/></jsp:attribute>
                                             <jsp:attribute name="price"><s:property value="totalPriced"/></jsp:attribute>
                                             <jsp:attribute name="number"><s:property value="num"/></jsp:attribute>
@@ -352,23 +354,23 @@
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <p>2016-6-24</p>
+                                            <div>2016-7-13</div>
 
-                                            <p>订单号：<s:property value="orderId"/></p>
+                                            <div>订单号：<s:property value="orderId"/></div>
                                         </div>
-                                        <div class="col-md-2 ">
-                                            <p>总价：<s:property value="total"/></p>
+                                        <div class="col-md-3 ">
+                                            <div>总价：<s:property value="total"/></div>
 
-                                            <p>运费：不要钱</p>
-                                        </div>
-
-                                        <div class="col-md-2 ">
-                                            <p>收货人：<s:property value="address.receiver"/></p>
-
-                                            <p>订单状态：<s:property value="orderStatusString"/></p>
+                                            <div>运费：不要钱</div>
                                         </div>
 
-                                        <div class="col-md-1 col-md-push-4">
+                                        <div class="col-md-3 ">
+                                            <div>收货人：<s:property value="address.receiver"/></div>
+
+                                            <div>订单状态：<s:property value="orderStatusString"/></div>
+                                        </div>
+
+                                        <div class="col-md-1 col-md-push-2">
                                             <a onclick="bootbox.confirm({
                                                     title:'删除订单',
                                                     message:'确定删除么？',
@@ -387,7 +389,7 @@
                                         <div class="col-md-8">
                                             <s:iterator value="orderItems">
                                                 <t:orderItem>
-                                                    <jsp:attribute name="img">"../../img/bags/bag1.png"</jsp:attribute>
+                                                    <jsp:attribute name="img"><s:property value="product.priced.img"/></jsp:attribute>
                                                     <jsp:attribute name="title">产品名称：<s:property value="productTitle"/></jsp:attribute>
                                                     <jsp:attribute name="price"><s:property value="totalPriced"/></jsp:attribute>
                                                     <jsp:attribute name="number"><s:property value="num"/></jsp:attribute>
@@ -396,7 +398,8 @@
                                             </s:iterator>
                                         </div>
                                         <div class="col-md-4">
-                                            <s:url action="getLogisticsStatus" namespace="/order" var="getLogisticsStatus">
+                                            <s:url action="getLogisticsStatus" namespace="/order"
+                                                   var="getLogisticsStatus">
                                                 <s:param name="orderId"><s:property value="orderId"/></s:param>
                                             </s:url>
                                             <a href="${getLogisticsStatus}">
@@ -430,23 +433,23 @@
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <p>2016-6-24</p>
+                                            <div>2016-7-13</div>
 
-                                            <p>订单号：<s:property value="orderId"/></p>
+                                            <div>订单号：<s:property value="orderId"/></div>
                                         </div>
-                                        <div class="col-md-2 ">
-                                            <p>总价：<s:property value="total"/></p>
+                                        <div class="col-md-3 ">
+                                            <div>总价：<s:property value="total"/></div>
 
-                                            <p>运费：不要钱</p>
-                                        </div>
-
-                                        <div class="col-md-2 ">
-                                            <p>收货人：<s:property value="address.receiver"/></p>
-
-                                            <p>订单状态：<s:property value="orderStatusString"/></p>
+                                            <div>运费：不要钱</div>
                                         </div>
 
-                                        <div class="col-md-1 col-md-push-4">
+                                        <div class="col-md-3 ">
+                                            <div>收货人：<s:property value="address.receiver"/></div>
+
+                                            <div>订单状态：<s:property value="orderStatusString"/></div>
+                                        </div>
+
+                                        <div class="col-md-1 col-md-push-2">
                                             <a onclick="bootbox.confirm({
                                                     title:'删除订单',
                                                     message:'确定删除么？',
@@ -465,7 +468,7 @@
                                         <div class="col-md-8">
                                             <s:iterator value="orderItems">
                                                 <t:orderItem>
-                                                    <jsp:attribute name="img">"../../img/bags/bag1.png"</jsp:attribute>
+                                                    <jsp:attribute name="img"><s:property value="product.priced.img"/></jsp:attribute>
                                                     <jsp:attribute name="title"><s:property value="productTitle"/></jsp:attribute>
                                                     <jsp:attribute name="price"><s:property value="totalPriced"/></jsp:attribute>
                                                     <jsp:attribute name="number"><s:property value="num"/></jsp:attribute>
@@ -475,7 +478,8 @@
                                         </div>
 
                                         <div class="col-md-4">
-                                            <s:url action="getLogisticsStatus" namespace="/order" var="getLogisticsStatus">
+                                            <s:url action="getLogisticsStatus" namespace="/order"
+                                                   var="getLogisticsStatus">
                                                 <s:param name="orderId"><s:property value="orderId"/></s:param>
                                             </s:url>
                                             <a href="${getLogisticsStatus}">

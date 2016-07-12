@@ -24,9 +24,9 @@
     <div class="view overlay hm-black-strong">
         <div class="price">
             <!--Title-->
-            <h4 class="card-title product-title">
+            <h6 class="card-title product-title">
                 <jsp:invoke fragment="title"/>
-            </h4>
+            </h6>
             <!--Text-->
             <div class="product-title">
                 <i class="fa fa-rmb" aria-hidden="true"></i>
@@ -35,7 +35,7 @@
 
         </div>
         <div class="mask flex-center">
-            <a href="#"><i class="fa fa-shopping-cart fa-2x"></i></a>
+            <a href="${Link}"><i class="fa fa-shopping-cart fa-2x"></i></a>
         </div>
     </div>
 

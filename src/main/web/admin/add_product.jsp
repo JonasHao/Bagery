@@ -125,6 +125,67 @@
                                             </s:textfield></div>
                                         </div>
 
+
+                                        <div class="form-group">
+
+                                            <label class="col-sm-2 control-label">商品图片</label>
+                                            <div class="col-sm-10"><s:textfield name="img"
+                                                                                cssClass="form-control">
+                                            </s:textfield></div>
+                                        </div>
+
+                                        <%--<div class="form-group"><label class="col-sm-2 control-label">商品图片</label>--%>
+                                                <%--<div class="col-sm-10">--%>
+                                                    <%--<img id="added_img" src=""  style="width: 200px;height: 200px; display: none;" />--%>
+
+                                                    <%--<a id = "add_img_btn" onclick="initCropper()" data-toggle="modal" class="btn btn-info" style="margin-bottom: 0px;margin-right: 5px;margin-left: 5px;" href="#modal-upload-img">添加</a>--%>
+
+                                                    <%--<div id="modal-upload-img" class="modal fade" aria-hidden="true">--%>
+                                                        <%--<div class="modal-dialog">--%>
+                                                            <%--<div class="modal-content">--%>
+                                                                <%--<div class="modal-body">--%>
+                                                                    <%--<div class="row">--%>
+                                                                        <%--<div class="col-sm-12">--%>
+                                                                            <%--<div class="image-crop">--%>
+                                                                                <%--<img src="./img/p_big1.jpg" class="cropper-hidden">--%>
+
+                                                                            <%--</div>--%>
+                                                                        <%--</div>--%>
+                                                                    <%--</div>--%>
+                                                                    <%--<div class="row">--%>
+                                                                        <%--<div class="col-sm-12">--%>
+                                                                            <%--<center>--%>
+                                                                                <%--<h4>预览</h4>--%>
+                                                                                <%--<div class="img-preview img-preview-sm" style="width: 300px; height: 300px;">--%>
+                                                                                    <%--<img src="./img/p_big1.jpg" style="min-width: 0px !important; min-height: 0px !important; max-width: none !important; max-height: none !important; width: 200px; height: 200px; margin-left: -25px; margin-top: -22px;">--%>
+                                                                                <%--</div>--%>
+                                                                                <%--<p></p>--%>
+
+
+                                                                                <%--<div id="qiniu_container"class="btn-group">--%>
+                                                                                    <%--<label title="Upload image file" for="inputImage" class="btn btn-primary">--%>
+                                                                                    <%--<input type="file" accept="image/*"--%>
+                                                                                           <%--name="file" id="inputImage"--%>
+                                                                                           <%--class="hide">--%>
+                                                                                    <%--浏览--%>
+                                                                                    <%--</label>--%>
+                                                                                    <%--<label title="Download image" id="pickfile" class="btn btn-primary">七牛浏览</label>--%>
+                                                                                    <%--<label title="Download image" id="up_load" class="btn btn-primary">七牛上传</label>--%>
+                                                                                <%--</div>--%>
+                                                                            <%--</center>--%>
+                                                                        <%--</div>--%>
+                                                                    <%--</div>--%>
+                                                                <%--</div>--%>
+                                                            <%--</div>--%>
+                                                        <%--</div>--%>
+                                                    <%--</div>--%>
+                                                <%--</div>--%>
+
+                                            <%--</div>--%>
+
+
+
+=======
                                         <div class="form-group"><label class="col-sm-2 control-label">商品图片</label>
                                             <div class="col-sm-10">
                                                 <s:hidden name="img" />

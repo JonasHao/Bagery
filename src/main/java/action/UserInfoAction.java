@@ -74,6 +74,7 @@ public class UserInfoAction extends DefaultActionSupport {
             }
             return SUCCESS;
         } catch (Exception e) {
+            e.printStackTrace();
             return ERROR;
         }
     }

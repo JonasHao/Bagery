@@ -92,7 +92,7 @@
                                  id="products-page-<s:property value="#p"/>" role="tabpanel">
                                 <div class="row">
                                     <s:iterator begin="1" end="#page_count" status="st">
-                                        <div class="col-md-3 col-sm-4">
+                                        <div class="col-md-4 col-lg-3">
                                             <s:set name="i" value="%{(#p-1)*#page_max_size+ #st.index}"/>
                                             <t:product>
                                                 <jsp:attribute name="img"><s:property
