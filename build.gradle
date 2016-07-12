@@ -49,4 +49,7 @@ dependencies {
     // jdbc
     compile('mysql:mysql-connector-java:5.1.6')
 
+    compile('javax.mail:mail:1.4.7')
+
+
 }
