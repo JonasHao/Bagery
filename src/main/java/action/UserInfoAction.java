@@ -201,7 +201,7 @@ public class UserInfoAction extends DefaultActionSupport {
             data.put(Key.RESULT, SUCCESS);
             data.put("code", code);
             //发送邮件
-
+            System.out.println(SendMail.sendOneMail("Bagery验证码", Integer.toString(code), email));
             return SUCCESS;
         }
         catch(Exception e){
@@ -254,7 +254,7 @@ public class UserInfoAction extends DefaultActionSupport {
             //发送邮件
             email = user.getEmail();
 
-            System.out.println(SendMail.sendOneMail("Bageryy验证码", Integer.toString(code), email));
+//            System.out.println(SendMail.sendOneMail("Bageryy验证码", Integer.toString(code), email));
 
             return SUCCESS;
         }
@@ -287,6 +287,7 @@ public class UserInfoAction extends DefaultActionSupport {
             if (user == null) {
                 return ERROR;
             }
+
             ActionContext.getContext().getSession().remove("Code");
             return SUCCESS;
         }

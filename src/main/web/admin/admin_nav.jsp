@@ -12,14 +12,14 @@
                 </div>
                 <div class="logo-element" style="font-size:15px;">BAGERY</div>
             </li>
-            <li class="active">
+            <li>
                 <a>
                     <i class="fa fa-diamond"></i>
                     <span class="nav-label">商品管理</span>
                     <span class="fa arrow"></span>
                 </a>
                 <ul class="nav nav-second-level">
-                    <li class="active">
+                    <li>
                         <a href="/admin/add_product.jsp">发布商品</a></li>
                     <li>
                         <s:url action="pricedList" namespace="/admin" var="Link"/>
