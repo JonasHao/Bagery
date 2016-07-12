@@ -201,6 +201,8 @@ public class UserInfoAction extends DefaultActionSupport {
             data.put(Key.RESULT, SUCCESS);
             data.put("code", code);
             //发送邮件
+//            System.out.println(SendMail.sendOneMail("Bageryy验证码", Integer.toString(code), email));
+
 
             return SUCCESS;
         }
@@ -254,7 +256,7 @@ public class UserInfoAction extends DefaultActionSupport {
             //发送邮件
             email = user.getEmail();
 
-            System.out.println(SendMail.sendOneMail("Bageryy验证码", Integer.toString(code), email));
+//            System.out.println(SendMail.sendOneMail("Bageryy验证码", Integer.toString(code), email));
 
             return SUCCESS;
         }
