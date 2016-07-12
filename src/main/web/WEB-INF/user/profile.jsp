@@ -22,7 +22,7 @@
         </script>
     </jsp:attribute>
 
-    <jsp:attribute name="title">个人信息管理</jsp:attribute>
+    <jsp:attribute name="title">个人信息管理<s:property value="#session.Code"/></jsp:attribute>
 
     <jsp:attribute name="head">
             <link href="../../css/login.css" rel="stylesheet">

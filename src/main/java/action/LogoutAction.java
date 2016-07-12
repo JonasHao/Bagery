@@ -8,8 +8,13 @@ import org.apache.struts2.dispatcher.DefaultActionSupport;
  */
 public class LogoutAction extends DefaultActionSupport {
     public String logout(){
-        ActionContext.getContext().getSession().clear();
-        return SUCCESS;
+        try {
+            ActionContext.getContext().getSession().clear();
+            return SUCCESS;
+        }
+        catch(Exception e){
+            return ERROR;
+        }
     }
 
     public String index(){
