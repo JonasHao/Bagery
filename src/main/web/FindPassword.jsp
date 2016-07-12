@@ -90,7 +90,7 @@
 
     </jsp:attribute>
 
-    <jsp:attribute name="title">找回密码<s:property value="#session.Code"/></jsp:attribute>
+    <jsp:attribute name="title">找回密码</jsp:attribute>
 
     <jsp:attribute name="head">
             <link href="../../css/login.css" rel="stylesheet">

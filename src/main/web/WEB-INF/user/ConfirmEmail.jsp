@@ -17,7 +17,7 @@
         </script>
     </jsp:attribute>
 
-    <jsp:attribute name="title">验证邮箱<s:property value="#session.Code"/></jsp:attribute>
+    <jsp:attribute name="title">验证邮箱</jsp:attribute>
 
     <jsp:attribute name="head">
             <link href="../../css/login.css" rel="stylesheet">
@@ -41,8 +41,8 @@
 
                         <form class="form-user" action="confirmCode" namespace="/user"  method="POST">
                             <div class="md-form">
-                                <s:textfield label="验证码" id="form1"  name="confirmCode"  class="form-control" required="true" maxLength="4"
-                                             minLength="4" disabled="false"/>
+                                <s:textfield label="验证码" id="form1"  name="confirmCode"  class="form-control" required="true" maxLength="5"
+                                             minLength="5" disabled="false"/>
                                 <s:submit cssClass="grey btn btn-primary" value="确认"/>
                             </div>
                         </form>
