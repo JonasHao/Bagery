@@ -14,7 +14,7 @@
         <div class="col-md-2">
             <!--Card image-->
             <div class="view overlay hm-white-slight">
-                <img src="<jsp:invoke fragment="img"/>" class="img-fluid" alt="">
+                <img style="padding: .75rem;" src="<jsp:invoke fragment="img"/>" class="img-fluid" alt="">
                 <a href="#">
                     <div class="mask"></div>
                 </a>
@@ -26,9 +26,9 @@
                 <div class="col-md-3">
                     <div>
                         <!--Title-->
-                        <h5 class="card-title cart-item-title">
+                        <h6 class="card-title cart-item-title">
                             <jsp:invoke fragment="title"/>
-                        </h5>
+                        </h6>
                         <!--Text-->
                         <%--<i class="fa fa-circle color-icon" aria-hidden="true"></i>--%>
                         <p class="bag-color">颜色分类：

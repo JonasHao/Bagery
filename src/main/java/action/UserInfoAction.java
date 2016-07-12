@@ -52,6 +52,10 @@ public class UserInfoAction extends DefaultActionSupport {
     public String home() {
         try {
             user = userService.getCurrentUser();
+            if(user==null){
+                //TODO:
+                return INPUT;
+            }
             score = user.getScore();
             username = user.getUsername();
             userGroup = user.getUserGroup();
@@ -66,7 +70,7 @@ public class UserInfoAction extends DefaultActionSupport {
                 group = 3;
             }
             return SUCCESS;
-        } catch (HibernateException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return ERROR;
         }

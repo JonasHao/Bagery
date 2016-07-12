@@ -16,6 +16,7 @@ public class Dao {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
         Serializable pk = session.save(o);
+        session.flush();
         session.getTransaction().commit();
         return pk;
     }
@@ -26,16 +27,20 @@ public class Dao {
         for (Object object : ts) {
             session.save(entityName, object);
         }
+        session.flush();
         session.getTransaction().commit();
     }
 
 
     public <T> T get(Class<T> entityType, Serializable id) throws HibernateException {
-        Session session = sessionFactory.getCurrentSession();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.clear();
-
-        return session.get(entityType, id);
+        T instance = session.get(entityType, id);
+        session.flush();
+        session.getTransaction().commit();
+        session.close();
+        return instance;
     }
 
     public Query query(String queryString) {
@@ -48,7 +53,9 @@ public class Dao {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
         session.update(o);
+        session.flush();
         session.getTransaction().commit();
+
         return o;
     }
 
@@ -56,6 +63,7 @@ public class Dao {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
         session.delete(o);
+        session.flush();
         session.getTransaction().commit();
     }
 
@@ -63,6 +71,7 @@ public class Dao {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
         session.refresh(o);
+        session.flush();
         session.getTransaction().commit();
     }
 

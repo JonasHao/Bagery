@@ -2,7 +2,9 @@ package serviceImpl;
 
 import dao.Dao;
 import po.Address;
+import po.User;
 import service.AddressService;
+import service.UserService;
 
 /**
  * Created by zhang on 2016/6/27.
@@ -10,6 +12,7 @@ import service.AddressService;
 public class AddressServiceImpl implements AddressService {
     private Dao dao;
     private Address address;
+    private UserService userService;
 
     @Override
     public void add(Address address) {
@@ -29,8 +32,18 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public void deleteAddress(int addressId) {
         address = dao.get(Address.class, addressId);
-        if (address != null)
-            dao.delete(address);
+        User user = userService.getCurrentUser();
+        try {
+            if (address != null) {
+                if (user != null && user.getDefaultAddressId() == addressId) {
+                    user.setDefaultAddressId(0);
+                    dao.update(user);
+                }
+                dao.delete(address);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -38,6 +51,9 @@ public class AddressServiceImpl implements AddressService {
         dao.delete(address);
     }
 
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
     public void setDao(Dao dao) {
         this.dao = dao;

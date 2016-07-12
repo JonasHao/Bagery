@@ -45,6 +45,7 @@
     </bean>
     <bean class="serviceImpl.AddressServiceImpl" id="addressService">
         <property name="dao" ref="dao"/>
+        <property name="userService" ref="userService"/>
     </bean>
     <bean class="action.AddressAction" id="addressAction">
         <property name="addressService" ref="addressService"/>
