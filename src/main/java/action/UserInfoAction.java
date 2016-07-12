@@ -289,6 +289,7 @@ public class UserInfoAction extends DefaultActionSupport {
             if (user == null) {
                 return ERROR;
             }
+
             ActionContext.getContext().getSession().remove("Code");
             return SUCCESS;
         }
