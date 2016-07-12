@@ -4,7 +4,7 @@
 <%@attribute name="title" fragment="true" %>
 <%@attribute name="price" fragment="true" %>
 <%@attribute name="pricedId" fragment="true" %>
-<div class="card">
+<div class="card" style="margin-bottom: .5rem">
     <!--Card image-->
     <s:url action="viewProduct" var="Link" namespace="/product">
         <s:param name="pricedId">

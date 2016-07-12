@@ -23,16 +23,16 @@
                         </s:url>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="${womanUrl}">单肩包</a>
+                            <a class="nav-link" href="/product/productListByPro.action?pro_id=24">单肩包</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="${womanUrl}">手拿包</a>
+                            <a class="nav-link" href="/product/productListByPro.action?pro_id=26">手拿包</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="${womanUrl}">斜挎包</a>
+                            <a class="nav-link" href="/product/productListByPro.action?pro_id=28">斜挎包</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="${womanUrl}">电脑包</a>
+                            <a class="nav-link" href="/product/productListByPro.action?pro_id=29">电脑包</a>
                         </li>
 
                     </ul>

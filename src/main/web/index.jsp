@@ -47,7 +47,7 @@
                                 <img src="/img/ads/banner1.jpg"
                                      alt="First slide" width="1200" height="400">
                                 <div class="carousel-caption">
-                                    <h4>包</h4>
+
                                     <br>
                                 </div>
                             </div>
@@ -55,7 +55,6 @@
                                 <img src="/img/ads/banner2.jpg"  width="1200" height="400"
                                      alt="Second slide">
                                 <div class="carousel-caption">
-                                    <h4>打折了！</h4>
                                     <br>
                                 </div>
                             </div>
@@ -81,129 +80,184 @@
             <br>
             <hr class="extra-margins">
 
-            <!--Second row-->
-            <div class="row">
-                <!--First columnn-->
-                <div class="col-md-3">
-                    <!--Card-->
-                    <div class="card">
-
-                        <!--Card image-->
-                        <div class="view overlay hm-white-slight">
-                            <img src="http://mdbootstrap.com/images/ecommerce/reg/reg%20(19).jpg" class="img-fluid"
-                                 alt="">
-                            <a href="#">
-                                <div class="mask"></div>
-                            </a>
-                        </div>
-                        <!--/.Card image-->
-
-                        <!--Card content-->
-                        <div class="card-block">
-                            <!--Title-->
-                            <h4 class="card-title">Product title</h4>
-                            <!--Text-->
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
-                            <a href="#" class="btn btn-primary">Buy now for 10$</a>
-                        </div>
-                        <!--/.Card content-->
-
-                    </div>
-                    <!--/.Card-->
-                </div>
-                <!--First columnn-->
-
-                <!--Second columnn-->
-                <div class="col-md-3">
-                    <!--Card-->
-                    <div class="card">
-
-                        <!--Card image-->
-                        <div class="view overlay hm-white-slight">
-                            <img src="http://mdbootstrap.com/images/ecommerce/reg/reg%20(15).jpg" class="img-fluid"
-                                 alt="">
-                            <a href="#">
-                                <div class="mask"></div>
-                            </a>
-                        </div>
-                        <!--/.Card image-->
-
-                        <!--Card content-->
-                        <div class="card-block">
-                            <!--Title-->
-                            <h4 class="card-title">Product title</h4>
-                            <!--Text-->
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
-                            <a href="#" class="btn btn-primary">Buy now for 20$</a>
-                        </div>
-                        <!--/.Card content-->
-
-                    </div>
-                    <!--/.Card-->
-                </div>
-                <!--Second columnn-->
-
-                <!--Third columnn-->
-                <div class="col-md-3">
-                    <!--Card-->
-                    <div class="card">
-
-                        <!--Card image-->
-                        <div class="view overlay hm-white-slight">
-                            <img src="http://mdbootstrap.com/images/ecommerce/reg/reg%20(24).jpg" class="img-fluid"
-                                 alt="">
-                            <a href="#">
-                                <div class="mask"></div>
-                            </a>
-                        </div>
-                        <!--/.Card image-->
-
-                        <!--Card content-->
-                        <div class="card-block">
-                            <!--Title-->
-                            <h4 class="card-title">Product title</h4>
-                            <!--Text-->
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
-                            <a href="#" class="btn btn-primary">Buy now for 30$</a>
-                        </div>
-                        <!--/.Card content-->
-
-                    </div>
-                    <!--/.Card-->
-                </div>
-                <!--Third columnn-->
-
-                <!--First columnn-->
-                <div class="col-md-3">
-                    <!--Card-->
-                    <div class="card">
-
-                        <!--Card image-->
-                        <div class="view overlay hm-white-slight">
-                            <img src="http://mdbootstrap.com/images/ecommerce/reg/reg%20(19).jpg" class="img-fluid"
-                                 alt="">
-                            <a href="#">
-                                <div class="mask"></div>
-                            </a>
-                        </div>
-                        <!--/.Card image-->
-
-                        <!--Card content-->
-                        <div class="card-block">
-                            <!--Title-->
-                            <h4 class="card-title">Product title</h4>
-                            <!--Text-->
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. </p>
-                            <a href="#" class="btn btn-primary">Buy now for 10$</a>
-                        </div>
-                        <!--/.Card content-->
-
-                    </div>
-                    <!--/.Card-->
-                </div>
-                <!--First columnn-->
+            <div class="reviews">
+                当季热销
             </div>
-            <!--/.Second row-->
+            <div class="row">
+
+                <div class="col-md-4 col-lg-3">
+
+
+
+
+
+
+
+                    <div class="card" style="margin-bottom: .5rem">
+                        <!--Card image-->
+
+
+
+                        <div class="view overlay hm-white-slight">
+                            <img src="http://cdn-images.farfetch.com/11/27/79/76/11277976_6530203_1000.jpg" width="200" height="200" class="img-fluid img-product" alt="格纹单肩包">
+                            <a href="/product/viewProduct.action?pricedId=6">
+                                <div class="mask waves-effect waves-light"></div>
+                            </a>
+                        </div>
+                        <!--/.Card image-->
+
+
+                        <div class="view overlay hm-black-strong">
+                            <div class="price">
+                                <!--Title-->
+                                <h6 class="card-title product-title">
+                                    格纹单肩包
+                                </h6>
+                                <!--Text-->
+                                <div class="product-title">
+                                    <i class="fa fa-rmb" aria-hidden="true"></i>
+                                    1100.0
+                                </div>
+
+                            </div>
+                            <div class="mask flex-center waves-effect waves-light">
+                                <a href="/product/viewProduct.action?pricedId=6"><i class="fa fa-shopping-cart fa-2x"></i></a>
+                            </div>
+                        </div>
+
+                        <!--/.Card content-->
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-4 col-lg-3">
+
+
+
+
+
+
+
+                    <div class="card" style="margin-bottom: .5rem">
+                        <!--Card image-->
+
+
+
+                        <div class="view overlay hm-white-slight">
+                            <img src="http://cdn-images.farfetch.com/11/40/64/79/11406479_7120753_480.jpg" width="200" height="200" class="img-fluid img-product" alt="格纹背包">
+                            <a href="/product/viewProduct.action?pricedId=7">
+                                <div class="mask waves-effect waves-light"></div>
+                            </a>
+                        </div>
+                        <!--/.Card image-->
+
+
+                        <div class="view overlay hm-black-strong">
+                            <div class="price">
+                                <!--Title-->
+                                <h6 class="card-title product-title">
+                                    格纹背包
+                                </h6>
+                                <!--Text-->
+                                <div class="product-title">
+                                    <i class="fa fa-rmb" aria-hidden="true"></i>
+                                    920.0
+                                </div>
+
+                            </div>
+                            <div class="mask flex-center waves-effect waves-light">
+                                <a href="/product/viewProduct.action?pricedId=7"><i class="fa fa-shopping-cart fa-2x"></i></a>
+                            </div>
+                        </div>
+
+                        <!--/.Card content-->
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-4 col-lg-3">
+
+
+
+
+
+
+
+                    <div class="card" style="margin-bottom: .5rem">
+                        <!--Card image-->
+
+
+
+                        <div class="view overlay hm-white-slight">
+                            <img src="http://cdn-images.farfetch.com/11/24/97/30/11249730_6056108_480.jpg" width="200" height="200" class="img-fluid img-product" alt="'House check'斜挎包">
+                            <a href="/product/viewProduct.action?pricedId=8">
+                                <div class="mask waves-effect waves-light"></div>
+                            </a>
+                        </div>
+                        <!--/.Card image-->
+
+
+                        <div class="view overlay hm-black-strong">
+                            <div class="price">
+                                <!--Title-->
+                                <h6 class="card-title product-title">
+                                    'House check'斜挎包
+                                </h6>
+                                <!--Text-->
+                                <div class="product-title">
+                                    <i class="fa fa-rmb" aria-hidden="true"></i>
+                                    615.0
+                                </div>
+
+                            </div>
+                            <div class="mask flex-center waves-effect waves-light">
+                                <a href="/product/viewProduct.action?pricedId=8"><i class="fa fa-shopping-cart fa-2x"></i></a>
+                            </div>
+                        </div>
+
+                        <!--/.Card content-->
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-4 col-lg-3">
+                    <div class="card" style="margin-bottom: .5rem">
+                        <!--Card image-->
+
+                        <div class="view overlay hm-white-slight">
+                            <img src="http://cdn-images.farfetch.com/11/50/10/07/11501007_7138932_480.jpg" width="200" height="200" class="img-fluid img-product" alt="'Bow Cut'迷你斜挎包">
+                            <a href="/product/viewProduct.action?pricedId=9">
+                                <div class="mask waves-effect waves-light"></div>
+                            </a>
+                        </div>
+                        <!--/.Card image-->
+
+                        <div class="view overlay hm-black-strong">
+                            <div class="price">
+                                <!--Title-->
+                                <h6 class="card-title product-title">
+                                    'Bow Cut'迷你斜挎包
+                                </h6>
+                                <!--Text-->
+                                <div class="product-title">
+                                    <i class="fa fa-rmb" aria-hidden="true"></i>
+                                    2554.0
+                                </div>
+
+                            </div>
+                            <div class="mask flex-center waves-effect waves-light">
+                                <a href="/product/viewProduct.action?pricedId=9"><i class="fa fa-shopping-cart fa-2x"></i></a>
+                            </div>
+                        </div>
+                        <!--/.Card content-->
+                    </div>
+                </div>
+
+
+            </div>
 
         </div>
         <!--/.Main column-->
