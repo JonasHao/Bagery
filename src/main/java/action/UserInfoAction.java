@@ -40,6 +40,8 @@ public class UserInfoAction extends DefaultActionSupport {
     private int code;
     private int confirmCode;
 
+    private String confirmCoding;
+
     private String confirmPassword;//密码找回时，输入密码验证身份
     private String newPassword;//新密码
     private String confirmNewPassword;//重新输入新密码
@@ -179,7 +181,7 @@ public class UserInfoAction extends DefaultActionSupport {
 
             if (user == null) {
                 data.put(Key.RESULT, INPUT);
-                data.put(Key.ERROR_MESSAGE, "不存在的邮箱");
+                data.put(Key.ERROR_MESSAGE, "未注册的邮箱");
                 return SUCCESS;
             }
 
@@ -263,8 +265,10 @@ public class UserInfoAction extends DefaultActionSupport {
 
     public String confirmCode() {
         try {
+            confirmCode=Integer.parseInt(confirmCoding);
+
             if (confirmCode != (int) ActionContext.getContext().getSession().get("Code")) {
-                addFieldError("confirmCode", "验证码不正确");
+//                addFieldError("confirmCode", "验证码不正确");
                 return INPUT;
             }
             user = userService.getCurrentUser();
@@ -475,5 +479,13 @@ public class UserInfoAction extends DefaultActionSupport {
 
     public void setHistoryId(int historyId) {
         this.historyId = historyId;
+    }
+
+    public String getConfirmCoding() {
+        return confirmCoding;
+    }
+
+    public void setConfirmCoding(String confirmCoding) {
+        this.confirmCoding = confirmCoding;
     }
 }

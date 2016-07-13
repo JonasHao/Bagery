@@ -22,6 +22,16 @@
 
     <jsp:attribute name="scripts">
         <script type="text/javascript">
+            function addAddress(){
+                var navigateAddress;
+                if()
+                console.log(location.pathname);
+                console.log(location.search);
+                console.log("${addAdd}");
+                window.navigate(${addAdd});
+
+            }
+
             function setDefault(addressId) {
                 var btn = $("#btn-default-addressId");
                 console.log("id:"+addressId);
@@ -116,7 +126,7 @@
                         <s:url var="addAdd" action="viewAddress" namespace="/address">
                             <s:param name="add">1</s:param>
                         </s:url>
-                        <span><strong>地址簿为空</strong></span> （<a href="${addAdd}">添加</a>）
+                        <span><strong>地址簿为空</strong></span> （<a onclick="addAddress()">添加</a>）
                     </s:else>
 
 

@@ -26,21 +26,21 @@
                         <div class="card-block">
 
                             <div class="md-form">
-                                <s:textfield label="旧密码" id="form1" name="confirmPassword" class="form-control"
+                                <s:password label="旧密码" id="form1" name="confirmPassword" class="form-control"
                                              required="true" maxLength="20"
                                              minLength="5" disabled="false"/>
                             </div>
                             <s:fielderror fieldName="confirmPassword" name="confirmPassword" cssClass="errorMessage"/>
 
                             <div class="md-form">
-                                <s:textfield label="新密码" name="newPassword" class="form-control" required="true"
+                                <s:password label="新密码" name="newPassword" class="form-control" required="true"
                                              maxLength="20"
                                              minLength="5" disabled="false"/>
                             </div>
                             <s:fielderror fieldName="newPassword" name="newPassword" cssClass="errorMessage"/>
 
                             <div class="md-form">
-                                <s:textfield label="确认密码" name="confirmNewPassword" class="form-control" required="true"
+                                <s:password label="确认密码" name="confirmNewPassword" class="form-control" required="true"
                                              maxLength="20"
                                              minLength="5" disabled="false"/>
                             </div>

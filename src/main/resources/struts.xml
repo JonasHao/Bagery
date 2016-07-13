@@ -275,7 +275,10 @@
                 <param name="actionName">viewInfo</param>
                 <param name="message">验证成功！</param>
             </result>
-            <result name="input">/WEB-INF/user/ConfirmEmail.jsp</result>
+            <result name="input" type="redirectAction">
+                <param name="actionName">openConfirm</param>
+                <param name="message">验证码错误！</param>
+            </result>
             <result name="error" type="redirectAction">
                 <param name="actionName">viewInfo</param>
                 <param name="message">验证失败！</param>
