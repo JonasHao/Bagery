@@ -57,7 +57,7 @@
         </script>
 
         <script type="text/javascript">
-            var status ="<s:property value="status"/>";
+            var status = "<s:property value="status"/>";
             $('.nav-tabs a[href="#' + status + '"]').tab('show');
         </script>
      </jsp:attribute>
@@ -179,7 +179,11 @@
                                                 <span>查看物流</span>
                                             </a>
                                             <br/>
-                                            <a href="#">
+                                            <s:url action="toAddOrderComment" namespace="/order"
+                                                   var="commentUrl">
+                                                <s:param name="orderId"><s:property value="orderId"/></s:param>
+                                            </s:url>
+                                            <a href="${commentUrl}">
                                                 <span>评论</span>
                                             </a>
                                         </s:if>
@@ -327,15 +331,17 @@
                                     </div>
                                 </div>
                                 <div class="card-block">
-                                    <s:iterator value="orderItems">
-                                        <t:orderItem>
-                                            <jsp:attribute name="img"><s:property value="product.priced.img"/></jsp:attribute>
-                                            <jsp:attribute name="title"><s:property value="productTitle"/></jsp:attribute>
-                                            <jsp:attribute name="price"><s:property value="totalPriced"/></jsp:attribute>
-                                            <jsp:attribute name="number"><s:property value="num"/></jsp:attribute>
-                                            <jsp:attribute name="color"><s:property value="product.color"/></jsp:attribute>
-                                        </t:orderItem>
-                                    </s:iterator>
+                                    <div class="col-md-8">
+                                        <s:iterator value="orderItems">
+                                            <t:orderItem>
+                                                <jsp:attribute name="img"><s:property value="product.priced.img"/></jsp:attribute>
+                                                <jsp:attribute name="title"><s:property value="productTitle"/></jsp:attribute>
+                                                <jsp:attribute name="price"><s:property value="totalPriced"/></jsp:attribute>
+                                                <jsp:attribute name="number"><s:property value="num"/></jsp:attribute>
+                                                <jsp:attribute name="color"><s:property value="product.color"/></jsp:attribute>
+                                            </t:orderItem>
+                                        </s:iterator>
+                                    </div>
 
                                 </div>
                             </div>
@@ -487,7 +493,11 @@
                                                 <span>查看物流</span>
                                             </a>
                                             <br/>
-                                            <a href="#">
+                                            <s:url action="toAddOrderComment" namespace="/order"
+                                                   var="commentUrl">
+                                                <s:param name="orderId"><s:property value="orderId"/></s:param>
+                                            </s:url>
+                                            <a href="${commentUrl}">
                                                 <span>评论</span>
                                             </a>
                                         </div>

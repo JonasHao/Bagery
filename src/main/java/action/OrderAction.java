@@ -354,49 +354,51 @@ public class OrderAction extends DefaultActionSupport {
         commentService.saveComments(commentList);
         return SUCCESS;
     }
+//
+//    public void validateAppendComment() {
+//        for (Comment comment : commentList) {
+//            if (comment == null) {
+//                continue;
+//            }
+//
+//            if (comment.getContent2().isEmpty() || comment.getContent2().length() < 10) {
+//                addActionError("评价内容至少为10个字");
+//                return;
+//            }
+//
+//            if (comment.getContent2().length() > 200) {
+//                addActionError("评论内容不能超过200个字");
+//                return;
+//            }
+//        }
+//    }
 
-    public void validateAppendComment() {
-        for (Comment comment : commentList) {
-            if (comment == null) {
-                continue;
-            }
+//    public void validateAddComment() {
+//        for (Comment comment : commentList) {
+//            if (comment == null) {
+//                continue;
+//            }
+//            if (comment.getStar() == null || comment.getStar() > 5 || comment.getStar() < 0) {
+//                addActionError("评分只能在0-5之间哦，你看到这个消息肯定有谁是作怪了");
+//                return;
+//            }
+//            if (comment.getContent1().isEmpty() || comment.getContent1().length() < 10) {
+//                addActionError("评价内容至少也要10个字呢");
+//                return;
+//            }
+//
+//            if (comment.getContent1().length() > 200) {
+//                addActionError("评论内容不能超过200个字");
+//                return;
+//            }
+//        }
+//        clearActionErrors();
+//
+//    }
 
-            if (comment.getContent2().isEmpty() || comment.getContent2().length() < 10) {
-                addActionError("评价内容至少也要10个字呢");
-                return;
-            }
-
-            if (comment.getContent2().length() > 200) {
-                addActionError("评论内容不能超过200个字");
-                return;
-            }
-        }
-    }
-
-    public void validateAddComment() {
-        for (Comment comment : commentList) {
-            if (comment == null) {
-                continue;
-            }
-            if (comment.getStar() == null || comment.getStar() > 5 || comment.getStar() < 0) {
-                addActionError("评分只能在0-5之间哦，你看到这个消息肯定有谁是作怪了");
-                return;
-            }
-            if (comment.getContent1().isEmpty() || comment.getContent1().length() < 10) {
-                addActionError("评价内容至少也要10个字呢");
-                return;
-            }
-
-            if (comment.getContent1().length() > 200) {
-                addActionError("评论内容不能超过200个字");
-                return;
-            }
-        }
-    }
-
-    public void validateToAddOrderComment() {
-        validateAddComment();
-    }
+//    public void validateToAddOrderComment() {
+//        validateAddComment();
+//    }
 
 
     public UserService getUserService() {

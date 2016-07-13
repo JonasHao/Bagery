@@ -69,7 +69,7 @@
                                              value="%{content1}"/></div>
 
                             <div class="md-form comment-form-item">
-                                <s:textfield label="追加评论" name="commentList[%{#row.index}].content2"/>
+                                <s:textfield label="追加评论"  maxLength="200" minLength="10" name="commentList[%{#row.index}].content2"/>
                             </div>
 
                             <s:hidden name="commentList[%{#row.index}].orderId"

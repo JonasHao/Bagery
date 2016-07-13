@@ -23,9 +23,9 @@
     <jsp:attribute name="scripts">
         <script type="text/javascript">
             function addAddress() {
-                var navigateAddress = "${addAdd}&returnAddress=" + location.pathname + location.search;
+                var navigateAddress = "/address/viewAddress?add=1&src=" + location.pathname + location.search;
                 console.log(navigateAddress);
-                window.navigate(navigateAddress);
+                window.location.href =navigateAddress;
             }
 
             function setDefault(addressId) {
@@ -60,7 +60,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <h5 class="modal-title" id="myModalLabel" data-toggle="modal" data-target="#myModal">选择收货人</h5>
+                        <h5 class="modal-title" id="myModalLabel" data-toggle="modal" data-target="#myModal">选择收货人(<a onclick="addAddress()">添加</a> )</h5>
                     </div>
 
                     <form class="form-address" id="selectAddress" action="/address/setDefaultAddress.action"
@@ -122,9 +122,6 @@
                         </div>
                     </s:if>
                     <s:else>
-                        <s:url var="addAdd" action="viewAddress" namespace="/address">
-                            <s:param name="add">1</s:param>
-                        </s:url>
                         <span><strong>地址簿为空</strong></span> （<a onclick="addAddress()">添加</a>）
                     </s:else>
 

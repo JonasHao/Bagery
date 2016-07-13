@@ -366,10 +366,7 @@
         </action>
 
         <action name="addAddress" class="action.AddressAction" method="addAddress">
-            <result name="success" type="redirectAction">
-                <param name="actionName">viewAddress</param>
-                <param name="message">添加成功！</param>
-            </result>
+            <result name="success" type="redirect">${src}</result>
 
             <result name="input" type="redirectAction">
                 <param name="actionName">viewAddress</param>

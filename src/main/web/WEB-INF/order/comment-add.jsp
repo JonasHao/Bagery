@@ -40,7 +40,7 @@
                         <div class="col-md-2">
                             <!--Card image-->
                             <div class="view overlay hm-white-slight">
-                                <img src="../../img/bags/bag1.png" class="img-fluid" alt="">
+                                <img src="<s:property value="priced.img"/>" class="img-fluid" alt="">
                                 <a href="#">
                                     <div class="mask"></div>
                                 </a>
@@ -63,8 +63,8 @@
                                          value="0" data-size="s" title="" name="commentList[%{#row.index}].star"
                                          showClear="false"/>
 
-                            <div class="md-form comment-form-item">
-                                <s:textfield name="commentList[%{#row.index}].content1"/>
+                            <div class="md-form comment-form-item" style="margin-top: 1rem">
+                                <s:textfield maxLength="200" minLength="10" name="commentList[%{#row.index}].content1"/>
                             </div>
 
                             <s:hidden name="commentList[%{#row.index}].orderId"

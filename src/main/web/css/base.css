@@ -272,3 +272,18 @@ a {
     margin-left: auto;
     margin-right: auto;
 }
+
+.img-product-order {
+    padding:.75rem;
+    height: 10rem;
+    width: auto;
+    object-position: center;
+    object-fit: cover;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.order-item-block {
+    padding-top: 3rem;
+}

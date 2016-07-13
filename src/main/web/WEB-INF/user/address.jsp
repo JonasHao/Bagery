@@ -120,6 +120,7 @@
                             </div>
                         </div>
                     </div>
+                    <s:hidden name="src" value="%{src}"/>
                     <s:submit cssClass="grey btn btn-primary" value="保存"/>
                 </div>
             </form>

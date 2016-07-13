@@ -21,8 +21,7 @@
     <div class="col-md-3">
         <!--Card image-->
         <div class="view overlay hm-white-slight">
-            <img src=
-                 <jsp:invoke fragment="img"/> class="img-fluid" alt="">
+            <img src="<jsp:invoke fragment="img"/>" class="img-fluid img-product-order" alt="">
             <a href="#">
                 <div class="mask"></div>
             </a>

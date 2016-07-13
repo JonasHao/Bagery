@@ -32,6 +32,7 @@ public class AddressAction extends ActionSupport {
     private String addressDetail;
     private Integer defaultAddressId;
     private int add;
+    private String src;
     private Map<String, Object> data = new HashMap<>();
 
     public String viewAddress() {
@@ -61,7 +62,7 @@ public class AddressAction extends ActionSupport {
             addressService.add(address);
 //        userService.update(user);
             user = userService.getCurrentUser();
-            if (user.getAddresses().size() == 1) {
+            if (user.getAddresses().size() == 1 || src != null) {
                 user.setDefaultAddressId(user.getAddresses().get(0).getAddressId());
                 userService.update(user);
             }
@@ -265,5 +266,16 @@ public class AddressAction extends ActionSupport {
 
     public void setData(Map<String, Object> data) {
         this.data = data;
+    }
+
+    public String getSrc() {
+        if (src == null || src.isEmpty()) {
+            src = "address/viewAddress?message='收件人添加成功'";
+        }
+        return src;
+    }
+
+    public void setSrc(String src) {
+        this.src = src;
     }
 }
