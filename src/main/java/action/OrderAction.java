@@ -140,7 +140,7 @@ public class OrderAction extends DefaultActionSupport {
             order.setInstruction(instruction);
             orderService.addOrder(order, cartItemIdList);
 
-            Double newScore = order.getTotal();
+            Double newScore = 0.0;
 
             for (Integer id : cartItemIdList) {
                 CartItem item = cartService.getCartItem(id);
@@ -603,6 +603,5 @@ public class OrderAction extends DefaultActionSupport {
     public void setCommentService(CommentService commentService) {
         this.commentService = commentService;
     }
-
 
 }

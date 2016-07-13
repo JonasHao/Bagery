@@ -29,7 +29,9 @@ public class UserServiceImpl implements UserService {
         }
         Integer userId = (Integer) ActionContext.getContext().getSession().get(Key.USER);
         if (userId != null) {
-            return dao.get(User.class, userId);
+            User user = dao.get(User.class, userId);
+            dao.refresh(user);
+            return user;
         }
         return null;
     }

@@ -1,7 +1,8 @@
+<%@ tag import="constant.Config" %>
 <%@tag description="Product template" pageEncoding="UTF-8" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@attribute name="img" fragment="true" %>
-<%@attribute name="title" fragment="true" %>
+<%@attribute name="title" type="java.lang.String" %>
 <%@attribute name="price" fragment="true" %>
 <%@attribute name="pricedId" fragment="true" %>
 <%@attribute name="itemId" fragment="true" %>
@@ -26,7 +27,13 @@
             <div class="price">
                 <!--Title-->
                 <h6 class="card-title product-title">
-                    <jsp:invoke fragment="title"/>
+                    <%
+                        if (title.length() < Config.MAX_TITLE_LENGTH) {
+                            out.println(title);
+                        } else {
+                            out.println(title.substring(0, Config.MAX_TITLE_LENGTH)+"...");
+                        }
+                    %>
                 </h6>
                 <!--Text-->
                 <div class="center" style="width: 6rem">

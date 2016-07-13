@@ -19,8 +19,6 @@
     </jsp:attribute>
 
 
-
-
     <jsp:attribute name="scripts">
         <script type="text/javascript">
             // Javascript to enable link to tab
@@ -29,8 +27,6 @@
             if (url.match('#')) {
                 $('.nav-tabs a[href="#' + url.split('#')[1] + '"]').tab('show');
             }
-
-            <%--$('.nav-tabs a[href="href#' + '<s:param value="status"/>'+ '"]').tab('show');--%>
 
             // Change hash for page-reload
             $('.nav-tabs a').on('shown.bs.tab', function (e) {
@@ -58,6 +54,11 @@
                 )
             }
 
+        </script>
+
+        <script type="text/javascript">
+            var status ="<s:property value="status"/>";
+            $('.nav-tabs a[href="#' + status + '"]').tab('show');
         </script>
      </jsp:attribute>
 

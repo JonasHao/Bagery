@@ -7,6 +7,7 @@ import org.hibernate.HibernateException;
 import po.CartItem;
 import po.OrderItem;
 import po.Order;
+import po.Product;
 import service.OrderService;
 
 import java.util.ArrayList;
@@ -29,13 +30,18 @@ public class OrderServiceImpl implements OrderService {
         OrderItem orderItem = new OrderItem();
         for (int cartItemId : cartItemIdList) {
             cartItem = dao.get(CartItem.class, cartItemId);
-            orderItem.setProductId(cartItem.getProductId());
-            orderItem.setProductTitle(cartItem.getProduct().getPriced().getTitle());
-            orderItem.setNum(cartItem.getNum());
-            orderItemList.add(orderItem);
+            int stock = cartItem.getProduct().getStock();
+            if (stock > 0) {
+                Product product = cartItem.getProduct();
+                product.setStock(stock - cartItem.getNum());
+                orderItem.setProductId(cartItem.getProductId());
+                orderItem.setProductTitle(cartItem.getProduct().getPriced().getTitle());
+                orderItem.setNum(cartItem.getNum());
+                orderItemList.add(orderItem);
+                dao.update(product);
+            }
         }
         orderDao.saveOrder(order, orderItemList);
-
     }
 
 
@@ -94,7 +100,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getStatusOf(String orderStatus) throws HibernateException {
-        return dao.query("from Order where orderStatus = ?").setParameter(0,orderStatus).list();
+        return dao.query("from Order where orderStatus = ?").setParameter(0, orderStatus).list();
     }
 
     private String queryLogisticsAPI(String company, String number) {

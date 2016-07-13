@@ -19,6 +19,7 @@ public class OrderDao extends Dao {
             orderItem.setOrderId(pk);
             session.save(orderItem);
         }
+        session.refresh(order);
         session.getTransaction().commit();
     }
 

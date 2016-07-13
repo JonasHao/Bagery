@@ -14,34 +14,31 @@ public class Dao {
 
     public Serializable save(Object o) throws HibernateException {
         Session session = sessionFactory.getCurrentSession();
-        session.beginTransaction();
-        Serializable pk = session.save(o);
-        session.flush();
-        session.getTransaction().commit();
-        return pk;
+        Transaction transaction = session.beginTransaction();
+        Serializable id = session.save(o);
+        transaction.commit();
+        return id;
     }
 
     public void saveM(List ts, String entityName) throws HibernateException {
         Session session = sessionFactory.getCurrentSession();
-        session.beginTransaction();
+        Transaction transaction = session.beginTransaction();
         for (Object object : ts) {
             session.save(entityName, object);
         }
-        session.flush();
-        session.getTransaction().commit();
+        transaction.commit();
     }
 
 
     public <T> T get(Class<T> entityType, Serializable id) throws HibernateException {
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        session.clear();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
         T instance = session.get(entityType, id);
         session.flush();
-        session.getTransaction().commit();
-        session.close();
+        transaction.commit();
         return instance;
     }
+
 
     public Query query(String queryString) {
         Session session = sessionFactory.getCurrentSession();
@@ -51,11 +48,9 @@ public class Dao {
 
     public Object update(Object o) throws HibernateException {
         Session session = sessionFactory.getCurrentSession();
-        session.beginTransaction();
+        Transaction transaction = session.beginTransaction();
         session.update(o);
-        session.flush();
-        session.getTransaction().commit();
-
+        transaction.commit();
         return o;
     }
 

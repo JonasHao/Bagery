@@ -1,7 +1,8 @@
+<%@ tag import="constant.Config" %>
 <%@tag description="Product template" pageEncoding="UTF-8" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@attribute name="img" fragment="true" %>
-<%@attribute name="title" fragment="true" %>
+<%@attribute name="title" type="java.lang.String" %>
 <%@attribute name="price" fragment="true" %>
 <%@attribute name="pricedId" fragment="true" %>
 <div class="card" style="margin-bottom: .5rem">
@@ -13,7 +14,7 @@
     </s:url>
     <div class="view overlay hm-white-slight">
         <img src="<jsp:invoke fragment="img"/>" width=200 height="200" class="img-fluid img-product"
-             alt="<jsp:invoke fragment="title"/>">
+             alt="<%out.println(title); %>">
         <a href="${Link}">
             <div class="mask"></div>
         </a>
@@ -25,7 +26,13 @@
         <div class="price">
             <!--Title-->
             <h6 class="card-title product-title">
-                <jsp:invoke fragment="title"/>
+                <%
+                    if (title.length() < Config.MAX_TITLE_LENGTH) {
+                        out.println(title);
+                    } else {
+                        out.println(title.substring(0, Config.MAX_TITLE_LENGTH) + "...");
+                    }
+                %>
             </h6>
             <!--Text-->
             <div class="product-title">

@@ -1,7 +1,8 @@
+<%@ tag import="constant.Config" %>
 <%@tag description="Product template" pageEncoding="UTF-8" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@attribute name="img" fragment="true" %>
-<%@attribute name="title" fragment="true" %>
+<%@attribute name="title" type="java.lang.String" %>
 <%@attribute name="price" fragment="true" %>
 <%@attribute name="pricedId" fragment="true" %>
 <%@attribute name="itemId" fragment="true" %>
@@ -25,7 +26,13 @@
             <div class="price">
                 <!--Title-->
                 <h6 class="card-title product-title">
-                    <jsp:invoke fragment="title"/>
+                    <%
+                        if (title.length() < Config.MAX_TITLE_LENGTH) {
+                            out.println(title);
+                        } else {
+                            out.println(title.substring(0, Config.MAX_TITLE_LENGTH)+"...");
+                        }
+                    %>
                 </h6>
                 <!--Text-->
                 <div class="center" style="width: 6rem;">
@@ -38,29 +45,29 @@
         </div>
         <!--/.Card content-->
     </div>
-    <script>
-        var todelete;
-        function selectAction(historyId, pricedId) {
-            if (event.target.nodeName == "I") {
-                todelete = event.target.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
-                $.ajax(
-                        {
-                            url: "/product/removeHistory",
-                            dataType: "json",   //返回格式为json
-                            type: 'post',
-                            data: {historyId: historyId},
-                            success: function (data) {
-                                if (data.result == "success") {
-                                    todelete.remove();
-                                    notify("移除历史纪录成功!")
-                                } else {
-                                    warning("移除历史纪录失败!")
-                                }
-                            }
-                        })
-            } else {
-                window.open("/product/viewProduct.action?priced_id=" + pricedId);
-            }
-        }
-    </script>
+    <%--<script>--%>
+        <%--var todelete;--%>
+        <%--function selectAction(historyId, pricedId) {--%>
+            <%--if (event.target.nodeName == "I") {--%>
+                <%--todelete = event.target.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;--%>
+                <%--$.ajax(--%>
+                        <%--{--%>
+                            <%--url: "/product/removeHistory",--%>
+                            <%--dataType: "json",   //返回格式为json--%>
+                            <%--type: 'post',--%>
+                            <%--data: {historyId: historyId},--%>
+                            <%--success: function (data) {--%>
+                                <%--if (data.result == "success") {--%>
+                                    <%--todelete.remove();--%>
+                                    <%--notify("移除历史纪录成功!")--%>
+                                <%--} else {--%>
+                                    <%--warning("移除历史纪录失败!")--%>
+                                <%--}--%>
+                            <%--}--%>
+                        <%--})--%>
+            <%--} else {--%>
+                <%--window.open("/product/viewProduct.action?priced_id=" + pricedId);--%>
+            <%--}--%>
+        <%--}--%>
+    <%--</script>--%>
 </div>
