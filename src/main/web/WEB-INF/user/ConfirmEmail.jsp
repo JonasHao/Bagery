@@ -13,7 +13,13 @@
             }
             var m = getQueryString("message");
             if (m != null) {
-                notify(m);
+                if(m=="验证码错误！"){
+                    warning("验证码错误！");
+                }
+                else
+                {
+                    notify(m);
+                }
             }
         </script>
     </jsp:attribute>
@@ -42,7 +48,7 @@
 
                         <form class="form-user" action="confirmCode" namespace="/user" method="POST">
                             <div class="md-form">
-                                <s:textfield label="验证码" id="form1" name="confirmCode" class="form-control"
+                                <s:textfield label="验证码" id="form1" name="confirmCoding" class="form-control"
                                              required="true" maxLength="5"
                                              minLength="5" disabled="false"/>
                                 <s:submit cssClass="grey btn btn-primary" value="确认"/>
