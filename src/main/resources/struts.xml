@@ -58,6 +58,10 @@
         </action>
         <action name="addOrder" class="action.OrderAction" method="addOrder">
             <result name="success">/WEB-INF/order/order-success.jsp</result>
+            <result name="input" type="redirectAction">
+                <param name="namespace">/order</param>
+                <param name="actionName">balance</param>
+            </result>
         </action>
 
         <action name="queryOrder" class="action.OrderAction" method="queryOrder">

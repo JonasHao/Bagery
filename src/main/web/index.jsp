@@ -100,7 +100,8 @@
 
                         <div class="view overlay hm-white-slight">
                             <img src="http://cdn-images.farfetch.com/11/27/79/76/11277976_6530203_1000.jpg" width="200" height="200" class="img-fluid img-product" alt="格纹单肩包">
-                            <a href="/product/viewProduct.action?pricedId=6">
+                            <%--<a href="/product/viewProduct.action?pricedId=6">--%>
+                            <a href="/">
                                 <div class="mask waves-effect waves-light"></div>
                             </a>
                         </div>

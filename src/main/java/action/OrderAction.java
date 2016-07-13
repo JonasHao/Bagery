@@ -131,13 +131,20 @@ public class OrderAction extends DefaultActionSupport {
         if (cartItemIdList == null || cartItemIdList.size() == 0) {
             return INPUT;
         }
+
         try {
             user = userService.getCurrentUser();
             userId = user.getUserId();
+            if (user.getDefaultAddressId() <= 0) {
+                addActionError("没有选择收件人");
+                return INPUT;
+            }
+
             order = new Order();
             order.setUserId(userId);
             order.setAddressId(user.getDefaultAddressId());
             order.setInstruction(instruction);
+            order.setOrderStatus(OrderStatus.UNPAID);
             orderService.addOrder(order, cartItemIdList);
 
             Double newScore = 0.0;

@@ -25,8 +25,9 @@ public class Order {
     private User user;
     private Address address;
 
+    private boolean isNotCommented;
+
     public Order() {
-        orderStatus = OrderStatus.UNPAID;
     }
 
     @Id
@@ -151,7 +152,7 @@ public class Order {
         return result;
     }
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order",fetch = FetchType.EAGER)
     public List<Comment> getComments() {
         return comments;
     }
@@ -191,7 +192,10 @@ public class Order {
 
     @Transient
     public boolean isNotCommented() {
-        return orderStatus.equals(OrderStatus.COMPLETED) && !(comments != null && comments.size() > 0);
+        if (orderStatus != null ) {
+            isNotCommented = orderStatus.equals(OrderStatus.COMPLETED) && (comments == null || comments.size()==0);
+        }
+        return isNotCommented;
     }
 
     @Transient
@@ -199,10 +203,6 @@ public class Order {
         return orderStatus.equals(OrderStatus.COMPLETED) && (comments != null && comments.size() > 0);
     }
 
-//    @Transient
-//    public boolean isCommented(){
-//        return orderStatus.equals(OrderStatus.COMPLETED) && comments != null && comments.size() > 0;
-//    }
 
     @Transient
     public String getOrderStatusString() {
