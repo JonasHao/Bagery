@@ -75,7 +75,7 @@ public class AddressAction extends ActionSupport {
 
     public void validateAddAddress() {
         if (!mobile.matches("^\\w{11}$")) {
-            addFieldError("mobile", "µç»°ºÅÂëÇëÊäÈë11Î»Êı×Ö");
+            addFieldError("mobile", "ç”µè¯å·ç è¯·è¾“å…¥11ä½æ•°å­—");
             return;
         }
         super.validate();

@@ -22,19 +22,15 @@
 
     <jsp:attribute name="scripts">
         <script type="text/javascript">
-            function addAddress(){
-                var navigateAddress;
-                if()
-                console.log(location.pathname);
-                console.log(location.search);
-                console.log("${addAdd}");
-                window.navigate(${addAdd});
-
+            function addAddress() {
+                var navigateAddress = "${addAdd}&returnAddress=" + location.pathname + location.search;
+                console.log(navigateAddress);
+                window.navigate(navigateAddress);
             }
 
             function setDefault(addressId) {
                 var btn = $("#btn-default-addressId");
-                console.log("id:"+addressId);
+                console.log("id:" + addressId);
                 $.ajax(
                         {
                             url: "/address/setDefaultAddress.action",
@@ -67,15 +63,18 @@
                         <h5 class="modal-title" id="myModalLabel" data-toggle="modal" data-target="#myModal">选择收货人</h5>
                     </div>
 
-                    <form class="form-address" id="selectAddress" action="/address/setDefaultAddress.action" method="get">
+                    <form class="form-address" id="selectAddress" action="/address/setDefaultAddress.action"
+                          method="get">
 
                         <!--Body-->
                         <div class="modal-body">
-                            <s:radio list="addressList" name="defaultAddressId" listKey="addressId" listvaluekey="addressId" cssClass="address-item"/>
+                            <s:radio list="addressList" name="defaultAddressId" listKey="addressId"
+                                     listvaluekey="addressId" cssClass="address-item"/>
                         </div>
                         <!--Footer-->
                         <div class="modal-footer" style="border-top: 0px">
-                            <a onclick="setDefault($('input[name=defaultAddressId]:checked', '#selectAddress').val())" type="button" class="btn blue btn-primary">确认</a>
+                            <a onclick="setDefault($('input[name=defaultAddressId]:checked', '#selectAddress').val())"
+                               type="button" class="btn blue btn-primary">确认</a>
                             <s:div type="button" class="btn grey" data-dismiss="modal">取消</s:div>
                         </div>
                     </form>
@@ -142,7 +141,8 @@
                                     <div class="col-md-2">
                                         <!--Card image-->
                                         <div class="view overlay hm-white-slight">
-                                            <img src="<s:property value="product.priced.img"/>" class="img-fluid" alt="">
+                                            <img src="<s:property value="product.priced.img"/>" class="img-fluid"
+                                                 alt="">
                                             <a href="#">
                                                 <div class="mask"></div>
                                             </a>
