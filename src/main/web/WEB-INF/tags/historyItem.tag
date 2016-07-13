@@ -10,7 +10,7 @@
 <div class="card card-favorite">
     <!--Card image-->
     <div class="view overlay hm-white-slight ">
-        <img src="<jsp:invoke fragment="img"/>" class="img-fluid" alt="" style="padding: .75rem;">
+        <img src="<jsp:invoke fragment="img"/>" width=200 height="200" class="img-fluid img-product" alt="" style="padding: .75rem;">
         <div class="mask waves-effect waves-light"
              onclick="selectAction(<jsp:invoke fragment="historyId"/>,<jsp:invoke fragment="pricedId"/>);">
             <div class="mask">

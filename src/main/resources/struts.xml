@@ -400,9 +400,9 @@
         <action name="viewProduct" class="action.ProductionAction" method="viewProduct">
             <result name="success">/WEB-INF/product/detail.jsp</result>
             <!--<result name="error" type="redirectAction">-->
-                <!--<param name="actionName">productList</param>-->
-                <!--<param name="state">e</param>-->
-                <!--<param name="message">商品不存在</param>-->
+            <!--<param name="actionName">productList</param>-->
+            <!--<param name="state">e</param>-->
+            <!--<param name="message">商品不存在</param>-->
             <!--</result>-->
             <result name="error">/WEB-INF/product/product-disable.jsp</result>
         </action>
@@ -410,10 +410,13 @@
             <result name="success">/WEB-INF/product/list.jsp</result>
         </action>
         <action name="historyRecord" class="action.ProductionAction" method="viewHistoryRecord">
+            <interceptor-ref name="loginChecker"/>
             <result name="success">/WEB-INF/user/history.jsp</result>
         </action>
 
         <action name="removeHistory" class="action.UserInfoAction" method="removeHistory">
+            <interceptor-ref name="loginChecker"/>
+
             <result name="success" type="json">
                 <param name="root">data</param>
             </result>
