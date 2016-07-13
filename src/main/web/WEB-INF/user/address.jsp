@@ -54,6 +54,10 @@
                     window.location = "#add";
                 }
             });
+
+            $(document).ready(function () {
+                console.log(getQueryString("returnAddress"));
+            });
         </script>
     </jsp:attribute>
     <jsp:body>
