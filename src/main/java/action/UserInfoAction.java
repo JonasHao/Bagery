@@ -69,11 +69,17 @@ public class UserInfoAction extends DefaultActionSupport {
             if (userGroup.equals("cu")) {
                 group = 2;
             }
-            if (userGroup.equals("ag") || userGroup.equals("au") || userGroup.equals("d")) {
+            if (userGroup.equals("ag") || userGroup.equals("au")) {
                 group = 3;
             }
-            if (userGroup.equals("product_admin") || userGroup.equals("order_admin")) {
+            if (userGroup.equals("d")){
                 group = 4;
+            }
+            if (userGroup.equals("product_admin")) {
+                group = 5;
+            }
+            if (userGroup.equals("order_admin")){
+                group = 6;
             }
             return SUCCESS;
         } catch (Exception e) {
