@@ -53,7 +53,9 @@
                                 <s:if test="#group==1">等级：普通用户</s:if>
                                 <s:elseif test="#group==2">等级：中级用户</s:elseif>
                                 <s:elseif test="#group==3">等级：高级用户</s:elseif>
-                                <s:elseif test="#group==4">等级：管理员</s:elseif>
+                                <s:elseif test="#group==4">等级：超级管理员</s:elseif>
+                                <s:elseif test="#group==5">等级：商品管理员</s:elseif>
+                                <s:elseif test="#group==6">等级：订单管理员</s:elseif>
                             </p>
                         </div>
                     </div>

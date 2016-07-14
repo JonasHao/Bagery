@@ -345,7 +345,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (3,'ccccc','67c762276bced09ee4df0ed537d164ea','cc','838950628@qq.com','/img/avatar/default-avatar-knives-ninja.png',0,NULL,'product_admin',0);
+INSERT INTO `user`   VALUES (3,'ccccc','67c762276bced09ee4df0ed537d164ea','cc','838950628@qq.com','/img/avatar/default-avatar-knives-ninja.png',0,NULL,'product_admin',0);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
