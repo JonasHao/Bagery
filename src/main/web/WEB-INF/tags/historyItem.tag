@@ -10,7 +10,8 @@
 <div class="card card-favorite">
     <!--Card image-->
     <div class="view overlay hm-white-slight ">
-        <img src="<jsp:invoke fragment="img"/>" width=200 height="200" class="img-fluid img-product-sm" alt="" style="padding: .75rem;">
+        <img src="<jsp:invoke fragment="img"/>" width=200 height="200" class="img-fluid img-product-sm" alt=""
+             style="padding: .75rem;">
         <div class="mask waves-effect waves-light"
              onclick="selectAction(<jsp:invoke fragment="historyId"/>,<jsp:invoke fragment="pricedId"/>);">
             <div class="mask">
@@ -30,7 +31,7 @@
                         if (title.length() < Config.MAX_TITLE_LENGTH) {
                             out.println(title);
                         } else {
-                            out.println(title.substring(0, Config.MAX_TITLE_LENGTH)+"...");
+                            out.println(title.substring(0, Config.MAX_TITLE_LENGTH) + "...");
                         }
                     %>
                 </h6>
@@ -45,29 +46,30 @@
         </div>
         <!--/.Card content-->
     </div>
-    <%--<script>--%>
-        <%--var todelete;--%>
-        <%--function selectAction(historyId, pricedId) {--%>
-            <%--if (event.target.nodeName == "I") {--%>
-                <%--todelete = event.target.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;--%>
-                <%--$.ajax(--%>
-                        <%--{--%>
-                            <%--url: "/product/removeHistory",--%>
-                            <%--dataType: "json",   //返回格式为json--%>
-                            <%--type: 'post',--%>
-                            <%--data: {historyId: historyId},--%>
-                            <%--success: function (data) {--%>
-                                <%--if (data.result == "success") {--%>
-                                    <%--todelete.remove();--%>
-                                    <%--notify("移除历史纪录成功!")--%>
-                                <%--} else {--%>
-                                    <%--warning("移除历史纪录失败!")--%>
-                                <%--}--%>
-                            <%--}--%>
-                        <%--})--%>
-            <%--} else {--%>
-                <%--window.open("/product/viewProduct.action?priced_id=" + pricedId);--%>
-            <%--}--%>
-        <%--}--%>
-    <%--</script>--%>
+    <script>
+        var todelete;
+        function selectAction(historyId, pricedId) {
+            if (event.target.nodeName == "I") {
+                console.log("historyId:" + historyId);
+                todelete = event.target.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
+                $.ajax(
+                        {
+                            url: "/user/removeHistory.action",
+                            dataType: "json",   //返回格式为json
+                            type: 'get',
+                            data: {historyId: parseInt(historyId)},
+                            success: function (data) {
+                                if (data.result == "success") {
+                                    todelete.remove();
+                                    notify("移除历史纪录成功!")
+                                } else {
+                                    warning("移除历史纪录失败!")
+                                }
+                            }
+                        })
+            } else {
+                window.open("/product/viewProduct.action?pricedId=" + pricedId);
+            }
+        }
+    </script>
 </div>

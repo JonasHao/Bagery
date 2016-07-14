@@ -6,7 +6,14 @@
     <jsp:attribute name="title">登录</jsp:attribute>
 
     <jsp:attribute name="head">
-            <link href="../../css/login.css" rel="stylesheet">
+            <link href="/css/login.css" rel="stylesheet">
+    </jsp:attribute>
+
+    <jsp:attribute name="scripts">
+        <script type="text/javascript">
+            var src = "${param.src}";
+            $("#src").val(src);
+        </script>
     </jsp:attribute>
 
     <jsp:body>
@@ -33,7 +40,7 @@
                                         minLength="5"/>
                         </div>
                         <s:fielderror fieldName="password" name="username" cssClass="errorMessage"/>
-
+                        <s:hidden name="src"/>
                         <s:submit cssClass="grey btn btn-primary btn-input" value="登录"/>
                         <a href="/signUp.jsp">注册</a>
                         <a href="/FindPassword.jsp">忘记密码</a>

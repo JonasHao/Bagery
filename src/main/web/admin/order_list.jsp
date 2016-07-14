@@ -215,8 +215,9 @@
                                                             if(result){
                                                             deleteOrder(<s:property value="#orders.orderId"/>);
                                                             } }
-                                                            })" style="margin-bottom: 0;margin-right: 5px;margin-left: 5px;" class="btn btn-primary <s:if test='#orders.orderStatus="canceled" ||
-                                                            #orders.orderStatus="unpaid"||#orders.orderStatus="completed"'> disabled </s:if>">
+                                                            })"
+                                                       style="margin-bottom: 0;margin-right: 5px;margin-left: 5px;"
+                                                       class="btn btn-primary <s:if test='#orders.orderStatus=="unshipped"||#orders.orderStatus=="shipped"'> disabled</s:if>">
                                                         删除订单</a>
 
                                                     <s:url action="cancel" namespace="/admin-order"
@@ -224,8 +225,8 @@
                                                         <s:param name="orderId"><s:property
                                                                 value="#orders.orderId"/></s:param>
                                                     </s:url>
-                                                    <a href="${adminCancelOrder}" class="btn btn-warning <s:if test='
-                                                            #orders.orderStatus="unpaid"'> disabled</s:if>"
+                                                    <a href="${adminCancelOrder}"
+                                                       class="btn btn-warning<s:if test='orderStatus=="canceled"'> disabled</s:if>"
                                                        style="margin-bottom: 0;margin-right: 5px;margin-left: 5px;">
                                                         取消订单
                                                     </a>

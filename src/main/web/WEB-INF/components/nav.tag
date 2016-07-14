@@ -55,15 +55,16 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
                             <%
-                                if(Config.DEBUG){
-                                    session.setAttribute(Key.USER,1);
+                                if (Config.DEBUG) {
+                                    session.setAttribute(Key.USER, 1);
                                 }
                             %>
                             <s:if test="#session.user!=null">
                                 <s:a class="dropdown-item" action="home" namespace="/user">个人中心</s:a>
                                 <s:a class="dropdown-item" action="queryOrder" namespace="/order">我的订单</s:a>
                                 <s:a class="dropdown-item" action="queryFavorite" namespace="/favorite">收藏夹</s:a>
-                                <s:a class="dropdown-item"  action="logout" namespace="/user">退出</s:a>
+                                <a href="/user/logout?src=" class="dropdown-item"
+                                   action="logout" namespace="/user">退出</a>
                             </s:if>
                             <s:else>
                                 <a class="dropdown-item" href="/login.jsp">登录</a>
@@ -74,9 +75,9 @@
                     </div>
                 </div>
                 <s:a action="queryCart" namespace="/cart">
-                <button class="btn-sm btn-link nav-btn-cart" type="button">
-                    <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i>
-                </button>
+                    <button class="btn-sm btn-link nav-btn-cart" type="button">
+                        <i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i>
+                    </button>
                 </s:a>
             </div>
 

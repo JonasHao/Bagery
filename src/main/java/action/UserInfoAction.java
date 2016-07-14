@@ -41,6 +41,7 @@ public class UserInfoAction extends DefaultActionSupport {
     private int confirmCode;
 
     private String confirmCoding;
+    private String src;
 
     private String confirmPassword;//密码找回时，输入密码验证身份
     private String newPassword;//新密码
@@ -48,6 +49,7 @@ public class UserInfoAction extends DefaultActionSupport {
 
     private List<UserPricedRecord> historyList;
     private int historyId;
+    private String result = "login";
 
     private Map<String, Object> data = new HashMap<>();
 
@@ -487,5 +489,22 @@ public class UserInfoAction extends DefaultActionSupport {
 
     public void setConfirmCoding(String confirmCoding) {
         this.confirmCoding = confirmCoding;
+    }
+
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
+
+    public String getSrc() {
+        return src;
+    }
+
+    public void setSrc(String src) {
+        this.src = src;
     }
 }

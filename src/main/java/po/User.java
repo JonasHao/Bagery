@@ -208,7 +208,7 @@ public class User {
         this.cartItems = cartitemsByUserId;
     }
 
-    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user")
     public List<Comment> getComments() {
         return comments;
     }
@@ -217,7 +217,7 @@ public class User {
         this.comments = commentsByUserId;
     }
 
-    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user")
     public List<FavoriteItem> getFavoriteItems() {
         return favoriteItems;
     }
@@ -226,7 +226,7 @@ public class User {
         this.favoriteItems = favoriteitemsByUserId;
     }
 
-    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user")
     @OrderBy("orderId DESC")
     public List<Order> getOrders() {
         return orders;
@@ -245,7 +245,7 @@ public class User {
         this.addresses = shipInformationsByUserId;
     }
 
-    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user")
     @OrderBy("recordDate DESC")
     public List<UserPricedRecord> getHistoryRecords() {
         return historyRecords;

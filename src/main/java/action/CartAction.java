@@ -31,6 +31,7 @@ public class CartAction extends ActionSupport {
     private String result = "login";
     private Map<String, Object> data = new HashMap<>();
     private List<CartItem> cartItemList = new ArrayList<CartItem>();
+    private int repeatCount = 0;
 
     public String queryCart() {
         user = userService.getCurrentUser();
@@ -42,20 +43,32 @@ public class CartAction extends ActionSupport {
         try {
             user = userService.getCurrentUser();
             cartItemList = user.getCartItems();
-            // first to check if the product already in the cart
-            for (CartItem item : cartItemList) {
-                if (item.getProductId() == productId) {
-                    item.setNum(item.getNum() + 1);
-                    cartService.updateCart(item);
-                    data.put(RESULT, SUCCESS);
+            try {
+                // first to check if the product already in the cart
+                for (CartItem item : cartItemList) {
+                    if (item.getProductId() == productId) {
+                        item.setNum(item.getNum() + 1);
+                        cartService.updateCart(item);
+                        data.put(RESULT, SUCCESS);
+                        return SUCCESS;
+                    }
+                }
+            } catch (HibernateException e) {
+                repeatCount++;
+                cartItemList = cartService.getCartItemsOfUser(user);
+                if (repeatCount >= 3) {
+                    data.put(RESULT, ERROR);
                     return SUCCESS;
                 }
+                return addCart();
             }
+
+
             cartItem = new CartItem();
             cartItem.setProductId(productId);
             cartItem.setUserId(user.getUserId());
             cartItem.setNum(1);
-            Product product=productService.findProduct(productId);
+            Product product = productService.findProduct(productId);
             cartItem.setSubtotal(product.getPriced().getSalePrice());
             cartService.addCart(cartItem);
             data.put(RESULT, SUCCESS);
