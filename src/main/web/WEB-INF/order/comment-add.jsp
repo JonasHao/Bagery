@@ -34,7 +34,7 @@
     <jsp:body>
         <!--Main layout-->
         <div class="container" style="margin: 2rem">
-            <form action="addComment" namespace="/order">
+            <form action="/order/addComment.action">
                 <s:iterator value="commentList" status="row">
                     <div class="row order-item">
                         <div class="col-md-2">
@@ -83,7 +83,6 @@
 
                 </s:iterator>
 
-                <s:actionerror/>
                 <s:if test="commentList.size()>0">
                     <s:hidden name="orderId" value="%{commentList[0].orderId}"/>
                 </s:if>

@@ -42,6 +42,11 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    public void refresh(CartItem item) {
+        dao.refresh(item);
+    }
+
+    @Override
     public CartItem getCartItem(int itemId) {
         return dao.get(CartItem.class, itemId);
     }

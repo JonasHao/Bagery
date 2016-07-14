@@ -25,6 +25,8 @@ public interface CartService {
 
     void delete(CartItem item);
 
+    void refresh(CartItem item);
+
     CartItem getCartItem(int itemId);
 
     List<CartItem> getCartItemsOfUser(User user);
