@@ -91,7 +91,7 @@ public class ProductServiceImpl implements ProductService {
     public List<Priced> findPricedsByWord(String keyword) {
         if (keyword.trim().length() == 0)
             return findAll();
-        String hql = String.format("from Priced where isExisted=1 and title like '%s'", keyword);
+        String hql = String.format("from Priced where isExisted=1 and title like '%%%%%s%%%%'", keyword);
         return dao.query(hql).list();
     }
 
