@@ -75,6 +75,9 @@ public class OrderAction extends DefaultActionSupport {
 
             for (CartItem item : cartItemList) {
                 totalPrice += item.getSubtotal();
+                if(item.getProduct()==null){
+                    cartService.updateCart(item);
+                }
             }
 
             return SUCCESS;

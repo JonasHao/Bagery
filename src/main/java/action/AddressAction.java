@@ -271,7 +271,7 @@ public class AddressAction extends ActionSupport {
 
     public String getSrc() {
         if (src == null || src.isEmpty()) {
-            src = "address/viewAddress?message='收件人添加成功'";
+            src = "/address/viewAddress?message=收件人添加成功";
         }
         return src;
     }

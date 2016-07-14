@@ -99,12 +99,28 @@ public class ProductServiceImpl implements ProductService {
      * 通过分类找属性列表
      */
     public List<Property> findProsByCategory(String category) {
-        Query query = dao.query("from Property where category=?").setParameter(0, category);
-        System.out.println(query.getQueryString());
-        Iterator<Property> iterator= query.iterate();
-        List<Property> properties = new ArrayList<>();
-        while (iterator.hasNext()){
-            properties.add(iterator.next());
+        int start = 0;
+        int end=0;
+        switch (category){
+            case "品牌":
+                start=1;
+                end = 13;
+                break;
+            case "材质":
+                start=14;
+                end=23;
+                break;
+            case  "款式":
+                start=24;
+                end=100;
+        }
+
+        Query query = dao.query("from Property where proId>=? and proId<=? ").setParameter(0, start).setParameter(1,end);
+
+        List<Property> properties = query.list();
+        if(properties == null || properties.size()==0){
+
+
         }
         return properties;
     }
