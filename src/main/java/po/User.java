@@ -4,7 +4,9 @@ import constant.Path;
 import constant.UserGroup;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by 41159 on 2016/6/29.
@@ -21,12 +23,12 @@ public class User {
     private Integer defaultAddressId;
     private String userGroup;
     private byte isActivate;
-    private List<CartItem> cartItems;
-    private List<Comment> comments;
-    private List<FavoriteItem> favoriteItems;
-    private List<Order> orders;
-    private List<Address> addresses;
-    private List<UserPricedRecord> historyRecords;
+    private List<CartItem> cartItems = new ArrayList<>();
+    private List<Comment> comments= new ArrayList<>();
+    private List<FavoriteItem> favoriteItems= new ArrayList<>();
+    private List<Order> orders= new ArrayList<>();
+    private Set<Address> addresses;
+    private List<UserPricedRecord> historyRecords= new ArrayList<>();
 
     public User() {
         int avatar = (int) (Math.random() * 100) % 8;
@@ -199,7 +201,7 @@ public class User {
         return result;
     }
 
-    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user")
     public List<CartItem> getCartItems() {
         return cartItems;
     }
@@ -208,7 +210,7 @@ public class User {
         this.cartItems = cartitemsByUserId;
     }
 
-    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user")
     public List<Comment> getComments() {
         return comments;
     }
@@ -217,7 +219,7 @@ public class User {
         this.comments = commentsByUserId;
     }
 
-    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user")
     public List<FavoriteItem> getFavoriteItems() {
         return favoriteItems;
     }
@@ -226,7 +228,7 @@ public class User {
         this.favoriteItems = favoriteitemsByUserId;
     }
 
-    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user")
     @OrderBy("orderId DESC")
     public List<Order> getOrders() {
         return orders;
@@ -236,16 +238,16 @@ public class User {
         this.orders = ordersesByUserId;
     }
 
-    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
-    public List<Address> getAddresses() {
+    @OneToMany(mappedBy = "user")
+    public Set<Address> getAddresses() {
         return addresses;
     }
 
-    public void setAddresses(List<Address> shipInformationsByUserId) {
-        this.addresses = shipInformationsByUserId;
+    public void setAddresses(Set<Address> addresses) {
+        this.addresses = addresses;
     }
 
-    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user")
     @OrderBy("recordDate DESC")
     public List<UserPricedRecord> getHistoryRecords() {
         return historyRecords;

@@ -9,6 +9,7 @@ import po.User;
 import service.AddressService;
 import service.UserService;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,7 +39,7 @@ public class AddressAction extends ActionSupport {
     public String viewAddress() {
         try {
             user = userService.getCurrentUser();
-            addressList = user.getAddresses();
+            addressList = new ArrayList<>(user.getAddresses()) ;
             defaultAddressId = user.getDefaultAddressId();
             return SUCCESS;
         } catch (HibernateException e) {
@@ -63,7 +64,7 @@ public class AddressAction extends ActionSupport {
 //        userService.update(user);
             user = userService.getCurrentUser();
             if (user.getAddresses().size() == 1 || src != null) {
-                user.setDefaultAddressId(user.getAddresses().get(0).getAddressId());
+                user.setDefaultAddressId(address.getAddressId());
                 userService.update(user);
             }
             return SUCCESS;

@@ -43,6 +43,11 @@ public class FavoriteServiceImpl implements FavoriteService {
         List<FavoriteItem> favoriteItemList = new ArrayList<>();
         try {
             favoriteItemList = user.getFavoriteItems();
+            for (FavoriteItem item : favoriteItemList) {
+                if (item.getPricedId() == priceId) {
+                    return 1;
+                }
+            }
         } catch (HibernateException e) {
             e.printStackTrace();
             favoriteItemList = dao.query("from FavoriteItem where userId = ?").setParameter(0,user.getUserId()).list();
