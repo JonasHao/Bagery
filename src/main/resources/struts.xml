@@ -158,10 +158,7 @@
 
         <action name="login" class="action.UserAction" method="login">
             <result name="input">/login.jsp</result>
-            <result name="success" type="redirectAction">
-                <param name="actionName">index</param>
-                <param name="message">登录成功！</param>
-            </result>
+            <result name="success" type="redirect">${src}</result>
             <result name="error" type="redirectAction">
                 <param name="actionName">index</param>
                 <param name="message">网络异常！</param>

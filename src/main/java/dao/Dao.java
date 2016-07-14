@@ -34,7 +34,6 @@ public class Dao {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         T instance = session.get(entityType, id);
-        transaction.commit();
         return instance;
     }
 

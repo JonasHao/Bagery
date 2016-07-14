@@ -2,9 +2,11 @@ package action;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import constant.Key;
 import constant.UserGroup;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.dispatcher.DefaultActionSupport;
+import org.hibernate.Session;
 import po.User;
 import service.UserService;
 
@@ -23,6 +25,8 @@ public class UserAction extends DefaultActionSupport {
     private String confirmpassword;
     private String isadmin;
     private String usergroup;
+    private String src;
+
 
 //    public String logout() {
 //        ActionContext.getContext().getSession().clear();
@@ -54,8 +58,7 @@ public class UserAction extends DefaultActionSupport {
                 }
             }
             return SUCCESS;
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return ERROR;
         }
     }
@@ -87,11 +90,12 @@ public class UserAction extends DefaultActionSupport {
             userService.register(user);
 
             return SUCCESS;
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return ERROR;
         }
     }
+
+
 
     @Override
     public void validate() {
@@ -212,4 +216,23 @@ public class UserAction extends DefaultActionSupport {
         return user;
     }
 
+
+    public String getSrc() {
+        if (src == null || src.isEmpty()) {
+            if (ActionContext.getContext() != null &&
+                    ActionContext.getContext().getSession() != null &&
+                    ActionContext.getContext().getSession().get(Key.GOING_TO_URL) != null) {
+                src = (String) ActionContext.getContext().getSession().get(Key.GOING_TO_URL);
+                ActionContext.getContext().getSession().remove(Key.GOING_TO_URL);
+                if (src == null || src.isEmpty()) {
+                    src = "index?message='登陆成功'";
+                }
+            }
+        }
+        return src;
+    }
+
+    public void setSrc(String src) {
+        this.src = src;
+    }
 }

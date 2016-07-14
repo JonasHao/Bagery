@@ -39,14 +39,13 @@
                                         message: '登陆之后才可以使用收藏夹，现在去登陆？',
                                         callback: function (result) {
                                             if (result) {
-                                                window.location.href = '/login.jsp';
+                                                window.location.href = '/login.jsp?src=/product/viewProduct?pricedId=<s:property value="pricedId"/>';
                                             }
                                         }
                                     })
                                 } else {
                                     warning("收藏失败");
                                 }
-
                             }
                         })
             }
@@ -69,7 +68,7 @@
                                         message: '登陆之后才可以使用购物车，现在去登陆？',
                                         callback: function (result) {
                                             if (result) {
-                                                window.location.href = '/login.jsp';
+                                                window.location.href = '/login.jsp?src=/product/viewProduct?pricedId=<s:property value="pricedId"/>';
                                             }
                                         }
                                     })

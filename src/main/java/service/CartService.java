@@ -3,6 +3,9 @@ package service;
 
 import org.hibernate.HibernateException;
 import po.CartItem;
+import po.User;
+
+import java.util.List;
 
 public interface CartService {
     /**
@@ -23,4 +26,6 @@ public interface CartService {
     void delete(CartItem item);
 
     CartItem getCartItem(int itemId);
+
+    List<CartItem> getCartItemsOfUser(User user);
 }
