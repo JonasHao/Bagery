@@ -94,7 +94,7 @@
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <div>2016-7-13</div>
+                                        <div>2016-7-14</div>
 
                                         <div>订单号：<s:property value="orderId"/></div>
                                     </div>
@@ -222,7 +222,7 @@
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <div>2016-7-13</div>
+                                            <div>2016-7-14</div>
 
                                             <div>订单号：<s:property value="orderId"/></div>
                                         </div>
@@ -300,7 +300,7 @@
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <div>2016-7-13</div>
+                                            <div>2016-7-14</div>
 
                                             <div>订单号：<s:property value="orderId"/></div>
                                         </div>
@@ -361,7 +361,7 @@
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <div>2016-7-13</div>
+                                            <div>2016-7-14</div>
 
                                             <div>订单号：<s:property value="orderId"/></div>
                                         </div>
@@ -440,7 +440,7 @@
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <div>2016-7-13</div>
+                                            <div>2016-7-14</div>
 
                                             <div>订单号：<s:property value="orderId"/></div>
                                         </div>

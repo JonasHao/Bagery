@@ -1,8 +1,11 @@
 package serviceImpl;
 
 import dao.Dao;
+import javafx.beans.property.ListProperty;
+import org.hibernate.Query;
 import po.*;
 import service.ProductService;
+
 import java.util.*;
 
 @SuppressWarnings("unchecked")
@@ -12,12 +15,14 @@ public class ProductServiceImpl implements ProductService {
     public void setDao(Dao dao) {
         this.dao = dao;
     }
+
     /**
      * 保存一个商品对象
      */
-    public Product findProduct(int productId){
-        return dao.get(Product.class,productId);
+    public Product findProduct(int productId) {
+        return dao.get(Product.class, productId);
     }
+
     public int addPriced(Priced priced) {
         return (int) dao.save(priced);
     }
@@ -29,6 +34,7 @@ public class ProductServiceImpl implements ProductService {
     public void addPricedPro(PricedPro pricedPro) {
         dao.save(pricedPro);
     }
+
     /**
      * 添加浏览记录
      */
@@ -38,6 +44,7 @@ public class ProductServiceImpl implements ProductService {
         record.setPricedId(pricedID);
         dao.save(record);
     }
+
     /**
      * 更改商品对象信息
      */
@@ -48,12 +55,14 @@ public class ProductServiceImpl implements ProductService {
     public void updatePricedPro(PricedPro pricedPro) {
         dao.update(pricedPro);
     }
+
     /**
      * 通过pricedID查找商品对象
      */
     public Priced findPriced(int pricedID) {
         return dao.get(Priced.class, pricedID);
     }
+
     /**
      * 获得全部商品列表
      */
@@ -64,6 +73,7 @@ public class ProductServiceImpl implements ProductService {
     public List<Priced> findAllAdmin() {
         return dao.query("from Priced").list();
     }
+
     /**
      * 通过商品查找商品颜色
      */
@@ -74,33 +84,45 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> findProductsByPricedAdmin(int pricedID) {
         return dao.query("from Product where pricedId=?").setParameter(0, pricedID).list();
     }
+
     /**
      * 根据关键词获取商品列表
      */
     public List<Priced> findPricedsByWord(String keyword) {
-        if(keyword.trim().length()==0)
+        if (keyword.trim().length() == 0)
             return findAll();
         String hql = String.format("from Priced where isExisted=1 and title like '%%%s%%'", keyword);
         return dao.query(hql).list();
     }
+
     /**
      * 通过分类找属性列表
      */
     public List<Property> findProsByCategory(String category) {
-        return dao.query("from Property where category=?").setParameter(0, category).list();
+        Query query = dao.query("from Property where category=?").setParameter(0, category);
+        System.out.println(query.getQueryString());
+        Iterator<Property> iterator= query.iterate();
+        List<Property> properties = new ArrayList<>();
+        while (iterator.hasNext()){
+            properties.add(iterator.next());
+        }
+        return properties;
     }
+
     /**
      * 获取过滤器对象列表
      */
     public List<PricedPro> findPricedProByPriced(int pricedID) {
         return dao.query("from PricedPro where pricedId=?").setParameter(0, pricedID).list();
     }
+
     /**
      * 获取过滤器属性ID列表
      */
     public List<Integer> findProIDsByPriced(int pricedID) {
         return dao.query("select pp.proId from PricedPro pp,Property p where pp.pricedId=? and pp.proId=p.proId ").setParameter(0, pricedID).list();
     }
+
     /**
      * 通过类别信息获取商品列表
      */
@@ -167,12 +189,14 @@ public class ProductServiceImpl implements ProductService {
         return dao.query("from UserPricedRecord where userId=?").
                 setParameter(0, userID).list();
     }
+
     /**
      * 获取过滤器名称
      */
     public String getProByProID(int proID) {
         return (String) dao.query("select category from Property where proId=?").setParameter(0, proID).list().get(0);
     }
+
     /**
      * 获取过滤器对象列表
      */
@@ -183,6 +207,7 @@ public class ProductServiceImpl implements ProductService {
         pross.add(findProsByCategory("款式"));
         return pross;
     }
+
     /**
      * 删除priced对应全部商品
      */
@@ -192,6 +217,7 @@ public class ProductServiceImpl implements ProductService {
             dao.delete(product);
         return products;
     }
+
     /**
      * 通过priceID删除商品对象
      */
@@ -199,6 +225,7 @@ public class ProductServiceImpl implements ProductService {
         Priced priced = dao.get(Priced.class, pricedId);
         dao.delete(priced);
     }
+
     /**
      * 属性数组转SQL字符串
      */

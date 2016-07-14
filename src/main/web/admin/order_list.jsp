@@ -62,7 +62,7 @@
                             } else if (result == "login") {
                                 bootbox.confirm({
                                     title: '登录',
-                                    message: '您不在登录状态，现在去登陆？',
+                                    message: '您不在登录状态，现在去登录？',
                                     callback: function (result) {
                                         if (result) {
                                             window.location.href = '/login.jsp';

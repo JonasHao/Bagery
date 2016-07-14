@@ -1,10 +1,14 @@
 package serviceImpl;
 
 import dao.Dao;
+import org.hibernate.HibernateException;
 import po.Address;
 import po.User;
 import service.AddressService;
 import service.UserService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zhang on 2016/6/27.
@@ -49,6 +53,15 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public void deleteAddress(Address address) {
         dao.delete(address);
+    }
+
+    @Override
+    public List<Address> getAddressesOfUser(User user) {
+        try{
+            return dao.query("from Address where userId = ?").setParameter(0,user.getUserId()).list();
+        }catch (HibernateException e){
+            return new ArrayList<>();
+        }
     }
 
     public void setUserService(UserService userService) {

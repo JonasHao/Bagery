@@ -44,6 +44,13 @@ public class Dao {
         return session.createQuery(queryString);
     }
 
+    public SQLQuery SQLQuery(String sql) {
+        Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        return session.createSQLQuery(sql);
+    }
+
+
     public Object update(Object o) throws HibernateException {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();

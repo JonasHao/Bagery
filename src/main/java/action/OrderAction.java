@@ -46,6 +46,7 @@ public class OrderAction extends DefaultActionSupport {
     private String logisticsCompany;
     private String status;
     private String instruction;
+    private String message;
 
     private Map<String, Object> data = new HashMap<>();
 
@@ -87,6 +88,12 @@ public class OrderAction extends DefaultActionSupport {
         try {
             user = userService.getCurrentUser();
             cartItemList = user.getCartItems();
+            try {
+                int size = cartItemList.size();
+            } catch (HibernateException e) {
+                cartItemList = cartService.getCartItemsOfUser(user);
+            }
+
             CartItem cartItem = null;
             for (CartItem item : cartItemList) {
                 if (item.getProductId() == productId) {
@@ -107,17 +114,23 @@ public class OrderAction extends DefaultActionSupport {
             addressList = user.getAddresses();
             if (addressList == null)
                 return ERROR;
-            addressList.forEach(System.out::println);
+            try {
+                addressList.forEach(System.out::println);
+            } catch (HibernateException e) {
+                addressList = addressService.getAddressesOfUser(user);
+            }
 
             Integer defaultAddressId = user.getDefaultAddressId();
 
-            if (defaultAddressId != null) {
+            if (defaultAddressId != null && defaultAddressId > 0) {
                 defaultAddress = addressService.get(user.getDefaultAddressId());
             }
 
             cartItemList = new ArrayList<>(1);
             cartItemList.add(cartItem);
-            totalPrice = cartItem.getSubtotal();
+            if (cartItem.getSubtotal() != null) {
+                totalPrice = cartItem.getSubtotal();
+            }
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
@@ -135,14 +148,17 @@ public class OrderAction extends DefaultActionSupport {
         try {
             user = userService.getCurrentUser();
             userId = user.getUserId();
-            if (user.getDefaultAddressId() <= 0) {
-                addActionError("没有选择收件人");
-                return INPUT;
+
+            Integer defaultAddressId = user.getDefaultAddressId();
+
+            if (defaultAddressId == null || defaultAddressId <= 0) {
+                message="请选择收件人";
+                return "address";
             }
 
             order = new Order();
             order.setUserId(userId);
-            order.setAddressId(user.getDefaultAddressId());
+            order.setAddressId(defaultAddressId);
             order.setInstruction(instruction);
             order.setOrderStatus(OrderStatus.UNPAID);
             orderService.addOrder(order, cartItemIdList);
@@ -177,9 +193,14 @@ public class OrderAction extends DefaultActionSupport {
         try {
             user = userService.getCurrentUser();
             orderList = user.getOrders();
+            int size = orderList.size();
             return SUCCESS;
         } catch (Exception e) {
             e.printStackTrace();
+            orderList = orderService.getOrdersOfUser(user);
+            if (orderList != null) {
+                return SUCCESS;
+            }
         }
         return ERROR;
     }
@@ -613,4 +634,11 @@ public class OrderAction extends DefaultActionSupport {
         this.commentService = commentService;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 }

@@ -4,10 +4,7 @@ import constant.OrderStatus;
 import dao.Dao;
 import dao.OrderDao;
 import org.hibernate.HibernateException;
-import po.CartItem;
-import po.OrderItem;
-import po.Order;
-import po.Product;
+import po.*;
 import service.OrderService;
 
 import java.util.ArrayList;
@@ -101,6 +98,16 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> getStatusOf(String orderStatus) throws HibernateException {
         return dao.query("from Order where orderStatus = ?").setParameter(0, orderStatus).list();
+    }
+
+    @Override
+    public List<Order> getOrdersOfUser(User user) {
+        try {
+            return dao.query("from Order where userId = ?").setParameter(0, user.getUserId()).list();
+        }catch (HibernateException e){
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
     }
 
     private String queryLogisticsAPI(String company, String number) {

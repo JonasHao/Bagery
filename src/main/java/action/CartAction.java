@@ -43,6 +43,7 @@ public class CartAction extends ActionSupport {
         try {
             user = userService.getCurrentUser();
             cartItemList = user.getCartItems();
+
             try {
                 // first to check if the product already in the cart
                 for (CartItem item : cartItemList) {
@@ -54,13 +55,15 @@ public class CartAction extends ActionSupport {
                     }
                 }
             } catch (HibernateException e) {
-                repeatCount++;
                 cartItemList = cartService.getCartItemsOfUser(user);
-                if (repeatCount >= 3) {
-                    data.put(RESULT, ERROR);
-                    return SUCCESS;
+                for (CartItem item : cartItemList) {
+                    if (item.getProductId() == productId) {
+                        item.setNum(item.getNum() + 1);
+                        cartService.updateCart(item);
+                        data.put(RESULT, SUCCESS);
+                        return SUCCESS;
+                    }
                 }
-                return addCart();
             }
 
 

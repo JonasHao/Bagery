@@ -2,6 +2,7 @@ package service;
 
 import org.hibernate.HibernateException;
 import po.Order;
+import po.User;
 
 import java.util.Collection;
 import java.util.List;
@@ -41,4 +42,6 @@ public interface OrderService {
 
 
     List<Order> getStatusOf(String orderStatus) throws HibernateException;
+
+    List<Order> getOrdersOfUser(User user);
 }

@@ -45,6 +45,15 @@
                             }
                         });
             }
+
+            var defaultAddress ="<s:property value="defaultAddress.receiver"/>";
+            if(defaultAddress.length ==0){
+                $("#submit-order").addClass("disabled");
+                $(".btn-input").addClass("disabled");
+                $("#submit-order").attr("disabled",true);
+                $(".btn-input").attr("disabled",true);
+
+            }
         </script>
     </jsp:attribute>
     <jsp:body>
@@ -178,7 +187,8 @@
                     <div class="col-md-3 order-submit-block">
                         <div class="card">
                             <div class="card-block">
-                                <h4><s:submit cssClass="btn btn-primary btn-lg grey btn-submit-order btn-input"
+
+                                <h4><s:submit id="submit-order" cssClass="btn btn-primary btn-lg grey btn-submit-order btn-input"
                                               value="提交订单"/></h4>
                                 <br>
 

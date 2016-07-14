@@ -7,6 +7,7 @@ import com.opensymphony.xwork2.interceptor.Interceptor;
 import constant.Config;
 import constant.Key;
 import constant.UserGroup;
+import po.User;
 import service.UserService;
 import serviceImpl.UserServiceImpl;
 
@@ -40,7 +41,11 @@ public class CheckProAdLoginInterceptor implements Interceptor {
         if (userId == null)
             return Action.LOGIN;
         else {
-            String userGroup = userService.get(userId).getUserGroup();
+            User user = userService.get(userId);
+            if (user == null || user.getUserGroup() == null) {
+                return "invalid";
+            }
+            String userGroup = user.getUserGroup();
             if (userGroup.equals(UserGroup.PRODUCT_ADMIN) || userGroup.equals(UserGroup.ROOT)) {
                 return invocation.invoke();
             } else {

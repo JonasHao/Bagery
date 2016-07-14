@@ -61,6 +61,12 @@
             <result name="input" type="redirectAction">
                 <param name="namespace">/order</param>
                 <param name="actionName">balance</param>
+                <param name="cartItemIdList">${cartItemIdList}</param>
+            </result>
+            <result name="address" type="redirectAction">
+                <param name="namespace">/order</param>
+                <param name="actionName">balance</param>
+                <param name="cartItemIdList">${cartItemIdList}</param>
             </result>
         </action>
 

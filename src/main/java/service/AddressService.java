@@ -2,6 +2,10 @@ package service;
 
 
 import po.Address;
+import po.User;
+
+import java.util.Collection;
+import java.util.List;
 
 public interface AddressService {
     /**
@@ -22,4 +26,5 @@ public interface AddressService {
 
     void deleteAddress(Address address);
 
+    List<Address> getAddressesOfUser(User user);
 }

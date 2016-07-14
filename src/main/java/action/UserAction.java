@@ -225,7 +225,7 @@ public class UserAction extends DefaultActionSupport {
                 src = (String) ActionContext.getContext().getSession().get(Key.GOING_TO_URL);
                 ActionContext.getContext().getSession().remove(Key.GOING_TO_URL);
                 if (src == null || src.isEmpty()) {
-                    src = "index?message='登陆成功'";
+                    src = "index?message='登录成功'";
                 }
             }
         }

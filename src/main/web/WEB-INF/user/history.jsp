@@ -30,7 +30,7 @@
                     <%--</div>--%>
                 <div class="container">
                     <div class="row">
-                        <s:if test="user==null"><p>您还没有登陆系统</p></s:if>
+                        <s:if test="user==null"><p>您还没有登录系统</p></s:if>
                         <s:if test="records.size()==0">
                             <p>您还没有浏览过任何商品！</p>
                         </s:if>

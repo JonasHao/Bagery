@@ -36,7 +36,7 @@
                                 else if (data.result == "login") {
                                     bootbox.confirm({
                                         title: '登录',
-                                        message: '登陆之后才可以使用收藏夹，现在去登陆？',
+                                        message: '登录之后才可以使用收藏夹，现在去登录？',
                                         callback: function (result) {
                                             if (result) {
                                                 window.location.href = '/login.jsp?src=/product/viewProduct?pricedId=<s:property value="pricedId"/>';
@@ -65,7 +65,7 @@
                                 if (data.result == "login") {
                                     bootbox.confirm({
                                         title: '登录',
-                                        message: '登陆之后才可以使用购物车，现在去登陆？',
+                                        message: '登录之后才可以使用购物车，现在去登录？',
                                         callback: function (result) {
                                             if (result) {
                                                 window.location.href = '/login.jsp?src=/product/viewProduct?pricedId=<s:property value="pricedId"/>';

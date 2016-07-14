@@ -27,7 +27,7 @@ public class User {
     private List<Comment> comments= new ArrayList<>();
     private List<FavoriteItem> favoriteItems= new ArrayList<>();
     private List<Order> orders= new ArrayList<>();
-    private Set<Address> addresses;
+    private List<Address> addresses= new ArrayList<>();
     private List<UserPricedRecord> historyRecords= new ArrayList<>();
 
     public User() {
@@ -238,12 +238,12 @@ public class User {
         this.orders = ordersesByUserId;
     }
 
-    @OneToMany(mappedBy = "user")
-    public Set<Address> getAddresses() {
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+    public List<Address> getAddresses() {
         return addresses;
     }
 
-    public void setAddresses(Set<Address> addresses) {
+    public void setAddresses(List<Address> addresses) {
         this.addresses = addresses;
     }
 
