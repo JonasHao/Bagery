@@ -47,6 +47,7 @@
                 <param name="namespace">/cart</param>
                 <param name="actionName">queryCart</param>
             </result>
+
         </action>
 
         <action name="instanceBuy" class="action.OrderAction" method="instanceBuy">
@@ -72,6 +73,7 @@
 
         <action name="queryOrder" class="action.OrderAction" method="queryOrder">
             <result name="success">/WEB-INF/order/orders.jsp</result>
+            <result name="error">/error.jsp</result>
         </action>
 
         <action name="deleteOrder" class="action.OrderAction" method="deleteOrder">

@@ -7,8 +7,8 @@ import java.sql.Timestamp;
  * Created by 41159 on 2016/6/29.
  */
 @Entity
-@Table(name = "user_priced_record", schema = "", catalog = "bagery")
-public class UserPricedRecord {
+@Table(name = "user_priced_record", schema = "bagery", catalog = "")
+public class HistoryRecord {
     private int userPricedId;
     private int userId;
     private int pricedId;
@@ -18,7 +18,7 @@ public class UserPricedRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_priced_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "user_priced_id", nullable = false)
     public int getUserPricedId() {
         return userPricedId;
     }
@@ -28,7 +28,7 @@ public class UserPricedRecord {
     }
 
     @Basic
-    @Column(name = "user_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "user_id", nullable = false)
     public int getUserId() {
         return userId;
     }
@@ -38,7 +38,7 @@ public class UserPricedRecord {
     }
 
     @Basic
-    @Column(name = "priced_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "priced_id", nullable = false)
     public int getPricedId() {
         return pricedId;
     }
@@ -48,7 +48,7 @@ public class UserPricedRecord {
     }
 
     @Basic
-    @Column(name = "record_date", nullable = false, insertable = true, updatable = true)
+    @Column(name = "record_date", nullable = false)
     public Timestamp getRecordDate() {
         return recordDate;
     }
@@ -62,12 +62,12 @@ public class UserPricedRecord {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        UserPricedRecord that = (UserPricedRecord) o;
+        HistoryRecord record = (HistoryRecord) o;
 
-        if (userPricedId != that.userPricedId) return false;
-        if (userId != that.userId) return false;
-        if (pricedId != that.pricedId) return false;
-        if (recordDate != null ? !recordDate.equals(that.recordDate) : that.recordDate != null) return false;
+        if (userPricedId != record.userPricedId) return false;
+        if (userId != record.userId) return false;
+        if (pricedId != record.pricedId) return false;
+        if (recordDate != null ? !recordDate.equals(record.recordDate) : record.recordDate != null) return false;
 
         return true;
     }

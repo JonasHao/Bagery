@@ -2,11 +2,11 @@ package po;
 
 import javax.persistence.*;
 
-
 /**
  * Created by 41159 on 2016/6/29.
  */
 @Entity
+@Table(name = "cart_item", schema = "bagery", catalog = "")
 public class CartItem {
     private int itemId;
     private int productId;
@@ -18,7 +18,7 @@ public class CartItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "item_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "item_id", nullable = false)
     public int getItemId() {
         return itemId;
     }
@@ -28,7 +28,7 @@ public class CartItem {
     }
 
     @Basic
-    @Column(name = "product_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "product_id", nullable = false)
     public int getProductId() {
         return productId;
     }
@@ -38,7 +38,7 @@ public class CartItem {
     }
 
     @Basic
-    @Column(name = "num", nullable = false, insertable = true, updatable = true)
+    @Column(name = "num", nullable = false)
     public int getNum() {
         return num;
     }
@@ -48,7 +48,7 @@ public class CartItem {
     }
 
     @Basic
-    @Column(name = "total_priced", nullable = true, insertable = true, updatable = true, precision = 0)
+    @Column(name = "total_priced", nullable = true, precision = 0)
     public Double getSubtotal() {
         if (subtotal == null) {
             if (product != null && product.getPriced() != null && product.getPriced().getSalePrice() != null) {
@@ -63,7 +63,7 @@ public class CartItem {
     }
 
     @Basic
-    @Column(name = "user_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "user_id", nullable = false)
     public int getUserId() {
         return userId;
     }
@@ -99,7 +99,7 @@ public class CartItem {
         return result;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false, insertable = false, updatable = false)
     public Product getProduct() {
         return product;

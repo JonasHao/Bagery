@@ -64,7 +64,7 @@ public interface ProductService {
     /**
      * 通过用户ID找历史记录
      */
-     List<UserPricedRecord> findHistoryRecord(int userID);
+     List<HistoryRecord> findHistoryRecord(int userID);
     /**
      * 获取过滤器名称
      */

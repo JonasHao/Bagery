@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by 41159 on 2016/6/29.
  */
 @Entity
-@Table(name = "ship_information", schema = "", catalog = "bagery")
+@Table(name = "ship_information", schema = "bagery", catalog = "")
 public class Address {
     private int addressId;
     private int userId;
@@ -20,17 +20,17 @@ public class Address {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ship_inf_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "ship_inf_id", nullable = false)
     public int getAddressId() {
         return addressId;
     }
 
-    public void setAddressId(int shipInfId) {
-        this.addressId = shipInfId;
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
     }
 
     @Basic
-    @Column(name = "user_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "user_id", nullable = false)
     public int getUserId() {
         return userId;
     }
@@ -40,7 +40,7 @@ public class Address {
     }
 
     @Basic
-    @Column(name = "receicer", nullable = false, insertable = true, updatable = true, length = 30)
+    @Column(name = "receiver", nullable = false, length = 30)
     public String getReceiver() {
         return receiver;
     }
@@ -50,7 +50,7 @@ public class Address {
     }
 
     @Basic
-    @Column(name = "mobile", nullable = false, insertable = true, updatable = true, length = 30)
+    @Column(name = "mobile", nullable = false, length = 30)
     public String getMobile() {
         return mobile;
     }
@@ -60,7 +60,7 @@ public class Address {
     }
 
     @Basic
-    @Column(name = "address_province", nullable = true, insertable = true, updatable = true, length = 45)
+    @Column(name = "address_province", nullable = true, length = 45)
     public String getAddressProvince() {
         return addressProvince;
     }
@@ -70,7 +70,7 @@ public class Address {
     }
 
     @Basic
-    @Column(name = "address_city", nullable = true, insertable = true, updatable = true, length = 45)
+    @Column(name = "address_city", nullable = true, length = 45)
     public String getAddressCity() {
         return addressCity;
     }
@@ -80,7 +80,7 @@ public class Address {
     }
 
     @Basic
-    @Column(name = "address_district", nullable = true, insertable = true, updatable = true, length = 45)
+    @Column(name = "address_district", nullable = true, length = 45)
     public String getAddressDistrict() {
         return addressDistrict;
     }
@@ -90,7 +90,7 @@ public class Address {
     }
 
     @Basic
-    @Column(name = "address_detail", nullable = true, insertable = true, updatable = true, length = 100)
+    @Column(name = "address_detail", nullable = true, length = 100)
     public String getAddressDetail() {
         return addressDetail;
     }
@@ -142,11 +142,5 @@ public class Address {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    @Override
-    public String toString() {
-        return receiver + "\n" + addressProvince + " " + addressCity + " " + addressDistrict + "\n" +
-                addressDetail + "\n" + mobile;
     }
 }

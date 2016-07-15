@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by 41159 on 2016/6/29.
  */
 @Entity
-@Table(name = "priced_pro", schema = "", catalog = "bagery")
+@Table(name = "priced_pro", schema = "bagery", catalog = "")
 public class PricedPro {
     private int ppId;
     private int pricedId;
@@ -15,8 +15,7 @@ public class PricedPro {
     private Property property;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pp_id", nullable = false, insertable = false, updatable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)    @Column(name = "pp_id", nullable = false)
     public int getPpId() {
         return ppId;
     }
@@ -26,7 +25,7 @@ public class PricedPro {
     }
 
     @Basic
-    @Column(name = "priced_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "priced_id", nullable = false)
     public int getPricedId() {
         return pricedId;
     }
@@ -36,7 +35,7 @@ public class PricedPro {
     }
 
     @Basic
-    @Column(name = "pro_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "pro_id", nullable = false)
     public int getProId() {
         return proId;
     }

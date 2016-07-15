@@ -1,12 +1,10 @@
 package serviceImpl;
 
-import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
 import constant.Config;
 import constant.Key;
-import po.FavoriteItem;
+import po.HistoryRecord;
 import po.User;
-import po.UserPricedRecord;
 import service.UserService;
 import dao.Dao;
 
@@ -123,7 +121,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void removeHistory(int historyId) {
-        UserPricedRecord record = dao.get(UserPricedRecord.class, historyId);
+        HistoryRecord record = dao.get(HistoryRecord.class, historyId);
         dao.delete(record);
     }
 

@@ -6,20 +6,20 @@ import javax.persistence.*;
  * Created by 41159 on 2016/6/29.
  */
 @Entity
+@Table(name = "order_item", schema = "bagery", catalog = "")
 public class OrderItem {
     private int itemId;
-    private int productId;
+    private Integer productId;
     private String productTitle;
     private int num;
-    private double totalPriced;
+    private Double totalPrice;
     private int orderId;
     private Order order;
     private Product product;
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "item_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "item_id", nullable = false)
     public int getItemId() {
         return itemId;
     }
@@ -29,17 +29,17 @@ public class OrderItem {
     }
 
     @Basic
-    @Column(name = "product_id", nullable = false, insertable = true, updatable = true)
-    public int getProductId() {
+    @Column(name = "product_id", nullable = true)
+    public Integer getProductId() {
         return productId;
     }
 
-    public void setProductId(int productId) {
+    public void setProductId(Integer productId) {
         this.productId = productId;
     }
 
     @Basic
-    @Column(name = "product_title", nullable = false, insertable = true, updatable = true, length = 50)
+    @Column(name = "product_title", nullable = false, length = 50)
     public String getProductTitle() {
         return productTitle;
     }
@@ -49,7 +49,7 @@ public class OrderItem {
     }
 
     @Basic
-    @Column(name = "num", nullable = false, insertable = true, updatable = true)
+    @Column(name = "num", nullable = false)
     public int getNum() {
         return num;
     }
@@ -59,20 +59,20 @@ public class OrderItem {
     }
 
     @Basic
-    @Column(name = "total_priced", nullable = false, insertable = true, updatable = true, precision = 0)
-    public double getTotalPriced() {
+    @Column(name = "total_priced", nullable = false, precision = 0)
+    public double getTotalPrice() {
         if (product != null && product.getPriced() != null) {
-            totalPriced = num * product.getPriced().getSalePrice();
+            totalPrice = num * product.getPriced().getSalePrice();
         }
-        return totalPriced;
+        return totalPrice;
     }
 
-    public void setTotalPriced(double totalPriced) {
-        this.totalPriced = totalPriced;
+    public void setTotalPrice(double totalPriced) {
+        this.totalPrice = totalPriced;
     }
 
     @Basic
-    @Column(name = "order_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "order_id", nullable = false)
     public int getOrderId() {
         return orderId;
     }
@@ -89,10 +89,10 @@ public class OrderItem {
         OrderItem orderItem = (OrderItem) o;
 
         if (itemId != orderItem.itemId) return false;
-        if (productId != orderItem.productId) return false;
         if (num != orderItem.num) return false;
-        if (Double.compare(orderItem.totalPriced, totalPriced) != 0) return false;
+        if (totalPrice != orderItem.totalPrice) return false;
         if (orderId != orderItem.orderId) return false;
+        if (productId != null ? !productId.equals(orderItem.productId) : orderItem.productId != null) return false;
         if (productTitle != null ? !productTitle.equals(orderItem.productTitle) : orderItem.productTitle != null)
             return false;
 
@@ -101,14 +101,10 @@ public class OrderItem {
 
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-        result = itemId;
-        result = 31 * result + productId;
+        int result = itemId;
+        result = 31 * result + (productId != null ? productId.hashCode() : 0);
         result = 31 * result + (productTitle != null ? productTitle.hashCode() : 0);
         result = 31 * result + num;
-        temp = Double.doubleToLongBits(totalPriced);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
         result = 31 * result + orderId;
         return result;
     }
@@ -124,7 +120,7 @@ public class OrderItem {
     }
 
     @ManyToOne
-    @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id", insertable = false, updatable = false)
     public Product getProduct() {
         return product;
     }
@@ -132,5 +128,4 @@ public class OrderItem {
     public void setProduct(Product product) {
         this.product = product;
     }
-
 }

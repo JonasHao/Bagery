@@ -7,17 +7,17 @@ import java.util.Collection;
  * Created by 41159 on 2016/6/29.
  */
 @Entity
-@Table(name="property")
 public class Property {
     private int proId;
     private String category;
     private String description;
     private int selected;
-    private Collection<PricedPro> pricedPros;
+
+    private Collection<PricedPro> pricedProsByProId;
+
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pro_id", nullable = false, insertable = false, updatable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)    @Column(name = "pro_id", nullable = false)
     public int getProId() {
         return proId;
     }
@@ -27,6 +27,17 @@ public class Property {
     }
 
     @Basic
+    @Column(name = "description", nullable = false, length = 30)
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
+    @Basic
     @Column(name = "category", nullable = false, insertable = true, updatable = true, length = 3)
     public String getCategory() {
         return category;
@@ -34,16 +45,6 @@ public class Property {
 
     public void setCategory(String category) {
         this.category = category;
-    }
-
-    @Basic
-    @Column(name = "description", nullable = false, insertable = true, updatable = true, length = 30)
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
 
@@ -61,11 +62,11 @@ public class Property {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Property that = (Property) o;
+        Property property = (Property) o;
 
-        if (proId != that.proId) return false;
-        if (category != null ? !category.equals(that.category) : that.category != null) return false;
-        if (description != null ? !description.equals(that.description) : that.description != null) return false;
+        if (proId != property.proId) return false;
+        if (description != null ? !description.equals(property.description) : property.description != null)
+            return false;
 
         return true;
     }
@@ -73,17 +74,16 @@ public class Property {
     @Override
     public int hashCode() {
         int result = proId;
-        result = 31 * result + (category != null ? category.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         return result;
     }
 
     @OneToMany(mappedBy = "property")
-    public Collection<PricedPro> getPricedPros() {
-        return pricedPros;
+    public Collection<PricedPro> getPricedProsByProId() {
+        return pricedProsByProId;
     }
 
-    public void setPricedPros(Collection<PricedPro> pricedProsByProId) {
-        this.pricedPros = pricedProsByProId;
+    public void setPricedProsByProId(Collection<PricedPro> pricedProsByProId) {
+        this.pricedProsByProId = pricedProsByProId;
     }
 }

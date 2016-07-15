@@ -6,6 +6,7 @@ import javax.persistence.*;
  * Created by 41159 on 2016/6/29.
  */
 @Entity
+@Table(name = "favorite_item", schema = "bagery", catalog = "")
 public class FavoriteItem {
     private int itemId;
     private int pricedId;
@@ -15,7 +16,7 @@ public class FavoriteItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "item_id", nullable = false, insertable = false, updatable = false)
+    @Column(name = "item_id", nullable = false)
     public int getItemId() {
         return itemId;
     }
@@ -25,7 +26,7 @@ public class FavoriteItem {
     }
 
     @Basic
-    @Column(name = "priced_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "priced_id", nullable = false)
     public int getPricedId() {
         return pricedId;
     }
@@ -35,7 +36,7 @@ public class FavoriteItem {
     }
 
     @Basic
-    @Column(name = "user_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "user_id", nullable = false)
     public int getUserId() {
         return userId;
     }

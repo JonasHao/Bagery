@@ -51,6 +51,7 @@
             }
             function addCart() {
                 var productId = $("#productId").find('option:selected').val();
+                console.log("productId:" + productId);
                 $.ajax(
                         {
                             url: "/cart/addCart",

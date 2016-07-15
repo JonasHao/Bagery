@@ -40,9 +40,9 @@ public class FavoriteServiceImpl implements FavoriteService {
         if(user==null){
             return 0;
         }
-        List<FavoriteItem> favoriteItemList = new ArrayList<>();
+        List<FavoriteItem> favoriteItemList;
         try {
-            favoriteItemList = user.getFavoriteItems();
+            favoriteItemList = new ArrayList<>(user.getFavoriteItems());
             for (FavoriteItem item : favoriteItemList) {
                 if (item.getPricedId() == priceId) {
                     return 1;

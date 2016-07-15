@@ -1,7 +1,6 @@
 package action;
 
 import com.opensymphony.xwork2.ActionContext;
-import constant.Config;
 import org.apache.struts2.dispatcher.DefaultActionSupport;
 import org.hibernate.HibernateException;
 import po.*;
@@ -90,7 +89,7 @@ public class OrderAction extends DefaultActionSupport {
     public String instanceBuy() throws Exception {
         try {
             user = userService.getCurrentUser();
-            cartItemList = user.getCartItems();
+            cartItemList = new ArrayList<>(user.getCartItems());
             try {
                 int size = cartItemList.size();
             } catch (HibernateException e) {
@@ -334,8 +333,8 @@ public class OrderAction extends DefaultActionSupport {
     public String toAddOrderComment() throws Exception {
         order = orderService.getByOrderId(orderId);
 
-        if (order != null && order.isNotCommented()) {
-            orderItemList = order.getOrderItems();
+        if (order != null && order.isNotCommented() && order.getOrderItems() != null) {
+            orderItemList = new ArrayList<>(order.getOrderItems());
             for (OrderItem item : orderItemList) {
                 Comment comment = commentService.getByPricedIdAndOrderId(item.getProduct().getPricedId(), orderId);
                 if (comment == null) {

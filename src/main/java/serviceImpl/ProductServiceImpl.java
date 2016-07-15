@@ -1,7 +1,6 @@
 package serviceImpl;
 
 import dao.Dao;
-import javafx.beans.property.ListProperty;
 import org.hibernate.Query;
 import po.*;
 import service.ProductService;
@@ -39,7 +38,7 @@ public class ProductServiceImpl implements ProductService {
      * 添加浏览记录
      */
     public void addRecord(int userID, int pricedID) {
-        UserPricedRecord record = new UserPricedRecord();
+        HistoryRecord record = new HistoryRecord();
         record.setUserId(userID);
         record.setPricedId(pricedID);
         dao.save(record);
@@ -201,8 +200,8 @@ public class ProductServiceImpl implements ProductService {
     /**
      * 通过用户ID找历史记录
      */
-    public List<UserPricedRecord> findHistoryRecord(int userID) {
-        return dao.query("from UserPricedRecord where userId=?").
+    public List<HistoryRecord> findHistoryRecord(int userID) {
+        return dao.query("from HistoryRecord where userId=?").
                 setParameter(0, userID).list();
     }
 

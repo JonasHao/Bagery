@@ -12,13 +12,12 @@ public class Product {
     private int pricedId;
     private String color;
     private int stock;
+    private Priced priced;
     private Collection<CartItem> cartItems;
     private Collection<OrderItem> orderItems;
-    private Priced priced;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_id", nullable = false, insertable = false, updatable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)    @Column(name = "product_id", nullable = false)
     public int getProductId() {
         return productId;
     }
@@ -28,7 +27,7 @@ public class Product {
     }
 
     @Basic
-    @Column(name = "priced_id", nullable = false, insertable = true, updatable = true)
+    @Column(name = "priced_id", nullable = false)
     public int getPricedId() {
         return pricedId;
     }
@@ -38,7 +37,7 @@ public class Product {
     }
 
     @Basic
-    @Column(name = "color", nullable = false, insertable = true, updatable = true, length = 30)
+    @Column(name = "color", nullable = false, length = 30)
     public String getColor() {
         return color;
     }
@@ -48,7 +47,7 @@ public class Product {
     }
 
     @Basic
-    @Column(name = "stock", nullable = false, insertable = true, updatable = true)
+    @Column(name = "stock", nullable = false)
     public int getStock() {
         return stock;
     }
@@ -81,22 +80,9 @@ public class Product {
         return result;
     }
 
-    @OneToMany(mappedBy = "product")
-    public Collection<CartItem> getCartItems() {
-        return cartItems;
-    }
-
-    public void setCartItems(Collection<CartItem> cartitemsByProductId) {
-        this.cartItems = cartitemsByProductId;
-    }
-
-    @OneToMany(mappedBy = "product")
-    public Collection<OrderItem> getOrderItems() {
-        return orderItems;
-    }
-
-    public void setOrderItems(Collection<OrderItem> orderitemsByProductId) {
-        this.orderItems = orderitemsByProductId;
+    @Override
+    public String toString() {
+        return ""+productId;
     }
 
     @ManyToOne
@@ -105,12 +91,25 @@ public class Product {
         return priced;
     }
 
-    public void setPriced(Priced pricedByPricedId) {
-        this.priced = pricedByPricedId;
+    public void setPriced(Priced priced) {
+        this.priced = priced;
     }
 
-    @Override
-    public String toString() {
-        return Integer.toString(productId);
+    @OneToMany(mappedBy = "product")
+    public Collection<CartItem> getCartItems() {
+        return cartItems;
+    }
+
+    public void setCartItems(Collection<CartItem> cartItems) {
+        this.cartItems = cartItems;
+    }
+
+    @OneToMany(mappedBy = "product")
+    public Collection<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(Collection<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 }

@@ -11,6 +11,7 @@ import java.util.List;
  */
 public class Dao {
     private SessionFactory sessionFactory;
+    private Session session;
 
     public Serializable save(Object o) throws HibernateException {
         Session session = sessionFactory.getCurrentSession();
@@ -30,11 +31,18 @@ public class Dao {
     }
 
 
-    public <T> T get(Class<T> entityType, Serializable id) throws HibernateException {
-        Session session = sessionFactory.getCurrentSession();
+    public <T> T get(Class<T> entityType, Serializable id, boolean isInit) throws HibernateException {
+        session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         T instance = session.get(entityType, id);
+        if (isInit) {
+            Hibernate.initialize(instance);
+        }
         return instance;
+    }
+
+    public <T> T get(Class<T> entityType, Serializable id) throws HibernateException {
+        return get(entityType, id, false);
     }
 
 
@@ -63,7 +71,6 @@ public class Dao {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
         session.delete(o);
-        session.flush();
         session.getTransaction().commit();
     }
 
@@ -77,5 +84,9 @@ public class Dao {
 
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
+    }
+
+    public Session getSession() {
+        return session;
     }
 }

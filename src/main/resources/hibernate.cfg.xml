@@ -22,10 +22,7 @@
         <!-- Echo all executed SQL to stdout -->
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
-        <mapping class="po.CartItem"/>
         <mapping class="po.Comment"/>
-        <mapping class="po.FavoriteItem"/>
-        <mapping class="po.OrderItem"/>
         <mapping class="po.Order"/>
         <mapping class="po.Priced"/>
         <mapping class="po.PricedPro"/>
@@ -33,7 +30,10 @@
         <mapping class="po.Property"/>
         <mapping class="po.Address"/>
         <mapping class="po.User"/>
-        <mapping class="po.UserPricedRecord"/>
+        <mapping class="po.HistoryRecord"/>
+        <mapping class="po.CartItem"/>
+        <mapping class="po.FavoriteItem"/>
+        <mapping class="po.OrderItem"/>
 
 
         <!--&lt;!&ndash; Drop and re-save the database schema on startup &ndash;&gt;-->

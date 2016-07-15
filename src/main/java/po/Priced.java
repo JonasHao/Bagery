@@ -3,7 +3,9 @@ package po;
 import javax.persistence.*;
 import java.util.Collection;
 
-
+/**
+ * Created by 41159 on 2016/6/29.
+ */
 @Entity
 public class Priced {
     private int pricedId;
@@ -14,14 +16,13 @@ public class Priced {
     private Double unitPrice;
     private Double salePrice;
     private Collection<Comment> comments;
-    private Collection<FavoriteItem> favoriteItems;
     private Collection<PricedPro> pricedPros;
     private Collection<Product> products;
-    private Collection<UserPricedRecord> userPricedRecords;
+    private Collection<HistoryRecord> historyRecords;
+    private Collection<FavoriteItem> favoriteItems;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "priced_id", nullable = false, insertable = false, updatable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)    @Column(name = "priced_id", nullable = false)
     public int getPricedId() {
         return pricedId;
     }
@@ -31,7 +32,7 @@ public class Priced {
     }
 
     @Basic
-    @Column(name = "title", nullable = false, insertable = true, updatable = true, length = 50)
+    @Column(name = "title", nullable = false, length = 50)
     public String getTitle() {
         return title;
     }
@@ -41,7 +42,7 @@ public class Priced {
     }
 
     @Basic
-    @Column(name = "img", nullable = true, insertable = true, updatable = true, length = 65535)
+    @Column(name = "img", nullable = true, length = -1)
     public String getImg() {
         return img;
     }
@@ -51,7 +52,7 @@ public class Priced {
     }
 
     @Basic
-    @Column(name = "description", nullable = true, insertable = true, updatable = true, length = 65535)
+    @Column(name = "description", nullable = true, length = -1)
     public String getDescription() {
         return description;
     }
@@ -61,7 +62,7 @@ public class Priced {
     }
 
     @Basic
-    @Column(name = "is_existed", nullable = false, insertable = true, updatable = true)
+    @Column(name = "is_existed", nullable = false)
     public int getIsExisted() {
         return isExisted;
     }
@@ -70,19 +71,18 @@ public class Priced {
         this.isExisted = isExisted;
     }
 
-
     @Basic
-    @Column(name = "unit_price", nullable = false, insertable = true, updatable = true, precision = 0)
-    public Double getUnitPrice() {
+    @Column(name = "unit_price", nullable = false, precision = 0)
+    public double getUnitPrice() {
         return unitPrice;
     }
 
-    public void setUnitPrice(Double unitPrice) {
+    public void setUnitPrice(double unitPrice) {
         this.unitPrice = unitPrice;
     }
 
     @Basic
-    @Column(name = "sale_price", nullable = true, insertable = true, updatable = true, precision = 0)
+    @Column(name = "sale_price", nullable = true, precision = 0)
     public Double getSalePrice() {
         return salePrice;
     }
@@ -99,12 +99,13 @@ public class Priced {
         Priced priced = (Priced) o;
 
         if (pricedId != priced.pricedId) return false;
+        if (isExisted != priced.isExisted) return false;
         if (unitPrice != priced.unitPrice) return false;
         if (title != null ? !title.equals(priced.title) : priced.title != null) return false;
         if (img != null ? !img.equals(priced.img) : priced.img != null) return false;
         if (description != null ? !description.equals(priced.description) : priced.description != null) return false;
         if (salePrice != null ? !salePrice.equals(priced.salePrice) : priced.salePrice != null) return false;
-        if (isExisted != priced.isExisted) return false;
+
         return true;
     }
 
@@ -114,9 +115,8 @@ public class Priced {
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (img != null ? img.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (unitPrice != null ? unitPrice.hashCode() : 0);
+        result = 31 * result + isExisted;
         result = 31 * result + (salePrice != null ? salePrice.hashCode() : 0);
-        result = 31 * result + (int) isExisted;
         return result;
     }
 
@@ -125,17 +125,8 @@ public class Priced {
         return comments;
     }
 
-    public void setComments(Collection<Comment> commentsByPricedId) {
-        this.comments = commentsByPricedId;
-    }
-
-    @OneToMany(mappedBy = "priced")
-    public Collection<FavoriteItem> getFavoriteItems() {
-        return favoriteItems;
-    }
-
-    public void setFavoriteItems(Collection<FavoriteItem> favoriteItemsByPricedId) {
-        this.favoriteItems = favoriteItemsByPricedId;
+    public void setComments(Collection<Comment> comments) {
+        this.comments = comments;
     }
 
     @OneToMany(mappedBy = "priced")
@@ -143,8 +134,8 @@ public class Priced {
         return pricedPros;
     }
 
-    public void setPricedPros(Collection<PricedPro> pricedProsByPricedId) {
-        this.pricedPros = pricedProsByPricedId;
+    public void setPricedPros(Collection<PricedPro> pricedPros) {
+        this.pricedPros = pricedPros;
     }
 
     @OneToMany(mappedBy = "priced")
@@ -152,21 +143,25 @@ public class Priced {
         return products;
     }
 
-    public void setProducts(Collection<Product> productsByPricedId) {
-        this.products = productsByPricedId;
+    public void setProducts(Collection<Product> products) {
+        this.products = products;
     }
 
     @OneToMany(mappedBy = "priced")
-    public Collection<UserPricedRecord> getUserPricedRecords() {
-        return userPricedRecords;
+    public Collection<HistoryRecord> getHistoryRecords() {
+        return historyRecords;
     }
 
-    public void setUserPricedRecords(Collection<UserPricedRecord> userPricedRecordsByPricedId) {
-        this.userPricedRecords = userPricedRecordsByPricedId;
+    public void setHistoryRecords(Collection<HistoryRecord> historyRecords) {
+        this.historyRecords = historyRecords;
     }
 
-    @Override
-    public String toString() {
-        return title + " " + description + " " + unitPrice + " " + salePrice;
+    @OneToMany(mappedBy = "priced")
+    public Collection<FavoriteItem> getFavoriteItems() {
+        return favoriteItems;
+    }
+
+    public void setFavoriteItems(Collection<FavoriteItem> favoriteItems) {
+        this.favoriteItems = favoriteItems;
     }
 }

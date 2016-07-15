@@ -1,12 +1,7 @@
 package po;
 
-import constant.Path;
-import constant.UserGroup;
-
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.Collection;
 
 /**
  * Created by 41159 on 2016/6/29.
@@ -17,29 +12,22 @@ public class User {
     private String username;
     private String password;
     private String realName;
+    private String userGroup;
     private String email;
     private String img;
     private int score;
     private Integer defaultAddressId;
-    private String userGroup;
     private byte isActivate;
-    private List<CartItem> cartItems = new ArrayList<>();
-    private List<Comment> comments= new ArrayList<>();
-    private List<FavoriteItem> favoriteItems= new ArrayList<>();
-    private List<Order> orders= new ArrayList<>();
-    private List<Address> addresses= new ArrayList<>();
-    private List<UserPricedRecord> historyRecords= new ArrayList<>();
-
-    public User() {
-        int avatar = (int) (Math.random() * 100) % 8;
-        img = Path.avatars[avatar];
-        userGroup = UserGroup.REGULAR;
-        score = 0;
-    }
+    private Address defaultAddress;
+    private Collection<Comment> comments;
+    private Collection<Order> orders;
+    private Collection<Address> Addresses;
+    private Collection<HistoryRecord> historyRecords;
+    private Collection<CartItem> cartItems;
+    private Collection<FavoriteItem> favoriteItems;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id", nullable = false, insertable = false, updatable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)    @Column(name = "user_id", nullable = false)
     public int getUserId() {
         return userId;
     }
@@ -49,7 +37,7 @@ public class User {
     }
 
     @Basic
-    @Column(name = "username", nullable = false, insertable = true, updatable = true, length = 30)
+    @Column(name = "username", nullable = false, length = 30)
     public String getUsername() {
         return username;
     }
@@ -59,7 +47,7 @@ public class User {
     }
 
     @Basic
-    @Column(name = "password", nullable = false, insertable = true, updatable = true, length = 100)
+    @Column(name = "password", nullable = false, length = 100)
     public String getPassword() {
         return password;
     }
@@ -69,7 +57,7 @@ public class User {
     }
 
     @Basic
-    @Column(name = "realname", nullable = true, insertable = true, updatable = true, length = 30)
+    @Column(name = "realname", nullable = true, length = 30)
     public String getRealName() {
         return realName;
     }
@@ -79,7 +67,7 @@ public class User {
     }
 
     @Basic
-    @Column(name = "email", nullable = true, insertable = true, updatable = true, length = 30)
+    @Column(name = "email", nullable = true, length = 30)
     public String getEmail() {
         return email;
     }
@@ -89,59 +77,13 @@ public class User {
     }
 
     @Basic
-    @Column(name = "img", nullable = true, insertable = true, updatable = true, length = 65535)
+    @Column(name = "img", nullable = true, length = -1)
     public String getImg() {
         return img;
     }
 
     public void setImg(String img) {
         this.img = img;
-    }
-
-    @Basic
-    @Column(name = "score", nullable = false, insertable = true, updatable = true)
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-        if (userGroup != null) {
-            switch (userGroup) {
-                case UserGroup.ROOT:
-                case UserGroup.ORDER_ADMIN:
-                case UserGroup.PRODUCT_ADMIN:
-                    break;
-
-                case UserGroup.REGULAR:
-                    if (score > UserGroup.TONGPAI_THRESHOLD) {
-                        userGroup = UserGroup.TONGPAI;
-                    }
-                    break;
-
-                case UserGroup.TONGPAI:
-                    if (score > UserGroup.YINPAI_THRESHOLD) {
-                        userGroup = UserGroup.YINPAI;
-                    }
-                    break;
-
-                case UserGroup.YINPAI:
-                    if (score > UserGroup.JINPAI_THRESHOLD) {
-                        userGroup = UserGroup.JINPAI;
-                    }
-                    break;
-            }
-        }
-    }
-
-    @Basic
-    @Column(name = "def_ship_inf_id", nullable = true, insertable = true, updatable = true)
-    public Integer getDefaultAddressId() {
-        return defaultAddressId;
-    }
-
-    public void setDefaultAddressId(Integer defShipInfId) {
-        this.defaultAddressId = defShipInfId;
     }
 
     @Basic
@@ -154,8 +96,29 @@ public class User {
         this.userGroup = userGroup;
     }
 
+
     @Basic
-    @Column(name = "is_activate", nullable = false, insertable = true, updatable = true)
+    @Column(name = "score", nullable = false)
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    @Basic
+    @Column(name = "def_ship_inf_id", nullable = true, insertable = false, updatable = false)
+    public Integer getDefaultAddressId() {
+        return defaultAddressId;
+    }
+
+    public void setDefaultAddressId(Integer defShipInfId) {
+        this.defaultAddressId = defShipInfId;
+    }
+
+    @Basic
+    @Column(name = "is_activate", nullable = false)
     public byte getIsActivate() {
         return isActivate;
     }
@@ -179,9 +142,7 @@ public class User {
         if (realName != null ? !realName.equals(user.realName) : user.realName != null) return false;
         if (email != null ? !email.equals(user.email) : user.email != null) return false;
         if (img != null ? !img.equals(user.img) : user.img != null) return false;
-        if (defaultAddressId != null ? !defaultAddressId.equals(user.defaultAddressId) : user.defaultAddressId != null)
-            return false;
-        if (userGroup != null ? !userGroup.equals(user.userGroup) : user.userGroup != null) return false;
+        if (defaultAddressId != null ? !defaultAddressId.equals(user.defaultAddressId) : user.defaultAddressId != null) return false;
 
         return true;
     }
@@ -196,69 +157,75 @@ public class User {
         result = 31 * result + (img != null ? img.hashCode() : 0);
         result = 31 * result + score;
         result = 31 * result + (defaultAddressId != null ? defaultAddressId.hashCode() : 0);
-        result = 31 * result + (userGroup != null ? userGroup.hashCode() : 0);
-        result = 31 * result + (int) isActivate;
+        result = 31 * result + isActivate;
         return result;
     }
 
     @OneToMany(mappedBy = "user")
-    public List<CartItem> getCartItems() {
-        return cartItems;
-    }
-
-    public void setCartItems(List<CartItem> cartitemsByUserId) {
-        this.cartItems = cartitemsByUserId;
-    }
-
-    @OneToMany(mappedBy = "user")
-    public List<Comment> getComments() {
+    public Collection<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(List<Comment> commentsByUserId) {
-        this.comments = commentsByUserId;
-    }
-
-    @OneToMany(mappedBy = "user")
-    public List<FavoriteItem> getFavoriteItems() {
-        return favoriteItems;
-    }
-
-    public void setFavoriteItems(List<FavoriteItem> favoriteitemsByUserId) {
-        this.favoriteItems = favoriteitemsByUserId;
+    public void setComments(Collection<Comment> comments) {
+        this.comments = comments;
     }
 
     @OneToMany(mappedBy = "user")
     @OrderBy("orderId DESC")
-    public List<Order> getOrders() {
+    public Collection<Order> getOrders() {
         return orders;
     }
 
-    public void setOrders(List<Order> ordersesByUserId) {
-        this.orders = ordersesByUserId;
-    }
-
-    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
-    public List<Address> getAddresses() {
-        return addresses;
-    }
-
-    public void setAddresses(List<Address> addresses) {
-        this.addresses = addresses;
+    public void setOrders(Collection<Order> orders) {
+        this.orders = orders;
     }
 
     @OneToMany(mappedBy = "user")
-    @OrderBy("recordDate DESC")
-    public List<UserPricedRecord> getHistoryRecords() {
+    @OrderBy("addressId DESC")
+    public Collection<Address> getAddresses() {
+        return Addresses;
+    }
+
+    public void setAddresses(Collection<Address> addresses) {
+        Addresses = addresses;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "def_ship_inf_id", referencedColumnName = "ship_inf_id")
+    public Address getDefaultAddress() {
+        return defaultAddress;
+    }
+
+    public void setDefaultAddress(Address defaultAddress) {
+        this.defaultAddress = defaultAddress;
+    }
+
+    @OneToMany(mappedBy = "user")
+    @OrderBy("")
+    public Collection<HistoryRecord> getHistoryRecords() {
         return historyRecords;
     }
 
-    public void setHistoryRecords(List<UserPricedRecord> userPricedRecordsByUserId) {
-        this.historyRecords = userPricedRecordsByUserId;
+    public void setHistoryRecords(Collection<HistoryRecord> historyRecords) {
+        this.historyRecords = historyRecords;
     }
 
-    @Override
-    public String toString() {
-        return username + " " + password;
+    @OneToMany(mappedBy = "user")
+    @OrderBy("itemId DESC")
+    public Collection<CartItem> getCartItems() {
+        return cartItems;
+    }
+
+    public void setCartItems(Collection<CartItem> cartItems) {
+        this.cartItems = cartItems;
+    }
+
+    @OneToMany(mappedBy = "user")
+    public Collection<FavoriteItem> getFavoriteItems() {
+        return favoriteItems;
+    }
+
+    public void setFavoriteItems(Collection<FavoriteItem> favoriteItems) {
+        this.favoriteItems = favoriteItems;
     }
 }

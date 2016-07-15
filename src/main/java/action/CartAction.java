@@ -35,15 +35,18 @@ public class CartAction extends ActionSupport {
 
     public String queryCart() {
         user = userService.getCurrentUser();
-        cartItemList = user.getCartItems();
+        if (user.getCartItems() != null) {
+            cartItemList = new ArrayList<>(user.getCartItems());
+        }
         return SUCCESS;
     }
 
     public String addCart() {
         try {
             user = userService.getCurrentUser();
-            cartItemList = user.getCartItems();
-
+            if (user.getCartItems() != null) {
+                cartItemList = new ArrayList<>(user.getCartItems());
+            }
             try {
                 // first to check if the product already in the cart
                 for (CartItem item : cartItemList) {
@@ -55,15 +58,7 @@ public class CartAction extends ActionSupport {
                     }
                 }
             } catch (HibernateException e) {
-                cartItemList = cartService.getCartItemsOfUser(user);
-                for (CartItem item : cartItemList) {
-                    if (item.getProductId() == productId) {
-                        item.setNum(item.getNum() + 1);
-                        cartService.updateCart(item);
-                        data.put(RESULT, SUCCESS);
-                        return SUCCESS;
-                    }
-                }
+                e.printStackTrace();
             }
 
 

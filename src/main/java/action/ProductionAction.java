@@ -36,7 +36,7 @@ public class ProductionAction extends DefaultActionSupport {
     private List<Product> products;
     private List<Priced> priceds;
     private List<PricedPro> pricedpros;
-    private List<UserPricedRecord> records;
+    private List<HistoryRecord> records;
     private List<Comment> comments;
     private List<Property> pros1;
     private List<Property> pros2;
@@ -396,11 +396,11 @@ public class ProductionAction extends DefaultActionSupport {
         this.priceds = priceds;
     }
 
-    public List<UserPricedRecord> getRecords() {
+    public List<HistoryRecord> getRecords() {
         return records;
     }
 
-    public void setRecords(List<UserPricedRecord> records) {
+    public void setRecords(List<HistoryRecord> records) {
         this.records = records;
     }
 

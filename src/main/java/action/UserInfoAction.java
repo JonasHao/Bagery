@@ -6,10 +6,11 @@ import constant.Key;
 import org.apache.struts2.dispatcher.DefaultActionSupport;
 import org.hibernate.HibernateException;
 import po.User;
-import po.UserPricedRecord;
+import po.HistoryRecord;
 import service.UserService;
 import util.SendMail;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +48,7 @@ public class UserInfoAction extends DefaultActionSupport {
     private String newPassword;//新密码
     private String confirmNewPassword;//重新输入新密码
 
-    private List<UserPricedRecord> historyList;
+    private List<HistoryRecord> historyList;
     private int historyId;
     private String result = "login";
 
@@ -72,13 +73,13 @@ public class UserInfoAction extends DefaultActionSupport {
             if (userGroup.equals("ag") || userGroup.equals("au")) {
                 group = 3;
             }
-            if (userGroup.equals("d")){
+            if (userGroup.equals("d")) {
                 group = 4;
             }
             if (userGroup.equals("product_admin")) {
                 group = 5;
             }
-            if (userGroup.equals("order_admin")){
+            if (userGroup.equals("order_admin")) {
                 group = 6;
             }
             return SUCCESS;
@@ -91,11 +92,15 @@ public class UserInfoAction extends DefaultActionSupport {
     public String history() throws Exception {
         try {
             user = userService.getCurrentUser();
-            historyList = user.getHistoryRecords();
-            return SUCCESS;
+            if (user != null && user.getHistoryRecords() != null) {
+                historyList = new ArrayList<>(user.getHistoryRecords());
+                return SUCCESS;
+            }
         } catch (Exception e) {
-            return ERROR;
+            e.printStackTrace();
         }
+        return ERROR;
+
     }
 
     public String removeHistory() throws Exception {
@@ -273,7 +278,7 @@ public class UserInfoAction extends DefaultActionSupport {
 
     public String confirmCode() {
         try {
-            confirmCode=Integer.parseInt(confirmCoding);
+            confirmCode = Integer.parseInt(confirmCoding);
 
             if (confirmCode != (int) ActionContext.getContext().getSession().get("Code")) {
 //                addFieldError("confirmCode", "验证码不正确");
@@ -465,11 +470,11 @@ public class UserInfoAction extends DefaultActionSupport {
         this.group = group;
     }
 
-    public List<UserPricedRecord> getHistoryList() {
+    public List<HistoryRecord> getHistoryList() {
         return historyList;
     }
 
-    public void setHistoryList(List<UserPricedRecord> historyList) {
+    public void setHistoryList(List<HistoryRecord> historyList) {
         this.historyList = historyList;
     }
 

@@ -36,7 +36,7 @@ public class FavoriteAction extends ActionSupport {
      */
     public String favor() {
         try {
-            if (favoriteService.isFavor(priceId)==1) {
+            if (favoriteService.isFavor(priceId) == 1) {
                 data.put(RESULT, SUCCESS);
                 return SUCCESS;
             }
@@ -74,9 +74,11 @@ public class FavoriteAction extends ActionSupport {
     public String queryFavorite() {
         try {
             user = userService.getCurrentUser();
-            favoriteItemList = user.getFavoriteItems();
-            if (favoriteItemList.size() >= 1)
-                data.put(RESULT, SUCCESS);
+            if (user != null && user.getFavoriteItems() != null) {
+                favoriteItemList = new ArrayList<>(user.getFavoriteItems());
+                if (favoriteItemList.size() >= 1)
+                    data.put(RESULT, SUCCESS);
+            }
         } catch (HibernateException e) {
             if (Config.DEBUG) {
                 data.put(RESULT, SUCCESS);
