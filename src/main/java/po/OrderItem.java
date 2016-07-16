@@ -61,7 +61,7 @@ public class OrderItem {
     @Basic
     @Column(name = "total_priced", nullable = false, precision = 0)
     public double getTotalPrice() {
-        if (product != null && product.getPriced() != null) {
+        if (product != null && product.getPriced() != null && product.getPriced().getSalePrice() != null) {
             totalPrice = num * product.getPriced().getSalePrice();
         }
         return totalPrice;

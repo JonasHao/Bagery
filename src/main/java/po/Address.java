@@ -134,6 +134,11 @@ public class Address {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return receiver + " "+addressProvince+"省 "+ addressCity+"市 " + addressDistrict+"区 "+addressDetail+" \n "+mobile;
+    }
+
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false, insertable = false, updatable = false)
     public User getUser() {
