@@ -49,7 +49,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User login(String username, String password) {
-        user = (User) dao.query("from User where username=?").setParameter(0, username).list().get(0);
+
+        user = userDao.getByUserName(username);
 
         if (user.getPassword().equals(password)) {
             ActionContext.getContext().getSession().put(Key.USER, user.getUserId());
@@ -62,15 +63,15 @@ public class UserServiceImpl implements UserService {
     @Override
     @SuppressWarnings("unchecked")
     public boolean existUsername(String username) {
-        userList = dao.query("from User where username=?").setParameter(0, username).list();
-        return userList.size() == 1;
+        User user = userDao.getByUserName(username);
+        return user != null;
     }
 
     @SuppressWarnings("unchecked")
     public String getUserGroup(String username) {
-        userList = dao.query("from User where username=?").setParameter(0, username).list();
-        if (userList.size() == 1)
-            return userList.get(0).getUserGroup();
+        user = userDao.getByUserName(username);
+        if (user != null)
+            return user.getUserGroup();
         else
             return null;
     }
@@ -78,17 +79,13 @@ public class UserServiceImpl implements UserService {
     @Override
     @SuppressWarnings("unchecked")
     public boolean existEmail(String email) {
-        userList = dao.query("from User where email=?").setParameter(0, email).list();
-        return userList.size() == 1;
+        user = userDao.getByEmail(email);
+        return user != null;
     }
 
     @SuppressWarnings("unchecked")
     public User getUserByEmail(String email) {
-        userList = dao.query("from User where email=?").setParameter(0, email).list();
-        if (userList.size() != 0) {
-            return userList.get(0);
-        } else
-            return null;
+        return userDao.getByEmail(email);
     }
 
     @Override
@@ -136,7 +133,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<CartItem> getCartItems(int userId) {
-       return userDao.getCartItemsByUserId(userId);
+        return userDao.getCartItemsByUserId(userId);
     }
 
     @Override

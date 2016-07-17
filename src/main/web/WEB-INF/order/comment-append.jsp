@@ -41,7 +41,7 @@
                         <div class="col-md-2">
                             <!--Card image-->
                             <div class="view overlay hm-white-slight">
-                                <img src="../../img/bags/bag1.png" class="img-fluid" alt="">
+                                <img src="<s:property value="priced.img"/>" class="img-fluid" alt="">
                                 <a href="#">
                                     <div class="mask"></div>
                                 </a>
@@ -77,11 +77,6 @@
 
                             <s:hidden name="commentList[%{#row.index}].pricedId"
                                       value="%{pricedId}"/>
-
-                            <s:hidden name="commentList[%{#row.index}].priced"
-                                      value="%{priced}"/>
-                            <s:hidden name="commentList[%{#row.index}].order"
-                                      value="%{order}"/>
                         </div>
                     </div>
 

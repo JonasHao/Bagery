@@ -11,9 +11,10 @@
 <div class="container">
 
     <div class="media">
-        <a class="media-left" href="#">
-            <img class="img-circle"
+        <a class="media-left home-avatar" href="#">
+            <img class="img-circle" width="128" height="128"
                  src="<jsp:invoke fragment="img"/>"
+
                  alt="<jsp:invoke fragment="alt"/>">
         </a>
 

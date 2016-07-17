@@ -1,6 +1,7 @@
 package serviceImpl;
 
 import dao.Dao;
+import dao.UserDao;
 import org.hibernate.HibernateException;
 import po.CartItem;
 import po.User;
@@ -14,6 +15,7 @@ import java.util.List;
  */
 public class CartServiceImpl implements CartService {
     private Dao dao;
+    private UserDao userDao;
 
     @Override
     public void addCart(CartItem cartItem) {
@@ -55,7 +57,7 @@ public class CartServiceImpl implements CartService {
     @SuppressWarnings("unchecked")
     public List<CartItem> getCartItemsOfUser(User user) {
         try {
-            return dao.query("from CartItem where userId=?").setParameter(0, user.getUserId()).list();
+            return userDao.getCartItemsByUserId(user.getUserId());
         } catch (HibernateException e) {
             e.printStackTrace();
             return new ArrayList<>();
@@ -64,5 +66,9 @@ public class CartServiceImpl implements CartService {
 
     public void setDao(Dao dao) {
         this.dao = dao;
+    }
+
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
     }
 }

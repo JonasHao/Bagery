@@ -13,6 +13,7 @@
 
     <bean class="serviceImpl.CartServiceImpl" id="cartService">
         <property name="dao" ref="dao"/>
+        <property name="userDao" ref="userDao"/>
     </bean>
     <bean class="serviceImpl.UserServiceImpl" id="userService">
         <property name="dao" ref="dao"/>
@@ -21,6 +22,7 @@
     <bean class="serviceImpl.FavoriteServiceImpl" id="favoriteService">
         <property name="dao" ref="dao"/>
         <property name="userService" ref="userService"/>
+        <property name="userDao" ref="userDao"/>
     </bean>
     <bean class="serviceImpl.ProductServiceImpl" id="productService">
         <property name="dao" ref="dao"/>
@@ -28,6 +30,7 @@
     </bean>
     <bean class="serviceImpl.CommentServiceImpl" id="commentService">
         <property name="dao" ref="dao"/>
+        <property name="orderDao" ref="orderDao"/>
     </bean>
 
     <bean class="action.CartAction" id="cartAction">

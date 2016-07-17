@@ -43,4 +43,5 @@ public interface CommentService {
      */
     void deleteComment(int commentId);
 
+    void updateComments(List<Comment> commentList);
 }

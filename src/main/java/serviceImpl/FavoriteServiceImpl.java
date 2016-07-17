@@ -2,6 +2,7 @@ package serviceImpl;
 
 import constant.Config;
 import dao.Dao;
+import dao.UserDao;
 import org.hibernate.HibernateException;
 import po.FavoriteItem;
 import po.User;
@@ -16,6 +17,7 @@ import java.util.List;
  */
 public class FavoriteServiceImpl implements FavoriteService {
     private Dao dao;
+    private UserDao userDao;
     private UserService userService;
 
     @Override
@@ -25,10 +27,9 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     @Override
     public void unfavor(int priceId, int userId) {
-        List<FavoriteItem> favoriteItems = dao.query("from FavoriteItem where userId=? and pricedId=?").
-                setParameter(0, userId).setParameter(1, priceId).list();
-        if (favoriteItems.size() == 1)
-            dao.delete(favoriteItems.get(0));
+        FavoriteItem favorite = userDao.favorite(userId, priceId);
+        if (favorite != null)
+            dao.delete(favorite);
     }
 
     public void setDao(Dao dao) {
@@ -37,12 +38,12 @@ public class FavoriteServiceImpl implements FavoriteService {
 
     public int isFavor(int priceId) {
         User user = userService.getCurrentUser();
-        if(user==null){
+        if (user == null) {
             return 0;
         }
-        List<FavoriteItem> favoriteItemList;
+
+        List<FavoriteItem> favoriteItemList = new ArrayList<>(user.getFavoriteItems());
         try {
-            favoriteItemList = new ArrayList<>(user.getFavoriteItems());
             for (FavoriteItem item : favoriteItemList) {
                 if (item.getPricedId() == priceId) {
                     return 1;
@@ -50,14 +51,15 @@ public class FavoriteServiceImpl implements FavoriteService {
             }
         } catch (HibernateException e) {
             e.printStackTrace();
-            favoriteItemList = dao.query("from FavoriteItem where userId = ?").setParameter(0,user.getUserId()).list();
+            FavoriteItem item = userDao.favorite(user.getUserId(), priceId);
+            return item == null ? 0 : 1;
         }
-        for (FavoriteItem item : favoriteItemList) {
-            if (item.getPricedId() == priceId) {
-                return 1;
-            }
-        }
+
         return 0;
+    }
+
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
     }
 
     public void setUserService(UserService userService) {

@@ -392,7 +392,7 @@ public class OrderAction extends DefaultActionSupport {
             comment.setUserId(user.getUserId());
         }
 
-        commentService.saveComments(commentList);
+        commentService.updateComments(commentList);
         return SUCCESS;
     }
 

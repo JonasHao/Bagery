@@ -51,13 +51,14 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public Order getByOrderId(int orderId) throws HibernateException {
-        return dao.get(Order.class, orderId);
+        return orderDao.getByID(orderId);
+//        return dao.get(Order.class, orderId);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public List<Order> getAll() throws HibernateException {
-        return dao.query("from Order").list();
+        return orderDao.all();
     }
 
     /**
@@ -101,13 +102,13 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getStatusOf(String orderStatus) throws HibernateException {
-        return dao.query("from Order where orderStatus = ?").setParameter(0, orderStatus).list();
+        return orderDao.getStatusOf(orderStatus);
     }
 
     @Override
     public List<Order> getOrdersOfUser(User user) {
         try {
-            return dao.query("from Order where userId = ?").setParameter(0, user.getUserId()).list();
+            return orderDao.getOrdersOfUser(user);
         } catch (HibernateException e) {
             e.printStackTrace();
             return new ArrayList<>();

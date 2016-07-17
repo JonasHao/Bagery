@@ -43,14 +43,13 @@ public class ProductDao extends Dao {
     }
 
     public List<Priced> findPricedsByWord(String keyword) {
-        if (keyword.trim().length() == 0)
+        if (keyword == null || keyword.trim().length() == 0)
             return all(true);
 
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         String hql = String.format("from Priced where isExisted=1 and title like '%%%%%s%%%%'", keyword);
-        List<Priced> priceds = session.createQuery(hql)
-                .setParameter(0, keyword).list();
+        List<Priced> priceds = session.createQuery(hql).list();
 
         transaction.commit();
         return priceds;

@@ -1,6 +1,7 @@
 package serviceImpl;
 
 import dao.Dao;
+import dao.OrderDao;
 import po.Comment;
 import service.CommentService;
 
@@ -10,6 +11,7 @@ import java.util.List;
 public class CommentServiceImpl implements CommentService {
 
     private Dao dao;
+    private OrderDao orderDao;
 
     @Override
     public Comment getByCommentId(int commentId) {
@@ -19,29 +21,26 @@ public class CommentServiceImpl implements CommentService {
     @Override
     @SuppressWarnings("unchecked")
     public Comment getByPricedIdAndOrderId(int pricedId, int orderId) {
-        List<Comment> comments = dao.query("from Comment where pricedId=? and orderId=?")
-                .setParameter(0, pricedId).setParameter(1, orderId).list();
-        if (comments.size() != 1) {
-            return null;
-        }
-        return comments.get(0);
+        return orderDao.commentByPricedIdAndOrderId(pricedId, orderId);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public List<Comment> getByPricedId(int pricedId) {
-        return dao.query("from Comment where pricedId=?").setParameter(0, pricedId).list();
+        return orderDao.commentByPricedId(pricedId);
     }
 
     @Override
     public void addComment(Comment comment) {
         dao.save(comment);
-
     }
 
     @Override
     public void saveComments(List<Comment> comments) {
         dao.saveM(comments, Comment.class.getSimpleName());
+    }
+    @Override
+    public void updateComments(List<Comment> commentList) {
+        dao.updateM(commentList, Comment.class.getSimpleName());
     }
 
     @Override
@@ -54,7 +53,13 @@ public class CommentServiceImpl implements CommentService {
         dao.delete(dao.get(Comment.class, commentId));
     }
 
+
+
     public void setDao(Dao dao) {
         this.dao = dao;
+    }
+
+    public void setOrderDao(OrderDao orderDao) {
+        this.orderDao = orderDao;
     }
 }

@@ -2,6 +2,7 @@
 package dao;
 
 import org.hibernate.*;
+import po.Comment;
 
 import java.io.Serializable;
 import java.util.List;
@@ -84,7 +85,26 @@ public class Dao {
         return o;
     }
 
+
+    public void updateM(List ts, String entityName) {
+        Session session = sessionFactory.getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            for (Object object : ts) {
+                session.update(entityName, object);
+            }
+            transaction.commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            transaction.rollback();
+        }
+    }
+
+
     public void delete(Object o) throws HibernateException {
+        if (o == null) {
+            return;
+        }
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
         session.delete(o);
@@ -107,4 +127,6 @@ public class Dao {
     public Session getSession() {
         return session;
     }
+
+
 }
