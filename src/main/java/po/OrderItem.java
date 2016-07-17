@@ -60,14 +60,22 @@ public class OrderItem {
 
     @Basic
     @Column(name = "total_priced", nullable = false, precision = 0)
-    public double getTotalPrice() {
-        if (product != null && product.getPriced() != null && product.getPriced().getSalePrice() != null) {
-            totalPrice = num * product.getPriced().getSalePrice();
-        }
+    public Double getTotalPrice() {
+//        if (product != null && product.getPriced() != null && product.getPriced().getSalePrice() != null) {
+//            totalPrice = num * product.getPriced().getSalePrice();
+//        }
         return totalPrice;
     }
 
-    public void setTotalPrice(double totalPriced) {
+    @PostLoad
+    private void onLoad() {
+        if (totalPrice == null || totalPrice == 0
+                && (product != null && product.getPriced() != null && product.getPriced().getSalePrice() != null)) {
+            totalPrice = num * product.getPriced().getSalePrice();
+        }
+    }
+
+    public void setTotalPrice(Double totalPriced) {
         this.totalPrice = totalPriced;
     }
 

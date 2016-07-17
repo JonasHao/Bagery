@@ -27,7 +27,8 @@ public class User {
     private Collection<FavoriteItem> favoriteItems;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)    @Column(name = "user_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id", nullable = false)
     public int getUserId() {
         return userId;
     }
@@ -108,7 +109,7 @@ public class User {
     }
 
     @Basic
-    @Column(name = "def_ship_inf_id", nullable = true, insertable = false, updatable = false)
+    @Column(name = "def_ship_inf_id", nullable = true, insertable = true, updatable = true)
     public Integer getDefaultAddressId() {
         return defaultAddressId;
     }
@@ -142,7 +143,8 @@ public class User {
         if (realName != null ? !realName.equals(user.realName) : user.realName != null) return false;
         if (email != null ? !email.equals(user.email) : user.email != null) return false;
         if (img != null ? !img.equals(user.img) : user.img != null) return false;
-        if (defaultAddressId != null ? !defaultAddressId.equals(user.defaultAddressId) : user.defaultAddressId != null) return false;
+        if (defaultAddressId != null ? !defaultAddressId.equals(user.defaultAddressId) : user.defaultAddressId != null)
+            return false;
 
         return true;
     }
@@ -191,7 +193,7 @@ public class User {
     }
 
     @ManyToOne
-    @JoinColumn(name = "def_ship_inf_id", referencedColumnName = "ship_inf_id")
+    @JoinColumn(name = "def_ship_inf_id", referencedColumnName = "ship_inf_id", insertable = false, updatable = false)
     public Address getDefaultAddress() {
         return defaultAddress;
     }

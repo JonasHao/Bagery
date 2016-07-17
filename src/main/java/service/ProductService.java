@@ -68,7 +68,7 @@ public interface ProductService {
     /**
      * 获取过滤器名称
      */
-     String getProByProID(int proID);
+     String getCategoryOfProperty(int proID);
     /**
      * 获取过滤器对象列表
      */
@@ -81,10 +81,7 @@ public interface ProductService {
      * 通过priceID删除商品对象
      */
      void deletePriced(int pricedId);
-    /**
-     * 属性数组转SQL字符串
-     */
-     String convertToStr(List<Integer> list);
+
 
     //List<Map<String,String>> getProNames();
     //List<List<Map<String,String>>> getProNames();

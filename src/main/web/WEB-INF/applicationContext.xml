@@ -16,6 +16,7 @@
     </bean>
     <bean class="serviceImpl.UserServiceImpl" id="userService">
         <property name="dao" ref="dao"/>
+        <property name="userDao" ref="userDao"/>
     </bean>
     <bean class="serviceImpl.FavoriteServiceImpl" id="favoriteService">
         <property name="dao" ref="dao"/>
@@ -23,6 +24,7 @@
     </bean>
     <bean class="serviceImpl.ProductServiceImpl" id="productService">
         <property name="dao" ref="dao"/>
+        <property name="productDao" ref="productDao"/>
     </bean>
     <bean class="serviceImpl.CommentServiceImpl" id="commentService">
         <property name="dao" ref="dao"/>
@@ -46,6 +48,7 @@
     <bean class="serviceImpl.AddressServiceImpl" id="addressService">
         <property name="dao" ref="dao"/>
         <property name="userService" ref="userService"/>
+        <property name="userDao" ref="userDao"/>
     </bean>
     <bean class="action.AddressAction" id="addressAction">
         <property name="addressService" ref="addressService"/>
@@ -74,5 +77,11 @@
     </bean>
     <bean class="interceptor.CheckOrdAdLoginInterceptor" id="checkOrdAdLoginInterceptor">
         <property name="userService" ref="userService"/>
+    </bean>
+    <bean class="dao.UserDao" id="userDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean class="dao.ProductDao" id="productDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 </beans>

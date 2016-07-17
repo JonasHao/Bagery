@@ -1,6 +1,7 @@
 package serviceImpl;
 
 import dao.Dao;
+import dao.ProductDao;
 import org.hibernate.Query;
 import po.*;
 import service.ProductService;
@@ -10,6 +11,7 @@ import java.util.*;
 @SuppressWarnings("unchecked")
 public class ProductServiceImpl implements ProductService {
     private Dao dao;
+    private ProductDao productDao;
 
     public void setDao(Dao dao) {
         this.dao = dao;
@@ -66,32 +68,29 @@ public class ProductServiceImpl implements ProductService {
      * 获得全部商品列表
      */
     public List<Priced> findAll() {
-        return dao.query("from Priced where isExisted=1").list();
+        return productDao.all(true);
     }
 
     public List<Priced> findAllAdmin() {
-        return dao.query("from Priced").list();
+        return productDao.all(false);
     }
 
     /**
      * 通过商品查找商品颜色
      */
     public List<Product> findProductsByPriced(int pricedID) {
-        return dao.query("from Product where pricedId=? and stock >0").setParameter(0, pricedID).list();
+        return productDao.ofPriced(pricedID, true);
     }
 
     public List<Product> findProductsByPricedAdmin(int pricedID) {
-        return dao.query("from Product where pricedId=?").setParameter(0, pricedID).list();
+        return productDao.ofPriced(pricedID, false);
     }
 
     /**
      * 根据关键词获取商品列表
      */
     public List<Priced> findPricedsByWord(String keyword) {
-        if (keyword.trim().length() == 0)
-            return findAll();
-        String hql = String.format("from Priced where isExisted=1 and title like '%%%%%s%%%%'", keyword);
-        return dao.query(hql).list();
+        return productDao.findPricedsByWord(keyword);
     }
 
     /**
@@ -99,28 +98,24 @@ public class ProductServiceImpl implements ProductService {
      */
     public List<Property> findProsByCategory(String category) {
         int start = 0;
-        int end=0;
-        switch (category){
+        int end = 0;
+        switch (category) {
             case "品牌":
-                start=1;
+                start = 1;
                 end = 13;
                 break;
             case "材质":
-                start=14;
-                end=23;
+                start = 14;
+                end = 23;
                 break;
-            case  "款式":
-                start=24;
-                end=100;
+            case "款式":
+                start = 24;
+                end = 100;
         }
 
-        Query query = dao.query("from Property where proId>=? and proId<=? ").setParameter(0, start).setParameter(1,end);
 
-        List<Property> properties = query.list();
-        if(properties == null || properties.size()==0){
+        List<Property> properties = productDao.ofCategory(category);
 
-
-        }
         return properties;
     }
 
@@ -128,14 +123,14 @@ public class ProductServiceImpl implements ProductService {
      * 获取过滤器对象列表
      */
     public List<PricedPro> findPricedProByPriced(int pricedID) {
-        return dao.query("from PricedPro where pricedId=?").setParameter(0, pricedID).list();
+        return productDao.pricedProsByPriced(pricedID);
     }
 
     /**
      * 获取过滤器属性ID列表
      */
     public List<Integer> findProIDsByPriced(int pricedID) {
-        return dao.query("select pp.proId from PricedPro pp,Property p where pp.pricedId=? and pp.proId=p.proId ").setParameter(0, pricedID).list();
+        return productDao.findProIDsByPriced(pricedID);
     }
 
     /**
@@ -144,18 +139,15 @@ public class ProductServiceImpl implements ProductService {
     public List<Priced> findPricedsByProperty(List<Integer> pro1, List<Integer> pro2, List<Integer> pro3) {
         List<Integer> l1 = new ArrayList<>();
         if (pro1.size() > 0) {
-            String hql = String.format("select pricedId from PricedPro where proId in %s", convertToStr(pro1));
-            l1 = dao.query(hql).list();
+            l1 = productDao.pricedIdOfProperty(pro1);
         }
         List<Integer> l2 = new ArrayList<>();
         if (pro2.size() > 0) {
-            String hql = String.format("select pricedId from PricedPro where proId in %s", convertToStr(pro2));
-            l2 = dao.query(hql).list();
+            l2 = productDao.pricedIdOfProperty(pro2);
         }
         List<Integer> l3 = new ArrayList<>();
         if (pro3.size() > 0) {
-            String hql = String.format("select pricedId from PricedPro where proId in %s", convertToStr(pro3));
-            l3 = dao.query(hql).list();
+            l3 = productDao.pricedIdOfProperty(pro3);
         }
 
         int use;
@@ -193,7 +185,6 @@ public class ProductServiceImpl implements ProductService {
             case 0:
                 return findAll();
         }
-
         return priceds;
     }
 
@@ -201,15 +192,14 @@ public class ProductServiceImpl implements ProductService {
      * 通过用户ID找历史记录
      */
     public List<HistoryRecord> findHistoryRecord(int userID) {
-        return dao.query("from HistoryRecord where userId=?").
-                setParameter(0, userID).list();
+        return productDao.findHistoryRecord(userID);
     }
 
     /**
      * 获取过滤器名称
      */
-    public String getProByProID(int proID) {
-        return (String) dao.query("select category from Property where proId=?").setParameter(0, proID).list().get(0);
+    public String getCategoryOfProperty(int proID) {
+        return productDao.getCategoryOfProperty(proID);
     }
 
     /**
@@ -241,17 +231,6 @@ public class ProductServiceImpl implements ProductService {
         dao.delete(priced);
     }
 
-    /**
-     * 属性数组转SQL字符串
-     */
-    public String convertToStr(List<Integer> list) {
-        StringBuilder sb = new StringBuilder("(");
-        for (Integer i : list)
-            sb.append(i + ",");
-        sb.deleteCharAt(sb.length() - 1);
-        sb.append(")");
-        return sb.toString();
-    }
 
         /*
     //返回属性列表名称
@@ -328,4 +307,8 @@ public class ProductServiceImpl implements ProductService {
         return al;
     }
         */
+
+    public void setProductDao(ProductDao productDao) {
+        this.productDao = productDao;
+    }
 }

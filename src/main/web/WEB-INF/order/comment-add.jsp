@@ -73,10 +73,6 @@
                             <s:hidden name="commentList[%{#row.index}].pricedId"
                                       value="%{pricedId}"/>
 
-                            <s:hidden name="commentList[%{#row.index}].priced"
-                                      value="%{priced}"/>
-                            <s:hidden name="commentList[%{#row.index}].order"
-                                      value="%{order}"/>
                         </div>
                     </div>
 

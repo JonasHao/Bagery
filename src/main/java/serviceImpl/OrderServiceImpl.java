@@ -3,6 +3,7 @@ package serviceImpl;
 import constant.OrderStatus;
 import dao.Dao;
 import dao.OrderDao;
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import po.*;
 import service.OrderService;
@@ -22,18 +23,21 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void addOrder(Order order, List<Integer> cartItemIdList) throws HibernateException {
         List<OrderItem> orderItemList = new ArrayList<>();
-
         CartItem cartItem;
-        OrderItem orderItem = new OrderItem();
         for (int cartItemId : cartItemIdList) {
-            cartItem = dao.get(CartItem.class, cartItemId);
+            cartItem = dao.get(CartItem.class, cartItemId, true);
+            OrderItem orderItem = new OrderItem();
+
             int stock = cartItem.getProduct().getStock();
+
             if (stock > 0) {
                 Product product = cartItem.getProduct();
                 product.setStock(stock - cartItem.getNum());
                 orderItem.setProductId(cartItem.getProductId());
                 orderItem.setProductTitle(cartItem.getProduct().getPriced().getTitle());
+                orderItem.setProduct(product);
                 orderItem.setNum(cartItem.getNum());
+                orderItem.setTotalPrice(cartItem.getNum() * cartItem.getProduct().getPriced().getSalePrice());
                 orderItemList.add(orderItem);
                 dao.update(product);
             }
@@ -104,7 +108,7 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> getOrdersOfUser(User user) {
         try {
             return dao.query("from Order where userId = ?").setParameter(0, user.getUserId()).list();
-        }catch (HibernateException e){
+        } catch (HibernateException e) {
             e.printStackTrace();
             return new ArrayList<>();
         }

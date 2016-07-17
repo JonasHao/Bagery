@@ -19,7 +19,6 @@ public class Priced {
     private Collection<PricedPro> pricedPros;
     private Collection<Product> products;
     private Collection<HistoryRecord> historyRecords;
-    private Collection<FavoriteItem> favoriteItems;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)    @Column(name = "priced_id", nullable = false)
@@ -156,12 +155,4 @@ public class Priced {
         this.historyRecords = historyRecords;
     }
 
-    @OneToMany(mappedBy = "priced")
-    public Collection<FavoriteItem> getFavoriteItems() {
-        return favoriteItems;
-    }
-
-    public void setFavoriteItems(Collection<FavoriteItem> favoriteItems) {
-        this.favoriteItems = favoriteItems;
-    }
 }

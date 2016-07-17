@@ -105,6 +105,10 @@ public class UserInfoAction extends DefaultActionSupport {
 
     public String removeHistory() throws Exception {
         try {
+            if (historyId <= 0) {
+                data.put(RESULT, ERROR);
+                return SUCCESS;
+            }
             user = userService.getCurrentUser();
             userService.removeHistory(historyId);
             data.put(RESULT, SUCCESS);

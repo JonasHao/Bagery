@@ -1,7 +1,9 @@
 package serviceImpl;
 
 import dao.Dao;
+import dao.UserDao;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import po.Address;
 import po.User;
 import service.AddressService;
@@ -15,6 +17,7 @@ import java.util.List;
  */
 public class AddressServiceImpl implements AddressService {
     private Dao dao;
+    private UserDao userDao;
     private Address address;
     private UserService userService;
 
@@ -57,9 +60,9 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public List<Address> getAddressesOfUser(User user) {
-        try{
-            return dao.query("from Address where userId = ?").setParameter(0,user.getUserId()).list();
-        }catch (HibernateException e){
+        try {
+            return userDao.getAddressesOfUser(user);
+        } catch (HibernateException e) {
             return new ArrayList<>();
         }
     }
@@ -70,5 +73,9 @@ public class AddressServiceImpl implements AddressService {
 
     public void setDao(Dao dao) {
         this.dao = dao;
+    }
+
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
     }
 }

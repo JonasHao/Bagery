@@ -89,10 +89,11 @@
 
         <action name="payment" class="action.OrderAction" method="payment">
             <result name="success">/WEB-INF/order/order-payment-success.jsp</result>
+            <result name="input">/WEB-INF/order/order-payment-status-error.jsp</result>
         </action>
 
         <action name="confirmReceive" class="action.OrderAction" method="confirmReceive">
-            <result name="success" type="redirect">queryOrder.action</result>
+            <result name="success">/WEB-INF/order/shipped-confirm.jsp</result>
         </action>
 
         <action name="getLogisticsStatus" class="action.OrderAction" method="getLogisticsStatus">
@@ -114,7 +115,7 @@
             <result name="input">/WEB-INF/order/comment-invalid.jsp</result>
         </action>
 
-        <action name="toAppendComment" class="action.OrderAction" method="toAddOrderComment">
+        <action name="toAppendComment" class="action.OrderAction" method="toAppendComment">
             <result>/WEB-INF/order/comment-append.jsp</result>
             <result name="input">/WEB-INF/order/comment-add.jsp</result>
         </action>
@@ -290,6 +291,24 @@
             </result>
         </action>
 
+        <action name="historyRecord" class="action.ProductionAction" method="viewHistoryRecord">
+            <interceptor-ref name="loginChecker"/>
+            <result name="success">/WEB-INF/user/history.jsp</result>
+        </action>
+
+        <action name="removeHistory" class="action.UserInfoAction" method="removeHistory">
+            <interceptor-ref name="loginChecker"/>
+
+            <result name="success" type="json">
+                <param name="root">data</param>
+            </result>
+
+            <result name="login" type="json">
+                <param name="includeProperties">result</param>
+            </result>
+        </action>
+
+
 
     </package>
 
@@ -417,21 +436,6 @@
         </action>
         <action name="productList" class="action.ProductionAction" method="viewPricedList">
             <result name="success">/WEB-INF/product/list.jsp</result>
-        </action>
-        <action name="historyRecord" class="action.ProductionAction" method="viewHistoryRecord">
-            <interceptor-ref name="loginChecker"/>
-            <result name="success">/WEB-INF/user/history.jsp</result>
-        </action>
-
-        <action name="removeHistory" class="action.UserInfoAction" method="removeHistory">
-            <interceptor-ref name="loginChecker"/>
-
-            <result name="success" type="json">
-                <param name="root">data</param>
-            </result>
-            <result name="login" type="json">
-                <param name="includeProperties">result</param>
-            </result>
         </action>
 
         <action name="productListByWord" class="action.ProductionAction" method="findPricedsByWord">

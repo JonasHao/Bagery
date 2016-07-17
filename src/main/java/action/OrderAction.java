@@ -2,6 +2,7 @@ package action;
 
 import com.opensymphony.xwork2.ActionContext;
 import org.apache.struts2.dispatcher.DefaultActionSupport;
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import po.*;
 import service.*;
@@ -53,6 +54,7 @@ public class OrderAction extends DefaultActionSupport {
     public String balance() throws Exception {
         try {
             user = userService.getCurrentUser();
+            Hibernate.initialize(user);
 
             addressList = user.getAddresses();
             addressList.forEach(System.out::println);
@@ -90,6 +92,7 @@ public class OrderAction extends DefaultActionSupport {
         try {
             user = userService.getCurrentUser();
             cartItemList = new ArrayList<>(user.getCartItems());
+            Hibernate.initialize(cartItemList);
             try {
                 int size = cartItemList.size();
             } catch (HibernateException e) {
@@ -101,6 +104,7 @@ public class OrderAction extends DefaultActionSupport {
                 if (item.getProductId() == productId) {
                     cartItem = item;
                     cartItem.setNum(1);
+                    Hibernate.initialize(cartItem.getProduct());
                     cartService.updateCart(cartItem);
                     break;
                 }
@@ -114,19 +118,14 @@ public class OrderAction extends DefaultActionSupport {
             }
 
             addressList = user.getAddresses();
-            if (addressList == null)
-                return ERROR;
             try {
                 addressList.forEach(System.out::println);
             } catch (HibernateException e) {
                 addressList = addressService.getAddressesOfUser(user);
             }
 
-            Integer defaultAddressId = user.getDefaultAddressId();
 
-            if (defaultAddressId != null && defaultAddressId > 0) {
-                defaultAddress = addressService.get(user.getDefaultAddressId());
-            }
+            defaultAddress = userService.getDefaultAddress(user);
 
             cartItemList = new ArrayList<>(1);
             cartItemList.add(cartItem);
@@ -163,6 +162,7 @@ public class OrderAction extends DefaultActionSupport {
             order.setAddressId(defaultAddressId);
             order.setInstruction(instruction);
             order.setOrderStatus(OrderStatus.UNPAID);
+            order.setCreateDate(new Date());
             orderService.addOrder(order, cartItemIdList);
 
             Double newScore = 0.0;
@@ -280,6 +280,9 @@ public class OrderAction extends DefaultActionSupport {
             if (order == null) {
                 return ERROR;
             }
+            if (!order.getOrderStatus().equals(OrderStatus.UNPAID)) {
+                return INPUT;
+            }
             order.setOrderStatus(OrderStatus.UNSHIPPED);
             orderService.updateOrder(order);
             return SUCCESS;
@@ -334,22 +337,37 @@ public class OrderAction extends DefaultActionSupport {
         order = orderService.getByOrderId(orderId);
 
         if (order != null && order.isNotCommented() && order.getOrderItems() != null) {
-            orderItemList = new ArrayList<>(order.getOrderItems());
-            for (OrderItem item : orderItemList) {
-                Comment comment = commentService.getByPricedIdAndOrderId(item.getProduct().getPricedId(), orderId);
-                if (comment == null) {
-                    comment = new Comment();
-                    comment.setPricedId(item.getProduct().getPriced().getPricedId());
-                    comment.setPriced(item.getProduct().getPriced());
-                    comment.setOrderId(order.getOrderId());
-                    comment.setOrder(order);
-                }
-                commentList.add(comment);
-            }
+            fillComment();
             return SUCCESS;
         }
         return ERROR;
     }
+
+    private void fillComment() {
+        orderItemList = new ArrayList<>(order.getOrderItems());
+        for (OrderItem item : orderItemList) {
+            Comment comment = commentService.getByPricedIdAndOrderId(item.getProduct().getPricedId(), orderId);
+            if (comment == null) {
+                comment = new Comment();
+                comment.setPricedId(item.getProduct().getPriced().getPricedId());
+                comment.setPriced(item.getProduct().getPriced());
+                comment.setOrderId(order.getOrderId());
+                comment.setOrder(order);
+            }
+            commentList.add(comment);
+        }
+    }
+
+    public String toAppendComment() throws Exception {
+        order = orderService.getByOrderId(orderId);
+
+        if (order != null && order.isCommented() && order.getOrderItems() != null) {
+            fillComment();
+            return SUCCESS;
+        }
+        return ERROR;
+    }
+
 
     public String addComment() throws Exception {
         user = userService.getCurrentUser();

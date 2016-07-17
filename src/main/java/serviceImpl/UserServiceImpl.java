@@ -3,6 +3,9 @@ package serviceImpl;
 import com.opensymphony.xwork2.ActionContext;
 import constant.Config;
 import constant.Key;
+import dao.UserDao;
+import po.Address;
+import po.CartItem;
 import po.HistoryRecord;
 import po.User;
 import service.UserService;
@@ -17,6 +20,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private Dao dao;
+    private UserDao userDao;
     private User user;
     private List<User> userList;
 
@@ -126,11 +130,30 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void refresh(User user) {
+        dao.refresh(user);
+    }
+
+    @Override
+    public List<CartItem> getCartItems(int userId) {
+       return userDao.getCartItemsByUserId(userId);
+    }
+
+    @Override
+    public Address getDefaultAddress(User user) {
+        return userDao.getDefaultAddress(user.getUserId());
+    }
+
+    @Override
     public int checkUserGroup(int userId) {
         return 0;
     }
 
     public void setDao(Dao dao) {
         this.dao = dao;
+    }
+
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
     }
 }

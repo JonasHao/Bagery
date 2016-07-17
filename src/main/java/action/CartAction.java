@@ -2,6 +2,7 @@ package action;
 
 import com.opensymphony.xwork2.ActionSupport;
 import constant.Config;
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import po.*;
 import service.CartService;
@@ -35,8 +36,12 @@ public class CartAction extends ActionSupport {
 
     public String queryCart() {
         user = userService.getCurrentUser();
-        if (user.getCartItems() != null) {
+        Hibernate.initialize(user.getCartItems());
+
+        if (user.getCartItems() != null && user.getCartItems().size() > 0) {
             cartItemList = new ArrayList<>(user.getCartItems());
+        } else {
+            cartItemList = userService.getCartItems(user.getUserId());
         }
         return SUCCESS;
     }

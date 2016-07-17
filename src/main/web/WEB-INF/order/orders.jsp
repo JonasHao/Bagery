@@ -46,7 +46,12 @@
                                 if (data.result == "success") {
                                     to_delete.remove();
                                     notify("成功删除订单");
-                                } else {
+                                } else if (data.result == "input") {
+                                    warning("当前状态的订单不能删除");
+                                }else if(data.result == "login"){
+                                    window.location.href= '/login.jsp?src=/order/queryOrder';
+                                }
+                                else {
                                     warning("删除失败！");
                                 }
                             }
@@ -94,7 +99,7 @@
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <div>2016-7-14</div>
+                                        <div><s:property value="createDate"/> </div>
 
                                         <div>订单号：<s:property value="orderId"/></div>
                                     </div>
@@ -131,7 +136,7 @@
                                             <t:orderItem>
                                                 <jsp:attribute name="img"><s:property value="product.priced.img"/></jsp:attribute>
                                                 <jsp:attribute name="title"><s:property value="productTitle"/></jsp:attribute>
-                                                <jsp:attribute name="price"><s:property value="totalPriced"/></jsp:attribute>
+                                                <jsp:attribute name="price"><s:property value="totalPrice"/></jsp:attribute>
                                                 <jsp:attribute name="number"><s:property value="num"/></jsp:attribute>
                                                 <jsp:attribute name="color"><s:property value="product.color"/></jsp:attribute>
                                             </t:orderItem>
@@ -196,7 +201,11 @@
                                                 <span>查看物流</span>
                                             </a>
                                             <br/>
-                                            <a href="#">
+                                            <s:url action="toAppendComment" namespace="/order"
+                                                   var="appendCommentUrl">
+                                                <s:param name="orderId"><s:property value="orderId"/></s:param>
+                                            </s:url>
+                                            <a href="${appendCommentUrl}">
                                                 <span>追评</span>
                                             </a>
                                         </s:if>
@@ -260,7 +269,7 @@
                                                 <t:orderItem>
                                                     <jsp:attribute name="img"><s:property value="product.priced.img"/></jsp:attribute>
                                                     <jsp:attribute name="title"><s:property value="productTitle"/></jsp:attribute>
-                                                    <jsp:attribute name="price"><s:property value="totalPriced"/></jsp:attribute>
+                                                    <jsp:attribute name="price"><s:property value="totalPrice"/></jsp:attribute>
                                                     <jsp:attribute name="number"><s:property value="num"/></jsp:attribute>
                                                     <jsp:attribute name="color"><s:property value="product.color"/></jsp:attribute>
                                                 </t:orderItem>
@@ -336,7 +345,7 @@
                                             <t:orderItem>
                                                 <jsp:attribute name="img"><s:property value="product.priced.img"/></jsp:attribute>
                                                 <jsp:attribute name="title"><s:property value="productTitle"/></jsp:attribute>
-                                                <jsp:attribute name="price"><s:property value="totalPriced"/></jsp:attribute>
+                                                <jsp:attribute name="price"><s:property value="totalPrice"/></jsp:attribute>
                                                 <jsp:attribute name="number"><s:property value="num"/></jsp:attribute>
                                                 <jsp:attribute name="color"><s:property value="product.color"/></jsp:attribute>
                                             </t:orderItem>
@@ -398,7 +407,7 @@
                                                 <t:orderItem>
                                                     <jsp:attribute name="img"><s:property value="product.priced.img"/></jsp:attribute>
                                                     <jsp:attribute name="title">产品名称：<s:property value="productTitle"/></jsp:attribute>
-                                                    <jsp:attribute name="price"><s:property value="totalPriced"/></jsp:attribute>
+                                                    <jsp:attribute name="price"><s:property value="totalPrice"/></jsp:attribute>
                                                     <jsp:attribute name="number"><s:property value="num"/></jsp:attribute>
                                                     <jsp:attribute name="color"><s:property value="product.color"/></jsp:attribute>
                                                 </t:orderItem>
@@ -434,7 +443,6 @@
                 <div class="tab-pane" id="uncomment" role="tabpanel">
                     <br>
                     <s:iterator value="orderList">
-
                         <s:if test='notCommented'>
                             <div class="card">
                                 <div class="card-header">
@@ -477,7 +485,7 @@
                                                 <t:orderItem>
                                                     <jsp:attribute name="img"><s:property value="product.priced.img"/></jsp:attribute>
                                                     <jsp:attribute name="title"><s:property value="productTitle"/></jsp:attribute>
-                                                    <jsp:attribute name="price"><s:property value="totalPriced"/></jsp:attribute>
+                                                    <jsp:attribute name="price"><s:property value="totalPrice"/></jsp:attribute>
                                                     <jsp:attribute name="number"><s:property value="num"/></jsp:attribute>
                                                     <jsp:attribute name="color"><s:property value="product.color"/></jsp:attribute>
                                                 </t:orderItem>
@@ -506,6 +514,24 @@
                                 </div>
                             </div>
                         </s:if>
+                        <s:if test='commented'>
+                            <s:url action="getLogisticsStatus" namespace="/order"
+                                   var="getLogisticsStatus">
+                                <s:param name="orderId"><s:property value="orderId"/></s:param>
+                            </s:url>
+                            <a href="${getLogisticsStatus}">
+                                <span>查看物流</span>
+                            </a>
+                            <br/>
+                            <s:url action="toAppendComment" namespace="/order"
+                                   var="appendCommentUrl">
+                                <s:param name="orderId"><s:property value="orderId"/></s:param>
+                            </s:url>
+                            <a href="${appendCommentUrl}">
+                                <span>追评</span>
+                            </a>
+                        </s:if>
+
                     </s:iterator>
 
                 </div>

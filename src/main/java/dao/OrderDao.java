@@ -6,6 +6,7 @@ import po.Order;
 import po.OrderItem;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 
 public class OrderDao extends Dao {
@@ -14,10 +15,11 @@ public class OrderDao extends Dao {
     public void saveOrder(Order order, Collection<OrderItem> orderItems) {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
-        int pk = (int)session.save(order);
-        for (OrderItem orderItem : orderItems) {
-            orderItem.setOrderId(pk);
-            session.save(orderItem);
+        int pk = (int) session.save(order);
+
+        for (OrderItem item : orderItems) {
+            item.setOrderId(pk);
+            session.save(item);
         }
         session.getTransaction().commit();
     }

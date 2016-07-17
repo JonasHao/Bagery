@@ -54,7 +54,7 @@
                 todelete = event.target.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode;
                 $.ajax(
                         {
-                            url: "/user/removeHistory.action",
+                            url: "/product/removeHistory.action",
                             dataType: "json",   //返回格式为json
                             type: 'get',
                             data: {historyId: parseInt(historyId)},

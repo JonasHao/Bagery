@@ -13,11 +13,10 @@ public class Product {
     private String color;
     private int stock;
     private Priced priced;
-    private Collection<CartItem> cartItems;
-    private Collection<OrderItem> orderItems;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)    @Column(name = "product_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "product_id", nullable = false)
     public int getProductId() {
         return productId;
     }
@@ -82,7 +81,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return ""+productId;
+        return "" + productId;
     }
 
     @ManyToOne
@@ -95,21 +94,4 @@ public class Product {
         this.priced = priced;
     }
 
-    @OneToMany(mappedBy = "product")
-    public Collection<CartItem> getCartItems() {
-        return cartItems;
-    }
-
-    public void setCartItems(Collection<CartItem> cartItems) {
-        this.cartItems = cartItems;
-    }
-
-    @OneToMany(mappedBy = "product")
-    public Collection<OrderItem> getOrderItems() {
-        return orderItems;
-    }
-
-    public void setOrderItems(Collection<OrderItem> orderItems) {
-        this.orderItems = orderItems;
-    }
 }

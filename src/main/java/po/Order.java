@@ -5,6 +5,7 @@ import constant.OrderStatus;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.Date;
 
 /**
  * Created by 41159 on 2016/6/29.
@@ -20,11 +21,11 @@ public class Order {
     private String instruction;
     private String courierNumber;
     private String courierCompany;
-    private Collection<Comment> comments;
     private User user;
-    private  Address address;
+    private Address address;
+    private Collection<Comment> comments;
     private Collection<OrderItem> orderItems;
-    private Timestamp createDate;
+    private Date createDate;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -167,7 +168,7 @@ public class Order {
         this.user = user;
     }
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     public Collection<OrderItem> getOrderItems() {
         return orderItems;
     }
@@ -178,11 +179,12 @@ public class Order {
 
     @Basic
     @Column(name = "create_date", nullable = true)
-    public Timestamp getCreateDate() {
+    @Temporal(TemporalType.TIMESTAMP)
+    public Date getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Timestamp createDate) {
+    public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
 

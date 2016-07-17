@@ -1,6 +1,10 @@
 package service;
 
+import po.Address;
+import po.CartItem;
 import po.User;
+
+import java.util.List;
 
 /**
  * Created by Koche on 2016/6/21.
@@ -50,4 +54,10 @@ public interface UserService {
 
 
     void removeHistory(int historyId);
+
+    void refresh(User user);
+
+    List<CartItem> getCartItems(int userId);
+
+    Address getDefaultAddress(User user);
 }

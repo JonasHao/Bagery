@@ -27,4 +27,5 @@ public interface AddressService {
     void deleteAddress(Address address);
 
     List<Address> getAddressesOfUser(User user);
+
 }

@@ -24,10 +24,15 @@ public class Dao {
     public void saveM(List ts, String entityName) throws HibernateException {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        for (Object object : ts) {
-            session.save(entityName, object);
+        try {
+            for (Object object : ts) {
+                session.save(entityName, object);
+            }
+            transaction.commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            transaction.rollback();
         }
-        transaction.commit();
     }
 
 
@@ -35,9 +40,21 @@ public class Dao {
         session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         T instance = session.get(entityType, id);
+        int repeat = 0;
+        while (instance == null && repeat < 3) {
+            try {
+                session.clear();
+                instance = session.get(entityType, id);
+                repeat++;
+            } catch (HibernateException e) {
+                e.printStackTrace();
+            }
+        }
+
         if (isInit) {
             Hibernate.initialize(instance);
         }
+
         return instance;
     }
 
@@ -60,7 +77,7 @@ public class Dao {
 
 
     public Object update(Object o) throws HibernateException {
-        Session session = sessionFactory.getCurrentSession();
+        Session session = this.sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         session.update(o);
         transaction.commit();
@@ -78,6 +95,7 @@ public class Dao {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
         session.refresh(o);
+        Hibernate.initialize(o);
         session.flush();
         session.getTransaction().commit();
     }

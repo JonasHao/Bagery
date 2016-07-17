@@ -226,7 +226,7 @@
                                                                 value="#orders.orderId"/></s:param>
                                                     </s:url>
                                                     <a href="${adminCancelOrder}"
-                                                       class="btn btn-warning<s:if test='orderStatus=="canceled"'> disabled</s:if>"
+                                                       class="btn btn-warning<s:if test='orderStatus!="unpaid"' > disabled</s:if>"
                                                        style="margin-bottom: 0;margin-right: 5px;margin-left: 5px;">
                                                         取消订单
                                                     </a>

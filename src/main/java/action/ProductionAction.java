@@ -273,7 +273,7 @@ public class ProductionAction extends DefaultActionSupport {
                 proIDss = (List<List<Integer>>) ActionContext.getContext().getSession().get(Key.PROID);
             }
 
-            String category = productService.getProByProID(pro_id);
+            String category = productService.getCategoryOfProperty(pro_id);
 
             if (category != null) {
                 switch (category) {
