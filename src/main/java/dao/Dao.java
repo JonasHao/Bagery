@@ -1,8 +1,6 @@
-
 package dao;
 
 import org.hibernate.*;
-import po.Comment;
 
 import java.io.Serializable;
 import java.util.List;

@@ -12,7 +12,6 @@ import java.util.List;
 public class UserDao extends Dao {
     SessionFactory sessionFactory;
 
-
     public List<Address> getAddressesOfUser(User user) {
         Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
@@ -78,7 +77,6 @@ public class UserDao extends Dao {
         transaction.commit();
         return user;
     }
-
 
     public FavoriteItem favorite(int userId, int priceId) {
         Session session = sessionFactory.getCurrentSession();

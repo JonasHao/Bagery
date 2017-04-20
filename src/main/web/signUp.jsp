@@ -55,7 +55,7 @@
 
                             <s:submit cssClass="grey btn btn-primary" value="注册"/>
                             <a href="/login.jsp">登录</a>
-                            <a href="/FindPassword.jsp">忘记密码</a>
+                            <a href="/findPassword.jsp">忘记密码</a>
                         </div>
                     </form>
                 </div>

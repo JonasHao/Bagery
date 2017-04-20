@@ -236,7 +236,7 @@
 
         <action name="openFind" class="action.UserInfoAction" method="openFind">
             <interceptor-ref name="defaultStack"/>
-            <result name="success">/FindPassword.jsp</result>
+            <result name="success">/findPassword.jsp</result>
         </action>
 
         <action name="sendConfirmCode" class="action.UserInfoAction" method="sendConfirmCode">
@@ -245,7 +245,7 @@
             <result name="success" type="json">
                 <param name="root">data</param>
             </result>
-            <result name="input">/FindPassword.jsp</result>
+            <result name="input">/findPassword.jsp</result>
             <result name="error" type="redirectAction">
                 <param name="actionName">openFind</param>
                 <param name="message">网络异常！</param>
@@ -273,7 +273,7 @@
         </action>
 
         <action name="openConfirm" class="action.UserInfoAction" method="openConfirm">
-            <result name="success">/WEB-INF/user/ConfirmEmail.jsp</result>
+            <result name="success">/WEB-INF/user/confirmEmail.jsp</result>
         </action>
 
         <action name="confirmCode" class="action.UserInfoAction" method="confirmCode">
