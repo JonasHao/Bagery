@@ -2,7 +2,6 @@ package serviceImpl;
 
 import dao.Dao;
 import dao.ProductDao;
-import org.hibernate.Query;
 import po.*;
 import service.ProductService;
 

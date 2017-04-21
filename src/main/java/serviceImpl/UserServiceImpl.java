@@ -14,11 +14,7 @@ import dao.Dao;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
-/**
- * Created by zhang on 2016/6/23.
- */
 public class UserServiceImpl implements UserService {
-
     private Dao dao;
     private UserDao userDao;
     private User user;

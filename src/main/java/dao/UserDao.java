@@ -1,7 +1,6 @@
 package dao;
 
 import org.hibernate.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import po.Address;
 import po.CartItem;
 import po.FavoriteItem;
@@ -9,9 +8,7 @@ import po.User;
 
 import java.util.List;
 
-@SuppressWarnings("unchecked")
 public class UserDao extends Dao {
-    @Autowired
     SessionFactory sessionFactory;
 
     public List<Address> getAddressesOfUser(User user) {

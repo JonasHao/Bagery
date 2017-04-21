@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
 
     <bean class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" id="sessionFactory">
         <property name="configLocations" value="classpath:hibernate.cfg.xml"/>
     </bean>
 
     <bean class="dao.Dao" id="dao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean class="dao.OrderDao" id="orderDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean class="dao.UserDao" id="userDao">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean class="dao.ProductDao" id="productDao">
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
@@ -32,6 +41,22 @@
         <property name="dao" ref="dao"/>
         <property name="orderDao" ref="orderDao"/>
     </bean>
+    <bean class="serviceImpl.AddressServiceImpl" id="addressService">
+        <property name="dao" ref="dao"/>
+        <property name="userService" ref="userService"/>
+        <property name="userDao" ref="userDao"/>
+    </bean>
+    <bean class="serviceImpl.OrderServiceImpl" id="orderService">
+        <property name="orderDao" ref="orderDao"/>
+        <property name="dao" ref="dao"/>
+    </bean>
+
+    <bean class="interceptor.CheckProAdLoginInterceptor" id="checkProAdLoginInterceptor">
+        <property name="userService" ref="userService"/>
+    </bean>
+    <bean class="interceptor.CheckOrdAdLoginInterceptor" id="checkOrdAdLoginInterceptor">
+        <property name="userService" ref="userService"/>
+    </bean>
 
     <bean class="action.CartAction" id="cartAction">
         <property name="cartService" ref="cartService"/>
@@ -48,11 +73,6 @@
         <property name="productService" ref="productService"/>
         <property name="favoriteService" ref="favoriteService"/>
     </bean>
-    <bean class="serviceImpl.AddressServiceImpl" id="addressService">
-        <property name="dao" ref="dao"/>
-        <property name="userService" ref="userService"/>
-        <property name="userDao" ref="userDao"/>
-    </bean>
     <bean class="action.AddressAction" id="addressAction">
         <property name="addressService" ref="addressService"/>
         <property name="userService" ref="userService"/>
@@ -63,28 +83,9 @@
     <bean class="action.UserAction" id="userAction">
         <property name="userService" ref="userService"/>
     </bean>
-    <bean class="serviceImpl.OrderServiceImpl" id="orderService">
-        <property name="orderDao" ref="orderDao"/>
-        <property name="dao" ref="dao"/>
-    </bean>
     <bean class="action.OrderAction" id="orderAction">
         <property name="orderService" ref="orderService"/>
         <property name="commentService" ref="commentService"/>
         <property name="userService" ref="userService"/>
-    </bean>
-    <bean class="dao.OrderDao" id="orderDao">
-        <property name="sessionFactory" ref="sessionFactory"/>
-    </bean>
-    <bean class="interceptor.CheckProAdLoginInterceptor" id="checkProAdLoginInterceptor">
-        <property name="userService" ref="userService"/>
-    </bean>
-    <bean class="interceptor.CheckOrdAdLoginInterceptor" id="checkOrdAdLoginInterceptor">
-        <property name="userService" ref="userService"/>
-    </bean>
-    <bean class="dao.UserDao" id="userDao">
-        <property name="sessionFactory" ref="sessionFactory"/>
-    </bean>
-    <bean class="dao.ProductDao" id="productDao">
-        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 </beans>

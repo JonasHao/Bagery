@@ -1,16 +1,11 @@
 package dao;
 
 import org.hibernate.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * encapsulate C(save) R(get) U(update) D(delete) operations
- */
 public class Dao {
-    @Autowired
     private SessionFactory sessionFactory;
     private Session session;
 
@@ -35,7 +30,6 @@ public class Dao {
             transaction.rollback();
         }
     }
-
 
     public <T> T get(Class<T> entityType, Serializable id, boolean isInit) throws HibernateException {
         session = sessionFactory.getCurrentSession();
@@ -63,7 +57,6 @@ public class Dao {
         return get(entityType, id, false);
     }
 
-
     public Query query(String queryString) {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
@@ -76,7 +69,6 @@ public class Dao {
         return session.createSQLQuery(sql);
     }
 
-
     public Object update(Object o) throws HibernateException {
         Session session = this.sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
@@ -84,7 +76,6 @@ public class Dao {
         transaction.commit();
         return o;
     }
-
 
     public void updateM(List ts, String entityName) {
         Session session = sessionFactory.getCurrentSession();
@@ -99,7 +90,6 @@ public class Dao {
             transaction.rollback();
         }
     }
-
 
     public void delete(Object o) throws HibernateException {
         if (o == null) {
@@ -127,6 +117,5 @@ public class Dao {
     public Session getSession() {
         return session;
     }
-
 
 }

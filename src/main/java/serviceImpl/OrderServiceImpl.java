@@ -10,9 +10,7 @@ import service.OrderService;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class OrderServiceImpl implements OrderService {
-
     private Dao dao;
     private OrderDao orderDao;
 
