@@ -12,7 +12,6 @@ import service.*;
 
 import java.util.ArrayList;
 
-
 public class ProductionAction extends DefaultActionSupport {
     private int product_id;
     private int pricedId;

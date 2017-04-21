@@ -1,13 +1,8 @@
 package action;
 
-import org.apache.struts2.convention.annotation.Action;
-import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.dispatcher.DefaultActionSupport;
 import po.User;
 
-/**
- * Created by Koche on 2016/6/30.
- */
 public class TestAction extends DefaultActionSupport {
     private User user;
     private String username;

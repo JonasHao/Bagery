@@ -17,9 +17,6 @@ import java.util.Map;
 
 import static constant.Key.RESULT;
 
-/**
- * Created by zhang on 2016/6/23.
- */
 public class UserInfoAction extends DefaultActionSupport {
     private UserService userService;
     private User user;

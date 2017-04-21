@@ -3,14 +3,15 @@ package dao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 import po.*;
 
 import java.util.List;
 
 @SuppressWarnings("unchecked")
 public class ProductDao extends Dao {
+    @Autowired
     SessionFactory sessionFactory;
-
 
     public List<Priced> all(boolean requireExist) {
         Session session = sessionFactory.getCurrentSession();

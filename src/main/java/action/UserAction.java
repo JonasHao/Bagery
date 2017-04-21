@@ -1,18 +1,12 @@
 package action;
 
 import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
 import constant.Key;
 import constant.UserGroup;
-import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.dispatcher.DefaultActionSupport;
-import org.hibernate.Session;
 import po.User;
 import service.UserService;
 
-/**
- * Created by zhang on 2016/6/23.
- */
 public class UserAction extends DefaultActionSupport {
     private UserService userService;
     private User user;
@@ -26,12 +20,6 @@ public class UserAction extends DefaultActionSupport {
     private String isadmin;
     private String usergroup;
     private String src;
-
-
-//    public String logout() {
-//        ActionContext.getContext().getSession().clear();
-//        return SUCCESS;
-//    }
 
     public String login() {
         try {
@@ -94,8 +82,6 @@ public class UserAction extends DefaultActionSupport {
             return ERROR;
         }
     }
-
-
 
     @Override
     public void validate() {

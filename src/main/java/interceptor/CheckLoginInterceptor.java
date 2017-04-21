@@ -9,13 +9,10 @@ import constant.Config;
 import constant.Key;
 import org.apache.struts2.StrutsStatics;
 
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 public class CheckLoginInterceptor implements Interceptor {
-
-
     @Override
     public void init() {
 

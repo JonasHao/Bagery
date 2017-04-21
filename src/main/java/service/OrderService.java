@@ -4,7 +4,6 @@ import org.hibernate.HibernateException;
 import po.Order;
 import po.User;
 
-import java.util.Collection;
 import java.util.List;
 
 public interface OrderService {
@@ -39,7 +38,6 @@ public interface OrderService {
      * 获取订单的物流信息
      */
     String getLogisticsStatus(int orderId);
-
 
     List<Order> getStatusOf(String orderStatus) throws HibernateException;
 

@@ -9,13 +9,9 @@ import constant.Key;
 import constant.UserGroup;
 import po.User;
 import service.UserService;
-import serviceImpl.UserServiceImpl;
 
 import java.util.Map;
 
-/**
- * Created by zhang on 2016/6/29.
- */
 public class CheckProAdLoginInterceptor implements Interceptor {
     private UserService userService;
 

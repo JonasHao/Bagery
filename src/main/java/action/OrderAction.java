@@ -12,9 +12,6 @@ import java.util.*;
 
 import static constant.Key.RESULT;
 
-/**
- * Created by 41159 on 2016/6/29.
- */
 public class OrderAction extends DefaultActionSupport {
 
     private UserService userService;

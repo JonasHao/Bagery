@@ -10,9 +10,6 @@ import service.CartService;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by jinzil on 2016/6/27.
- */
 public class CartServiceImpl implements CartService {
     private Dao dao;
     private UserDao userDao;

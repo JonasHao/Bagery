@@ -1,20 +1,12 @@
 package action;
 
 import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
-import org.apache.struts2.convention.annotation.Action;
-import org.apache.struts2.convention.annotation.Result;
-import org.apache.struts2.convention.annotation.Results;
 import org.apache.struts2.dispatcher.DefaultActionSupport;
 import po.Comment;
 import service.CommentService;
 
 import java.util.List;
 
-
-/**
- * Created by С���޵İ������� on 2016/6/23.
- */
 public class CommentAction extends DefaultActionSupport {
 
     private CommentService commentService;

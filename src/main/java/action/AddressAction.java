@@ -2,7 +2,6 @@ package action;
 
 import com.opensymphony.xwork2.ActionSupport;
 import constant.Key;
-import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import po.Address;
 import po.User;
@@ -14,9 +13,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by zhang on 2016/6/27.
- */
 public class AddressAction extends ActionSupport {
     private UserService userService;
     private AddressService addressService;

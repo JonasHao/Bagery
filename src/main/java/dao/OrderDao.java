@@ -3,6 +3,7 @@ package dao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 import po.Comment;
 import po.Order;
 import po.OrderItem;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @SuppressWarnings("unchecked")
 public class OrderDao extends Dao {
+    @Autowired
     private SessionFactory sessionFactory;
 
     public void saveOrder(Order order, Collection<OrderItem> orderItems) {

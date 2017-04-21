@@ -7,9 +7,7 @@ import service.CommentService;
 
 import java.util.List;
 
-
 public class CommentServiceImpl implements CommentService {
-
     private Dao dao;
     private OrderDao orderDao;
 
@@ -52,8 +50,6 @@ public class CommentServiceImpl implements CommentService {
     public void deleteComment(int commentId) {
         dao.delete(dao.get(Comment.class, commentId));
     }
-
-
 
     public void setDao(Dao dao) {
         this.dao = dao;

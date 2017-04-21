@@ -1,9 +1,7 @@
 package service;
 
-
 import po.*;
 import java.util.*;
-
 
 public interface ProductService {
     /**
@@ -81,7 +79,6 @@ public interface ProductService {
      * 通过priceID删除商品对象
      */
      void deletePriced(int pricedId);
-
 
     //List<Map<String,String>> getProNames();
     //List<List<Map<String,String>>> getProNames();

@@ -1,6 +1,5 @@
 package serviceImpl;
 
-import constant.Config;
 import dao.Dao;
 import dao.UserDao;
 import org.hibernate.HibernateException;
@@ -12,9 +11,6 @@ import service.UserService;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by jinzil on 2016/6/27.
- */
 public class FavoriteServiceImpl implements FavoriteService {
     private Dao dao;
     private UserDao userDao;

@@ -9,13 +9,9 @@ import constant.Key;
 import constant.UserGroup;
 import org.hibernate.HibernateException;
 import service.UserService;
-import serviceImpl.UserServiceImpl;
 
 import java.util.Map;
 
-/**
- * Created by zhang on 2016/6/29.
- */
 public class CheckOrdAdLoginInterceptor implements Interceptor {
     private UserService userService;
 

@@ -153,4 +153,8 @@ public class UserServiceImpl implements UserService {
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
     }
+
+    public static void main(String[] args){
+        System.out.println(new UserServiceImpl().getMD5("12345678".getBytes()));
+    }
 }

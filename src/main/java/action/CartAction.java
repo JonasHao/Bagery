@@ -1,7 +1,6 @@
 package action;
 
 import com.opensymphony.xwork2.ActionSupport;
-import constant.Config;
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import po.*;
@@ -16,9 +15,6 @@ import java.util.Map;
 
 import static constant.Key.RESULT;
 
-/**
- * Created by jinzil on 2016/6/27.
- */
 public class CartAction extends ActionSupport {
     private int productId;
     private int num;
@@ -200,6 +196,5 @@ public class CartAction extends ActionSupport {
     public void setResult(String result) {
         this.result = result;
     }
-
 
 }

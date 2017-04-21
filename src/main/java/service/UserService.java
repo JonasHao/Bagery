@@ -6,10 +6,6 @@ import po.User;
 
 import java.util.List;
 
-/**
- * Created by Koche on 2016/6/21.
- * An interface of services related to User
- */
 public interface UserService {
     /**
      * 获取当前已登录的用户对象
@@ -52,7 +48,6 @@ public interface UserService {
 
     String getMD5(byte[] source);
 
-
     void removeHistory(int historyId);
 
     void refresh(User user);
@@ -60,4 +55,5 @@ public interface UserService {
     List<CartItem> getCartItems(int userId);
 
     Address getDefaultAddress(User user);
+
 }

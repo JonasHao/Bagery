@@ -3,7 +3,6 @@ package serviceImpl;
 import dao.Dao;
 import dao.UserDao;
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
 import po.Address;
 import po.User;
 import service.AddressService;
@@ -12,9 +11,6 @@ import service.UserService;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by zhang on 2016/6/27.
- */
 public class AddressServiceImpl implements AddressService {
     private Dao dao;
     private UserDao userDao;

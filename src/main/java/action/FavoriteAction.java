@@ -15,9 +15,6 @@ import java.util.Map;
 
 import static constant.Key.RESULT;
 
-/**
- * Created by jinzil on 2016/6/27.
- */
 public class FavoriteAction extends ActionSupport {
     private int priceId;
     private String result = "login";
@@ -127,7 +124,6 @@ public class FavoriteAction extends ActionSupport {
     public void setFavoriteItem(FavoriteItem favoriteItem) {
         this.favoriteItem = favoriteItem;
     }
-
 
     public void setFavoriteService(FavoriteService favoriteService) {
         this.favoriteService = favoriteService;

@@ -1,6 +1,7 @@
 package dao;
 
 import org.hibernate.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
  * encapsulate C(save) R(get) U(update) D(delete) operations
  */
 public class Dao {
+    @Autowired
     private SessionFactory sessionFactory;
     private Session session;
 
